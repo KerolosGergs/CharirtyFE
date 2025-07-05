@@ -1,0 +1,87 @@
+<!-- Footer Component for Angular -->
+<footer class="custom-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="footer-content">
+        <div class="row  text-end gap-5" dir="rtl">
+       
+            <div class="col-lg-4 col-md-6 col-sm-6 mb-4 ">
+              <div class="company-info">
+                <img src="Images/LogoFooter.png" width="150" height="64" alt="">
+                <p class="company-description mt-2" >
+                  {{ companyInfo.description }}
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-6 mb-4">
+              <h5 class="footer-title">{{quickLinksMenuItems.label}}</h5>
+              <ul class="footer-menu">
+                @for (item of quickLinksMenuItems.subLabel; track $index) {
+                  <li><a [href]= 'item.link' class="footer-link">{{item.label}}</a></li>
+                }
+              </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-6 mb-4">
+              <h5 class="footer-title">{{ servicesMenuItems.label}}</h5>
+              <ul class="footer-menu">
+                @for (item of servicesMenuItems.subLabel; track $index) {
+                  <li><a [href]= 'item.link' class="footer-link">{{item.label}}</a></li>
+                }
+              </ul>
+            </div>
+            <div class="col-lg-2 col-md-6 col-sm-6 mb-4">
+              <h5 class="footer-title">{{contactMenuItems.label}}</h5>
+              <ul class="footer-menu">
+                @for (item of contactMenuItems.subLabel; track $index) {
+                  
+                  <li><a [href]="item.link" class="footer-link">{{item.label}}</a></li>
+                }
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+>
+    <div class="row">
+      <div class="col-12">
+        <div class="footer-bottom">
+          <div class="row  align-items-center justify-between">
+              <div class="col-md-4">
+              <div class="social-icons">
+                <a href="{{ socialLinks.facebook }}" class="social-icon" aria-label="Facebook">
+                  <i class="bi bi-facebook"></i>
+                </a>
+                <a href="{{ socialLinks.twitter }}" class="social-icon" aria-label="Twitter">
+                  <i class="bi bi-twitter"></i>
+                </a>
+                <a href="{{ socialLinks.linkedin }}" class="social-icon" aria-label="LinkedIn">
+                  <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="{{ socialLinks.whatsapp }}" class="social-icon" aria-label="WhatsApp">
+                  <i class="bi bi-whatsapp"></i>
+                </a>
+                <a href="{{ socialLinks.instagram }}" class="social-icon" aria-label="Instagram">
+                  <i class="bi bi-instagram"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <p class="copyright-text">
+                {{ companyInfo.copyright }}
+              </p>
+            </div>
+         
+          </div>
+        </div>
+      </div>
+    </div>
+
+   <div class="arabic-calligraphy">
+        <img src="Images/LogoFooter2.png" alt="">
+      </div>
+  </div>
+</footer>
+

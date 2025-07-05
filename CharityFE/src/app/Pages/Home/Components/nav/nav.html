@@ -1,0 +1,90 @@
+<!-- <nav class="navigation-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <ul class="nav nav-pills justify-content-center py-2 flex-wrap">
+  @for (item of navigationItems; track $index; let i = $index) {
+    <li class="nav-item dropdown mx-2" [class.show]="item === activeItem" (mouseenter)="activeItem = item" (mouseleave)="activeItem = null">
+      <a
+        class="nav-link text-white dropdown-toggle"
+        href="#"
+        role="button"
+        [attr.aria-expanded]="item === activeItem"
+        (click)="onNavigationClick(item)">
+        {{ item.label }}
+      </a>
+
+      @if (item.subLibels!.length > 0) {
+        <ul class="dropdown-menu show mt-1" [class.show]="item === activeItem">
+          @for (subItem of item.subLibels; track $index) {
+            <li>
+              <a class="dropdown-item text-left" href="#">
+                {{ subItem }}
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    </li>
+  }
+</ul> -->
+
+<!-- Navigation Section -->
+<nav class="navigation-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <ul class="nav nav-pills justify-content-center py-2 flex-wrap">
+          @for (item of navigationItems; track $index; let i = $index) {
+            <li
+              class="nav-item dropdown position-relative mx-2"
+              [class.show]="item === activeItem"
+              (mouseenter)="activeItem = item"
+              (mouseleave)="activeItem = null"
+            >
+              <!-- Main Link -->
+              <a
+                class="nav-link text-white dropdown-toggle"
+                href="#"
+                role="button"
+                [attr.aria-expanded]="item === activeItem"
+                (click)="onNavigationClick(item)">
+                {{ item.label }}
+              </a>
+
+              <!-- Sub-menu -->
+              @if (item.subLibels!.length > 0) {
+                <ul class="dropdown-menu custom-dropdown mt-1" [class.show]="item === activeItem">
+                  @for (subItem of item.subLibels; track $index) {
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        {{ subItem }}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              }
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+        <!-- <ul class="nav nav-pills justify-content-center py-2 flex-wrap">
+          @for(item of navigationItems; track $index; let i = $index ) {
+          <ul class="nav-item dropdown">
+            <li>
+              <a class="nav-link text-white dropdown-toggle" [href]="item.href" (click)="onNavigationClick(item)">
+                {{ item.label }}
+              </a>
+            </li>
+
+          </ul>
+          }
+        </ul> -->
+      <!-- </div>
+    </div>
+  </div>
+</nav> -->

@@ -1,0 +1,9 @@
+.hero-btn-secondary {
+  background-color: var(--primary);
+  color: #ffffff;
+  font-family: 'Cairo';
+}.hero-btn-secondary:hover {
+  background-color: #157347;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(25,135,84,0.4);
+}

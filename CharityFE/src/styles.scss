@@ -1,0 +1,148 @@
+/* You can add global styles to this file, and also import other style files */
+/* Import Google Font for Arabic support */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap');
+
+/* Import variables */
+@import url('app/Styles/variables.css');
+
+/* Global Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family:'Cairo', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    direction: rtl; /* Right-to-left for Arabic */
+    text-align: right;
+}
+
+
+/* Enhanced Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Enhanced Focus States */
+*:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Form Options Layout */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: var(--spacing-4) 0;
+}
+
+/* Auth Footer */
+.auth-footer {
+    text-align: center;
+    margin-top: var(--spacing-4);
+}
+
+.auth-footer p {
+    color: var(--gray-600);
+    font-size: var(--text-sm);
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-normal);
+}
+
+.auth-footer a:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Hover Effects */
+.hover-scale {
+    transition: var(--transition-normal);
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-glow {
+    transition: var(--transition-normal);
+}
+
+.hover-glow:hover {
+    text-shadow: 0 0 8px rgba(177, 110, 15, 0.5);
+}
+
+.hover-lift {
+    transition: var(--transition-bounce);
+}
+
+.hover-lift:hover {
+    transform: translateY(-2px);
+}
+
+/* Stagger Animation Items */
+.stagger-item {
+    animation-delay: 0.1s;
+}
+
+.stagger-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.stagger-item:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.stagger-item:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.stagger-item:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+/* Ripple Effect */
+.btn-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: width 0.6s, height 0.6s;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.btn-ripple:active::before {
+    width: 300px;
+    height: 300px;
+}
+

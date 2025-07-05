@@ -1,0 +1,82 @@
+<section class="auth-section">
+  <div class="container">
+    <div class="auth-container animate__animated animate__fadeIn">
+      <div class="auth-form-container">
+        <div class="auth-header animate__animated animate__fadeInDown">
+          <h1 class="text-gradient">تسجيل الدخول</h1>
+          <p>مرحباً بك مرة أخرى، سجل دخولك للمتابعة</p>
+        </div>
+
+        <form id="login-form" class="auth-form animate__animated animate__fadeInUp" (ngSubmit)="onSubmit()">
+          <div class="form-group stagger-item">
+            <label for="email">البريد الإلكتروني</label>
+            <div class="input-group">
+              <i class="bi bi-envelope"></i>
+              <input type="email" id="email" name="email" placeholder="أدخل البريد الإلكتروني" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-group stagger-item">
+            <label for="password">كلمة المرور</label>
+            <div class="input-group">
+              <i class="bi bi-lock"></i>
+              <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" class="form-control" required>
+              <button type="button" class="password-toggle hover-scale" (click)="togglePassword()">
+                <i class="bi bi-eye position-static" id="password-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-options stagger-item">
+            <label class="checkbox-container">
+              <input type="checkbox" id="remember">
+              <span class="checkmark"></span>
+              تذكرني
+            </label>
+            <a href="#" class="forgot-password hover-glow">نسيت كلمة المرور؟</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full btn-ripple hover-lift stagger-item">
+            <i class="bi bi-box-arrow-in-right"></i>
+            تسجيل الدخول
+          </button>
+          <div class="auth-footer stagger-item">
+            <p>ليس لديك حساب؟ <a href="#" class="hover-glow">إنشاء حساب جديد</a></p>
+          </div>
+        </form>
+      </div>
+
+      <div class="auth-info animate__animated animate__fadeInRight">
+        <div class="info-content">
+          <h2 class="animate__animated animate__fadeInLeft">أهلاً وسهلاً بك</h2>
+          <p class="animate__animated animate__fadeInLeft">سجل دخولك للوصول إلى حسابك والاستفادة من جميع خدماتنا المتميزة.</p>
+
+          <div class="benefits-list">
+            <div class="benefit-item stagger-item hover-scale">
+              <i class="bi bi-person-check animate__animated animate__pulse"></i>
+              <div>
+                <h4>حسابك الشخصي</h4>
+                <p>تابع طلباتك وخدماتك من مكان واحد</p>
+              </div>
+            </div>
+            <div class="benefit-item stagger-item hover-scale">
+              <i class="bi bi-clock-history animate__animated animate__pulse"></i>
+              <div>
+                <h4>سجل الأنشطة</h4>
+                <p>راجع تاريخ جميع معاملاتك وطلباتك</p>
+              </div>
+            </div>
+            <div class="benefit-item stagger-item hover-scale">
+              <i class="bi bi-bell animate__animated animate__pulse"></i>
+              <div>
+                <h4>التنبيهات الفورية</h4>
+                <p>احصل على إشعارات بآخر التحديثات</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

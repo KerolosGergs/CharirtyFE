@@ -1,0 +1,41 @@
+<!-- Header Section -->
+<header class="header-section ">
+  <div class="container">
+    <div class="row align-items-center py-3 justify-content-center">
+      <!-- Logo and Title -->
+      <div class="col-md-3">
+        <div class="logo-section ">
+            <img src="Images/logo.png" width="106" height="64" alt="">
+        </div>
+      </div>
+      <!-- Contact Info -->
+      <div class="col-md-5 text-end">
+        <div class="contact-info d-flex justify-content-end gap-4">
+          <div class="contact-item d-flex align-items-center">
+            <div class="icon-bg  rounded-circle px-2 ms-2">
+              <i class="bi bi-envelope-fill text-white "></i>
+            </div>
+            <span>456-7890 (123)</span>
+          </div>
+          <div class="contact-item d-flex align-items-center">
+              <div class="icon-bg rounded-circle px-2 ms-2">
+                <i class="bi bi-telephone-fill text-white"></i>
+            </div>
+            <span>456-7890 (123)</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="col-md-4">
+        <div class="action-buttons d-flex gap-2 ">
+            <app-main-button  [buttonFunction]="Dashbord" [buttontext]="'لوحة التحكم'" [iconButton]=""></app-main-button>
+          <button class="btn btn-outline-danger btn-md ">
+            <i class="bi bi-person "></i>
+            تسجيل الدخول
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

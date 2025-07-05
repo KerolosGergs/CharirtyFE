@@ -1,0 +1,268 @@
+footer{
+  background-color: #ffffff;
+}
+
+/* Main Footer Styling */
+.custom-footer {
+  background: var(--primary-700);
+  color: white;
+  overflow: hidden;
+  padding: 60px 0 20px;
+  direction: rtl;
+  text-align: right;
+  font-family: 'Cairo', sans-serif;
+  margin-top: 80px;
+
+}
+
+/* Decorative Background */
+.arabic-calligraphy  {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+.arabic-calligraphy img {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 150px;
+  background-position: center;
+  background-size: contain;
+  z-index: 1000;
+
+}
+/* Footer Content */
+.footer-content {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 40px;
+}
+
+/* Footer Titles */
+.footer-title {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--secondary-500);
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.footer-title:hover {
+  color: var(--secondary-200);
+  border-bottom-color: var(--secondary-200);
+}
+
+/* Footer Menu */
+.footer-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-menu li {
+  margin-bottom: 12px;
+  transition: transform 0.2s ease;
+}
+
+.footer-menu li:hover {
+  transform: translateX(-5px);
+}
+
+.footer-link {
+  color: var(--primary-100);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: relative;
+}
+
+.footer-link:hover {
+  color: var(--secondary-200);
+  text-decoration: none;
+}
+
+.footer-link::before {
+  content: '';
+  position: absolute;
+  right: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 2px;
+  background-color: var(--secondary-500);
+  transition: width 0.3s ease;
+}
+
+.footer-link:hover::before {
+  width: 10px;
+}
+
+/* Company Info Section */
+.company-info {
+  text-align: right;
+}
+
+.company-info img{
+  margin-bottom: 20px;
+}
+
+.company-description {
+  color: var(--primary-100);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+  max-width: 60%;
+  
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  padding-top: 20px;
+  position: relative;
+  z-index: 2;
+  margin-top: 50px;
+}
+
+.copyright-text {
+  color: var(--primary-200);
+  font-size: 1.2rem;
+  margin: 0;
+  text-align: end;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 15px;
+  align-items: center;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: white;
+  border-radius: 50%;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  font-size: 30px;
+  // border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.social-icon:hover {
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .custom-footer {
+    padding: 40px 0 20px;
+    text-align: center;
+    direction: ltr;
+  }
+  
+  .footer-content .col-md-6,
+  .footer-content .col-lg-3 {
+    text-align: start;
+    margin-bottom: 30px;
+  }
+  
+  .company-info {
+    text-align: center;
+  }
+  
+  .footer-title {
+    text-align: center;
+    display: block;
+  }
+  
+  .footer-menu {
+    text-align: center;
+  }
+  
+  .footer-link::before {
+    display: none;
+  }
+  
+  .footer-menu li:hover {
+    transform: none;
+  }
+  
+  .copyright-text {
+    text-align: end;
+    margin-bottom: 15px;
+  }
+  
+  .social-icons {
+    justify-content: center;
+  }
+  
+  .arabic-calligraphy {
+    font-size: 80px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 576px) {
+  .company-name {
+    font-size: 1.5rem;
+  }
+  
+  .footer-title {
+    font-size: 1.1rem;
+  }
+  
+  .social-icon {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .custom-footer {
+    padding: 30px 0 15px;
+  }
+}
+
+/* Animation for footer entrance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom-footer .col-lg-3,
+.custom-footer .col-md-6 {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.custom-footer .col-lg-3:nth-child(1) { animation-delay: 0.1s; }
+.custom-footer .col-lg-3:nth-child(2) { animation-delay: 0.2s; }
+.custom-footer .col-lg-3:nth-child(3) { animation-delay: 0.3s; }
+.custom-footer .col-lg-3:nth-child(4) { animation-delay: 0.4s; }
+
+
+

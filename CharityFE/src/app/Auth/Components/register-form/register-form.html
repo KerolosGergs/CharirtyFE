@@ -1,0 +1,143 @@
+<section class="auth-section mb-3">
+  <div class="container">
+    <div class="auth-container animate__animated animate__fadeIn">
+      <div class="auth-form-container">
+        <div class="auth-header animate__animated animate__fadeInDown">
+          <h1 class="text-gradient">إنشاء حساب جديد</h1>
+          <p>انضم إلينا وابدأ رحلتك معنا</p>
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form animate__animated animate__fadeInUp">
+          <!-- Name Field -->
+          <div class="form-group stagger-item">
+            <label for="name">الاسم الكامل</label>
+            <div class="input-group">
+              <i class="bi bi-person-fill"></i>
+              <input type="text" id="name" formControlName="name" placeholder="أدخل اسمك الكامل" required>
+            </div>
+          </div>
+
+          <!-- ID Number Field -->
+          <div class="form-group stagger-item">
+            <label for="id-number">رقم الهوية</label>
+            <div class="input-group">
+              <i class="bi bi-credit-card-fill"></i>
+              <input type="text" id="id-number" formControlName="idNumber" placeholder="أدخل رقم الهوية" required>
+            </div>
+          </div>
+
+          <!-- Email Field -->
+          <div class="form-group stagger-item">
+            <label for="email">البريد الإلكتروني</label>
+            <div class="input-group">
+              <i class="bi bi-envelope-fill"></i>
+              <input type="email" id="email" formControlName="email" placeholder="أدخل البريد الإلكتروني" required>
+            </div>
+          </div>
+
+          <!-- Phone Field -->
+          <div class="form-group stagger-item">
+            <label for="phone">رقم الهاتف</label>
+            <div class="input-group">
+              <i class="bi bi-telephone-fill"></i>
+              <input type="tel" id="phone" formControlName="phone" placeholder="أدخل رقم الهاتف" required>
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="form-group stagger-item">
+            <label for="password">كلمة المرور</label>
+            <div class="input-group">
+              <i class="bi bi-lock-fill"></i>
+              <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" 
+                     placeholder="أدخل كلمة المرور" required >
+              <button type="button" class="password-toggle hover-scale" (click)="togglePassword()">
+                <i class="bi" [class.bi-eye-fill]="showPassword" [class.bi-eye-slash-fill]="!showPassword"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Confirm Password Field -->
+          <div class="form-group stagger-item">
+            <label for="confirm-password">تأكيد كلمة المرور</label>
+            <div class="input-group">
+              <i class="bi bi-lock-fill"></i>
+              <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirm-password" 
+                     formControlName="confirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+              <button type="button" class="password-toggle hover-scale" (click)="toggleConfirm()">
+                <i class="bi" [class.bi-eye-fill]="showConfirmPassword" [class.bi-eye-slash-fill]="!showConfirmPassword"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Address Field -->
+          <div class="form-group stagger-item">
+            <label for="address">العنوان</label>
+            <div class="input-group">
+              <i class="bi bi-geo-alt-fill"></i>
+              <textarea id="address" formControlName="address" rows="3" placeholder="أدخل العنوان الكامل" required></textarea>
+            </div>
+          </div>
+
+          <!-- Terms Checkbox -->
+          <div class="form-group stagger-item">
+            <label class="checkbox-container">
+              <input type="checkbox" id="terms" formControlName="terms" required>
+              <span class="checkmark"></span>
+              أوافق على <a href="#" class="terms-link">الشروط والأحكام</a> و <a href="#" class="privacy-link">سياسة الخصوصية</a>
+            </label>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full btn-ripple hover-lift stagger-item">
+            <i class="bi bi-person-plus-fill"></i>
+            إنشاء الحساب
+          </button>
+          
+          <div class="auth-footer stagger-item">
+            <p>لديك حساب بالفعل؟ <a routerLink="/login">تسجيل الدخول</a></p>
+          </div>
+        </form>
+      </div>
+
+      <div class="auth-info animate__animated animate__fadeInRight">
+        <div class="info-content">
+          <h2 class="animate__animated animate__fadeInLeft">انضم إلى مجتمعنا</h2>
+          <p class="animate__animated animate__fadeInLeft">أنشئ حسابك الآن واحصل على إمكانية الوصول الكامل لجميع خدماتنا المتميزة.</p>
+
+          <div class="benefits-list">
+            <div class="benefit-item stagger-item hover-scale">
+              <i class="bi bi-star-fill animate__animated animate__pulse"></i>
+              <div>
+                <h4>خدمات متميزة</h4>
+                <p>احصل على أفضل الاستشارات من خبراء متخصصين</p>
+              </div>
+            </div>
+            <div class="benefit-item stagger-item hover-scale">
+              <i class="bi bi-clock-fill animate__animated animate__pulse"></i>
+              <div>
+                <h4>متاح 24/7</h4>
+                <p>خدماتنا متاحة في أي وقت يناسبك</p>
+              </div>
+            </div>
+            <div class="benefit-item stagger-item hover-scale">
+              <i class="bi bi-shield-lock-fill animate__animated animate__pulse"></i>
+              <div>
+                <h4>سرية تامة</h4>
+                <p>نحافظ على خصوصية وسرية جميع بياناتك</p>
+              </div>
+            </div>
+            <div class="benefit-item stagger-item hover-scale">
+              <i class="bi bi-gift-fill animate__animated animate__pulse"></i>
+              <div>
+                <h4>مزايا حصرية</h4>
+                <p>استفد من العروض والخدمات الحصرية للأعضاء</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="alert-container"></div>

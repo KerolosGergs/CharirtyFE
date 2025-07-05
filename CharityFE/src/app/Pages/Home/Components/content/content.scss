@@ -1,0 +1,113 @@
+.content {
+    background-color: #f7faf9;
+}
+
+.left-side h3 {
+    font-family: 'Cairo';
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 40px;
+    line-height: 150%;
+    letter-spacing: 0px;
+    text-align: right;
+
+}
+
+.right-side p {
+    font-family: "Cairo";
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 18px;
+    line-height: 150%;
+    letter-spacing: 0px;
+    text-align: center;
+
+}
+
+.action-item button {
+    border: 2px solid #dee2e6;
+    background: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 15px !important;
+}
+
+.action-item button:hover {
+    border-color: #28a745;
+    background: #f8f9fa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.action-item button .arabic-text {
+    color: #495057;
+    font-weight: 500;
+}
+
+.action-item  span {
+    font-size: 1.2rem;
+}
+
+.charity-component {
+    font-family: 'Cairo';
+    background-color: #f8f9fa;
+    direction: rtl;
+}
+
+.charity-component .accordion-button {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+
+
+}
+
+.accordion span {
+    font-family: Cairo;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 32px;
+    line-height: 150%;
+    letter-spacing: 0px;
+    text-align: right;
+
+}
+.accordion i{
+font-size: 30px;
+margin-left: 10px;
+margin-right: 10px;
+}
+
+.charity-component .accordion-button:not(.collapsed) {
+    background-color: #e6f4ea;
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.charity-component .accordion-button:focus {
+    box-shadow: none;
+}
+
+ul li {
+    color: #333;
+    padding-bottom: 10px;
+}
+
+.charity-component .accordion-body {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+@media (max-width: 991px) {
+    .charity-component .row {
+        flex-direction: column-reverse;
+    }
+
+    .charity-component img {
+        min-height: 300px;
+        object-fit: cover;
+    }
+}
