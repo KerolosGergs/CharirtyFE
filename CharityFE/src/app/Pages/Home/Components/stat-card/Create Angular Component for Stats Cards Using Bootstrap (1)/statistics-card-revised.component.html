@@ -1,0 +1,24 @@
+<div class="statistics-card-container">
+  <div class="single-statistics-card">
+    <div class="stats-row">
+      @for (stat of statistics; track $index;let last = $last) {
+      <div class="stat-section">
+        <div class="stat-content">
+          <div class="stat-info">
+            <div class="stat-number">+{{ stat.number }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
+          <div class="stat-icon">
+            <i class="{{ stat.icon }}"></i>
+          </div>
+        </div>
+        @if (!last) {
+
+          <div class="stat-divider"></div>
+        }
+      </div>
+      }
+
+    </div>
+  </div>
+</div>

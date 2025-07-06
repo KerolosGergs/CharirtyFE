@@ -1,0 +1,62 @@
+<div class="services-section">
+    <div class="container">
+        <!-- Navigation arrows -->
+        <div class="navigation-arrows">
+            <button class="nav-arrow" (click)="prevSlide()">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <button class="nav-arrow" (click)="nextSlide()">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+
+        <!-- Header section -->
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex header-section text-end align-items-center">
+                    <div class="main-title col-4">
+                        <h2>خدماتنا الإنسانية... لكرامة</h2>
+                        <h2>الإنسان ودعم احتياجاته</h2>
+                    </div>
+                    <p class="description me-3 col-4">
+                        نقدم باقة متنوعة من الخدمات الخيرية التي تلامس احتياجات
+                        الأسر المتعففة، وتشمل الدعم الغذائي، السكني، الصحي،
+                        والتعليمي.
+                    </p>
+                  
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Services cards -->
+        <div class="row services-cards">
+              <div class="icons d-flex justify-content-end gap-3">
+                      
+                        <button class="btn btn-icon" (click)="prevSlide()">
+                            <i class="bi bi-chevron-compact-right"></i>
+
+                        </button>
+                          <button class="btn btn-icon" (click)="nextSlide()">
+                            <i class="bi bi-chevron-compact-left"></i>
+                        </button>
+                    </div>
+            @for (service of services; track $index;let i = $index) {
+            <div class="col-lg-4 col-md-6 mb-4 h-100" [class.active]="i === currentSlide" (click)="goToSlide(i)">
+                <div class="service-card text-end">
+                    <div class="card-number">{{ service.id }}</div>
+                    <h4 class="card-title">{{ service.title }}</h4>
+                    @if(i===1 && i === currentSlide){
+                        <div class="p-4 pt-0 btn-container">
+                            <app-main-button buttontext="احجز استشارة الأن" (buttonFunction)="onDiscoverServices()" iconButton="bi-chevron-compact-left"></app-main-button>
+                        </div>
+                    }
+                    <div class="card-image ">
+                        <img [src]="service.image" [alt]="service.title">
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</div>

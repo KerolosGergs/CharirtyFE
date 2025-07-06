@@ -11,7 +11,7 @@ export class Nav {
 
   // Navigation items
   navigationItems = [
-    { label: 'الرئيسية', href: '#' ,subLibels:['الرئيسية','الرئيسية'] },
+    { label: 'الرئيسية', href: '#' ,subLibels:[] },
     { label: 'طلبات المساعدة', href: '#' ,subLibels:['الرئيسية','الرئيسية']},
     { label: 'عن الجمعية', href: '#' ,subLibels:['الرئيسية','الرئيسية']},
     { label: 'النشاط الخيري', href: '#' ,subLibels:['الرئيسية','الرئيسية']},
@@ -20,7 +20,7 @@ export class Nav {
     { label: 'التنمية المجتمعية وإصلاح ذات البين', href: '#' ,subLibels:['الرئيسية','الرئيسية']},
     { label: 'الدوحة', href: '#',subLibels:['الرئيسية','الرئيسية'] },
     { label: 'النشاط الاستثماري', href: '#' ,subLibels:['الرئيسية','الرئيسية']},
-    { label: 'الشكاوى والتواصل', href: '#' ,subLibels:['الرئيسية','الرئيسية']}
+    { label: 'الشكاوى والتواصل', href: '#' ,subLibels:[]}
   ];
 activeItem: any = null;
 

@@ -5,40 +5,13 @@ import { MainButton } from "../../../../Shared/main-button/main-button";
 
 @Component({
   selector: 'app-hero',
-  imports: [CommonModule, StatCard, MainButton],
+  imports: [CommonModule, MainButton, StatCard],
   templateUrl: './hero.html',
   styleUrl: './hero.scss'
 })
 export class Hero {
 
-  statistics = [
-   
-   
-    {
-      number: '150',
-      label: 'مستفيد',
-      icon: 'bi-heart-fill',
-      color: 'warning'
-    },
-     {
-      number: '200',
-      label: 'متطوع',
-      icon: 'bi-person-hearts',
-      color: 'info'
-    },
-    {
-      number: '50',
-      label: 'مشروع',
-      icon: 'bi-building',
-      color: 'primary'
-    },
-     {
-      number: '300',
-      label: 'حالة',
-      icon: 'bi-people-fill',
-      color: 'success'
-    },
-  ];
+
 heroImage: string= "Images/2.jpg";
  onLearnMore(): void {
     console.log('Learn more clicked');

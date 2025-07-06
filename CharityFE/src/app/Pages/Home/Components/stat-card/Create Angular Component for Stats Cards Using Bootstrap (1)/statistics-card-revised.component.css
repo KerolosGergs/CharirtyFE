@@ -2,9 +2,9 @@
   padding: 2rem 0;
   direction: rtl; /* For Arabic text alignment */
 }
-// #526464
+
 .single-statistics-card {
-  background: #526464;
+  background: linear-gradient(90deg, #2d7d6e 0%, #4a9b8e 25%, #8bc34a 50%, #cddc39 75%, #d4a574 100%);
   border-radius: 25px;
   padding: 0;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
@@ -31,8 +31,8 @@
 .stat-content {
   display: flex;
   align-items: center;
-  // justify-content: space-between;
-  // width: 100%;
+  justify-content: space-between;
+  width: 100%;
   gap: 0.75rem;
 }
 
@@ -163,63 +163,4 @@
     transform: translateY(0);
   }
 }
-
-
-
-//  .stat-card-custom {
-//   position: relative;
-//   background: #926763;
-//   border-radius: 20px;
-//   backdrop-filter: blur(10px);
-//   padding: 1.5rem;
-//   color: #000;
-//   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-//   transition: transform 0.3s ease;
-//   font-family: 'Cairo', sans-serif;
-// }
-
-// .stat-card-custom:hover {
-//   transform: scale(1.03);
-// }
-
-// .stat-item {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   background: transparent;
-//   border-radius: 20px;
-//   min-width: 140px;
-//   gap: 30px;
-// }
-
-// .stat-icon-circle {
-//   width: 70px;
-//   height: 70px;
-//   background: rgba(255, 255, 255, 0.4);
-//   border-radius: 50%;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   font-weight: bold;
-//   font-size: 1.1rem;
-//   color: #666;
-//   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-  
-// }
-
-// .stat-number {
-//   font-size: 1.8rem;
-//   font-weight: bold;
-// }
-
-// .stat-label {
-//   font-size: 1rem;
-//   color: #222;
-// }
-
-// .stat-divider {
-//   width: 1px;
-//   background-color: rgba(255, 255, 255, 0.3);
-//   align-self: stretch;
-// }
 
