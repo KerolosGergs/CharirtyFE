@@ -184,3 +184,30 @@ textarea {
     width: 100%;
   }
 }
+.calendar-grid {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, minmax(40px, 1fr));
+  gap: 5px;
+}
+.calendar-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+.calendar-cell {
+  padding: 10px;
+  background-color: var(--primary-50);
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  user-select: none;
+}
+.calendar-cell.available {
+  border-color: var(--primary-500);
+  background-color: var(--primary-100);
+  font-weight: 600;
+}
+.calendar-cell:hover {
+  border-color: var(--primary-dark);
+}

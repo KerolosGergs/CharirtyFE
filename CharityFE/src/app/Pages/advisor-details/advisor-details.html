@@ -128,7 +128,34 @@
         </div>
       </section>
 
-    
+      <div class="advisor-calendar mt-4">
+        <h5>المواعيد المتاحة:</h5>
+        <table class="table table-bordered text-center">
+          <thead>
+            <tr>
+              <th>اليوم</th>
+              <th>التاريخ</th>
+              <th>الوقت</th>
+              <th>الحالة</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appt of appointments">
+              <td>{{ appt.date | date:'EEEE' : undefined : 'ar' }}</td>
+              <td>{{ appt.date | date:'yyyy/MM/dd' }}</td>
+              <td>{{ appt.time }}</td>
+              <td>
+                <span [ngClass]="appt.isBooked ? 'text-danger' : 'text-success'">
+                  {{ appt.isBooked ? 'محجوز' : 'متاح' }}
+                </span>
+              </td>
+            </tr>
+            <tr *ngIf="appointments.length === 0">
+              <td colspan="4">لا توجد مواعيد متاحة حالياً</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <footer class="text-center">
         <a class="btn btn-consult" [attr.aria-label]="'احجز استشارة مع ' + advisorData.fullName" 

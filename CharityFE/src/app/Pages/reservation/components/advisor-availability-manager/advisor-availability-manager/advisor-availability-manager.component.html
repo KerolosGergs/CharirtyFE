@@ -1,0 +1,38 @@
+<div class="availability-manager-container">
+  <h2 class="section-title">إدارة المواعيد المتاحة</h2>
+
+  <div class="calendar-section mb-4">
+    <label class="form-label">اختر اليوم</label>
+    <mat-calendar 
+      (selectedChange)="onDateChange($event)"
+      [dateFilter]="dateFilter"
+      [selected]="selectedDate">
+    </mat-calendar>
+  </div>
+
+  @if (allHours.length > 0) {
+    <div class="hours-section mb-4">
+      <label class="form-label">المواعيد المتاحة:</label>
+      <div class="hours-list d-flex flex-wrap gap-3">
+        @for (hour of allHours; track hour) {
+          <span 
+            class="badge px-3 py-2"
+            [ngClass]="{'bg-primary text-white': selectedTime === hour, 'bg-light text-dark': selectedTime !== hour}"
+            (click)="selectTime(hour)">
+            {{ hour }}
+          </span>
+        }
+      </div>
+    </div>
+  }
+
+  <button class="save-btn btn btn-primary" (click)="saveAvailability()">حجز الموعد</button>
+
+  @if (saveSuccess) {
+    <div class="alert alert-success mt-3">تم الحجز بنجاح!</div>
+  }
+
+  @if (saveError) {
+    <div class="alert alert-danger mt-3">{{ saveError }}</div>
+  }
+</div>

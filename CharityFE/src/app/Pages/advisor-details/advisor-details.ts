@@ -6,6 +6,7 @@ import { HeaderComponent } from '../Home/Components/header-component/header-comp
 import { Footer } from '../../Shared/footer/footer';
 import { Advisor } from '../../Core/Services/advisor';
 import { advisor } from '../../Core/Interfaces/advisor';
+import { Appointment } from '../../Core/Interfaces/advisor';
 
 @Component({
   selector: 'app-advisor-details',
@@ -39,6 +40,8 @@ export class AdvisorDetails implements OnInit {
     updatedAt: ''
   };
 
+  appointments: Appointment[] = [];
+
   isLoading: boolean = true;
   error: string | null = null;
 
@@ -68,6 +71,16 @@ export class AdvisorDetails implements OnInit {
       next: (response) => {
         if (response && response.success) {
           this.advisorData = response.data;
+          // جلب المواعيد المتاحة بعد تحميل بيانات المستشار
+          this.advisorService.getAvailableAppointments(advisorId).subscribe({
+            next: (appointments) => {
+              this.appointments = appointments;
+            },
+            error: (err) => {
+              console.error('Error loading appointments:', err);
+              this.appointments = [];
+            }
+          });
         } else {
           this.error = 'فشل في تحميل بيانات المستشار';
         }

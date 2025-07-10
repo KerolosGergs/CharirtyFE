@@ -1,0 +1,53 @@
+<div class="volunteer-form-container" dir="rtl">
+  <form [formGroup]="volunteerForm" (ngSubmit)="onSubmit()">
+    <h2 class="form-title">اكتب بياناتك للتطوع</h2>
+
+    <div class="form-group">
+      <label for="firstName">الاسم الأول</label>
+      <input id="firstName" formControlName="firstName" placeholder="أدخل الاسم الأول" />
+    </div>
+    <div class="form-group">
+      <label for="lastName">اسم العائلة</label>
+      <input id="lastName" formControlName="lastName" placeholder="أدخل اسم العائلة" />
+    </div>
+    <div class="form-group">
+      <label for="email">البريد الإلكتروني</label>
+      <div class="input-icon">
+        <input id="email" formControlName="email" placeholder="example@email.com" type="email" />
+        <span class="icon"><i class="fa fa-envelope"></i></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">رقم الهاتف</label>
+      <div class="input-icon">
+        <input id="phoneNumber" formControlName="phoneNumber" placeholder="05xxxxxxxx" />
+        <span class="icon"><i class="fa fa-phone"></i></span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="address">العنوان</label>
+      <input id="address" formControlName="address" placeholder="العنوان الكامل" />
+    </div>
+    <div class="form-group">
+      <label for="dateOfBirth">تاريخ الميلاد</label>
+      <mat-form-field appearance="outline" class="date-field">
+        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" placeholder="اختر تاريخ ميلادك">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <label for="education">المؤهل العلمي</label>
+      <input id="education" formControlName="education" placeholder="مثال: بكالوريوس علوم" />
+    </div>
+    <button type="submit" [disabled]="isSubmitting" class="submit-btn">
+      <span><i class="fa fa-paper-plane"></i></span>
+      إرسال
+      <span *ngIf="isSubmitting" class="loader"></span>
+    </button>
+    <div *ngIf="submitSuccess" class="success-message">
+      تم إرسال الطلب بنجاح!
+    </div>
+    <div *ngIf="submitError" class="error-message">{{ submitError }}</div>
+  </form>
+</div>

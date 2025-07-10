@@ -1,6 +1,6 @@
 import { Environment } from './../../../Environment/environment';
 import { inject, Injectable } from '@angular/core';
-import { IAdvisor, IAdvisorResponse, ICategory, ICategoryResponse } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
+import { IAdvisor, IAdvisorResponse, ICategory, ICategoryResponse, Appointment } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, Observable, catchError, throwError } from 'rxjs';
 
@@ -47,6 +47,11 @@ export class Advisor {
         return data;
       }),
     );
+  }
+
+  getAvailableAppointments(advisorId: number): Observable<Appointment[]> {
+    const url = `${this._baseUrl}Advisor/${advisorId}/appointments`;
+    return this._httpClient.get<Appointment[]>(url);
   }
 
 

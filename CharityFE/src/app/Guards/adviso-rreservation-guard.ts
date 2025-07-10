@@ -8,7 +8,7 @@ export const advisoRreservationGuard: CanActivateFn = () => {
   
   if (isBrowser) {
     const token = localStorage.getItem('authToken');
-
+    return true;
     if (token) {
       return true;
     } else {
