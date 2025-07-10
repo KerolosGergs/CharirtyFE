@@ -1,0 +1,173 @@
+
+        .user-info {
+            text-align: left;
+            margin-bottom: 32px;
+        }
+        .user-info .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            background: #000;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .user-info .user-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .user-info .user-email {
+            font-size: 0.95rem;
+            color: #888;
+        }
+        .main-content {
+            padding: 24px 0 0 0;
+        }
+        .faq-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+            padding: 32px 24px 18px 24px;
+            margin-bottom: 24px;
+        }
+        .faq-title {
+            font-weight: bold;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        .faq-desc {
+            color: #444;
+            margin-bottom: 18px;
+        }
+        .accordion-button {
+            background: #f8faf9;
+            border-radius: 10px !important;
+            font-weight: 500;
+            color: #222;
+            margin-bottom: 10px;
+            border: 1.5px solid #e0e0e0;
+            transition: background 0.2s, color 0.2s;
+        }
+        .accordion-button:not(.collapsed) {
+            background: #14532d;
+            color: #ffffff !important;
+        }
+        .accordion-item {
+            border: none;
+            background: transparent;
+        }
+        .accordion-body {
+            background: #f8faf9;
+            border-radius: 0 0 10px 10px;
+            color: #444;
+            margin-bottom: 10px;
+        }
+        .help-section {
+            background: #f8faf9;
+            border-radius: 18px;
+            padding: 28px 18px 18px 18px;
+            margin-bottom: 24px;
+        }
+        .help-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 18px;
+        }
+        .help-cards {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .help-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            padding: 22px 10px 14px 10px;
+            text-align: center;
+            flex: 1 1 160px;
+            min-width: 140px;
+            max-width: 200px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: box-shadow 0.2s, border 0.2s;
+            border: 1.5px solid #f8faf9;
+        }
+        .help-card:hover {
+            border: 1.5px solid #14532d;
+            box-shadow: 0 2px 12px rgba(20,83,45,0.08);
+        }
+        .help-card i {
+            font-size: 2rem;
+            color: #14532d;
+            margin-bottom: 8px;
+        }
+        .help-card-title {
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+        .quick-contact {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+            padding: 18px 18px 10px 18px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .quick-contact .info-list {
+            margin-bottom: 10px;
+        }
+        .quick-contact .info-list i {
+            margin-left: 5px;
+            color: #14532d;
+        }
+        .quick-contact .social-icons a {
+            color: #222;
+            font-size: 1.3rem;
+            margin: 0 6px;
+            transition: color 0.2s;
+        }
+        .quick-contact .social-icons a:hover {
+            color: #14532d;
+        }
+        .btn-back {
+            background: #14532d;
+            color: #fff;
+            font-weight: 500;
+            border-radius: 8px;
+            font-size: 1rem;
+            padding: 7px 24px;
+            margin-left: 12px;
+            margin-bottom: 8px;
+        }
+        .search-box {
+            border-radius: 8px;
+            border: 1.5px solid #e0e0e0;
+            min-height: 40px;
+            padding-right: 38px;
+            font-size: 1rem;
+        }
+        .search-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b0b0b0;
+            font-size: 1.2rem;
+        }
+        @media (max-width: 991px) {
+            .sidebar {
+                min-height: auto;
+                margin-bottom: 24px;
+            }
+            .main-content {
+                padding: 0;
+            }
+        }
+        @media (max-width: 767px) {
+            .faq-card, .help-section, .quick-contact {
+                padding: 16px 6px;
+            }
+            .help-cards {
+                gap: 8px;
+            }
+        }

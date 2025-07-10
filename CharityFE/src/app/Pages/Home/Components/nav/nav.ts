@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-nav',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './nav.html',
   styleUrl: './nav.scss'
 })
@@ -11,7 +11,7 @@ export class Nav {
 
   // Navigation items
   navigationItems = [
-    { label: 'الرئيسية', href: '#' ,subLibels:[] },
+    { label: 'الرئيسية', href: '/home' ,subLibels:[] },
     { label: 'طلبات المساعدة', href: '#' ,subLibels:['الرئيسية','الرئيسية']},
     { label: 'عن الجمعية', href: '#' ,subLibels:['الرئيسية','الرئيسية']},
     { label: 'النشاط الخيري', href: '#' ,subLibels:['الرئيسية','الرئيسية']},

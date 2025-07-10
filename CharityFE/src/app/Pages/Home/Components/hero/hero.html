@@ -1,9 +1,9 @@
 <!-- Hero Section -->
 <section class="hero-section position-relative ">
-  <div class="hero-background"><img class="img-cover" src="Images/3.jpg" alt="" width="100%" height="100%"></div>
+  <div class="hero-background"><img class="img-cover" src="Images/hero.png" alt="" width="100%" height="100%"></div>
   <div class="hero-overlay"></div>
   
-  <div class="container-fluid position-relative">
+  <div class="container position-relative">
     <div class="row justify-content-center text-center">    
       <div class="col-lg-8">
         <div class="hero-content text-white py-5">
@@ -17,17 +17,18 @@
             تقديم الدعم والمساعدة للأسر المحتاجة وخدمات إنسانية متميزة
           </p>
           
-          <div class="hero-buttons d-flex justify-content-center gap-3 flex-wrap">
+          
+        </div>
+      </div>
+    </div>
+    <div class="hero-buttons d-flex justify-content-end gap-3 flex-wrap">
             <app-main-button [buttonFunction]="onDiscoverServices" [buttontext]="'اكتشف خدماتنا'" [iconButton]="'bi-arrow-left-short fs-2'"></app-main-button>
           
-            <button class="btn btn-light btn-lg  px-4 hero-btn-primary"
+            <button class="btn btn-light btn-lg px-5 py-2 fs-5  hero-btn-primary"
                     (click)="onLearnMore()">
               تعرف علينا
             </button>
           </div>
-        </div>
-      </div>
-    </div>
     <app-stat-card></app-stat-card>
   </div>
 </section>

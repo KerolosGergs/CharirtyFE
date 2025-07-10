@@ -1,15 +1,17 @@
+import { routes } from './../../../../app.routes';
 import { Component, OnInit } from '@angular/core';
 import { MainButton } from "../../../../Shared/main-button/main-button";
-
+import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-service-component',
-  imports: [MainButton],
+  imports: [MainButton,RouterLink],
   templateUrl: './service-component.html',
   styleUrl: './service-component.scss'
 })
 export class ServiceComponent  implements OnInit{
+    constructor(private router: Router) {}
 onDiscoverServices() {
-throw new Error('Method not implemented.');
+  
 }
  currentSlide = 0;
   isAnimating = false;
@@ -23,7 +25,7 @@ throw new Error('Method not implemented.');
     {
       id: '02',
       title: 'الاستشارات المجانية',
-      image: 'Images/2.jpg'
+      image: 'Images/home/Est4rat.jpeg'
     },
     {
       id: '03',
@@ -33,32 +35,23 @@ throw new Error('Method not implemented.');
   ];
 
   ngOnInit() {
-    // Auto-slide functionality (optional)
-    // setInterval(() => {
-    //   this.nextSlide();
-    // }, 5000);
+
   }
 
    nextSlide() {
-    // if (this.isAnimating) return;
     
     this.isAnimating = true;
     this.currentSlide = (this.currentSlide + 1) % this.services.length;
     console.log(this.currentSlide);
-    // setTimeout(() => {
-    //   this.isAnimating = false;
-    // }, 600);
+
   }
 
   prevSlide() {
-    // if (this.isAnimating) return;
     
     this.isAnimating = true;
     this.currentSlide = this.currentSlide === 0 ? this.services.length - 1 : this.currentSlide - 1;
     console.log(this.currentSlide);
-    // setTimeout(() => {
-    //   this.isAnimating = false;
-    // }, 600);
+ 
   }
   goToSlide(index: number) {
     

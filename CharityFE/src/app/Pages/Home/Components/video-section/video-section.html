@@ -1,0 +1,45 @@
+<div class="container-fluid min-vh-100 bg text-white d-flex align-items-center justify-content-center position-relative overflow-hidden">
+
+  <div class="container position-relative py-5">
+
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-6 text-lg-end text-center mb-4 mb-lg-0">
+        <h1 class="fw-bold display-4 mb-3">شاهد... كيف يصنع</h1>
+        <h2 class="fw-bold display-5">عطاؤك الفرق</h2>
+      </div>
+      <div class="col-lg-6 text-center text-lg-start">
+        <p class="fs-5 mb-0 description">
+          ندعوك لمشاهدة هذا الفيديو التوعوي الذي يجسد أثر العمل الخيري في حياة الأسر المحتاجة،
+          ويبرز كيف يمكن للتبرع البسيط أن يزرع الأمل ويغير الواقع. قصص حقيقية... مشاهد مؤثرة...
+          وإنسانية تستحق أن تُروى.
+        </p>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 border border-3 border-light rounded-4 p-4 bg-light shadow">
+        <div class="ratio ratio-16x9 rounded overflow-hidden position-relative bg-secondary">
+          @if (videoUrl && isVideoLoaded) {
+            <iframe
+              [src]="videoUrl"
+              frameborder="0"
+              allowfullscreen
+              class="rounded">
+            </iframe>
+          } @else {
+            <div class="d-flex flex-column justify-content-center align-items-center h-100 text-dark">
+              <div class="mb-3 fs-1 text-success" role="button" (click)="playVideo()">
+                <i class="bi bi-play-circle-fill"></i>
+              </div>
+              <p class="fw-bold text-success mb-1">انقر لتشغيل الفيديو</p>
+              <small class="text-muted">سيتم تحميل الفيديو هنا</small>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    
+    <app-school></app-school>
+  </div>
+</div>

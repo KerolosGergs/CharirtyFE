@@ -1,82 +1,109 @@
-<section class="auth-section">
-  <div class="container">
-    <div class="auth-container animate__animated animate__fadeIn">
-      <div class="auth-form-container">
-        <div class="auth-header animate__animated animate__fadeInDown">
-          <h1 class="text-gradient">تسجيل الدخول</h1>
-          <p>مرحباً بك مرة أخرى، سجل دخولك للمتابعة</p>
-        </div>
+<!-- app-login.component.html -->
+<div class="container-fluid min-vh-100 d-flex p-0">
+  <!-- Right Side: Login Form -->
+  <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 bg-white">
+    <div class="w-100" style="max-width: 400px;">
 
-        <form id="login-form" class="auth-form animate__animated animate__fadeInUp" (ngSubmit)="onSubmit()">
-          <div class="form-group stagger-item">
-            <label for="email">البريد الإلكتروني</label>
-            <div class="input-group">
-              <i class="bi bi-envelope"></i>
-              <input type="email" id="email" name="email" placeholder="أدخل البريد الإلكتروني" class="form-control" required>
-            </div>
-          </div>
-
-          <div class="form-group stagger-item">
-            <label for="password">كلمة المرور</label>
-            <div class="input-group">
-              <i class="bi bi-lock"></i>
-              <input type="password" id="password" name="password" placeholder="أدخل كلمة المرور" class="form-control" required>
-              <button type="button" class="password-toggle hover-scale" (click)="togglePassword()">
-                <i class="bi bi-eye position-static" id="password-eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="form-options stagger-item">
-            <label class="checkbox-container">
-              <input type="checkbox" id="remember">
-              <span class="checkmark"></span>
-              تذكرني
-            </label>
-            <a href="#" class="forgot-password hover-glow">نسيت كلمة المرور؟</a>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-full btn-ripple hover-lift stagger-item">
-            <i class="bi bi-box-arrow-in-right"></i>
-            تسجيل الدخول
-          </button>
-          <div class="auth-footer stagger-item">
-            <p>ليس لديك حساب؟ <a href="#" class="hover-glow">إنشاء حساب جديد</a></p>
-          </div>
-        </form>
+      <div class="text-end mb-4">
+        <img src="Images/logo.png" alt="Logo Icon" class="mb-2 " style="max-height: 100px;">
+        <h4 class="fw-bold mb-3">سعيدين بعودتك</h4>
       </div>
 
-      <div class="auth-info animate__animated animate__fadeInRight">
-        <div class="info-content">
-          <h2 class="animate__animated animate__fadeInLeft">أهلاً وسهلاً بك</h2>
-          <p class="animate__animated animate__fadeInLeft">سجل دخولك للوصول إلى حسابك والاستفادة من جميع خدماتنا المتميزة.</p>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-          <div class="benefits-list">
-            <div class="benefit-item stagger-item hover-scale">
-              <i class="bi bi-person-check animate__animated animate__pulse"></i>
-              <div>
-                <h4>حسابك الشخصي</h4>
-                <p>تابع طلباتك وخدماتك من مكان واحد</p>
-              </div>
-            </div>
-            <div class="benefit-item stagger-item hover-scale">
-              <i class="bi bi-clock-history animate__animated animate__pulse"></i>
-              <div>
-                <h4>سجل الأنشطة</h4>
-                <p>راجع تاريخ جميع معاملاتك وطلباتك</p>
-              </div>
-            </div>
-            <div class="benefit-item stagger-item hover-scale">
-              <i class="bi bi-bell animate__animated animate__pulse"></i>
-              <div>
-                <h4>التنبيهات الفورية</h4>
-                <p>احصل على إشعارات بآخر التحديثات</p>
-              </div>
-            </div>
+        <div class="mb-3 form-group-with-icon">
+          <label for="email" class="form-label">البريد الإلكتروني</label>
+          <div class="position-relative">
+            <input type="email" id="email" class="form-control with-icon" placeholder="Houda42@gmail.com"
+              formControlName="email" >
+            <i class="bi bi-envelope input-icon"></i>
           </div>
+
+          <div class=" p-1" role="alert">
+            @if (loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched) {
+            <span class="text-danger">البريد الإلكتروني مطلوب</span>
+            }
+            @else if (loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched) {
+            <span class="text-danger">يرجى إدخال بريد إلكتروني صحيح</span>
+            }
+          </div>
+
         </div>
-      </div>
+
+        <div class="mb-3 form-group-with-icon">
+          <label for="password" class="form-label">رمز المرور</label>
+          <div class="position-relative">
+            <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control with-icon"
+              placeholder="********" formControlName="password" >
+            <i class="bi bi-lock input-icon"></i>
+            <button type="button" class="btn btn-sm btn-icon" (click)="togglePasswordVisibility()">
+              <i [ngClass]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+          @if (loginForm.get('password')?.errors && loginForm.get('password')?.touched) {
+          <div class=" p-1" role="alert">
+            @if (loginForm.get('password')?.hasError('required')) {
+            <span class="text-danger">رمز المرور مطلوب</span>
+            }
+            @else if (loginForm.get('password')?.hasError('minlength') ) {
+            <span class="text-danger">رمز المرور يجب أن يكون 6 أحرف على الأقل</span>
+            }
+            @else if(loginForm.get('password')?.hasError('maxlength') ) {
+            <span class="text-danger">رمز المرور يجب أن يكون اقل من 32 أحرف </span>
+            }
+          </div>
+          }
+
+
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMe" [checked]="rememberMe"
+              (change)="toggleRememberMe()">
+            <label class="form-check-label" for="rememberMe">تذكرني</label>
+          </div>
+          <a href="#" (click)="$event.preventDefault(); onForgotPassword()"
+            class="small text-primary text-decoration-none">نسيت رمز المرور؟</a>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100 mb-3 rounded-pill" [disabled]="isLoading">
+          @if (isLoading) {
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          }
+          دخولي
+        </button>
+
+        <div class="text-center mb-3">
+          <span class="text-muted">ما عندك حساب؟</span>
+          <a routerLink="/register" (click)="$event.preventDefault(); onCreateAccount()" class="fw-semibold text-primary">إنشاء
+            حساب</a>
+        </div>
+
+        <div class="d-flex justify-content-center gap-2 border-top pt-3">
+          @for (social of socialMediaLinks; track $index) {
+          <a href="#" (click)="$event.preventDefault(); onSocialLogin(social.name)"
+            class="btn btn-light border rounded-circle p-2">
+            <i [ngClass]="social.icon"></i>
+          </a>
+          }
+        </div>
+
+        <p class="text-center small text-muted mt-4">© جميع الحقوق محفوظة 2025</p>
+
+      </form>
+
+
     </div>
   </div>
-</section>
+  <!-- Left Side: Full Image -->
+  <div class="col-lg-6 d-none d-lg-block position-relative">
+    <img src="Images/loginBG.jpg" alt="Background" class="img-fluid vh-100 w-100 object-fit-cover rounded-start">
 
+    <div class="position-absolute top-0 end-0 mt-5 p-4 bg-light  rounded-start">
+      <img src="Images/logoName.png" alt="Logo Text " style="max-height: 80px;">
+    </div>
+  </div>
+
+
+</div>

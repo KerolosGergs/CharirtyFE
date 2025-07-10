@@ -1,0 +1,26 @@
+@if (itemS) {
+<div class="card text-right ch">
+    <div class="image-wrapper">
+        <img src="Images/advisor.jpg" class="card-img-top img-top-crop overflow-hidden" alt="صورة المستشار">
+        <span [ngClass]="itemS.isAvailable === false ? 'image-tag-notAvailable' : 'image-tag-available'">
+            {{ itemS.isAvailable === false ? 'غير متاح' : 'متاح' }}
+        </span>
+
+    </div>
+    <div class="card-body">
+        <h5 class="card-title fs-4">{{itemS.fullName}}</h5>
+        <p class="card-text">{{itemS.description}}</p>
+        <div class="d-flex justify-content-between align-items-center gap-2 w-100">
+            <a class="btn fw shadow bg-primary-600 text-white btn-custom flex-grow-1" 
+               (click)="goToReservation()">
+                احجز استشارة <i class="bi bi-arrow-left-circle"></i>
+            </a>
+            <a class="btn fw shadow btn-outline-secondary btn-custom flex-grow-1"
+               (click)="goToDetails()">
+                اعرف المزيد
+            </a>
+        </div>
+
+    </div>
+</div>
+}

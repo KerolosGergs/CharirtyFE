@@ -1,143 +1,182 @@
-<section class="auth-section mb-3">
-  <div class="container">
-    <div class="auth-container animate__animated animate__fadeIn">
-      <div class="auth-form-container">
-        <div class="auth-header animate__animated animate__fadeInDown">
-          <h1 class="text-gradient">إنشاء حساب جديد</h1>
-          <p>انضم إلينا وابدأ رحلتك معنا</p>
-        </div>
+<div class="container-fluid min-vh-100 d-flex p-0 main">
+  <!-- Right Side: Register Form -->
+  <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 pt-0 bg-white">
+    <div class="w-100" style="max-width: 500px;">
 
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form animate__animated animate__fadeInUp">
-          <!-- Name Field -->
-          <div class="form-group stagger-item">
-            <label for="name">الاسم الكامل</label>
-            <div class="input-group">
-              <i class="bi bi-person-fill"></i>
-              <input type="text" id="name" formControlName="name" placeholder="أدخل اسمك الكامل" required>
-            </div>
-          </div>
-
-          <!-- ID Number Field -->
-          <div class="form-group stagger-item">
-            <label for="id-number">رقم الهوية</label>
-            <div class="input-group">
-              <i class="bi bi-credit-card-fill"></i>
-              <input type="text" id="id-number" formControlName="idNumber" placeholder="أدخل رقم الهوية" required>
-            </div>
-          </div>
-
-          <!-- Email Field -->
-          <div class="form-group stagger-item">
-            <label for="email">البريد الإلكتروني</label>
-            <div class="input-group">
-              <i class="bi bi-envelope-fill"></i>
-              <input type="email" id="email" formControlName="email" placeholder="أدخل البريد الإلكتروني" required>
-            </div>
-          </div>
-
-          <!-- Phone Field -->
-          <div class="form-group stagger-item">
-            <label for="phone">رقم الهاتف</label>
-            <div class="input-group">
-              <i class="bi bi-telephone-fill"></i>
-              <input type="tel" id="phone" formControlName="phone" placeholder="أدخل رقم الهاتف" required>
-            </div>
-          </div>
-
-          <!-- Password Field -->
-          <div class="form-group stagger-item">
-            <label for="password">كلمة المرور</label>
-            <div class="input-group">
-              <i class="bi bi-lock-fill"></i>
-              <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" 
-                     placeholder="أدخل كلمة المرور" required >
-              <button type="button" class="password-toggle hover-scale" (click)="togglePassword()">
-                <i class="bi" [class.bi-eye-fill]="showPassword" [class.bi-eye-slash-fill]="!showPassword"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- Confirm Password Field -->
-          <div class="form-group stagger-item">
-            <label for="confirm-password">تأكيد كلمة المرور</label>
-            <div class="input-group">
-              <i class="bi bi-lock-fill"></i>
-              <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirm-password" 
-                     formControlName="confirmPassword" placeholder="أعد إدخال كلمة المرور" required>
-              <button type="button" class="password-toggle hover-scale" (click)="toggleConfirm()">
-                <i class="bi" [class.bi-eye-fill]="showConfirmPassword" [class.bi-eye-slash-fill]="!showConfirmPassword"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- Address Field -->
-          <div class="form-group stagger-item">
-            <label for="address">العنوان</label>
-            <div class="input-group">
-              <i class="bi bi-geo-alt-fill"></i>
-              <textarea id="address" formControlName="address" rows="3" placeholder="أدخل العنوان الكامل" required></textarea>
-            </div>
-          </div>
-
-          <!-- Terms Checkbox -->
-          <div class="form-group stagger-item">
-            <label class="checkbox-container">
-              <input type="checkbox" id="terms" formControlName="terms" required>
-              <span class="checkmark"></span>
-              أوافق على <a href="#" class="terms-link">الشروط والأحكام</a> و <a href="#" class="privacy-link">سياسة الخصوصية</a>
-            </label>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-full btn-ripple hover-lift stagger-item">
-            <i class="bi bi-person-plus-fill"></i>
-            إنشاء الحساب
-          </button>
-          
-          <div class="auth-footer stagger-item">
-            <p>لديك حساب بالفعل؟ <a routerLink="/login">تسجيل الدخول</a></p>
-          </div>
-        </form>
+      <div class="text-end mb-4">
+        <img src="Images/logo.png" alt="Logo Icon" class="mb-2 logo-image" style="max-height: 120px;">
+        <h4 class="fw-bold mb-1">اهلاً وسهلاً بك</h4>
+        <p class="text-success  fw-semibold">اعطنا بياناتك وخل النظام يسجلك</p>
       </div>
 
-      <div class="auth-info animate__animated animate__fadeInRight">
-        <div class="info-content">
-          <h2 class="animate__animated animate__fadeInLeft">انضم إلى مجتمعنا</h2>
-          <p class="animate__animated animate__fadeInLeft">أنشئ حسابك الآن واحصل على إمكانية الوصول الكامل لجميع خدماتنا المتميزة.</p>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- Full Name -->
+        <div class="mb-3 form-group-with-icon">
+          <label for="fullName" class="form-label">الاسم الكامل</label>
+          <div class="position-relative">
+            <input type="text" id="fullName" class="form-control with-icon" placeholder="اسمك الكامل"
+              formControlName="fullName">
+            <i class="bi bi-person input-icon"></i>
+          </div>
+          @if (registerForm.get('fullName')?.errors && registerForm.get('fullName')?.touched) {
+          @if (registerForm.get('fullName')?.hasError('required')) {
+          <span class="text-danger"> الاسم الكامل مطلوب</span>
+          }@else if (registerForm.get('fullName')?.hasError('minlength'))
+          {
+          <span class="text-danger"> الاسم الكامل يجب ان يكون اكبر من 2 حرف</span>
+          }
+          }
+        </div>
 
-          <div class="benefits-list">
-            <div class="benefit-item stagger-item hover-scale">
-              <i class="bi bi-star-fill animate__animated animate__pulse"></i>
-              <div>
-                <h4>خدمات متميزة</h4>
-                <p>احصل على أفضل الاستشارات من خبراء متخصصين</p>
-              </div>
+        <!-- Email + phoneNumber -->
+        <div class="row mb-3">
+          <div class="col form-group-with-icon">
+            <label for="email" class="form-label">البريد الإلكتروني</label>
+            <div class="position-relative">
+              <input type="email" id="email" class="form-control with-icon" placeholder="بريدك الإلكتروني"
+                formControlName="email">
+              <i class="bi bi-envelope input-icon"></i>
+
             </div>
-            <div class="benefit-item stagger-item hover-scale">
-              <i class="bi bi-clock-fill animate__animated animate__pulse"></i>
-              <div>
-                <h4>متاح 24/7</h4>
-                <p>خدماتنا متاحة في أي وقت يناسبك</p>
-              </div>
+            @if (registerForm.get('email')?.errors && registerForm.get('email')?.touched) {
+            @if (registerForm.get('email')?.hasError('required')) {
+            <span class="text-danger"> البريد الالكتروني مطلوب</span>
+            }@else if (registerForm.get('email')?.hasError('email'))
+            {
+            <span class="text-danger">يجب ادخال البريد الالكتروني صحيح</span>
+            }
+            }
+          </div>
+          <div class="col form-group-with-icon">
+            <label for="phoneNumber" class="form-label">رقم الهاتف</label>
+            <div class="position-relative">
+              <input type="tel" id="phoneNumber" class="form-control with-icon" placeholder="966xxxxxxxxx"
+                formControlName="phoneNumber">
+              <i class="bi bi-phone input-icon"></i>
             </div>
-            <div class="benefit-item stagger-item hover-scale">
-              <i class="bi bi-shield-lock-fill animate__animated animate__pulse"></i>
-              <div>
-                <h4>سرية تامة</h4>
-                <p>نحافظ على خصوصية وسرية جميع بياناتك</p>
-              </div>
-            </div>
-            <div class="benefit-item stagger-item hover-scale">
-              <i class="bi bi-gift-fill animate__animated animate__pulse"></i>
-              <div>
-                <h4>مزايا حصرية</h4>
-                <p>استفد من العروض والخدمات الحصرية للأعضاء</p>
-              </div>
-            </div>
+            @if (registerForm.get('phoneNumber')?.errors && registerForm.get('phoneNumber')?.touched) {
+            @if (registerForm.get('phoneNumber')?.hasError('required')) {
+            <span class="text-danger"> رقم الهاتف مطلوب</span>
+            }
+            }
           </div>
         </div>
-      </div>
+
+        <!-- ID Number + Address -->
+        <div class="row mb-3">
+          <div class="col form-group-with-icon">
+            <label for="userName" class="form-label">رقم الهوية</label>
+            <div class="position-relative">
+              <input type="text" id="userName" class="form-control with-icon" placeholder="رقم هويتك"
+                formControlName="userName">
+              <i class="bi bi-card-text input-icon"></i>
+            </div>
+            @if (registerForm.get('userName')?.errors && registerForm.get('userName')?.touched) {
+            @if (registerForm.get('userName')?.hasError('required')) {
+            <span class="text-danger"> رقم الهوية مطلوب</span>
+            }@else if (registerForm.get('userName')?.hasError('minlength'))
+            {
+            <span class="text-danger">يجب ادخال رقم الهوية صحيح</span>
+            }
+            }
+          </div>
+          <div class="col form-group-with-icon">
+            <label for="address" class="form-label">العنوان</label>
+            <div class="position-relative">
+              <input type="text" id="address" class="form-control with-icon" placeholder="عنوانك"
+                formControlName="address">
+              <i class="bi bi-geo-alt input-icon"></i>
+            </div>
+            @if (registerForm.get('address')?.errors && registerForm.get('address')?.touched) {
+            @if (registerForm.get('address')?.hasError('required')) {
+            <span class="text-danger"> العنوان مطلوب</span>
+            }
+            @else if (registerForm.get('address')?.hasError('minlength'))
+            {
+            <span class="text-danger">يجب ادخال العنوان صحيح</span>
+            }
+            }
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3 form-group-with-icon">
+          <label for="password" class="form-label">كلمة المرور</label>
+          <div class="position-relative">
+            <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control with-icon"
+              placeholder="********" formControlName="password">
+            <i class="bi bi-lock input-icon"></i>
+            <button type="button" class="btn btn-sm btn-icon" (click)="togglePasswordVisibility()">
+              <i [ngClass]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+          @if (registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
+          <div class=" p-1" role="alert">
+            @if (registerForm.get('password')?.hasError('required')) {
+            <span class="text-danger">كلمة المرور مطلوبة</span>
+            }
+            @else if (registerForm.get('password')?.hasError('minlength') ) {
+            <span class="text-danger">كلمة المرور يجب ان تكون 8 احرف على الاقل</span>
+            }
+            @else if(registerForm.get('password')?.hasError('maxlength') ) {
+            <span class="text-danger">كلمة المرور يجب ان تكون اقل من 32 احرف </span>
+            }
+          </div>
+          }
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-4 form-group-with-icon">
+          <label for="confirmPassword" class="form-label">تأكيد كلمة المرور</label>
+          <div class="position-relative">
+            <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword"
+              class="form-control with-icon" placeholder="********" formControlName="confirmPassword">
+            <i class="bi bi-lock input-icon"></i>
+            <button type="button" class="btn btn-sm btn-icon" (click)="toggleConfirmPasswordVisibility()">
+              <i [ngClass]="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+          @if (registerForm.hasError('passwordMatchValidator') && registerForm.get('confirmPassword')?.touched) {
+          <span class="text-danger">كلمة المرور غير متطابقة</span>
+          }
+
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success w-100 mb-3 rounded-pill fs-4" [disabled]="isLoading">
+          @if (isLoading) {
+          <span class="spinner-border spinner-border-sm me-2 "></span>
+          }
+          أنشئ حسابي
+        </button>
+
+        <div class="text-center mb-3">
+          <span class="text-muted">عندك حساب قبل؟</span>
+          <a routerLink="/login" class="fw-semibold text-primary">سجل دخول</a>
+        </div>
+
+        <div class="d-flex justify-content-center gap-2 border-top pt-3">
+          @for (social of socialMediaLinks; track $index) {
+          <a href="#" (click)="$event.preventDefault(); onSocialLogin(social.name)"
+            class="btn btn-light border rounded-circle p-2">
+            <i [ngClass]="social.icon"></i>
+          </a>
+          }
+        </div>
+
+        <p class="text-center small text-muted mt-4">© جميع الحقوق محفوظة 2025</p>
+
+      </form>
+
     </div>
   </div>
-</section>
 
-<div id="alert-container"></div>
+  <!-- Left Side: Full Image -->
+  <div class="col-lg-6 d-none d-lg-block position-relative">
+    <img src="Images/loginBG.jpg" alt="Background" class="img-fluid h-100 w-100 object-fit-cover rounded-start">
+
+    <div class="position-absolute top-0 end-0 mt-5 p-4 bg-light rounded-start">
+      <img src="Images/logoName.png" alt="Logo Text " style="max-height: 80px;">
+    </div>
+  </div>
+</div>

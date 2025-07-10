@@ -1,14 +1,6 @@
 <div class="services-section">
     <div class="container">
-        <!-- Navigation arrows -->
-        <div class="navigation-arrows">
-            <button class="nav-arrow" (click)="prevSlide()">
-                <i class="bi bi-chevron-left"></i>
-            </button>
-            <button class="nav-arrow" (click)="nextSlide()">
-                <i class="bi bi-chevron-right"></i>
-            </button>
-        </div>
+     
 
         <!-- Header section -->
         <div class="row">
@@ -48,7 +40,7 @@
                     <h4 class="card-title">{{ service.title }}</h4>
                     @if(i===1 && i === currentSlide){
                         <div class="p-4 pt-0 btn-container">
-                            <app-main-button buttontext="احجز استشارة الأن" (buttonFunction)="onDiscoverServices()" iconButton="bi-chevron-compact-left"></app-main-button>
+                           <a class="text-decoration-none" routerLink="/all-consultants"> <app-main-button buttontext="احجز استشارة الأن" (buttonFunction)="onDiscoverServices()" iconButton="bi-chevron-compact-left"></app-main-button></a>
                         </div>
                     }
                     <div class="card-image ">

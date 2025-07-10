@@ -1,0 +1,45 @@
+<div class="news-section py-5" dir="rtl">
+  <div class="container">
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between mb-4">
+      <div>
+        <h2 class="fw-bold text-success">آخر أخبارنا التي أنجزناها</h2>
+        <p class="text-muted">نشارككم إنجازاتنا، قصص النجاح، والتقارير الشهرية بكل شفافية ووضوح</p>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-icon" (click)="prevSlide()">
+          <i class="bi bi-chevron-compact-right"></i>
+
+        </button>
+        <button class="btn btn-icon" (click)="nextSlide()">
+          <i class="bi bi-chevron-compact-left"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      @for ( item of newsItems; track $index; let i = $index) {
+      <div class="col-lg-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden" [class.active]="i === currentSlide">
+          <div class="ratio ratio-4x3">
+            <img [src]="item.image" [alt]="item.title" class="img-fluid object-fit-cover">
+          </div>
+          <div class="p-3">
+            <h5 class="fw-bold text-dark mb-2">
+              {{ item.title }}
+            </h5>
+            <p class="text-muted small mb-3">
+              {{ item.description }}
+            </p>
+            <div class="text-muted small d-flex align-items-center gap-2">
+              <i class="bi bi-calendar"></i>
+              <span>{{ item.date }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+  </div>
+</div>

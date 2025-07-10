@@ -16,7 +16,7 @@
               <a
                 class="nav-link text-white "
                 [class.dropdown-toggle]="item.subLibels!.length > 0"
-                href="#"
+               [routerLink]="item.href"  
                 role="button"
                 [attr.aria-expanded]="item === activeItem"
                 (click)="onNavigationClick(item)">
