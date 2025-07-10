@@ -1,3 +1,4 @@
+import { Dashboard } from './Pages/Dashboard/dashboard';
 import { Routes } from '@angular/router';
 import { Home } from './Pages/Home/home/home';
 import { LoginForm } from './Auth/Components/login-form/login-form';
@@ -16,16 +17,18 @@ export const routes: Routes = [
     { path: 'advisor-details', loadComponent: () => import('../app/Pages/advisor-details/advisor-details').then(m => m.AdvisorDetails), title: 'Advisor Details' },
     { path: 'advisor-reservation', loadComponent: () => import('../app/Pages/reservation/reservation').then(m => m.Reservation), canActivate: [advisoRreservationGuard], title: 'Advisor Reservation' },
     { path: 'must-login', loadComponent: () => import('../app/Pages/must-login/must-login').then(m => m.MustLogin), title: 'Must Login' },
-<<<<<<< Updated upstream
+
     { path: 'questions',component:Questions,title:'Questions'},
-    { path: 'dashboard', loadComponent: () => import('../app/Pages/dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard Main' ,children:[
+    { path: 'dashboard', loadComponent: () => import('../app/Pages/Dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard Main' ,children:[
         { path: '', redirectTo: 'dashboard-main', pathMatch: 'full'},
-        { path: 'dashboard-main', loadComponent: () => import('../app/Pages/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Dashboard Main' },
-        { path: 'dashboard-advisors', loadComponent: () => import('../app/Pages/dashboard-advisors/dashboard-advisors').then(m => m.DashboardAdvisors), title: 'Dashboard Advisors' },
+        { path: 'dashboard-main', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Dashboard Main' },
+        { path: 'dashboard-advisors', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-advisors/dashboard-advisors').then(m => m.DashboardAdvisors), title: 'Dashboard Advisors' },
     ]},
-=======
+
     { path: 'questions', component: Questions, title: 'Questions' },
->>>>>>> Stashed changes
+
+    { path: 'questions', component: Questions, title: 'Questions' },
+
     { path: 'not-found', loadComponent: () => import('../app/Pages/not-found/not-found').then(m => m.NotFound), title: 'Page Not Found' },
     { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Consultant } from '../../Core/Interfaces/consultant';
 import { Item } from "./item/item";
+import { Consultant } from '../../../../Core/Interfaces/consultant';
 
 @Component({
   selector: 'app-dashboard-advisors',

@@ -1,5 +1,4 @@
 import { Component, computed, HostListener, signal } from '@angular/core';
-import { DashboardMain } from "../dashboard-main/dashboard-main";
 import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({

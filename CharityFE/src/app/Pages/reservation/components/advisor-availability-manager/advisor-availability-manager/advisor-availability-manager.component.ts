@@ -15,9 +15,9 @@ import { HeaderComponent } from '../../../../Home/Components/header-component/he
 export class AdvisorAvailabilityManagerComponent {
   
   allowedDates: string[] = [
-    '2024-07-15',
-    '2024-07-17',
-    '2024-07-20'
+    '2025-07-15',
+    '2025-07-17',
+    '2025-07-20'
   ];
 
   availability: { [date: string]: string[] } = {
