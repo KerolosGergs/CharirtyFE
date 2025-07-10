@@ -9,14 +9,19 @@ import { Questions } from './Pages/questions/questions';
 export const routes: Routes = [
 
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-     { path: 'login', component: LoginForm },
+    { path: 'login', component: LoginForm },
     { path: 'register', component: RegisterForm },
     { path: 'home', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
     { path: 'all-consultants', component: Consultant, title: 'Consultants' },
     { path: 'advisor-details', loadComponent: () => import('../app/Pages/advisor-details/advisor-details').then(m => m.AdvisorDetails), title: 'Advisor Details' },
     { path: 'advisor-reservation', loadComponent: () => import('../app/Pages/reservation/reservation').then(m => m.Reservation), canActivate: [advisoRreservationGuard], title: 'Advisor Reservation' },
     { path: 'must-login', loadComponent: () => import('../app/Pages/must-login/must-login').then(m => m.MustLogin), title: 'Must Login' },
-    {path:'questions',component:Questions,title:'Questions'},
+    { path: 'questions',component:Questions,title:'Questions'},
+    { path: 'dashboard', loadComponent: () => import('../app/Pages/dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard Main' ,children:[
+        { path: '', redirectTo: 'dashboard-main', pathMatch: 'full'},
+        { path: 'dashboard-main', loadComponent: () => import('../app/Pages/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Dashboard Main' },
+        { path: 'dashboard-advisors', loadComponent: () => import('../app/Pages/dashboard-advisors/dashboard-advisors').then(m => m.DashboardAdvisors), title: 'Dashboard Advisors' },
+    ]},
     { path: 'not-found', loadComponent: () => import('../app/Pages/not-found/not-found').then(m => m.NotFound), title: 'Page Not Found' },
     { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 
