@@ -10,22 +10,50 @@
         <div class="form-group">
           <label for="fullName">الاسم الكامل</label>
           <input type="text" id="fullName" formControlName="fullName" class="form-control" placeholder="الاسم الكامل" />
+          @if (consultantForm.get('fullName')?.touched && consultantForm.get('fullName')?.invalid) {
+            <span class="text-danger small">الاسم الكامل مطلوب ولا يزيد عن 50 حرفًا</span>
+          }
         </div>
 
         <div class="row">
           <div class="col-md-6 form-group">
             <label for="email">البريد الإلكتروني</label>
             <input type="email" id="email" formControlName="email" class="form-control" placeholder="Houda42@gmail.com" />
+            @if (consultantForm.get('email')?.touched && consultantForm.get('email')?.invalid) {
+              <span class="text-danger small">يرجى إدخال بريد إلكتروني صحيح</span>
+            }
           </div>
           <div class="col-md-6 form-group">
-            <label for="phone">رقم الهاتف</label>
+            <label for="phoneNumber">رقم الهاتف</label>
             <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control" placeholder="رقم الهاتف" />
+            @if (consultantForm.get('phoneNumber')?.touched && consultantForm.get('phoneNumber')?.invalid) {
+              <span class="text-danger small">رقم الهاتف مطلوب ولا يزيد عن 20 رقمًا</span>
+            }
           </div>
         </div>
 
         <div class="form-group">
-          <label for="field">المجال</label>
+          <label for="specialty">المجال</label>
           <input type="text" id="specialty" formControlName="specialty" class="form-control" placeholder="اسم المجال" />
+          @if (consultantForm.get('specialty')?.touched && consultantForm.get('specialty')?.invalid) {
+            <span class="text-danger small">المجال مطلوب ولا يزيد عن 100 حرف</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="description">الوصف</label>
+          <textarea id="description" formControlName="description" class="form-control" placeholder="أدخل وصفًا مختصرًا"></textarea>
+          @if (consultantForm.get('description')?.touched && consultantForm.get('description')?.invalid) {
+            <span class="text-danger small">الوصف مطلوب ولا يزيد عن 1000 حرف</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="zoomUrl">رابط Zoom</label>
+          <input type="url" id="zoomUrl" formControlName="zoomUrl" class="form-control" placeholder="https://zoom.us/your-meeting-link" />
+          @if (consultantForm.get('zoomUrl')?.touched && consultantForm.get('zoomUrl')?.invalid) {
+            <span class="text-danger small">رابط Zoom مطلوب</span>
+          }
         </div>
 
         <div class="form-group password-group">
@@ -37,6 +65,11 @@
                (click)="togglePasswordVisibility('password')"></i>
             <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" class="form-control" placeholder="********" />
           </div>
+          @if (consultantForm.get('password')?.touched && consultantForm.get('password')?.invalid) {
+            <span class="text-danger small">
+              كلمة المرور مطلوبة، تبدأ بحرف كبير وتحتوي على 6 أرقام على الأقل ويجب ألا تقل عن 6 أحرف ولا تزيد عن 100
+            </span>
+          }
         </div>
 
         <div class="form-group password-group">
@@ -48,6 +81,12 @@
                (click)="togglePasswordVisibility('confirm')"></i>
             <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="********" />
           </div>
+          @if (consultantForm.get('confirmPassword')?.touched && consultantForm.get('confirmPassword')?.invalid) {
+            <span class="text-danger small">تأكيد رمز المرور مطلوب</span>
+          }
+          @if (consultantForm.hasError('mismatch') && consultantForm.get('confirmPassword')?.touched) {
+            <span class="text-danger small">رمز المرور وتأكيد رمز المرور غير متطابقين</span>
+          }
         </div>
 
         <button type="submit" class="btn w-100 mt-3" style="background-color: var(--primary-600); color: #fff;">

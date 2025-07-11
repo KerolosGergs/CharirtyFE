@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Advisor } from '../../../../../../Core/Services/advisor';
 import { ICreateAdvisorMinimal } from '../../../../../../Core/Interfaces/advisor';
@@ -14,7 +14,7 @@ import { ICreateAdvisorMinimal } from '../../../../../../Core/Interfaces/advisor
 export class NewAdvisor {
   @Input() isOpenC!: boolean;
 
-  consultantForm!: FormGroup;
+  consultantForm!: FormGroup ;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
@@ -24,20 +24,21 @@ export class NewAdvisor {
 
   ngOnInit(): void {
     this.consultantForm = this.fb.group({
-      fullName: [null, [Validators.required, Validators.maxLength(50)]],
-      specialty: [null, [Validators.required, Validators.maxLength(100)]],
-      phoneNumber: [null, [Validators.required, Validators.maxLength(20)]],
-      email: [null, [Validators.required, Validators.email]],
+      fullName: ['', [Validators.required, Validators.maxLength(50)]],
+      specialty: ['', [Validators.required, Validators.maxLength(100)]],
+      phoneNumber: ['', [Validators.required, Validators.maxLength(20)]],
+      email: ['', [Validators.required, Validators.email]],
+      description: ['', [Validators.required, Validators.maxLength(1000)]],
+      zoomUrl: ['', [Validators.required]],
       password: [
-        null,
+        '',
         [
           Validators.required,
           Validators.minLength(6),
           Validators.maxLength(100),
-          Validators.pattern(/^[A-Z](?=.*[a-z])(?=(?:.*\d){6,}).*$/)
         ]
       ],
-      confirmPassword: [null, Validators.required]
+      confirmPassword: ['', Validators.required]
     }, {
       validators: this.passwordMatchValidator
     });
@@ -58,7 +59,8 @@ export class NewAdvisor {
   }
 
   onSubmit(): void {
-    if (this.consultantForm.invalid) {
+    debugger
+    if (!this.consultantForm.invalid) {
       console.warn('Form invalid:', this.consultantForm.errors, this.consultantForm.value);
       this.consultantForm.markAllAsTouched(); // helpful to show validation errors
       return;
@@ -71,14 +73,26 @@ export class NewAdvisor {
       specialty: formData.specialty,
       phoneNumber: formData.phoneNumber,
       email: formData.email,
-      password: formData.password
+      password: formData.password,
+      ZoomRoomUrl: formData.zoomUrl,
+      Description: formData.description
+
     };
 
     this._advisor.createNewAdvisor(payload).subscribe({
       next: (res) => {
-        console.log('✅ Advisor created successfully:', res);
-        this.consultantForm.reset();
-        this.isOpenC = false;
+       
+          if(res.success)  {
+            console.log('✅ Advisor created successfully:', res);
+            this.consultantForm.reset();
+            this.isOpenC = false;
+          }
+          else 
+          {
+            console.error('❌ Error creating advisor:', res);
+
+          }
+        
       },
       error: (err) => {
         console.error('❌ Error creating advisor:', err);

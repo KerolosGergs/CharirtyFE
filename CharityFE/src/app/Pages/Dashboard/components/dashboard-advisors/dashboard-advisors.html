@@ -12,6 +12,7 @@
     </div>
   </div>
   <app-new-advisor [isOpenC]="isOpen"></app-new-advisor>
+  <app-edit-advisor [Selectedadvisor]="selectedAdvisor" [isOpenC]="isOpenEdit"></app-edit-advisor>
   <!-- Table Section -->
   <div class="card shadow-sm rounded-4 border-0">
     <div class="card-header bg-light border-bottom">
@@ -45,13 +46,13 @@
             <td class="position-relative text-end">
                 <div ngbDropdownMenu
                   class="  animate__animated animate__fadeIn p-2 text-center  d-flex align-items-center">
-                  <button ngbDropdownItem class="btn btn-icon-only btn-light rounded-circle m-1" title="عرض">
+                  <button  class="btn btn-icon-only btn-light rounded-circle m-1" title="عرض">
                     <i class="bi bi-eye"></i>
                   </button>
-                  <button ngbDropdownItem class="btn btn-icon-only btn-light rounded-circle m-1" title="تعديل">
+                  <button (click)="openEdit(item)"  class="btn btn-icon-only btn-light rounded-circle m-1" title="تعديل">
                     <i class="bi bi-pencil"></i>
                   </button>
-                  <button ngbDropdownItem class="btn btn-icon-only btn-light rounded-circle m-1 text-danger"
+                  <button  class="btn btn-icon-only btn-light rounded-circle m-1 text-danger"
                     title="حذف">
                     <i class="bi bi-trash"></i>
                   </button>

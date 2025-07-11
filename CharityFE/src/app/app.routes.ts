@@ -17,10 +17,10 @@ export const routes: Routes = [
     { path: 'must-login', loadComponent: () => import('../app/Pages/must-login/must-login').then(m => m.MustLogin), title: 'Must Login' },
 
     { path: 'questions',component:Questions,title:'Questions'},
-    { path: 'dashboard', loadComponent: () => import('../app/Pages/dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard Main' ,children:[
+    { path: 'dashboard', loadComponent: () => import('../app/Pages/Dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard Main' ,children:[
         { path: '', redirectTo: 'dashboard-main', pathMatch: 'full'},
-        { path: 'dashboard-main', loadComponent: () => import('../app/Pages/dashboard/components/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Dashboard Main' },
-        { path: 'dashboard-advisors', loadComponent: () => import('../app/Pages/dashboard/components/dashboard-advisors/dashboard-advisors').then(m => m.DashboardAdvisors), title: 'Dashboard Advisors' },
+        { path: 'dashboard-main', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Dashboard Main' },
+        { path: 'dashboard-advisors', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-advisors/dashboard-advisors').then(m => m.DashboardAdvisors), title: 'Dashboard Advisors' },
     ]},
 
     { path: 'questions', component: Questions, title: 'Questions' },

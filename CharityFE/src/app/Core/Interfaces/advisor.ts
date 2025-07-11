@@ -82,4 +82,6 @@ export interface ICreateAdvisorMinimal {
   phoneNumber: string;
   email: string;
   password: string;
+  Description: string;
+  ZoomRoomUrl: string;
 }
