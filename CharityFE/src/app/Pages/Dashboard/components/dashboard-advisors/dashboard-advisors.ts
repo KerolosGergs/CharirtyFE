@@ -1,11 +1,11 @@
+import { IConsultant } from './../../../../Core/Interfaces/consultant';
 import { Component } from '@angular/core';
-import { Item } from "./item/item";
-import { Consultant } from '../../../../Core/Interfaces/consultant';
+
 
 @Component({
   selector: 'app-dashboard-advisors',
   standalone: true,
-  imports: [Item],
+  imports: [],
   templateUrl: './dashboard-advisors.html',
   styleUrl: './dashboard-advisors.scss'
 })
@@ -15,7 +15,7 @@ export class DashboardAdvisors {
     this.isOpen = !this.isOpen;
   }
 
-  consultants: Consultant[] = [
+  consultants: IConsultant[] = [
     {
       id: 1,
       name: 'سعيد أحمد',

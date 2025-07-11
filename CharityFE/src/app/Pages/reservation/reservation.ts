@@ -3,11 +3,12 @@ import { RouterLink } from '@angular/router';
 import { HeaderComponent } from '../Home/Components/header-component/header-component';
 import { Nav } from '../Home/Components/nav/nav';
 import { Footer } from '../../Shared/footer/footer';
-import { AdvisorAvailabilityManagerComponent } from './components/advisor-availability-manager/advisor-availability-manager/advisor-availability-manager.component';
+import { ReservationForm } from "./components/reservation-form/reservation-form";
+import { AdvisorProfile } from "./components/advisor-profile/advisor-profile";
 
 @Component({
   selector: 'app-reservation',
-  imports: [HeaderComponent, Nav, Footer,AdvisorAvailabilityManagerComponent],
+  imports: [HeaderComponent, Nav, Footer, ReservationForm, AdvisorProfile],
   templateUrl: './reservation.html',
   styleUrl: './reservation.scss'
 })

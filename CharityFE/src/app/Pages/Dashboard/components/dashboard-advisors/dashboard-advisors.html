@@ -1,74 +1,68 @@
-<div class="consultants-container">
+<div class="container-fluid py-4 animate__animated animate__fadeIn">
   <!-- Header Section -->
-  <div class="header-section">
-    <h2 class="page-title">المستشارين</h2>
-    <div class="header-actions">
-        <button class="btn btn-primary">
-            <i class="bi bi-plus-circle me-2"></i>
-            إضافة مستشار
-        </button>
-        <button class="btn btn-outline-primary">
-          <i class="bi bi-download me-2"></i>
-          تصدير
-        </button>
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+    <h2 class="fs-3 fw-bold text-dark mb-0">المستشارين</h2>
+    <div class="d-flex gap-2">
+      <button class="btn btn-outline-success d-flex align-items-center gap-2">
+        <i class="bi bi-plus-circle me-2"></i> إضافة مستشار
+      </button>
+      <button class="btn btn-outline-success d-flex align-items-center gap-2">
+        <i class="bi bi-download me-2"></i> تصدير
+      </button>
     </div>
   </div>
 
   <!-- Table Section -->
-  <div class="table-container">
-    <div class="table-header">
-      <h5 class="table-title">كل المستشارين</h5>
+  <div class="card shadow-sm rounded-4 border-0">
+    <div class="card-header bg-light border-bottom">
+      <h5 class="mb-0 fw-bold text-center p-2 fs-4">كل المستشارين</h5>
     </div>
 
     <div class="table-responsive">
-      <table class="table consultants-table">
-        <thead>
-          <tr>
-            <th><input type="checkbox" class="form-check-input"></th>
-            <th>الاسم</th>
-            <th>البريد الإلكتروني</th>
-            <th>الحالة</th>
-            <th>تاريخ الانضمام</th>
-            <th>الإجراءات</th>
+      <table class="table align-middle mb-0 px-4  ">
+        <thead class="table-light">
+          <tr >
+            <th scope="col">الاسم</th>
+            <th scope="col">البريد الإلكتروني</th>
+            <th scope="col">الحالة</th>
+            <th scope="col">تاريخ الانضمام</th>
+            <th scope="col">الإجراءات</th>
           </tr>
         </thead>
         <tbody>
           @for (item of consultants; track $index) {
-            <app-item [itemA]="item" />
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                <img [src]="item.avatar" alt="فاطمة الزهراء" class="rounded-circle"
+                  style="width: 40px; height: 40px; object-fit: cover;">
+                <span class="fw-semibold"> {{item.name}}</span>
+              </div>
+            </td>
+            <td class="text-muted small">{{item.email}}</td>
+            <td><span class="badge bg-success-subtle text-success">{{item.status}}</span></td>
+            <td class="text-muted small">{{item.joinDate.toLocaleString("ar", {dateStyle: "medium"})}}</td>
+            <td class="position-relative text-end">
+                <div ngbDropdownMenu
+                  class="  animate__animated animate__fadeIn p-2 text-center  d-flex align-items-center">
+                  <button ngbDropdownItem class="btn btn-icon-only btn-light rounded-circle m-1" title="عرض">
+                    <i class="bi bi-eye"></i>
+                  </button>
+                  <button ngbDropdownItem class="btn btn-icon-only btn-light rounded-circle m-1" title="تعديل">
+                    <i class="bi bi-pencil"></i>
+                  </button>
+                  <button ngbDropdownItem class="btn btn-icon-only btn-light rounded-circle m-1 text-danger"
+                    title="حذف">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+            </td>
+
+
+          </tr>
           }
 
-          <!-- Another example row -->
-          <tr class="table-row">
-            <td><input type="checkbox" class="form-check-input"></td>
-            <td>
-              <div class="consultant-info">
-                <div class="consultant-avatar">
-                  <img src="Images/advisor.jpg" alt="فاطمة الزهراء">
-                </div>
-                <span class="consultant-name">فاطمة الزهراء</span>
-              </div>
-            </td>
-            <td class="email-cell">fatima.zahra-gmail.com</td>
-            <td>
-              <span class="status-badge status-active">نشط</span>
-            </td>
-            <td class="date-cell">20/01/2025</td>
-            <td>
-              <div class="actions-dropdown">
-                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                  <i class="bi bi-three-dots"></i>
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i>عرض الملف الشخصي</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-pencil me-2"></i>تعديل</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-trash me-2"></i>حذف</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
 
-          <!-- You can copy/paste more rows below if needed -->
         </tbody>
       </table>
     </div>

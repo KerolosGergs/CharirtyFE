@@ -18,7 +18,11 @@ heroImage: string= "Images/2.jpg";
   }
     // Method to handle button clicks
   onDiscoverServices(): void {
-    console.log('Discover services clicked');
+    
+   const element = document.getElementById('services' );
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
 }

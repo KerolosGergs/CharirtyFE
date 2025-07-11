@@ -21,9 +21,9 @@ export class AdvisorAvailabilityManagerComponent {
   ];
 
   availability: { [date: string]: string[] } = {
-    '2024-07-15': ['9:00 AM', '10:00 AM', '11:00 AM'],
-    '2024-07-17': ['1:00 PM', '2:00 PM', '3:00 PM'],
-    '2024-07-20': ['5:00 PM', '6:00 PM']
+    '2025-07-15': ['9:00 AM', '10:00 AM', '11:00 AM'],
+    '2025-07-17': ['1:00 PM', '2:00 PM', '3:00 PM'],
+    '2025-07-20': ['5:00 PM', '6:00 PM']
   };
 
   selectedDate: Date | null = null;
@@ -67,20 +67,21 @@ export class AdvisorAvailabilityManagerComponent {
    * ✅ Save selected date & time
    */
   saveAvailability() {
-    if (!this.selectedDate) {
-      this.saveError = 'من فضلك اختر تاريخًا صالحًا';
-      return;
-    }
+    debugger
+    // if (!this.selectedDate) {
+    //   this.saveError = 'من فضلك اختر تاريخًا صالحًا';
+    //   return;
+    // }
 
-    if (!this.selectedTime) {
-      this.saveError = 'من فضلك اختر موعدًا متاحًا';
-      return;
-    }
+    // if (!this.selectedTime) {
+    //   this.saveError = 'من فضلك اختر موعدًا متاحًا';
+    //   return;
+    // }
 
-    this.saveSuccess = true;
-    this.saveError = '';
+    // this.saveSuccess = true;
+    // this.saveError = '';
 
-    setTimeout(() => this.saveSuccess = false, 2000);
+    // setTimeout(() => this.saveSuccess = false, 2000);
   }
 
   /**

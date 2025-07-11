@@ -1,0 +1,49 @@
+<article itemscope itemtype="https://schema.org/Person" class="card h-100 shadow-sm p-4 rounded-4 border-0 bg-white">
+
+    <img [src]="image" class="img-fluid rounded mb-3 advisor-img shadow-sm" [alt]="advisorData.fullName"
+        itemprop="image" />
+
+    <p itemprop="name" class="h5 text-primary text-center fw-bold mb-2">
+        {{ advisorData.fullName }}
+    </p>
+
+    <header>
+        <h2 itemprop="jobTitle" class="fw-semibold h6 text-center mb-3 text-muted">
+            {{ advisorData.consultationName }}
+        </h2>
+    </header>
+
+    <section itemprop="description" class="mb-4 text-justify small">
+        <p>{{ advisorData.description }}</p>
+    </section>
+
+    <header>
+        <h2 class="fw-semibold h6 text-muted mb-3">{{ advisorData.specialty }}</h2>
+    </header>
+
+    <!-- <div class="advisor-info-box card p-3 border-0 bg-light rounded-3">
+        @for (feature of advisorData.consultationName; track feature) {
+        <div class="info-item d-flex flex-column me-4 mb-4" style="min-width: 150px;">
+
+            <div class="d-flex align-items-center mb-2">
+                <i class="me-2 fs-4 text-secondary" [ngClass]="'bi ' + feature.icon"></i>
+                <h3 class="info-label fs-6 fw-semibold text-secondary m-0">
+                    {{ feature.label }}
+                </h3>
+            </div>
+
+            @if (feature.icon) {
+            <ul class="info-text list-unstyled mb-0 small text-muted">
+                @for (item of feature.value.split(','); track item) {
+                <li>{{ item.trim() }}</li>
+                }
+            </ul>
+            } @else {
+            <p class="info-text mb-0 small text-muted">{{ feature.value }}</p>
+            }
+
+        </div>
+        }
+    </div> -->
+
+</article>

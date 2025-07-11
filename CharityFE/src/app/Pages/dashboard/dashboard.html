@@ -1,123 +1,93 @@
 <div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar - Now part of normal page flow -->
-        <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
-            <div class="position-sticky pt-3">
-                <span class="d-flex align-items-center justify-content-center pb-4">
-                    <!-- Logo placeholder - you can add your SVG here -->
-                    <div class="logo-placeholder">
-                        <img class="w-100" src="Images/logo.png" alt="Logo">
-                    </div>
-                </span>
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" routerLink="/dashboard" aria-current="page">
-                            <i class="bi bi-house-door me-2"></i>
-                            الرئيسية
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/dashboard/dashboard-advisors">
-                            <i class="bi bi-people me-2"></i>
-                            المستشارين
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/dashboard">
-                            <i class="bi bi-chat-dots me-2"></i>
-                            الاستشارات
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/dashboard">
-                            <i class="bi bi-graph-up me-2"></i>
-                            الشكاوى
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/dashboard">
-                            <i class="bi bi-file-text me-2"></i>
-                            طلبات التطوع
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/dashboard">
-                            <i class="bi bi-headset me-2"></i>
-                            طلبات الدعم
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/dashboard">
-                            <i class="bi bi-diagram-3 me-2"></i>
-                            أقسام الموقع
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+  <div class="row">
 
-        <!-- Main content - Now properly beside sidebar -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
-            <!-- Header Section -->
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                <span>
-                    <h3 class="h5 fw-bold">User Name</h3>
-                    <p class="fs-s">مرحبًا بك في لوحة التحكم الخاصة بك.</p>
-                </span>
-                <div class="btn-toolbar mb-2 mb-md-0">
-                    <div [class.d-block]="searchOn" [class.d-none]="!searchOn"
-                        class="search-bar d-flex align-items-center">
-                        <input type="text" class="form-control form-control-sm" placeholder="بحث...">
-                    </div>
-                    <div class="btn-group me-2">
-                        <button type="button" class="btn btn-sm" (click)="openSearch()">
-                            <svg width="34" height="35" viewBox="0 0 34 35" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <rect x="0.5" y="1" width="33" height="33" rx="16.5" stroke="#E0E0E0" />
-                                <path
-                                    d="M16.25 23.5C19.9779 23.5 23 20.4779 23 16.75C23 13.0221 19.9779 10 16.25 10C12.5221 10 9.5 13.0221 9.5 16.75C9.5 20.4779 12.5221 23.5 16.25 23.5Z"
-                                    stroke="#575858" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                                <path
-                                    d="M22.1973 24.0176C22.5948 25.2176 23.5023 25.3376 24.1998 24.2876C24.8373 23.3276 24.4173 22.5401 23.2623 22.5401C22.4073 22.5326 21.9273 23.2001 22.1973 24.0176Z"
-                                    stroke="#575858" stroke-width="1.5" stroke-linecap="round"
-                                    stroke-linejoin="round" />
-                            </svg>
-                        </button>
-                        <div class="notification-wrapper">
-                            <button type="button" class="btn btn-sm" (click)="toggleDropdown()">
-                                <span class="notification-icon" [class.has-notification]="hasNotifications()">
-                                    <i class="bi bi-bell"></i>
-                                </span>
-                            </button>
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 bg-light sidebar p-3 animate__animated animate__fadeInLeft">
+      <div class="text-center mb-4">
+        <img class="w-100" src="Images/logo.png" alt="Logo">
+      </div>
 
-                            @if (showDropdown()) {
-                            <div class="notification-dropdown">
-                                @if (notifications().length === 0) {
-                                <p class="empty">No notifications</p>
-                                } @else {
-                                <ul>
-                                    @for (notification of notifications(); track notification.id) {
-                                    <li>{{ notification.message }}</li>
-                                    }
-                                </ul>
-                                }
-                            </div>
-                            }
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <picture class="user-avatar">
-                                <img class="w-100" src="Images/advisor.jpg" alt="">
-                            </picture>
-                            <div class="d-flex flex-column">
-                                <span class="fw-bold fs-s">User Name</span>
-                                <span>User Email</span>
-                            </div>
-                        </div>
-                    </div>
+      <ul class="nav flex-column">
+        @for (item of sidebarItems; track item.link) {
+        <li class="nav-item">
+          <a class="text-decoration-none text-dark nav-link d-flex align-items-center py-2" [routerLink]="item.link"
+            routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <i [class]="item.icon + ' me-2'"></i>
+            {{ item.label }}
+          </a>
+        </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-9 col-lg-10 px-md-4 main-content animate__animated animate__fadeInUp">
+
+      <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3">
+        <div>
+          <h3 class="h5 fw-bold">{{ userName }}</h3>
+          <p class="fs-s text-muted">مرحبًا بك في لوحة التحكم الخاصة بك.</p>
+        </div>
+
+        <div class="d-flex align-items-center">
+
+          <div class="position-relative me-3">
+            <button type="button" class="btn btn-outline-secondary btn-sm position-relative"
+              (click)="toggleNotifications()">
+              <i class="bi bi-bell"></i>
+              @if (hasNotifications) {
+              <span
+                class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                <span class="visually-hidden">New alerts</span>
+              </span>
+              }
+            </button>
+
+            @if (showNotifications) {
+            <div
+              class="notification-dropdown animate__animated animate__fadeIn position-absolute end-0 mt-2 p-3 rounded-3 shadow-lg bg-white border"
+              style="width: 260px; z-index: 1050;">
+
+              @if (notifications.length === 0) {
+              <div class="text-center text-muted small py-3">
+                <i class="bi bi-bell-slash display-6 mb-2 text-secondary"></i><br>
+                لا توجد إشعارات
+              </div>
+              } @else {
+              @for (note of notifications; track note.id) {
+              <div class="d-flex align-items-start py-1 border-bottom small ">
+                <div class="ms-2 mt-1">
+                  <i class="bi bi-info-circle-fill text-primary-500 fs-5"></i>
                 </div>
+                <div class="flex-grow-1">
+                  <div class="fw-semibold text-dark mb-1">إشعار</div>
+                  <div class="text-muted">{{ note.message }}</div>
+                </div>
+              </div>
+              }
+              }
             </div>
-            <router-outlet></router-outlet>
-        </main>
-    </div>
+            }
+
+          </div>
+
+          <div class="d-flex align-items-center">
+            @if (userAvatar != '') {
+            <img [src]="userAvatar" class="user-avatar animate__animated animate__fadeIn" alt="User Avatar">
+            } @else {
+            <i class="me-2 bi bi-person fs-3"></i>
+            }
+
+            <div class="me-2">
+              <span class="fw-bold fs-s">{{ userName }}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <router-outlet></router-outlet>
+
+    </main>W
+  </div>
 </div>

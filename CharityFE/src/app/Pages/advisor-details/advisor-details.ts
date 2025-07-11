@@ -51,7 +51,6 @@ export class AdvisorDetails implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
     this.route.queryParams.subscribe(params => {
       const advisorId = params['id'];
       if (advisorId) {
@@ -94,12 +93,4 @@ export class AdvisorDetails implements OnInit {
     });
   }
 
-  getRatingStars(): string {
-    const rating = this.advisorData.averageRating || 0;
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
-    const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-    
-    return '★'.repeat(fullStars) + (hasHalfStar ? '☆' : '') + '☆'.repeat(emptyStars);
-  }
 }

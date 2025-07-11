@@ -60,7 +60,7 @@ export class LoginForm {
 
 
  onSubmit(): void {
-  debugger
+  
   if (this.loginForm.valid) {
     this.isLoading = true;
 
