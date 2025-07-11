@@ -63,3 +63,23 @@ export interface Appointment {
   time: string; // e.g. '09:30', '14:00'
   isBooked: boolean;
 }
+
+
+export interface ICreateAdvisor {
+  fullName: string;
+  specialty: string;
+  description?: string;
+  zoomRoomUrl?: string;
+  phoneNumber: string;
+  email: string;
+  consultationId?: number;
+  password: string;
+}
+
+export interface ICreateAdvisorMinimal {
+  fullName: string;
+  specialty: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+}

@@ -3,7 +3,7 @@
   <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
     <h2 class="fs-3 fw-bold text-dark mb-0">المستشارين</h2>
     <div class="d-flex gap-2">
-      <button class="btn btn-outline-success d-flex align-items-center gap-2">
+      <button (click)="openCreateNew()" class="btn btn-outline-success d-flex align-items-center gap-2">
         <i class="bi bi-plus-circle me-2"></i> إضافة مستشار
       </button>
       <button class="btn btn-outline-success d-flex align-items-center gap-2">
@@ -11,7 +11,7 @@
       </button>
     </div>
   </div>
-
+  <app-new-advisor [isOpenC]="isOpen"></app-new-advisor>
   <!-- Table Section -->
   <div class="card shadow-sm rounded-4 border-0">
     <div class="card-header bg-light border-bottom">
@@ -30,18 +30,18 @@
           </tr>
         </thead>
         <tbody>
-          @for (item of consultants; track $index) {
+          @for (item of advisors?.data; track $index) {
           <tr>
             <td>
               <div class="d-flex align-items-center gap-2">
-                <img [src]="item.avatar" alt="فاطمة الزهراء" class="rounded-circle"
+                <img src="Images/advisor.jpg" alt="فاطمة الزهراء" class="rounded-circle"
                   style="width: 40px; height: 40px; object-fit: cover;">
-                <span class="fw-semibold"> {{item.name}}</span>
+                <span class="fw-semibold"> {{item.fullName}}</span>
               </div>
             </td>
             <td class="text-muted small">{{item.email}}</td>
-            <td><span class="badge bg-success-subtle text-success">{{item.status}}</span></td>
-            <td class="text-muted small">{{item.joinDate.toLocaleString("ar", {dateStyle: "medium"})}}</td>
+            <td><span class="badge bg-success-subtle text-success">{{item.isActive}}</span></td>
+            <td class="text-muted small">2025-02-23</td>  <!-- {{item.joinDate.toLocaleString("ar", {dateStyle: "medium"})}} -->
             <td class="position-relative text-end">
                 <div ngbDropdownMenu
                   class="  animate__animated animate__fadeIn p-2 text-center  d-flex align-items-center">

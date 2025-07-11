@@ -1,6 +1,6 @@
 import { Environment } from './../../../Environment/environment';
 import { inject, Injectable } from '@angular/core';
-import { IAdvisor, IAdvisorResponse, ICategory, ICategoryResponse, Appointment } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
+import { IAdvisor, IAdvisorResponse, ICategory, ICategoryResponse, Appointment, ICreateAdvisor } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, Observable, catchError, throwError } from 'rxjs';
 
@@ -25,6 +25,10 @@ export class Advisor {
           }),
      
     );
+  }
+  createNewAdvisor(advisor: ICreateAdvisor): Observable<IAdvisorResponse> {
+    const url = `${this._baseUrl}Advisor`;
+    return this._httpClient.post<IAdvisorResponse>(url, advisor);
   }
 
   getAdvisorById(id: number): Observable<any> {
