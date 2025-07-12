@@ -1,8 +1,9 @@
-import { Component, inject, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Advisor } from '../../../../../../Core/Services/advisor';
 import { ICreateAdvisorMinimal } from '../../../../../../Core/Interfaces/advisor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-advisor',
@@ -12,13 +13,12 @@ import { ICreateAdvisorMinimal } from '../../../../../../Core/Interfaces/advisor
   styleUrl: './new-advisor.scss'
 })
 export class NewAdvisor {
-  @Input() isOpenC!: boolean;
-
-  consultantForm!: FormGroup ;
+  consultantForm!: FormGroup;
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
   private _advisor = inject(Advisor);
+  private _router = inject(Router);
 
   constructor(private fb: FormBuilder) {}
 
@@ -30,14 +30,7 @@ export class NewAdvisor {
       email: ['', [Validators.required, Validators.email]],
       description: ['', [Validators.required, Validators.maxLength(1000)]],
       zoomUrl: ['', [Validators.required]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(100),
-        ]
-      ],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
       confirmPassword: ['', Validators.required]
     }, {
       validators: this.passwordMatchValidator
@@ -59,10 +52,9 @@ export class NewAdvisor {
   }
 
   onSubmit(): void {
-    debugger
-    if (!this.consultantForm.invalid) {
+    if (this.consultantForm.invalid) {
       console.warn('Form invalid:', this.consultantForm.errors, this.consultantForm.value);
-      this.consultantForm.markAllAsTouched(); // helpful to show validation errors
+      this.consultantForm.markAllAsTouched();
       return;
     }
 
@@ -76,23 +68,17 @@ export class NewAdvisor {
       password: formData.password,
       ZoomRoomUrl: formData.zoomUrl,
       Description: formData.description
-
     };
 
     this._advisor.createNewAdvisor(payload).subscribe({
       next: (res) => {
-       
-          if(res.success)  {
-            console.log('✅ Advisor created successfully:', res);
-            this.consultantForm.reset();
-            this.isOpenC = false;
-          }
-          else 
-          {
-            console.error('❌ Error creating advisor:', res);
-
-          }
-        
+        if (res.success) {
+          console.log('✅ Advisor created successfully:', res);
+          this.consultantForm.reset();
+          this._router.navigate(['/dashboard']);
+        } else {
+          console.error('❌ Error creating advisor:', res);
+        }
       },
       error: (err) => {
         console.error('❌ Error creating advisor:', err);
@@ -101,7 +87,7 @@ export class NewAdvisor {
   }
 
   onCancel(): void {
-    this.isOpenC = false;
     this.consultantForm.reset();
+    this._router.navigate(['/dashboard']);
   }
 }

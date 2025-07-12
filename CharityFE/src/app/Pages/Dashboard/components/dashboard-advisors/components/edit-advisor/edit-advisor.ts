@@ -1,49 +1,61 @@
-import { Component, EventEmitter, inject, Input, Output, SimpleChanges } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { advisor, ICreateAdvisorMinimal } from '../../../../../../Core/Interfaces/advisor';
 import { Advisor } from '../../../../../../Core/Services/advisor';
-import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-advisor',
+  standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './edit-advisor.html',
   styleUrl: './edit-advisor.scss'
 })
 export class EditAdvisor {
-  @Input() isOpenC!: boolean;
- @Input() Selectedadvisor!: advisor;
-
   consultantForm!: FormGroup;
-  showPassword: boolean = false;
-  showConfirmPassword: boolean = false;
+  advisorId!: number;
 
+  private fb = inject(FormBuilder);
   private _advisor = inject(Advisor);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
-  constructor(private fb: FormBuilder) {}
- ngOnInit(): void {
+  ngOnInit(): void {
     this.initializeForm();
-  }
-  
-   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['Selectedadvisor'] && this.Selectedadvisor && this.consultantForm) {
-      this.patchForm(this.Selectedadvisor);
-    }
+
+    // Get ID from route
+    this.route.paramMap.subscribe(params => {
+      const idParam = params.get('id');
+      if (idParam) {
+        this.advisorId = +idParam;
+        this.loadAdvisor(this.advisorId);
+      }
+    });
   }
 
-initializeForm(): void {
+  initializeForm(): void {
     this.consultantForm = this.fb.group({
       fullName: [null, [Validators.required, Validators.maxLength(50)]],
       specialty: [null, [Validators.required, Validators.maxLength(100)]],
       phoneNumber: [null, [Validators.required, Validators.maxLength(20)]],
       email: [null, [Validators.required, Validators.email]],
-   
+    });
+  }
+
+  loadAdvisor(id: number): void {
+    this._advisor.getAdvisorById(id).subscribe({
+      next: (res) => {
+        const advisor: advisor = res.data;
+        this.patchForm(advisor);
+      },
+      error: (err) => {
+        console.error('❌ Failed to load advisor:', err);
+      }
     });
   }
 
   patchForm(advisor: advisor): void {
-    if (!this.consultantForm) return;
-
     this.consultantForm.patchValue({
       fullName: advisor.fullName || '',
       specialty: advisor.specialty || '',
@@ -52,49 +64,36 @@ initializeForm(): void {
     });
   }
 
-
-
   onSubmit(): void {
-    if (this.consultantForm.invalid) {
-      console.warn('Form invalid:', this.consultantForm.errors, this.consultantForm.value);
-      this.consultantForm.markAllAsTouched(); // helpful to show validation errors
+    if (this.consultantForm.invalid || !this.advisorId) {
+      console.warn('❌ Form invalid or missing advisor ID:', this.consultantForm.errors);
+      this.consultantForm.markAllAsTouched();
       return;
     }
 
-    const formData = this.consultantForm.value;
-
-    const payload: ICreateAdvisorMinimal = {
-      fullName: formData.fullName,
-      specialty: formData.specialty,
-      phoneNumber: formData.phoneNumber,
-      email: formData.email,
-      password: formData.password,
-      Description: formData.description,
-      ZoomRoomUrl: formData.zoomUrl
+    const payload: Partial<ICreateAdvisorMinimal> = {
+      fullName: this.consultantForm.value.fullName,
+      specialty: this.consultantForm.value.specialty,
+      phoneNumber: this.consultantForm.value.phoneNumber,
+      email: this.consultantForm.value.email,
     };
 
-    this._advisor.createNewAdvisor(payload).subscribe({
+    this._advisor.updateAdvisor(this.advisorId, payload).subscribe({
       next: (res) => {
-        if(res.success)
-        {
-          this.consultantForm.reset();
-          console.log('✅ Advisor created successfully:', res);
-          this.isOpenC = false;
-         
-        }else {
-          console.error('❌ Error creating advisor:', res);
-          
+        if (res.success) {
+          console.log('✅ Advisor updated:', res);
+          this.router.navigate(['/dashboard/dashboard-advisors']);
+        } else {
+          console.error('❌ Update error:', res.message);
         }
-
       },
       error: (err) => {
-        console.error('❌ Error creating advisor:', err);
+        console.error('❌ API Error:', err);
       }
     });
   }
 
-  onCancel(): void {
-    this.isOpenC = false;
-    this.consultantForm.reset();
+  goBack() {
+    this.router.navigate(['/dashboard/dashboard-advisors']);
   }
 }
