@@ -1,0 +1,37 @@
+.news-manager .form-control,
+.news-manager .form-select {
+  min-width: 180px;
+}
+
+.btn-success {
+  background-color: var(--primary-500);
+  border: none;
+  color: #fff;
+}
+
+.btn-outline-danger {
+  color: #f44336;
+  border-color: #f44336;
+}
+
+.btn-outline-danger:hover {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.btn-edit {
+  background-color: var(--primary-500);
+  color: #fff;
+  border: none;
+  padding: 0.4rem 1rem;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}

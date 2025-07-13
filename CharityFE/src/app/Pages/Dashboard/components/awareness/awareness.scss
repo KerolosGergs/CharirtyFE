@@ -1,0 +1,53 @@
+.video-manager h2 {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.card-img, .card-img-top {
+  object-fit: cover;
+  height: 100%;
+  max-height: 180px;
+}
+
+.card-title {
+  font-size: 1.1rem;
+}
+
+.card-text {
+  font-size: 0.9rem;
+}
+.btn-group{
+    width: 100%;
+}
+.btn-group button {
+  margin-right: 0.5rem;
+}
+.btn-edit {
+  background-color: var(--primary-500);
+  color: #fff;
+  min-width: 120px;
+  border: none;
+  padding: 0.5rem 1rem;
+}
+.btn-edit:hover{
+    background-color: var(--primary-700);
+}
+
+.btn-delete {
+  background-color: #f44336; /* or any shade of danger you like */
+  color: #fff;
+  min-width: 100px;
+  border: none;
+  padding: 0.5rem 1rem;
+}
+
+.btn-edit i,
+.btn-delete i {
+  vertical-align: middle;
+  font-size: 1rem;
+}
