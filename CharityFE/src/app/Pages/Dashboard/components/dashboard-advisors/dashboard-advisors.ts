@@ -12,6 +12,7 @@ import { Router, RouterLink} from '@angular/router';
   styleUrl: './dashboard-advisors.scss'
 })
 export class DashboardAdvisors implements OnInit {
+
   advisors: IAdvisorResponse | null = null;
   categories: ICategory[] = [];
   selectedCategoryId: number | null = null;
@@ -64,6 +65,22 @@ export class DashboardAdvisors implements OnInit {
   }
 
 
+  deleteAdvisor(ID: number) {
+    debugger
+    this._advisor.deleteAdvisor(ID).subscribe({
+      next: (res) => {
+        if(res.success){
+          console.log('Advisor deleted successfully:', res);
+          this.loadAdvisors();
+        }else{
+          console.error('Error deleting advisor:', res);
+        }
+      },
+      error: (err) => {
+        console.error('Error deleting advisor:', err);
+      }
+    })
+}
   loadAdvisorDetails(id: number): void {
     this._advisor.getAdvisorById(id).subscribe({
       next: (data) => {

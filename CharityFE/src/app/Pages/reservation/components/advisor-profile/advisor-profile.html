@@ -1,49 +1,85 @@
-<article itemscope itemtype="https://schema.org/Person" class="card h-100 shadow-sm p-4 rounded-4 border-0 bg-white">
+<article
+  itemscope
+  itemtype="https://schema.org/Person"
+  class="card advisor-card bg-white border-0 shadow-sm p-4 rounded-4"
+>
+  <!-- Advisor Image -->
+  <img
+    [src]="advisorData.imageUrl"
+    [alt]="advisorData.fullName"
+    class="advisor-img img-fluid shadow-sm mb-3 mx-auto d-block rounded-3"
+    itemprop="image"
+  />
 
-    <img [src]="image" class="img-fluid rounded mb-3 advisor-img shadow-sm" [alt]="advisorData.fullName"
-        itemprop="image" />
+  <!-- Advisor Name -->
+  <p itemprop="name" class="h5 text-success text-center fw-bold mb-2">
+    {{ advisorData.fullName }}
+  </p>
 
-    <p itemprop="name" class="h5 text-primary text-center fw-bold mb-2">
-        {{ advisorData.fullName }}
-    </p>
+  <!-- Job Title -->
+  <h2
+    itemprop="jobTitle"
+    class="fw-semibold h6 text-center mb-4 text-muted"
+  >
+    {{ advisorData.consultationName }}
+  </h2>
 
-    <header>
-        <h2 itemprop="jobTitle" class="fw-semibold h6 text-center mb-3 text-muted">
-            {{ advisorData.consultationName }}
-        </h2>
-    </header>
+  <!-- "من هو مستشارنا" Section -->
+  <div class="text-end mb-4">
+    <h6 class="fw-bold text-dark mb-2">من هو مستشارنا</h6>
+    <div class="card shadow-sm rounded-3 p-3 border-0 bg-light text-muted small lh-lg">
+      {{ advisorData.description }}
+    </div>
+  </div>
 
-    <section itemprop="description" class="mb-4 text-justify small">
-        <p>{{ advisorData.description }}</p>
-    </section>
+  <!-- "المميزات" Section -->
+  <div class="text-end">
+    <h6 class="fw-bold text-dark mb-3">المميزات</h6>
 
-    <header>
-        <h2 class="fw-semibold h6 text-muted mb-3">{{ advisorData.specialty }}</h2>
-    </header>
+    <div class="card shadow-sm rounded-3 p-3 border-0 bg-light">
+      <div class="row row-cols-1 row-cols-sm-2 gy-4 text-muted small">
 
-    <!-- <div class="advisor-info-box card p-3 border-0 bg-light rounded-3">
-        @for (feature of advisorData.consultationName; track feature) {
-        <div class="info-item d-flex flex-column me-4 mb-4" style="min-width: 150px;">
-
-            <div class="d-flex align-items-center mb-2">
-                <i class="me-2 fs-4 text-secondary" [ngClass]="'bi ' + feature.icon"></i>
-                <h3 class="info-label fs-6 fw-semibold text-secondary m-0">
-                    {{ feature.label }}
-                </h3>
-            </div>
-
-            @if (feature.icon) {
-            <ul class="info-text list-unstyled mb-0 small text-muted">
-                @for (item of feature.value.split(','); track item) {
-                <li>{{ item.trim() }}</li>
-                }
-            </ul>
-            } @else {
-            <p class="info-text mb-0 small text-muted">{{ feature.value }}</p>
-            }
-
+        <!-- شهادات المستشار -->
+        <div class="col d-flex flex-column">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-person-vcard-fill text-success fs-5 ms-2"></i>
+            <span class="fw-semibold text-dark">شهادات المستشار</span>
+          </div>
+          <ul class="list-unstyled mb-0 ps-3 lh-lg">
+            <li>دكتوراه في السياسات</li>
+            <li>ماجستير في التخطيط التنموي</li>
+            <li>بكالوريوس في علم الاجتماع</li>
+          </ul>
         </div>
-        }
-    </div> -->
 
+        <!-- سنوات الخبرة -->
+        <div class="col d-flex flex-column">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-clock-history text-success fs-5 ms-2"></i>
+            <span class="fw-semibold text-dark">سنوات الخبرة</span>
+          </div>
+          <p class="mb-0 ps-3 lh-lg">18 عاماً</p>
+        </div>
+
+        <!-- اللغات -->
+        <div class="col d-flex flex-column">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-globe2 text-success fs-5 ms-2"></i>
+            <span class="fw-semibold text-dark">اللغات</span>
+          </div>
+          <p class="mb-0 ps-3 lh-lg">عربي، إنجليزي</p>
+        </div>
+
+        <!-- أنواع التواصل -->
+        <div class="col d-flex flex-column">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-headset text-success fs-5 ms-2"></i>
+            <span class="fw-semibold text-dark">أنواع التواصل</span>
+          </div>
+          <p class="mb-0 ps-3 lh-lg">Call, Video Call</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
 </article>

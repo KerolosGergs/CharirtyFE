@@ -1,132 +1,119 @@
 .availability-manager-container {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px #0001;
-  max-width: 340px;
-  margin: 32px auto;
-  padding: 18px 12px 16px 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   direction: rtl;
+  font-family: 'Cairo', sans-serif;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  max-width: 500px;
+  margin: auto;
 }
+
 .section-title {
-  font-size: 1.1rem;
-  color: #1a3c34;
+  font-size: 1.25rem;
   font-weight: bold;
-  margin-bottom: 12px;
-  text-align: center;
+  color: #444;
+  margin-bottom: 1.5rem;
+  text-align: right;
 }
+
 .calendar-section {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.03);
+}
+
+mat-calendar {
   width: 100%;
-  max-width: 300px;
-  margin-bottom: 10px;
+  border-radius: 12px;
+  overflow: hidden;
 }
-.mat-calendar {
-  max-width: 300px;
-  font-size: 0.95rem;
+
+/* Adjust mat-calendar styles */
+.mat-calendar-body-selected {
+  background-color: #198754 !important;
+  color: white !important;
+  border-radius: 50% !important;
 }
-.hours-section {
-  width: 100%;
-  margin-bottom: 10px;
+
+.mat-calendar-body-cell {
+  font-weight: 500;
+  font-size: 14px;
 }
-.form-label {
-  font-size: 0.97rem;
-  color: #1a3c34;
-  font-weight: 600;
-  margin-bottom: 6px;
-  display: block;
+
+.mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border: 1px solid #198754 !important;
+  border-radius: 50%;
+    background-color: #198754 !important;
 }
+
+/* Available Hours Section */
+.hours-section .form-label {
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
 .hours-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 6px;
+  gap: 0.75rem;
 }
-.hour-checkbox {
-  display: flex;
-  align-items: center;
+
+.hours-list .badge {
+  font-size: 0.95rem;
+  border-radius: 999px;
   cursor: pointer;
-  border: none;
-  background: none;
-  padding: 0;
+  transition: all 0.2s ease-in-out;
+  background-color: #e9ecef;
+  color: #333;
 }
-.hour-checkbox input[type="checkbox"] {
-  display: none;
+
+.hours-list .badge:hover {
+  opacity: 0.85;
 }
-.hour-checkbox span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 7px;
-  background: #f7f7f7;
-  color: #1a3c34;
-  font-size: 0.97rem;
-  font-weight: 500;
-  border: 1.5px solid #e0e0e0;
-  box-shadow: 0 1px 4px #0001;
-  transition: background 0.2s, color 0.2s, border 0.2s, transform 0.18s;
-  margin: 0 2px;
+
+.hours-list .bg-primary {
+  background-color: #198754 !important;
+  color: #fff !important;
 }
-.hour-checkbox input[type="checkbox"]:checked + span {
-  background: #2e7d5a;
-  color: #fff;
-  border-color: #2e7d5a;
-  transform: scale(1.08);
-  box-shadow: 0 2px 8px #2e7d5a22;
-}
-.hour-checkbox span:hover {
-  background: #e8f5e9;
-  border-color: #2e7d5a;
-  transform: scale(1.06);
-}
+
+/* Save Button */
 .save-btn {
   width: 100%;
-  background: #2e7d5a;
-  color: #fff;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  background-color: #198754;
   border: none;
-  border-radius: 8px;
-  padding: 10px 0;
-  font-size: 1rem;
   font-weight: bold;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: background 0.2s, transform 0.15s;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
+
 .save-btn:hover {
-  background: #1a3c34;
-  transform: scale(1.03);
+  background-color: #157347!important;
 }
-.success-message, .error-message {
-  margin-top: 10px;
-  font-size: 0.97rem;
+
+/* Alert Boxes */
+.alert {
+  font-size: 0.95rem;
   text-align: center;
-  border-radius: 7px;
-  padding: 7px 0;
-  opacity: 0;
-  animation: fadeInScale 0.5s forwards;
 }
-@keyframes fadeInScale {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+
+.alert-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border-radius: 0.5rem;
 }
-.success-message {
-  color: #1a7f3c;
-  background: #e8f5e9;
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #842029;
+  border-radius: 0.5rem;
 }
-.error-message {
-  color: #c0392b;
-  background: #ffeaea;
-}
-@media (max-width: 500px) {
-  .availability-manager-container {
-    max-width: 98vw;
-    padding: 8px 2vw;
-  }
-  .calendar-section, .mat-calendar {
-    max-width: 98vw;
-  }
+::ng-deep .custom-calendar .mat-calendar-body-selected  {
+  background-color: #198754 !important;
+  color: white !important;
+  border-radius: 50% !important;
 }

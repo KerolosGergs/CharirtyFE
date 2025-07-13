@@ -1,7 +1,7 @@
 @if (itemS) {
 <div class="card text-right ch">
     <div class="image-wrapper">
-        <img src="Images/advisor.jpg" class="card-img-top img-top-crop overflow-hidden" alt="صورة المستشار">
+        <img [src]="itemS.imageUrl" class="card-img-top img-top-crop overflow-hidden" alt="صورة المستشار">
         <span [ngClass]="itemS.isAvailable === false ? 'image-tag-notAvailable' : 'image-tag-available'">
             {{ itemS.isAvailable === false ? 'غير متاح' : 'متاح' }}
         </span>

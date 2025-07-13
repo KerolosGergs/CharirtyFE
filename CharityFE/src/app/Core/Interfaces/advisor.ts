@@ -33,6 +33,14 @@ export interface IAdvisorResponse {
   errors: string[]
 }
 
+export interface getAdvisorByIdResponse {
+  success: boolean
+  message: string
+  data: advisor
+  statusCode: number
+  errors: string[]
+}
+
 export interface advisor {
   id: number
   userId: string
@@ -54,6 +62,7 @@ export interface advisor {
   totalConsultations: number
   pendingRequests: number
   averageRating: number
+  imageUrl:string
 }
 
 export interface Appointment {
@@ -84,4 +93,12 @@ export interface ICreateAdvisorMinimal {
   password: string;
   Description: string;
   ZoomRoomUrl: string;
+  Image?:File;
+}
+export interface DeleateAdvisorResponse {
+  success: boolean
+  message: string
+  data: boolean
+  statusCode: number
+  errors: string[]
 }

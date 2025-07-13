@@ -8,7 +8,7 @@
     </div>
     <p class="mt-3">جاري تحميل بيانات المستشار...</p>
   </div>
-} @else if (error) {
+} @else if (!isLoading && error && !advisorData) {
   <div class="error-container">
     <div class="alert alert-danger"  role="alert">
       <h4 class="alert-heading">خطأ!</h4>
@@ -20,159 +20,55 @@
     </div>
   </div>
 } @else {
-  <article itemscope itemtype="https://schema.org/Person" class="profile-header rounded-2">
-    <img src="Images/advisor.jpg" [alt]="'صورة ' + advisorData.fullName" itemprop="image" class="rounded" />
-
-    <section class="profile-content">
-      <header>
-        <h1 itemprop="name">{{ advisorData.fullName }}</h1>
-        <meta itemprop="jobTitle" [content]="advisorData.specialty" />
-        
-      </header>
-
-      <p itemprop="description">
+<div class="advisor-container container py-5 animate__animated animate__fadeIn">
+  <div class="row align-items-center justify-content-between">
+     <div class="col-lg-4 text-center mt-4 mt-lg-0">
+      <img [src]="advisorData.imageUrl" [alt]="'صورة ' + advisorData.fullName" class="img-fluid rounded shadow-sm" style="max-width: 300px;" />
+    </div>
+    <!-- Text & Info -->
+    <div class="col-lg-8">
+      <h2 class="advisor-name text-success fw-bold mb-3">{{ advisorData.fullName }}</h2>
+      <p class="advisor-description mb-4">
         {{ advisorData.description }}
       </p>
 
-      <section class="row info-section">
-        <div class="col-md-3">
-          <h2>
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M0 20C0 8.95431 8.95431 0 20 0C31.0457 0 40 8.95431 40 20C40 31.0457 31.0457 40 20 40C8.95431 40 0 31.0457 0 20Z"
-                fill="#E6EEEB" />
-              <path
-                d="M30 14V16.42C30 18 29 19 27.42 19H24V12.01C24 10.9 24.91 10 26.02 10C27.11 10.01 28.11 10.45 28.83 11.17C29.55 11.9 30 12.9 30 14Z"
-                stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-              <path
-                d="M10 15V29C10 29.83 10.94 30.3 11.6 29.8L13.31 28.52C13.71 28.22 14.27 28.26 14.63 28.62L16.29 30.29C16.68 30.68 17.32 30.68 17.71 30.29L19.39 28.61C19.74 28.26 20.3 28.22 20.69 28.52L22.4 29.8C23.06 30.29 24 29.82 24 29V12C24 10.9 24.9 10 26 10H15H14C11 10 10 11.79 10 14V15Z"
-                stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M17 21.01H20" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M17 17.01H20" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M13.9961 21H14.0051" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M13.9961 17H14.0051" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-            التخصص
-          </h2>
-          <p>{{ advisorData.specialty }}</p>
+      <!-- Info Grid -->
+      <div class="row text-center advisor-info gy-4">
+        <div class="col-6 col-md-3">
+          <i class="bi bi-award-fill fs-2 text-success"></i>
+          <h6 class="fw-bold mt-2">شهادات المستشار</h6>
+          <p class="mb-0 white-space-pre">{{ advisorData.specialty }}</p>
         </div>
-        <div class="col-md-3">
-          <h2>
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M0 20C0 8.95431 8.95431 0 20 0C31.0457 0 40 8.95431 40 20C40 31.0457 31.0457 40 20 40C8.95431 40 0 31.0457 0 20Z"
-                fill="#E6EEEB" />
-              <path d="M19 27.5H29" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M19 20.5H29" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M19 13.5H29" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M11 13.5L12 14.5L15 11.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M11 20.5L12 21.5L15 18.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M11 27.5L12 28.5L15 25.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-            نوع الاستشارة
-          </h2>
-          <p>{{ advisorData.consultationName }}</p>
+        <div class="col-6 col-md-3">
+          <i class="bi bi-hourglass-split fs-2 text-success"></i>
+          <h6 class="fw-bold mt-2">سنوات الخبرة</h6>
+          <p class="mb-0">{{ advisorData.consultationName }} عاماً</p>
         </div>
-        <div class="col-md-3">
-          <h2>
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M0 20C0 8.95431 8.95431 0 20 0C31.0457 0 40 8.95431 40 20C40 31.0457 31.0457 40 20 40C8.95431 40 0 31.0457 0 20Z"
-                fill="#E6EEEB" />
-              <path d="M24.9897 16.96H15.0098" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M20 15.28V16.96" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-              <path d="M22.5 16.94C22.5 21.24 19.14 24.72 15 24.72" stroke="black" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M25.0002 24.72C23.2002 24.72 21.6002 23.76 20.4502 22.25" stroke="black" stroke-width="1.5"
-                stroke-linecap="round" stroke-linejoin="round" />
-              <path
-                d="M20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30Z"
-                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            الحالة
-          </h2>
-          <p [ngClass]="advisorData.isAvailable ? 'text-success' : 'text-danger'">
-            {{ advisorData.isAvailable ? 'متاح' : 'غير متاح' }}
-          </p>
+        <div class="col-6 col-md-3">
+          <i class="bi bi-translate fs-2 text-success"></i>
+          <h6 class="fw-bold mt-2">اللغات</h6>
+          <p class="mb-0">العربية - الانجليزية</p>
         </div>
-        <div class="col-md-3">
-          <h2>
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M0 20C0 8.95431 8.95431 0 20 0C31.0457 0 40 8.95431 40 20C40 31.0457 31.0457 40 20 40C8.95431 40 0 31.0457 0 20Z"
-                fill="#E6EEEB" />
-              <path
-                d="M30 19.89V20.78C30 24.34 29.11 25.22 25.56 25.22H14.44C10.89 25.22 10 24.33 10 20.78V14.44C10 10.89 10.89 10 14.44 10H16"
-                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M20 25.22V30" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M10 21H30" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M15.5 30H24.5" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path
-                d="M25.8598 17.37H21.0998C19.7198 17.37 19.2598 16.45 19.2598 15.53V12.01C19.2598 10.91 20.1598 10.01 21.2598 10.01H25.8598C26.8798 10.01 27.6998 10.83 27.6998 11.85V15.53C27.6998 16.55 26.8798 17.37 25.8598 17.37Z"
-                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              <path
-                d="M28.9102 15.92L27.7002 15.07V12.31L28.9102 11.46C29.5102 11.05 30.0002 11.3 30.0002 12.03V15.36C30.0002 16.09 29.5102 16.34 28.9102 15.92Z"
-                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            معلومات التواصل
-          </h2>
-          <p>البريد الإلكتروني: {{ advisorData.email }}</p>
-          <p>الهاتف: {{ advisorData.phoneNumber }}</p>
+        <div class="col-6 col-md-3">
+          <i class="bi bi-telephone-forward-fill fs-2 text-success"></i>
+          <h6 class="fw-bold mt-2">أنواع التواصل</h6>
+          <p class="mb-0">call or Video Call</p>
         </div>
-      </section>
-
-      <div class="advisor-calendar mt-4">
-        <h5>المواعيد المتاحة:</h5>
-        <table class="table table-bordered text-center">
-          <thead>
-            <tr>
-              <th>اليوم</th>
-              <th>التاريخ</th>
-              <th>الوقت</th>
-              <th>الحالة</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let appt of appointments">
-              <td>{{ appt.date | date:'EEEE' : undefined : 'ar' }}</td>
-              <td>{{ appt.date | date:'yyyy/MM/dd' }}</td>
-              <td>{{ appt.time }}</td>
-              <td>
-                <span [ngClass]="appt.isBooked ? 'text-danger' : 'text-success'">
-                  {{ appt.isBooked ? 'محجوز' : 'متاح' }}
-                </span>
-              </td>
-            </tr>
-            <tr *ngIf="appointments.length === 0">
-              <td colspan="4">لا توجد مواعيد متاحة حالياً</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
 
-      <footer class="text-center">
-        <a class="btn btn-consult" [attr.aria-label]="'احجز استشارة مع ' + advisorData.fullName" 
-           routerLink="/advisor-reservation" 
-           [queryParams]="{id: advisorData.id}">
+      <!-- Button -->
+      <div class="text-center mt-4">
+        <a class="btn btn-success px-5 py-2 fw-bold" routerLink="/advisor-reservation" [queryParams]="{id: advisorData.id}">
           احجز استشارة
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M9 1.5C4.85786 1.5 1.5 4.85786 1.5 9C1.5 13.1421 4.85786 16.5 9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.5 4.85786 13.1421 1.5 9 1.5Z"
-              stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M9.94531 6.35249L7.30531 8.99999L9.94531 11.6475" stroke="white" stroke-width="1.5"
-              stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
         </a>
-      </footer>
-    </section>
-  </article>
+      </div>
+    </div>
+
+    <!-- Profile Image -->
+   
+  </div>
+</div>
+
 }
 
 <app-footer></app-footer>

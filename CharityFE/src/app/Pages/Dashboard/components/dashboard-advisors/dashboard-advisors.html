@@ -36,13 +36,18 @@
           <tr>
             <td>
               <div class="d-flex align-items-center gap-2">
-                <img src="Images/advisor.jpg" alt="فاطمة الزهراء" class="rounded-circle"
+                @if(item.imageUrl == null) {
+                  <i class="bi bi-person"></i>
+                }@else {
+                  <img [src]="item.imageUrl" alt="{{item.fullName}}" class="rounded-circle"
                   style="width: 40px; height: 40px; object-fit: cover;">
+                }
+                
                 <span class="fw-semibold"> {{item.fullName}}</span>
               </div>
             </td>
             <td class="text-muted small">{{item.email}}</td>
-            <td><span class="badge bg-success-subtle text-success">{{item.isActive}}</span></td>
+            <td><span class="badge bg-success-subtle text-success">{{item.isActive==true?"نشط":"غير نشط"}}</span></td>
             <td class="text-muted small">2025-02-23</td>
             <!-- {{item.joinDate.toLocaleString("ar", {dateStyle: "medium"})}} -->
             <td class="position-relative text-end">
@@ -56,9 +61,9 @@
                   class="btn btn-icon-only btn-light rounded-circle m-1" title="تعديل">
                   <i class="bi bi-pencil"></i>
                 </a>
-                <button class="btn btn-icon-only btn-light rounded-circle m-1 text-danger" title="حذف">
+               <a (click)="deleteAdvisor(item.id)"> <button  class="btn btn-icon-only btn-light rounded-circle m-1 text-danger" title="حذف">
                   <i class="bi bi-trash"></i>
-                </button>
+                </button></a>
               </div>
             </td>
 

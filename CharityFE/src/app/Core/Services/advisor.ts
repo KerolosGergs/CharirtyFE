@@ -1,6 +1,6 @@
   import { Environment } from './../../../Environment/environment';
   import { inject, Injectable } from '@angular/core';
-  import { IAdvisor, IAdvisorResponse, ICategory, ICategoryResponse, Appointment, ICreateAdvisor } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
+  import { IAdvisor, IAdvisorResponse, ICategory, ICategoryResponse, Appointment, ICreateAdvisor, advisor, getAdvisorByIdResponse, DeleateAdvisorResponse } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
   import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   import { map, Observable, catchError, throwError } from 'rxjs';
 
@@ -8,6 +8,7 @@
     providedIn: 'root'
   })
   export class Advisor {
+    
     
     
     _httpClient = inject(HttpClient);
@@ -21,22 +22,31 @@
       
       return this._httpClient.get<IAdvisorResponse>(url).pipe(
         map(data => {
+          data.data.forEach(advisor => {
+            advisor.imageUrl = `${this._environment.ImgUrl}${advisor.imageUrl}`
+          })
               return data;
             }),
       
       );
     }
-    createNewAdvisor(advisor: ICreateAdvisor): Observable<IAdvisorResponse> {
+    createNewAdvisor(advisor: FormData): Observable<IAdvisorResponse> {
+      debugger
       const url = `${this._baseUrl}Advisor`;
       return this._httpClient.post<IAdvisorResponse>(url, advisor);
     }
 
-    getAdvisorById(id: number): Observable<any> {
+    deleteAdvisor(ID: number): Observable<DeleateAdvisorResponse> {
+      const url = `${this._baseUrl}Advisor/${ID}`;
+      return this._httpClient.delete<DeleateAdvisorResponse>(url);
+    }
+    getAdvisorById(id: number): Observable<getAdvisorByIdResponse> {
       const url = `${this._baseUrl}Advisor/${id}`;
-      console.log('Calling getAdvisorById with URL:', url);
+      // console.log('Calling getAdvisorById with URL:', url);
       
-      return this._httpClient.get<any>(url).pipe(
+      return this._httpClient.get<getAdvisorByIdResponse>(url).pipe(
         map(data => {
+          data.data.imageUrl = `${this._environment.ImgUrl}${data.data.imageUrl}`
           return data;
         }),
       );
@@ -44,7 +54,7 @@
 
     getCategories(): Observable<ICategoryResponse> {
       const url = `${this._baseUrl}Consultation`;
-      console.log('Calling getCategories with URL:', url);
+      // console.log('Calling getCategories with URL:', url);
       
       return this._httpClient.get<ICategoryResponse>(url).pipe(
         map(data => {
@@ -58,8 +68,9 @@
       return this._httpClient.get<Appointment[]>(url);
     }
 
-    updateAdvisor(id: number, advisor: Partial<ICreateAdvisor>): Observable<any> {
-    const url = `${this._baseUrl}/Advisor/${id}`;
+    updateAdvisor(id: number, advisor: FormData): Observable<any> {
+      debugger
+    const url = `${this._baseUrl}Advisor/${id}`;
     return this._httpClient.put<any>(url, advisor).pipe(
       catchError((error: HttpErrorResponse) => {
         console.error('Update failed:', error);

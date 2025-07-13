@@ -37,7 +37,8 @@ export class AdvisorDetails implements OnInit {
     lastName: '',
     isActive: false,
     createdAt: '',
-    updatedAt: ''
+    updatedAt: '',
+    imageUrl:''
   };
 
   appointments: Appointment[] = [];
@@ -68,7 +69,7 @@ export class AdvisorDetails implements OnInit {
 
     this.advisorService.getAdvisorById(advisorId).subscribe({
       next: (response) => {
-        if (response && response.success) {
+        if (response.success) {
           this.advisorData = response.data;
           // جلب المواعيد المتاحة بعد تحميل بيانات المستشار
           this.advisorService.getAvailableAppointments(advisorId).subscribe({

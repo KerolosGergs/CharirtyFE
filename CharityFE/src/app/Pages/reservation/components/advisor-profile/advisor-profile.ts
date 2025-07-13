@@ -50,7 +50,8 @@ export class AdvisorProfile implements OnInit {
       lastName: '',
       isActive: false,
       createdAt: '',
-      updatedAt: ''
+      updatedAt: '',
+      imageUrl:''
     };
      image:string= 'Images/advisor.jpg';
 //   advisorData: Advisor = {

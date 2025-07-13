@@ -11,7 +11,7 @@ import { Spinner } from '../../../Shared/spinner/spinner';
 import { NotFound } from "../../not-found/not-found";
 @Component({
   selector: 'app-home',
-  imports: [Nav, Hero, HeaderComponent, Footer, Content, ServiceComponent, VideoSection, News, Spinner, NotFound],
+  imports: [Nav, Hero, HeaderComponent, Footer, Content, VideoSection, News, Spinner, NotFound],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })

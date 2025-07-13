@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatCalendar, MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -12,7 +12,10 @@ import { HeaderComponent } from '../../../../Home/Components/header-component/he
   templateUrl: './advisor-availability-manager.component.html',
   styleUrl: './advisor-availability-manager.component.scss'
 })
-export class AdvisorAvailabilityManagerComponent {
+export class AdvisorAvailabilityManagerComponent implements OnInit {
+  ngOnInit(): void {
+    
+  }
   
   allowedDates: string[] = [
     '2025-07-15',
