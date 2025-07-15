@@ -28,6 +28,12 @@ export const routes: Routes = [
         { path: 'dashboard-awareness-new-video', loadComponent: ()=> import('../app/Pages/Dashboard/components/awareness/components/add-new-video/add-new-video').then(m => m.AddNewVideo), title: 'Add New Video' },
         { path: 'dashboard-news', loadComponent: ()=> import('../app/Pages/Dashboard/components/dashboard-news/dashboard-news').then(m => m.DashboardNews), title: 'Dashboard News' }
     ]},
+    { path: 'advisor-dashboard', loadComponent: ()=> import('../app/Pages/advisor-dashboard/advisor-dashboard').then(m => m.AdvisorDashboard), title: 'Advisor Dashboard', children:[
+        { path: '', redirectTo: 'dashboard-main', pathMatch: 'full' },
+        { path: 'dashboard-main', loadComponent: ()=> import('../app/Pages/advisor-dashboard/component/dashboard-main/dashboard-main').then(m =>m.DashboardMain), title: 'Advisor Dashboard Main'},
+        { path: 'dashboard-date', loadComponent: ()=> import('../app/Pages/advisor-dashboard/component/dashboard-date/dashboard-date').then(m =>m.DashboardDate), title: 'Advisor Dashboard Date' },
+        { path: 'dashboard-schedule', loadComponent: ()=> import('../app/Pages/advisor-dashboard/component/dashboard-schedule/dashboard-schedule').then(m =>m.DashboardSchedule), title: 'Advisor Dashboard Schedule' }
+    ] },
 
     { path: 'questions', component: Questions, title: 'Questions' },
 

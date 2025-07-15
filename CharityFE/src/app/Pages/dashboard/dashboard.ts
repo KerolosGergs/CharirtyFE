@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { Component, computed, HostListener, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
@@ -9,7 +8,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   styleUrl: './dashboard.scss'
 })
 export class Dashboard {
-   userName = 'User Name';
+  userName = 'User Name';
   userEmail = 'user@example.com';
   userAvatar = '';
 
