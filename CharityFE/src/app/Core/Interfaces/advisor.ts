@@ -65,13 +65,7 @@ export interface advisor {
   imageUrl:string
 }
 
-export interface Appointment {
-  id: number;
-  advisorId: number;
-  date: string; // ISO date string
-  time: string; // e.g. '09:30', '14:00'
-  isBooked: boolean;
-}
+
 
 
 export interface ICreateAdvisor {

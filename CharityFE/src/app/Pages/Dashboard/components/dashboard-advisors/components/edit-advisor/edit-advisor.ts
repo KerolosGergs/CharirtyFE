@@ -91,6 +91,7 @@ export class EditAdvisor {
   }
 
   patchForm(advisor: advisor): void {
+    
     this.consultantForm.patchValue({
       fullName: advisor.fullName || '',
       specialty: advisor.specialty || '',

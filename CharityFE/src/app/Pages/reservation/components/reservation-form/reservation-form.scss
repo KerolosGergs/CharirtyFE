@@ -1,3 +1,7 @@
+*{
+  font-family: 'Cairo', sans-serif;
+}
+
 .form-section {
   background-color: #ffffff;
   border: 1px solid #dee2e6;
@@ -207,3 +211,39 @@ textarea {
 .calendar-cell:hover {
   border-color: var(--primary-dark);
 }
+
+.btn-category {
+  background-color: #f5f5f5;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 1rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-category i {
+  margin-left: 6px;
+  font-size: 1rem;
+}
+
+.btn-category.active,
+.btn-category:hover {
+  background-color: #fff;
+  border: 1px solid #198754;
+  color: #198754;
+}
+
+.btn-category.active i,
+.btn-category:hover i {
+  color: #198754;
+}
+
+.btn-category:focus {
+  box-shadow: none;
+}
+

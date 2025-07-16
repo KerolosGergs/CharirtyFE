@@ -1,8 +1,9 @@
   import { Environment } from './../../../Environment/environment';
   import { inject, Injectable } from '@angular/core';
-  import { IAdvisor, IAdvisorResponse, ICategory, ICategoryResponse, Appointment, ICreateAdvisor, advisor, getAdvisorByIdResponse, DeleateAdvisorResponse } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
+  import { IAdvisor, IAdvisorResponse, ICategory, ICategoryResponse,  ICreateAdvisor, advisor, getAdvisorByIdResponse, DeleateAdvisorResponse } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
   import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   import { map, Observable, catchError, throwError } from 'rxjs';
+import { Availbity, AvailbityResponse } from '../Interfaces/iappointment';
 
   @Injectable({
     providedIn: 'root'
@@ -63,10 +64,17 @@
       );
     }
 
-    getAvailableAppointments(advisorId: number): Observable<Appointment[]> {
-      const url = `${this._baseUrl}Advisor/${advisorId}/appointments`;
-      return this._httpClient.get<Appointment[]>(url);
-    }
+ getAvailableAppointments(advisorId: number): Observable<AvailbityResponse> {
+  const url = `${this._baseUrl}Advisor/${advisorId}/availability`;
+  console.log('Fetching:', url);
+
+  return this._httpClient.get<AvailbityResponse>(url).pipe(
+    catchError(error => {
+      console.error('❌ API Fetch Error:', error);
+      return throwError(() => error);
+    })
+  );
+}
 
     updateAdvisor(id: number, advisor: FormData): Observable<any> {
       debugger

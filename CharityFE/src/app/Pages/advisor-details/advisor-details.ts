@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Nav } from '../Home/Components/nav/nav';
@@ -6,7 +6,8 @@ import { HeaderComponent } from '../Home/Components/header-component/header-comp
 import { Footer } from '../../Shared/footer/footer';
 import { Advisor } from '../../Core/Services/advisor';
 import { advisor } from '../../Core/Interfaces/advisor';
-import { Appointment } from '../../Core/Interfaces/advisor';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-advisor-details',
@@ -41,11 +42,10 @@ export class AdvisorDetails implements OnInit {
     imageUrl:''
   };
 
-  appointments: Appointment[] = [];
 
   isLoading: boolean = true;
   error: string | null = null;
-
+  tostar = inject(ToastrService);
   constructor(
     private route: ActivatedRoute,
     private advisorService: Advisor
@@ -57,7 +57,8 @@ export class AdvisorDetails implements OnInit {
       if (advisorId) {
         this.loadAdvisorData(parseInt(advisorId));
       } else {
-        this.error = 'لم يتم تحديد المستشار';
+        this.tostar.error('لم يتم تحديد المستشار');
+        // this.error = 'لم يتم تحديد المستشار';
         this.isLoading = false;
       }
     });
@@ -74,19 +75,20 @@ export class AdvisorDetails implements OnInit {
           // جلب المواعيد المتاحة بعد تحميل بيانات المستشار
           this.advisorService.getAvailableAppointments(advisorId).subscribe({
             next: (appointments) => {
-              this.appointments = appointments;
+              // this.appointments = appointments;
             },
             error: (err) => {
               console.error('Error loading appointments:', err);
-              this.appointments = [];
+            
             }
           });
         } else {
-          this.error = 'فشل في تحميل بيانات المستشار';
+        this.tostar.error(response.message);
         }
         this.isLoading = false;
       },
       error: (err) => {
+        this.tostar.error(err.error.message);
         console.error('Error loading advisor data:', err);
         this.error = 'حدث خطأ في تحميل بيانات المستشار';
         this.isLoading = false;

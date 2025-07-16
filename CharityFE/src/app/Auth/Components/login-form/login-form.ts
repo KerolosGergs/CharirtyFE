@@ -1,3 +1,4 @@
+import { AuthServ } from './../../Services/auth-serv';
 import { routes } from './../../../app.routes';
 import { NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
@@ -23,6 +24,7 @@ export class LoginForm {
 
   LoginService  = inject(Login);
     toastr = inject(ToastrService);
+    AuthService = inject(AuthServ)
 
   showPassword: boolean = false;
   rememberMe: boolean = false;
@@ -69,10 +71,8 @@ export class LoginForm {
         if (res && res.success && res.data) {
           const token = res.data.token;
           const user = res.data.user;
-
-          localStorage.setItem('authToken', token);
-          localStorage.setItem('userRole', res.data.role);
-          localStorage.setItem('userInfo', JSON.stringify(user));
+          this.AuthService.setSession(token, user, res.data.role);
+          
 
           this.router.navigate(['/home']);
 

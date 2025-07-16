@@ -1,13 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Advisor } from '../../../../Core/Services/advisor';
-import { advisor,  IAdvisorResponse, ICategory } from '../../../../Core/Interfaces/advisor';
+import { advisor, IAdvisorResponse, ICategory } from '../../../../Core/Interfaces/advisor';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { TostarServ } from '../../../../Shared/tostar-serv';
 
 @Component({
   selector: 'app-dashboard-advisors',
   standalone: true,
-  imports: [CommonModule, RouterLink ],
+  imports: [CommonModule, RouterLink],
   templateUrl: './dashboard-advisors.html',
   styleUrl: './dashboard-advisors.scss'
 })
@@ -25,13 +26,13 @@ export class DashboardAdvisors implements OnInit {
   isOpenEdit = false;
   isOpenDetails = false;
 
-  selectedAdvisor!: advisor ;
-
+  selectedAdvisor!: advisor;
+  tostar = inject(TostarServ);
 
   ngOnInit(): void {
     this.loadAdvisors()
   }
-   loadAdvisors(): void {
+  loadAdvisors(): void {
     this.isLoadingAdvisors = true;
     this._advisor.getAllAdvisors().subscribe({
       next: (data) => {
@@ -47,19 +48,19 @@ export class DashboardAdvisors implements OnInit {
     });
   }
 
-    
+
   openCreateNew() {
-    this._router.navigate(['dashboard/dashboard-advisor-new']);    
+    this._router.navigate(['dashboard/dashboard-advisor-new']);
   }
 
-  openEdit(advisor:advisor){
-      
-    this.selectedAdvisor = advisor    
+  openEdit(advisor: advisor) {
+
+    this.selectedAdvisor = advisor
     this.isOpenEdit = !this.isOpenEdit;
 
   }
 
-  openDetails(advisor:advisor){
+  openDetails(advisor: advisor) {
     this.isOpenDetails = !this.isOpenDetails;
     this.selectedAdvisor = advisor
   }
@@ -69,18 +70,23 @@ export class DashboardAdvisors implements OnInit {
     debugger
     this._advisor.deleteAdvisor(ID).subscribe({
       next: (res) => {
-        if(res.success){
-          console.log('Advisor deleted successfully:', res);
+        if (res.success) {
+          this.tostar.showSuccess('تم حذف المستشار بنجاح');
+          // console.log('Advisor deleted successfully:', res);
           this.loadAdvisors();
-        }else{
+
+        } else {
+          this.tostar.showError('خطاء في حذف المستشار');
           console.error('Error deleting advisor:', res);
         }
       },
       error: (err) => {
+        this.tostar.showError('تأكد من أتصالك بالأنترنت');
+
         console.error('Error deleting advisor:', err);
       }
     })
-}
+  }
   loadAdvisorDetails(id: number): void {
     this._advisor.getAdvisorById(id).subscribe({
       next: (data) => {

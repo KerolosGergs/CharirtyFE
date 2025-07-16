@@ -3,10 +3,11 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DashboardNewsItem } from './components/dashboard-news-item/dashboard-news-item';
 import { News } from '../../../../Core/Services/news';
 import { NewsArticle } from '../../../../Core/Interfaces/news';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-news',
-  imports: [ReactiveFormsModule, DashboardNewsItem],
+  imports: [ReactiveFormsModule, DashboardNewsItem,RouterLink],
   templateUrl: './dashboard-news.html',
   styleUrl: './dashboard-news.scss'
 })

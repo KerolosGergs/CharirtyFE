@@ -46,9 +46,7 @@
             <span class="fw-semibold text-dark">شهادات المستشار</span>
           </div>
           <ul class="list-unstyled mb-0 ps-3 lh-lg">
-            <li>دكتوراه في السياسات</li>
-            <li>ماجستير في التخطيط التنموي</li>
-            <li>بكالوريوس في علم الاجتماع</li>
+            <li>{{advisorData.specialty}}</li>
           </ul>
         </div>
 
@@ -56,9 +54,9 @@
         <div class="col d-flex flex-column">
           <div class="d-flex align-items-center mb-2">
             <i class="bi bi-clock-history text-success fs-5 ms-2"></i>
-            <span class="fw-semibold text-dark">سنوات الخبرة</span>
+            <span class="fw-semibold text-dark">نوع الأستشارة</span>
           </div>
-          <p class="mb-0 ps-3 lh-lg">18 عاماً</p>
+          <p class="mb-0 ps-3 lh-lg">{{ advisorData.consultationName }}</p>
         </div>
 
         <!-- اللغات -->
@@ -76,7 +74,7 @@
             <i class="bi bi-headset text-success fs-5 ms-2"></i>
             <span class="fw-semibold text-dark">أنواع التواصل</span>
           </div>
-          <p class="mb-0 ps-3 lh-lg">Call, Video Call</p>
+          <p class="mb-0 ps-3 lh-lg">حضور او اونلاين</p>
         </div>
 
       </div>

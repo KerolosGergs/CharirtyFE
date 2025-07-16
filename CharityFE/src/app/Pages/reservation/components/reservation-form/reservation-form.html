@@ -1,120 +1,47 @@
-  <form class="card p-4 shadow-sm h-100" role="form" aria-label="نموذج حجز الاستشارة">
-                <div class="form-section">
-                    <div class="mb-3">
-                        <label for="request" class="form-label fw-bold fs-4">أعطِ المستشار لمحة عن طلبك</label>
-                        <textarea id="request" rows="4" class="form-control shadow-sm fs-5" maxlength="500"
-                            placeholder="اكتب طلبك هنا..."></textarea>
-                    </div>
-                </div>
+<form class="card p-4 shadow-sm h-100" role="form" aria-label="نموذج حجز الاستشارة" [formGroup]="form" (ngSubmit)="submitForm()">
+  @defer (on idle) {
+    <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+      @if (categories!.length > 0) {
+        @for (category of categories; track category.id) {
+          <button 
+            type="button" 
+            class="btn-category" 
+            [class.active]="isCategorySelected(category.id)"
+            (click)="selectCategory(category.id)">
+            <i class="bi bi-calendar2-week"></i>
+            {{ category.consultationName }}
+          </button>
+        }
+      }
+    </div>
+  }
 
-                <!-- <div class="form-section">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">نوع الاستشارة</label>
-                        <div class="d-flex flex-wrap gap-2">
-                            <button type="button" class="consult-btn">
-                                <span class="ms-2">
-                                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8 2.5V5.5" stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M16 2.5V5.5" stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M3.5 9.58997H20.5" stroke="#171717" stroke-width="1.5"
-                                            stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path
-                                            d="M21 9V17.5C21 20.5 19.5 22.5 16 22.5H8C4.5 22.5 3 20.5 3 17.5V9C3 6 4.5 4 8 4H16C19.5 4 21 6 21 9Z"
-                                            stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M11.9955 14.2H12.0045" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M8.29431 14.2H8.30329" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M8.29431 17.2H8.30329" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    نوع الاستشارة
+  <div class="form-section">
+    <div class="mb-3">
+      <label for="notes" class="form-label fw-bold fs-4">أعطِ المستشار لمحة عن طلبك</label>
+      <textarea 
+        id="notes" 
+        rows="4" 
+        class="form-control shadow-sm fs-5" 
+        formControlName="notes" 
+        placeholder="اكتب طلبك هنا..."
+        maxlength="500">
+      </textarea>
 
-                                </span>
-                            </button>
-                            <button type="button" class="consult-btn">
-                                <span class="ms-2">
-                                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8 2.5V5.5" stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M16 2.5V5.5" stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M3.5 9.58997H20.5" stroke="#171717" stroke-width="1.5"
-                                            stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path
-                                            d="M21 9V17.5C21 20.5 19.5 22.5 16 22.5H8C4.5 22.5 3 20.5 3 17.5V9C3 6 4.5 4 8 4H16C19.5 4 21 6 21 9Z"
-                                            stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M11.9955 14.2H12.0045" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M8.29431 14.2H8.30329" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M8.29431 17.2H8.30329" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    نوع الاستشارة
+      @if (form.get('notes')?.touched && form.get('notes')?.invalid) {
+        <span class="text-danger small">المجال مطلوب ولا يزيد عن 500 حرف</span>
+      }
+    </div>
+  </div>
 
-                                </span>
-                            </button>
-                            <button type="button" class="consult-btn">
-                                <span class="ms-2">
-                                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8 2.5V5.5" stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M16 2.5V5.5" stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M3.5 9.58997H20.5" stroke="#171717" stroke-width="1.5"
-                                            stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path
-                                            d="M21 9V17.5C21 20.5 19.5 22.5 16 22.5H8C4.5 22.5 3 20.5 3 17.5V9C3 6 4.5 4 8 4H16C19.5 4 21 6 21 9Z"
-                                            stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M11.9955 14.2H12.0045" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M8.29431 14.2H8.30329" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M8.29431 17.2H8.30329" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    نوع الاستشارة
+  <app-advisor-availability-manager (appointmentChange)="onAppointmentChange($event)"></app-advisor-availability-manager>
 
-                                </span>
-                            </button>
-                            <button type="button" class="consult-btn active">
-                                <span class="ms-2">
-                                    <svg width="24" height="25" viewBox="0 0 24 25" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8 2.5V5.5" stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M16 2.5V5.5" stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M3.5 9.58997H20.5" stroke="#171717" stroke-width="1.5"
-                                            stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path
-                                            d="M21 9V17.5C21 20.5 19.5 22.5 16 22.5H8C4.5 22.5 3 20.5 3 17.5V9C3 6 4.5 4 8 4H16C19.5 4 21 6 21 9Z"
-                                            stroke="#171717" stroke-width="1.5" stroke-miterlimit="10"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M11.9955 14.2H12.0045" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M8.29431 14.2H8.30329" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M8.29431 17.2H8.30329" stroke="#171717" stroke-width="1.5"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    نوع الاستشارة
-
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-                </div> -->
-
-                <app-advisor-availability-manager></app-advisor-availability-manager>
-
-            </form>
+  <div class="text-center mt-4">
+    <button 
+      type="submit" 
+      class="btn btn-success" 
+      [disabled]="!isFormValid()">
+      حجز الموعد
+    </button>
+  </div>
+</form>

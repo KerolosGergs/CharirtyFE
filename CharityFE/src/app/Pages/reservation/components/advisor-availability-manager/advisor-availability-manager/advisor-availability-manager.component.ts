@@ -1,55 +1,132 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatCalendar, MatCalendarCellClassFunction } from '@angular/material/datepicker';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { Footer } from '../../../../../Shared/footer/footer';
-import { Nav } from '../../../../Home/Components/nav/nav';
-import { HeaderComponent } from '../../../../Home/Components/header-component/header-component';
+
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Advisor } from '../../../../../Core/Services/advisor';
+
+import { Availbity, AvailbityResponse } from '../../../../../Core/Interfaces/iappointment';
+
 @Component({
   selector: 'app-advisor-availability-manager',
   standalone: true,
-  imports: [CommonModule, MatCalendar, MatDatepickerModule, ],
+  imports: [CommonModule, MatCalendar, MatDatepickerModule,RouterModule ],
   templateUrl: './advisor-availability-manager.component.html',
   styleUrl: './advisor-availability-manager.component.scss'
 })
 export class AdvisorAvailabilityManagerComponent implements OnInit {
-  ngOnInit(): void {
-    
-  }
-  
-  allowedDates: string[] = [
-    '2025-07-15',
-    '2025-07-17',
-    '2025-07-20'
-  ];
+  constructor(
+    private route: ActivatedRoute,
+    private advisorService: Advisor,
+    private RouterLink: Router
+  ) {}
 
-  availability: { [date: string]: string[] } = {
-    '2025-07-15': ['9:00 AM', '10:00 AM', '11:00 AM'],
-    '2025-07-17': ['1:00 PM', '2:00 PM', '3:00 PM'],
-    '2025-07-20': ['5:00 PM', '6:00 PM']
-  };
+  isLoading: boolean = true;
+  error: string | null = null;
+  initialDate: Date | null = null;
+  advisorId: number = 0;
+
+  allowedDates: string[] = []; // Dates that have available times
+  availability: { [date: string]: { id: number, time: string, Type: string }[] } = {}; // Available times per date
 
   selectedDate: Date | null = null;
-  allHours: string[] = [];
-  selectedTime: string | null = null;
+  allHours: { time: string, id: number, Type: string }[] = []; // Hours for selected date
+
+  selectedTimeId: number = 0;
+  selectedTimeLabel: string | null = null; // Store translated label for selected time
+
   saveSuccess = false;
   saveError = '';
 
-  /**
-   * ✅ Filter for allowed dates
-   */
+  @Output() appointmentChange = new EventEmitter<{ timeId: number }>();
+
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      this.advisorId = parseInt(params['id']);
+
+      if (this.advisorId) {
+        this.advisorService.getAvailableAppointments(this.advisorId).subscribe({
+          next: (response: AvailbityResponse) => {
+            if (response.success && response.data) {
+              this.processAppointments(response.data);
+            } else {
+              this.error = 'لا توجد مواعيد متاحة حاليًا';
+            }
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.error('Error loading appointments:', err);
+            this.error = 'حدث خطأ في تحميل المواعيد';
+            this.isLoading = false;
+          }
+        });
+      } else {
+        this.RouterLink.navigate(['/all-consultants']);
+        this.error = 'لم يتم تحديد المستشار';
+        this.isLoading = false;
+      }
+    });
+  }
+
+  // Process the appointments into the format needed
+  processAppointments(appointments: Availbity[]): void {
+    appointments.forEach(appointment => {
+      const date = formatDate(appointment.date, 'yyyy-MM-dd', 'en-US');
+      const time = this.formatTo12Hour(appointment.time);
+
+      if (!this.allowedDates.includes(date)) {
+        this.allowedDates.push(date);
+      }
+
+      if (!this.availability[date]) {
+        this.availability[date] = [];
+      }
+
+      this.availability[date].push({
+        id: appointment.id,
+        time: time,
+        Type: appointment.consultationType == 1 ? 'حضور' : 'أونلاين'
+      });
+    });
+
+    if (this.allowedDates.length > 0) {
+      this.initialDate = new Date(this.allowedDates[0]);
+    }
+  }
+
+  // Format 24-hour time string to 12-hour with AM/PM
+  formatTo12Hour(time: string): string {
+    const [hour, minute] = time.split(':');
+    const date = new Date();
+    date.setHours(+hour, +minute);
+    return date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit'
+    });
+  }
+
+  // Translate a 12-hour time string like "10:00 AM" → "١٠:٠٠ صباحًا"
+  toArabicTimeLabel(time: string): string {
+    const amPm = time.includes('AM') ? 'صباحًا' : 'مساءً';
+    const cleanTime = time.replace(/(AM|PM)/, '').trim();
+    const arabicDigits = cleanTime.replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[+d]);
+    return `${arabicDigits} ${amPm}`;
+  }
+
+  // Used in mat-calendar date filtering
   dateFilter = (date: Date | null): boolean => {
     if (!date) return false;
     const dateStr = this.formatDate(date);
     return this.allowedDates.includes(dateStr);
   };
 
-  /**
-   * ✅ Handle date selection
-   */
+  // When the user selects a date from the calendar
   onDateChange(date: Date | null) {
     this.selectedDate = date;
-    this.selectedTime = null;  // reset time when date changes
+    this.selectedTimeId = 0;
+    this.selectedTimeLabel = null; // ✅ reset label
+    this.emitAppointment();
 
     if (date) {
       const key = this.formatDate(date);
@@ -59,38 +136,25 @@ export class AdvisorAvailabilityManagerComponent implements OnInit {
     }
   }
 
-  /**
-   * ✅ Handle time selection
-   */
-  selectTime(hour: string) {
-    this.selectedTime = hour;
+  // When the user selects a time slot
+  selectTime(timeId: number) {
+    this.selectedTimeId = timeId;
+    const selected = this.allHours.find(h => h.id === timeId);
+    this.selectedTimeLabel = selected ? this.toArabicTimeLabel(selected.time) + ' (' + selected.Type + ')' : null; // ✅ translated label
+    this.emitAppointment();
   }
 
-  /**
-   * ✅ Save selected date & time
-   */
-  saveAvailability() {
-    debugger
-    // if (!this.selectedDate) {
-    //   this.saveError = 'من فضلك اختر تاريخًا صالحًا';
-    //   return;
-    // }
-
-    // if (!this.selectedTime) {
-    //   this.saveError = 'من فضلك اختر موعدًا متاحًا';
-    //   return;
-    // }
-
-    // this.saveSuccess = true;
-    // this.saveError = '';
-
-    // setTimeout(() => this.saveSuccess = false, 2000);
+  // Emit selected appointment info to parent
+  emitAppointment() {
+    if (this.selectedTimeId != null) {
+      this.appointmentChange.emit({
+        timeId: this.selectedTimeId
+      });
+    }
   }
 
-  /**
-   * ✅ Format date as YYYY-MM-DD
-   */
+  // Format date to yyyy-MM-dd string
   private formatDate(date: Date): string {
-    return date.toISOString().split('T')[0];
+    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
   }
 }

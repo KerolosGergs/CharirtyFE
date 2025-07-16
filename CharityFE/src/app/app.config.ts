@@ -18,9 +18,19 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes), provideClientHydration(withEventReplay()),
     provideHttpClient(),
-      provideAnimations(),       // Required for animations
-    provideToastr(),
-  importProvidersFrom(MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule)
+    provideAnimations(),       // Required for animations
+     provideToastr({
+      timeOut: 4000, // ✔️ Auto dismiss after 4s
+      extendedTimeOut: 1000,
+      closeButton: true, // ✔️ Show close button
+      tapToDismiss: true, // ✔️ Allow clicking anywhere to dismiss
+      progressBar: true,
+      positionClass: 'toast-top-center',
+      toastClass: 'ngx-toastr animate__animated animate__fadeInDown', // ✔️ Animate.css support
+      preventDuplicates: true,
+      enableHtml: false
+    }),
+    importProvidersFrom(MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule)
 
   ]
 };

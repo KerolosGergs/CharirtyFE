@@ -19,6 +19,8 @@ html {
 
 /* Import variables */
 @import url('app/Styles/variables.css');
+// @import 'ngx-toastr/toastr'; // ✅
+// @import 'animate.css';
 
 /* Global Styles */
 * {
@@ -178,3 +180,28 @@ body {
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.toast {
+  animation-duration: 0.6s;
+  direction: rtl; // for Arabic layout
+}
+
+.toast-success {
+  animation-name: fadeInDown;
+}
+
+.toast-error {
+  animation-name: shakeX;
+}
+
+.toast-info {
+  animation-name: fadeInUp;
+}
+
+.toast-warning {
+  animation-name: fadeInLeft;
+}
+.toast {
+  direction: rtl; // optional for Arabic
+}

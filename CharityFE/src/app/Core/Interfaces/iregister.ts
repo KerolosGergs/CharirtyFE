@@ -12,10 +12,10 @@ export interface IregisterRequest {
 export interface IResponse {
   success: boolean
   message: string
-  data: Data
+  data: LoginData
 }
 
-export interface Data {
+export interface LoginData {
   fullName: string
   email: string
   role: string

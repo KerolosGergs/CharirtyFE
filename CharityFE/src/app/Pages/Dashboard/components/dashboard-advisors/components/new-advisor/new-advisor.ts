@@ -5,6 +5,8 @@ import { Advisor } from '../../../../../../Core/Services/advisor';
 import { ICategory, ICreateAdvisorMinimal } from '../../../../../../Core/Interfaces/advisor';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { icon } from '@fortawesome/fontawesome-svg-core';
+import { TostarServ } from '../../../../../../Shared/tostar-serv';
 
 @Component({
   selector: 'app-new-advisor',
@@ -21,13 +23,12 @@ export class NewAdvisor {
 
   private _advisor = inject(Advisor);
   private _router = inject(Router);
-  private toastr = inject(ToastrService);
+  private toastr = inject(TostarServ);
   consultationTypes: ICategory[] = [];
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
-
     this.consultantForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.maxLength(50)]],
       specialty: ['', [Validators.required, Validators.maxLength(100)]],
@@ -106,15 +107,23 @@ export class NewAdvisor {
     this._advisor.createNewAdvisor(formData).subscribe({
       next: (res) => {
         if (res.success) {
-          console.log('✅ Advisor created successfully:', res);
+          // console.log('✅ Advisor created successfully:', res);
+          setTimeout(() => {
+            
+            this.toastr.showSuccess('تم انشاء المستشار بنجاح');
+          }, 1000);
           this.consultantForm.reset();
           this._router.navigate(['/dashboard']);
         } else {
+          this.consultantForm.markAllAsTouched();
+            this.toastr.showError(res.message);
+         
           console.error('❌ Error creating advisor:', res);
         }
       },
       error: (err) => {
-        console.error('❌ Error creating advisor:', err);
+         this.toastr.showError('الأيميل او رقم الجوال موجود بالفعل');
+        // this.toastr.error('خطاء في الأتصال بالأنترنت');
       }
     });
   }
