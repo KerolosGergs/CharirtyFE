@@ -20,6 +20,11 @@
 
   <!-- News Cards -->
   <div class="row">
+    @if(filteredArticles().length === 0) {
+      <div class="card text-center p-3 bg-light text-muted">
+      لا يوجد أخبار حالياً
+    </div>
+    }
   @for (article of filteredArticles(); track article.id) {
     <div class="col-md-4">
       <app-dashboard-news-item [itemC]="article"></app-dashboard-news-item>

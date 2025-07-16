@@ -19,7 +19,6 @@ import { Availbity, AvailbityResponse } from '../Interfaces/iappointment';
 
     getAllAdvisors(): Observable<IAdvisorResponse> {
       const url = `${this._baseUrl}Advisor/with-availability`;
-      console.log('Calling getAllAdvisors with URL:', url);
       
       return this._httpClient.get<IAdvisorResponse>(url).pipe(
         map(data => {

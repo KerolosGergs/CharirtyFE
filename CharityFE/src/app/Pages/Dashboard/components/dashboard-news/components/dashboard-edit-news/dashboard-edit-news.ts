@@ -1,18 +1,20 @@
-import { response } from 'express';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { AddArticle, NewsArticle } from '../../../../../../Core/Interfaces/news';
-import { News } from '../../../../../../Core/Services/news';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { ToastrService } from 'ngx-toastr';
+import { NewsArticle, AddArticle } from '../../../../../../Core/Interfaces/news';
+import { News } from '../../../../../../Core/Services/news';
+
+
 @Component({
-  selector: 'app-dashboard-add-news',
+  selector: 'app-dashboard-edit-news',
   imports: [ReactiveFormsModule],
-  templateUrl: './dashboard-add-news.html',
-  styleUrl: './dashboard-add-news.scss'
+  templateUrl: './dashboard-edit-news.html',
+  styleUrl: './dashboard-edit-news.scss'
 })
-export class DashboardAddNews { articleForm: FormGroup;
+export class DashboardEditNews implements OnInit {
+   articleForm: FormGroup;
   uploadedImageUrl: string | null = null;
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -47,7 +49,7 @@ export class DashboardAddNews { articleForm: FormGroup;
               summary: article.summary,
               category: article.category,
               isPublished: article.isPublished,
-              tags: article.tags?.join(' ') || ''
+              tags: article.tags.toString().split(',').join(' ')
             });
             this.uploadedImageUrl = article.imageUrl;
           },
@@ -85,13 +87,11 @@ export class DashboardAddNews { articleForm: FormGroup;
     formData.append('category', formValues.category);
     formData.append('isPublished', formValues.isPublished.toString());
 
-    // ✅ Append the image if it exists
-    if (formValues.Image instanceof File) {
+    if (formValues.Image) {
       formData.append('Image', formValues.Image);
     }
 
-    // ✅ Convert tags: "tag1 tag2 tag3" → "tag1,tag2,tag3"
-    const cleanedTags = formValues.tags?.toString().trim().split(/\s+/).join(',') || '';
+    const cleanedTags = formValues.tags.trim().split(/\s+/).join(',');
     formData.append('tags', cleanedTags);
 
     return formData;
@@ -106,13 +106,13 @@ export class DashboardAddNews { articleForm: FormGroup;
 
     const formData = this.createFormData(this.articleForm.value);
 
-    this._news.createNewNews( formData).subscribe({
+    this._news.updateNews(this.articleId, formData).subscribe({
       next: (res) => {
         if (res.success) {
-          this.toastr.success('تم اضافة المقال بنجاح');
+          this.toastr.success('تم تحديث المقال بنجاح');
           this.router.navigate(['/dashboard/news']);
         } else {
-          this.toastr.error('حدث خطأ أثناء اضافة المقال');
+          this.toastr.error('حدث خطأ أثناء تحديث المقال');
         }
       },
       error: () => {

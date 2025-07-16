@@ -4,33 +4,48 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthServ {
-
-  private tokenKey = 'authToken';
+ private tokenKey = 'authToken';
   private userKey = 'userInfo';
   private roleKey = 'userRole';
 
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
+  }
+
   setSession(token: string, user: any, role: string): void {
-    localStorage.setItem(this.tokenKey, token);
-    localStorage.setItem(this.userKey, JSON.stringify(user));
-    localStorage.setItem(this.roleKey, role);
+    if (this.isBrowser()) {
+      localStorage.setItem(this.tokenKey, token);
+      localStorage.setItem(this.userKey, JSON.stringify(user));
+      localStorage.setItem(this.roleKey, role);
+    }
   }
 
   getToken(): string | null {
-    const token = localStorage.getItem(this.tokenKey);
-    return token!;
+    if (this.isBrowser()) {
+      return localStorage.getItem(this.tokenKey);
+    }
+    return null;
   }
 
   getUser(): any {
-    const user = localStorage.getItem(this.userKey);
-    return user ? JSON.parse(user) : null;
+    if (this.isBrowser()) {
+      const user = localStorage.getItem(this.userKey);
+      return user ? JSON.parse(user) : null;
+    }
+    return null;
   }
 
   getRole(): string | null {
-    return localStorage.getItem(this.roleKey);
+    if (this.isBrowser()) {
+      return localStorage.getItem(this.roleKey);
+    }
+    return null;
   }
 
   logout(): void {
-    localStorage.clear();
+    if (this.isBrowser()) {
+      localStorage.clear();
+    }
   }
 
   isLoggedIn(): boolean {

@@ -21,6 +21,15 @@ export interface INewsResponse {
   errors: string[]
 }
 
+export interface AddArticle {
+  title: string
+  content: string
+  summary: string
+  image: string
+  category: string
+  isPublished: boolean
+  tags: string
+}
 
 export interface Appointment {
   id: number;
