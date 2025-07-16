@@ -115,45 +115,99 @@ export class CalendarService {
     });
   }
 
-  private generateSampleAppointments(): Appointment[] {
-    const today = new Date();
-    const appointments: Appointment[] = [];
-    
-    // Generate sample appointments for the current week
-    for (let i = 0; i < 7; i++) {
-      const appointmentDate = new Date(today);
-      appointmentDate.setDate(today.getDate() + i);
-      
-      // Add 1-2 appointments per day
-      const appointmentsPerDay = Math.floor(Math.random() * 2) + 1;
-      
-      for (let j = 0; j < appointmentsPerDay; j++) {
-        const startHour = 8 + Math.floor(Math.random() * 8); // 8 AM to 4 PM
-        const startMinute = Math.floor(Math.random() * 4) * 15; // 0, 15, 30, 45
-        const duration = (Math.floor(Math.random() * 3) + 1) * 0.5; // 0.5, 1, 1.5 hours
-        
-        const startTime = new Date(appointmentDate);
-        startTime.setHours(startHour, startMinute, 0, 0);
-        
-        const endTime = new Date(startTime);
-        endTime.setTime(endTime.getTime() + (duration * 60 * 60 * 1000));
-        
-        const colors: ('blue' | 'green' | 'purple' | 'yellow')[] = ['blue', 'green', 'purple', 'yellow'];
-        const types: ('inPerson' | 'online')[] = ['inPerson', 'online'];
-        
-        appointments.push({
-          id: `apt-${i}-${j}`,
-          title: 'اسم المستخدم',
-          description: 'احتاج استشارة في مجال احتاج استشارة في مجال احتاج...',
-          startTime,
-          endTime,
-          type: types[Math.floor(Math.random() * types.length)],
-          color: colors[Math.floor(Math.random() * colors.length)]
-        });
-      }
+private generateSampleAppointments(): Appointment[] {
+  const today = new Date();
+  const baseDate = new Date(today);
+  baseDate.setHours(0, 0, 0, 0);
+
+  const appointments: Appointment[] = [
+    {
+      id: 'apt-1',
+      title: 'استشارة صباحية',
+      description: 'استشارة خاصة في العمل',
+      startTime: new Date(baseDate.setHours(2, 0)), // 2:00 AM
+      endTime: new Date(baseDate.setHours(3, 30)), // 3:30 AM
+      type: 'online',
+      color: 'blue'
+    },
+    {
+      id: 'apt-2',
+      title: 'لقاء داخلي',
+      description: 'لقاء مع فريق العمل',
+      startTime: new Date(baseDate.setHours(9, 15)), // 9:15 AM
+      endTime: new Date(baseDate.setHours(10, 0)),  // 10:00 AM
+      type: 'inPerson',
+      color: 'green'
+    },
+    {
+      id: 'apt-3',
+      title: 'جلسة استشارية',
+      description: 'جلسة توجيهية مع العميل',
+      startTime: new Date(baseDate.setHours(14, 0)), // 2:00 PM
+      endTime: new Date(baseDate.setHours(15, 30)), // 3:30 PM
+      type: 'online',
+      color: 'purple'
+    },
+    {
+      id: 'apt-4',
+      title: 'استشارة ليلية',
+      description: 'اجتماع متأخر للمراجعة',
+      startTime: new Date(baseDate.setHours(22, 0)), // 10:00 PM
+      endTime: new Date(baseDate.setHours(23, 0)),   // 11:00 PM
+      type: 'inPerson',
+      color: 'yellow'
+    },
+    // Added 5 more with allowed colors only
+    {
+      id: 'apt-5',
+      title: 'اجتماع فريق',
+      description: 'مناقشة التقدم الأسبوعي',
+      startTime: new Date(baseDate.getTime() + 24 * 60 * 60 * 1000 + 8 * 60 * 60000), // tomorrow 8:00 AM
+      endTime: new Date(baseDate.getTime() + 24 * 60 * 60 * 1000 + 9 * 60 * 60000), // 9:00 AM
+      type: 'inPerson',
+      color: 'green'
+    },
+    {
+      id: 'apt-6',
+      title: 'جلسة تدريب',
+      description: 'تدريب داخلي للموظفين الجدد',
+      startTime: new Date(baseDate.getTime() + 2 * 24 * 60 * 60 * 1000 + 13 * 60 * 60000), // +2 days 13:00
+      endTime: new Date(baseDate.getTime() + 2 * 24 * 60 * 60 * 1000 + 14 * 60 * 60000), // 14:00
+      type: 'online',
+      color: 'blue'
+    },
+    {
+      id: 'apt-7',
+      title: 'مقابلة عمل',
+      description: 'مقابلة مع مرشح جديد',
+      startTime: new Date(baseDate.getTime() + 3 * 24 * 60 * 60 * 1000 + 16 * 60 * 60000), // +3 days 16:00
+      endTime: new Date(baseDate.getTime() + 3 * 24 * 60 * 60 * 1000 + 17 * 60 * 60000), // 17:00
+      type: 'inPerson',
+      color: 'yellow'
+    },
+    {
+      id: 'apt-8',
+      title: 'مكالمة مع العميل',
+      description: 'مراجعة المشروع الحالي',
+      startTime: new Date(baseDate.getTime() + 4 * 24 * 60 * 60 * 1000 + 11 * 60 * 60000), // +4 days 11:00
+      endTime: new Date(baseDate.getTime() + 4 * 24 * 60 * 60 * 1000 + 12 * 60 * 60000), // 12:00
+      type: 'online',
+      color: 'purple'
+    },
+    {
+      id: 'apt-9',
+      title: 'مراجعة الميزانية',
+      description: 'جلسة مراجعة الميزانية الفصلية',
+      startTime: new Date(baseDate.getTime() + 5 * 24 * 60 * 60 * 1000 + 15 * 60 * 60000), // +5 days 15:00
+      endTime: new Date(baseDate.getTime() + 5 * 24 * 60 * 60 * 1000 + 16 * 60 * 60000), // 16:00
+      type: 'inPerson',
+      color: 'green'
     }
-    
-    return appointments;
-  }
+  ];
+
+  return appointments;
+}
+
+
 }
 

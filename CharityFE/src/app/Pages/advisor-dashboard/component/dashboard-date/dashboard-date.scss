@@ -1,4 +1,4 @@
-/* calendar.component.css */
+/* calendar.component.scss */
 
 /* Host styles */
 :host {
@@ -23,7 +23,7 @@
   --text-muted: #6c757d;
   --shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
-  
+
   /* Appointment Colors */
   --appointment-blue: #e3f2fd;
   --appointment-blue-border: #2196f3;
@@ -33,7 +33,7 @@
   --appointment-purple-border: #9c27b0;
   --appointment-yellow: #fff8e1;
   --appointment-yellow-border: #ff9800;
-  
+
   /* Grid Settings */
   --time-column-width: 80px;
   --hour-height: 60px;
@@ -49,11 +49,6 @@
 /* Header */
 .calendar-header {
   background-color: var(--white-color);
-}
-
-.calendar-header h4 {
-  color: var(--dark-color);
-  font-weight: 700;
 }
 
 /* Search and Filter Bar */
@@ -101,6 +96,7 @@
 .day-headers {
   background-color: var(--light-color);
   border-bottom: 1px solid var(--border-color);
+  display: flex;
 }
 
 .time-column {
@@ -111,6 +107,7 @@
 }
 
 .day-header {
+  flex: 1;
   border-right: 1px solid var(--border-color);
   background-color: var(--light-color);
   transition: background-color 0.2s ease;
@@ -134,7 +131,8 @@
 
 /* Time Grid */
 .time-grid {
-  min-height: 400px;
+  min-height: 600px;
+  position: relative;
   background-color: var(--white-color);
 }
 
@@ -160,7 +158,7 @@
 .grid-lines {
   position: absolute;
   top: 0;
-  left: 0;
+  left: var(--time-column-width);
   right: 0;
   bottom: 0;
   z-index: 1;
@@ -169,14 +167,6 @@
 .hour-line {
   height: var(--hour-height);
   border-bottom: 1px solid var(--border-color);
-  background: repeating-linear-gradient(
-    to right,
-    transparent,
-    transparent calc(16.66% - 1px),
-    var(--border-color) calc(16.66% - 1px),
-    var(--border-color) 16.66%
-  );
-  margin-left: var(--time-column-width);
 }
 
 /* Current Time Line */
@@ -225,8 +215,9 @@
 /* Appointments Container */
 .appointments-container {
   margin-left: var(--time-column-width);
-  height: 300px; /* 5 hours * 60px */
+  position: relative;
   z-index: 5;
+  height: auto;
 }
 
 /* Appointment Cards */
@@ -238,6 +229,7 @@
   transition: all 0.2s ease;
   overflow: hidden;
   box-shadow: var(--shadow);
+  animation: slideIn 0.3s ease-out;
 }
 
 .appointment-card:hover {
@@ -308,37 +300,37 @@
     --time-column-width: 60px;
     --hour-height: 50px;
   }
-  
+
   .search-filter-bar .row {
     flex-direction: column;
   }
-  
+
   .search-filter-bar .col-auto,
   .search-filter-bar .col-md-4 {
     width: 100%;
     margin-bottom: 0.5rem;
   }
-  
+
   .day-header {
     padding: 0.5rem 0.25rem;
   }
-  
+
   .day-name {
     font-size: 0.65rem;
   }
-  
+
   .day-number {
     font-size: 0.85rem;
   }
-  
+
   .appointment-card {
     min-height: 40px;
   }
-  
+
   .appointment-title {
     font-size: 0.7rem;
   }
-  
+
   .appointment-description {
     font-size: 0.6rem;
     -webkit-line-clamp: 2;
@@ -350,23 +342,23 @@
     margin: 0 -15px;
     border-radius: 0;
   }
-  
+
   .calendar-header,
   .search-filter-bar,
   .calendar-navigation {
     padding: 1rem;
   }
-  
+
   .btn-group {
     width: 100%;
   }
-  
+
   .btn-group .btn {
     flex: 1;
   }
 }
 
-/* Animation for appointments */
+/* Animation */
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -378,11 +370,7 @@
   }
 }
 
-.appointment-card {
-  animation: slideIn 0.3s ease-out;
-}
-
-/* Hover effects for interactive elements */
+/* Button Hover */
 .btn {
   transition: all 0.2s ease;
 }
@@ -391,18 +379,14 @@
   transform: translateY(-1px);
 }
 
-.day-header:hover .day-number {
-  color: var(--primary-color);
-}
-
-/* Focus styles for accessibility */
+/* Focus */
 .btn:focus,
 .form-control:focus {
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-/* Loading state */
+/* Loading */
 .loading {
   display: inline-block;
   width: 20px;
@@ -419,7 +403,7 @@
   }
 }
 
-/* Scrollbar customization */
+/* Scrollbar */
 .appointments-container::-webkit-scrollbar {
   width: 6px;
 }
@@ -436,4 +420,3 @@
 .appointments-container::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
-
