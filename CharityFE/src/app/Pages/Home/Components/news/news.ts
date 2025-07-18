@@ -1,34 +1,36 @@
-import { Component } from '@angular/core';
-interface NewsItem {
-  image: string;
-  title: string;
-  description: string;
-  date: string;
-}
+import { Component, inject, OnInit } from '@angular/core';
+import { newsservice } from '../../../../Core/Services/news';
+import { NewsArticle } from '../../../../Core/Interfaces/news';
+
+import { DatePipe } from '@angular/common';
+
+
 @Component({
   selector: 'app-news',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './news.html',
   styleUrl: './news.scss'
 })
-export class News {
+export class News implements OnInit {
  
+
   sectionTitle = 'آخر أخبارنا التي أنجزناها';
   sectionSubtitle = 'نشارككم إنجازاتنا، قصص النجاح، والتقارير الشهرية بكل شفافية ووضوح';
  currentSlide = 0;
   isAnimating = false;
-  newsItems: NewsItem[] = [
-    { image: 'Images/1.jpg', title: 'تكريم 80 متطوعاً في حفل "صناع الأثر"', description: 'نظمت الجمعية حفل تكريم...', date: '5 ديسمبر 2024' },
-    { image: 'Images/1.jpg', title: 'توقيع اتفاقية تعاون طبي...', description: 'وقعت المنظمة شراكة للرعاية...', date: '10 يناير 2025' },
-    { image: 'Images/1.jpg', title: 'بدء تنفيذ مشروع ترميم...', description: 'بدأت الجمعية بتنفيذ المرحلة الأولى...', date: '1 فبراير 2025' },
-    { image: 'Images/1.jpg', title: 'توزيع 1,000 سلة غذائية...', description: 'أطلقت الجمعية حملة رمضان الخير...', date: '15 مارس 2025' }
+
+  newsservice = inject(newsservice);
+
+  newsItems: NewsArticle[] = [
   ];
 
   currentIndex = 0;
   itemsPerPage = 4;
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.getNews();
+  }
 
   nextSlide() {
     
@@ -50,6 +52,17 @@ export class News {
     this.isAnimating = true;
     this.currentSlide = index;
     
+  }
+  getNews()
+  {
+  debugger
+    this.newsservice.getActiveNews().subscribe(data => {
+      if (data.success) {
+        this.newsItems = data.data;
+
+      }
+    });
+
   }
 
 }

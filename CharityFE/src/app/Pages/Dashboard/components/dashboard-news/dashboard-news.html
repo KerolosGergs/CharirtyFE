@@ -14,7 +14,6 @@
         <option value="published">الأخبار المنشورة</option>
       </select>
 
-      <button class="btn btn-outline-secondary">تحديث</button>
     </div>
   </div>
 
@@ -27,7 +26,10 @@
     }
   @for (article of filteredArticles(); track article.id) {
     <div class="col-md-4">
-      <app-dashboard-news-item [itemC]="article"></app-dashboard-news-item>
+      <app-dashboard-news-item 
+      [itemC]="article"
+      (delete)="handleDelete($event)"
+      ></app-dashboard-news-item>
     </div>
   }
 </div>

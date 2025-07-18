@@ -22,18 +22,18 @@
       <div class="col-lg-3 col-md-6">
         <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden" [class.active]="i === currentSlide">
           <div class="ratio ratio-4x3">
-            <img [src]="item.image" [alt]="item.title" class="img-fluid object-fit-cover">
+            <img [src]="item.imageUrl" [alt]="item.title" class="img-fluid object-fit-cover">
           </div>
           <div class="p-3">
             <h5 class="fw-bold text-dark mb-2">
               {{ item.title }}
             </h5>
             <p class="text-muted small mb-3">
-              {{ item.description }}
+              {{ item.content }}
             </p>
             <div class="text-muted small d-flex align-items-center gap-2">
               <i class="bi bi-calendar"></i>
-              <span>{{ item.date }}</span>
+              <span>{{ item.createdAt | date }}</span>
             </div>
           </div>
         </div>

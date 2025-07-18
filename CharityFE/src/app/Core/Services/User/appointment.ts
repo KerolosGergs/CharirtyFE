@@ -21,7 +21,7 @@ export class Appointment {
       'Authorization': `Bearer ${token}`,
     });
    
-    const url = `${this._baseUrl}AdviceRequest`;
+    const url = `${this._baseUrl}AdviceRequest?userId=`+this.Auth.getUser().id;
     return this._httpClient.post<{ success: boolean, message: string }>(
       url,
       takeAppointment,

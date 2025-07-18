@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MainButton } from "../../../../Shared/main-button/main-button";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthServ } from '../../../../Auth/Services/auth-serv';
 
 @Component({
   selector: 'app-header-component',
@@ -9,28 +10,31 @@ import { RouterLink } from '@angular/router';
   templateUrl: './header-component.html',
   styleUrl: './header-component.scss'
 })
-export class HeaderComponent {
- token: string | null = null;
-
+export class HeaderComponent implements OnInit {
+  AuthSer = inject(AuthServ);
+  token: string | null  = null;
+  router = inject(Router);
 
 ngOnInit(): void {
-  if(typeof window !== 'undefined' ) {
-    this.token = localStorage.getItem('authToken');
-  }
+ 
+    this.token = this.AuthSer.getToken();
+  
 }
 
 Dashbord() {
   // Navigate to dashboard or trigger desired function
-  console.log('Dashboard clicked');
+  if(this.AuthSer.getRole()=="Admin"){
+    this.router.navigate(['/Dashboard']);
+  }
 }
 
 login() {
-  // Navigate to login or trigger desired function
-  console.log('Login clicked');
+  this.router.navigate(['/login']);
 }
 
 logout() {
-  localStorage.removeItem('authToken');
+  this.AuthSer.logout();
   window.location.reload();  // Optional: reload to reflect changes
 }
 }
+

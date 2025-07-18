@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { School } from "../school/school";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-video-section',
@@ -8,35 +9,18 @@ import { School } from "../school/school";
   styleUrl: './video-section.scss'
 })
 export class VideoSection implements OnInit {
-videoUrl: string = '';
+  videoUrlRaw: string = 'https://www.youtube.com/embed/nnhrUthpfI8?si=_U2ZcqqyAnqRBOL4';
+  videoUrl: SafeResourceUrl | null = null;
   isVideoLoaded: boolean = false;
   showPlayButton: boolean = true;
 
-  constructor() { }
+  constructor(private sanitizer: DomSanitizer) {}
 
-  ngOnInit(): void {
-    // You can set a default video URL here
-    // this.videoUrl = 'https://www.youtube.com/embed/your-video-id';
-  }
-
-  setVideoUrl(url: string): void {
-    this.videoUrl = url;
-    this.isVideoLoaded = true;
-  }
+  ngOnInit(): void {}
 
   playVideo(): void {
+    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrlRaw);
     this.showPlayButton = false;
-    // Additional logic for video play can be added here
-  }
-
-  onVideoLoad(): void {
     this.isVideoLoaded = true;
   }
-
-  onVideoError(): void {
-    console.error('Video failed to load');
-    this.isVideoLoaded = false;
-  }
-  
 }
-

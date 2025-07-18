@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DashboardNewsItem } from './components/dashboard-news-item/dashboard-news-item';
-import { News } from '../../../../Core/Services/news';
+import { newsservice } from '../../../../Core/Services/news';
 import { NewsArticle } from '../../../../Core/Interfaces/news';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard-news',
@@ -12,8 +13,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './dashboard-news.scss'
 })
 export class DashboardNews {
+  private allArticles = signal<NewsArticle[]>([]);
 
-  _news = inject(News)
+  _news = inject(newsservice);
+  tostar = inject(ToastrService);
 
   searchControl = new FormControl('');
   filterControl = new FormControl('');
@@ -139,5 +142,16 @@ export class DashboardNews {
     return matchesSearch && matchesFilter;
   });
 }
+ handleDelete(id: number) {
+    this._news.deletenews(id).subscribe((res) => {
+      if (res.success) {
+        this.allArticles.update((list) => list.filter(article => article.id !== id));
+        this.getAllNews();
+        this.tostar.success('تم حذف المقال بنجاح');
+      } else {
+        this.tostar.error('حدث خطأ أثناء حذف المقال');
+      }
+    });
+  }
 
 }

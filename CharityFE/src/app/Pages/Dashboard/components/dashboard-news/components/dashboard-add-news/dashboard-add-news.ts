@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AddArticle, NewsArticle } from '../../../../../../Core/Interfaces/news';
-import { News } from '../../../../../../Core/Services/news';
+import { newsservice } from '../../../../../../Core/Services/news';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -18,7 +18,7 @@ export class DashboardAddNews { articleForm: FormGroup;
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private toastr = inject(ToastrService);
-  private _news = inject(News);
+  private _news = inject(newsservice);
 
   private articleId: number = 0;
 

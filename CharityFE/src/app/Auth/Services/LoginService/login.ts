@@ -17,6 +17,7 @@ export class Login {
 
 Login(Request: IloginRequest) : Observable<IResponse>
 {
+  debugger
   return this._.post<IResponse>(Environment.apiUrl + 'Authentication/login', Request).pipe(
     map(data => {
       return data;

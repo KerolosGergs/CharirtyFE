@@ -11,34 +11,39 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './dashboard-advisors-details.scss'
 })
 export class DashboardAdvisorsDetails implements OnInit {
-  
+
   _router = inject(ActivatedRoute)
   _advisor = inject(Advisor)
-  
-  advisor : any;
+
+  advisor: any;
 
 
   ngOnInit(): void {
-    const id = Number(this._router.snapshot.paramMap.get('id'));
-
-    if (!isNaN(id)) {
-      this.getAdvisorById(id);
-    } else {
-      console.error('Invalid advisor ID in route');
-    }
+    this.getparam();
   }
 
-
-  getAdvisorById(id:number){
+  getparam() {
+    this._router.paramMap.subscribe(params => {
+      const idParam = params.get('id');
+      if (idParam) {
+        const id = +idParam;
+        this.getAdvisorById(id);
+      }
+      else {
+        console.error('Invalid advisor ID in route');
+      }
+    });
+  }
+  getAdvisorById(id: number) {
     this._advisor.getAdvisorById(id).subscribe({
-      next: (res) =>{
+      next: (res) => {
         console.log('data feched', res);
-        
+
         this.advisor = res.data;
       },
       error(err) {
         console.log('Failed to fetch advisor:', err);
-        
+
       }
     })
   }

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 import { NewsArticle, AddArticle } from '../../../../../../Core/Interfaces/news';
-import { News } from '../../../../../../Core/Services/news';
+import { newsservice } from '../../../../../../Core/Services/news';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class DashboardEditNews implements OnInit {
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private toastr = inject(ToastrService);
-  private _news = inject(News);
+  private _news = inject(newsservice);
 
   private articleId: number = 0;
 
@@ -49,13 +49,13 @@ export class DashboardEditNews implements OnInit {
               summary: article.summary,
               category: article.category,
               isPublished: article.isPublished,
-              tags: article.tags.toString().split(',').join(' ')
+              tags: article.tags
             });
             this.uploadedImageUrl = article.imageUrl;
           },
           error: () => {
-            this.toastr.error('فشل تحميل المقال');
-            this.router.navigate(['/dashboard/news']);
+            // this.toastr.error('فشل تحميل المقال');
+            this.router.navigate(['/dashboard/dashboard-news']);
           }
         });
       }
@@ -86,18 +86,20 @@ export class DashboardEditNews implements OnInit {
     formData.append('summary', formValues.summary);
     formData.append('category', formValues.category);
     formData.append('isPublished', formValues.isPublished.toString());
+    formData.append('Tags', formValues.tags);
 
     if (formValues.Image) {
       formData.append('Image', formValues.Image);
     }
 
-    const cleanedTags = formValues.tags.trim().split(/\s+/).join(',');
-    formData.append('tags', cleanedTags);
+console.log(formData);
+console.log(formValues)
 
     return formData;
   }
 
   onSubmit(): void {
+    debugger
     if (this.articleForm.invalid) {
       this.articleForm.markAllAsTouched();
       this.toastr.error('يرجى تعبئة جميع الحقول بشكل صحيح');
@@ -110,7 +112,7 @@ export class DashboardEditNews implements OnInit {
       next: (res) => {
         if (res.success) {
           this.toastr.success('تم تحديث المقال بنجاح');
-          this.router.navigate(['/dashboard/news']);
+          this.router.navigate(['/dashboard/dashboard-news']);
         } else {
           this.toastr.error('حدث خطأ أثناء تحديث المقال');
         }
@@ -122,6 +124,6 @@ export class DashboardEditNews implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/dashboard/news']);
+    this.router.navigate(['/dashboard/dashboard-news']);
   }
 }

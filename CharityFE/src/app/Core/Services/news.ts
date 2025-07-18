@@ -10,7 +10,8 @@ import { AuthServ } from '../../Auth/Services/auth-serv';
 @Injectable({
   providedIn: 'root'
 })
-export class News {
+export class newsservice {
+      
 
   protected readonly _environment = Environment;
   _httpClient = inject(HttpClient)
@@ -31,7 +32,22 @@ export class News {
     return this._httpClient.get<INewsResponse>(url).pipe(
       map(data => {
        data.data.forEach(element => {
-         element.tags = element.tags.toString().split(',').map((tag) => tag.trim());
+   
+
+         element.imageUrl=`${this._environment.ImgUrl}${element.imageUrl}`
+       });
+             return data;
+          }),        
+    );
+  }
+
+  getActiveNews(): Observable<INewsResponse> {
+    const url = `${this._baseUrl}News/active`;
+    // console.log('Calling getAllAdvisors with URL:', url);   
+    return this._httpClient.get<INewsResponse>(url).pipe(
+      map(data => {
+       data.data.forEach(element => {
+         
          element.imageUrl=`${this._environment.ImgUrl}${element.imageUrl}`
        });
              return data;
@@ -39,16 +55,19 @@ export class News {
     );
   }
  createNewNews(AddNew: FormData): Observable<INewsResponse> {
-      
-      const url = `${this._baseUrl}News`;
-      return this._httpClient.post<INewsResponse>(url, AddNew,{headers: this.headers});
+      const user = this.Auth.getUser();
+      const url = `${this._baseUrl}News?adminId=${user['id']}`;
+      return this._httpClient.post<INewsResponse>(url, AddNew);
     }
 updateNews(id: number, data: FormData): Observable<{ success: boolean }> {
-  return this._httpClient.put<{ success: boolean }>(`${this._baseUrl}News/${id}`, data,{headers: this.headers});
+  return this._httpClient.put<{ success: boolean }>(`${this._baseUrl}News/${id}`, data);
 }
 
 getNewsById(id: number): Observable<{ data: NewsArticle }> {
   return this._httpClient.get<{ data: NewsArticle }>(`${this._baseUrl}News/${id}`);
+}
+deletenews(id: number): Observable<{ success: boolean }> {
+  return this._httpClient.delete<{ success: boolean }>(`${this._baseUrl}News/${id}`);
 }
 
   constructor() { }

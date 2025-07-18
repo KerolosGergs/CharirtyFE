@@ -15,7 +15,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './login-form.html',
   styleUrl: './login-form.scss'
 })
-export class LoginForm {
+export class LoginForm implements OnInit {
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required,Validators.email]),
@@ -42,13 +42,13 @@ export class LoginForm {
   constructor(private router:Router ) {
 
   }
-
+  AuthServ = inject(AuthServ)
 
  ngOnInit(): void {
 
   if (typeof window !== 'undefined' ) {
-    const token = localStorage.getItem('authToken');
-    const userRole = localStorage.getItem('userRole');
+    const token =this.AuthServ.getToken();
+    const userRole = this.AuthServ.getRole();
     if(token){
       this.router.navigate(['/home']);
     }else if(token&& userRole=='admin'){
