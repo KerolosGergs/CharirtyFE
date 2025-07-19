@@ -5,6 +5,8 @@ import { advisoRreservationGuard } from './Guards/adviso-rreservation-guard';
 import { Consultant } from './Pages/Consultant/all-consultants/consultant';
 import { Questions } from './Pages/questions/questions';
 import { OurService } from './Pages/Home/our-service/our-service';
+import { HelpPeopole } from './Pages/Forms/Components/help-peopole/help-peopole';
+import { RequestRepair } from './Pages/Forms/Components/request-repair/request-repair';
 
 export const routes: Routes = [
 
@@ -12,12 +14,13 @@ export const routes: Routes = [
     { path: 'login', component: LoginForm },
     { path: 'register', component: RegisterForm },
     { path: 'home', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
+    {path: 'HelpPeopole',component:HelpPeopole,title:'HelpPeopole'},
+    {path:'RequesrRepair',component:RequestRepair,title:'RequestRepair'},
     { path: 'our-service', component:OurService,title:'Our Service'},
     { path: 'all-consultants', component: Consultant, title: 'Consultants'  ,canActivate: [advisoRreservationGuard]},
     { path: 'advisor-details', loadComponent: () => import('../app/Pages/advisor-details/advisor-details').then(m => m.AdvisorDetails), title: 'Advisor Details' },
     { path: 'advisor-reservation', loadComponent: () => import('../app/Pages/reservation/reservation').then(m => m.Reservation), canActivate: [advisoRreservationGuard], title: 'Advisor Reservation' },
     { path: 'must-login', loadComponent: () => import('../app/Pages/must-login/must-login').then(m => m.MustLogin), title: 'Must Login' },
-
     { path: 'questions',component:Questions,title:'Questions'},
     { path: 'dashboard', loadComponent: () => import('../app/Pages/Dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard Main' ,children:[
         { path: '', redirectTo: 'dashboard-main', pathMatch: 'full'},

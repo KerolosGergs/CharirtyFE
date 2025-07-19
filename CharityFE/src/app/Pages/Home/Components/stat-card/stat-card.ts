@@ -14,25 +14,25 @@ export class StatCard {
     {
       number: '150',
       label: 'مستفيد',
-      icon: 'bi-heart-fill',
+      icon: 'bi-person-heart',
       color: 'warning'
+    },{
+      number: '50',
+      label: 'مشروع',
+      icon: 'bi-journal-check',
+      color: 'primary'
     },
      {
       number: '200',
       label: 'متطوع',
-      icon: 'bi-person-hearts',
+      icon: 'bi-person-fill',
       color: 'info'
     },
-    {
-      number: '50',
-      label: 'مشروع',
-      icon: 'bi-building',
-      color: 'primary'
-    },
+    
      {
       number: '300',
       label: 'حالة',
-      icon: 'bi-people-fill',
+      icon: 'bi-clipboard-pulse',
       color: 'success'
     },
   ];

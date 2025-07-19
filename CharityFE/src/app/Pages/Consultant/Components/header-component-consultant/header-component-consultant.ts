@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, input, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header-component-consultant',
@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './header-component-consultant.scss'
 })
 export class HeaderComponentConsultant {
+  // @Input() title!: string  ;
+  // @Input() description!: string ;
 
+  title=input<string>();
+  description=input<string>();
 }
