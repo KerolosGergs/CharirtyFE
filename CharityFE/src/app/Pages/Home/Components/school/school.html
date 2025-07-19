@@ -2,36 +2,36 @@
   <div class="row align-items-center gx-5">
 
     <!-- Right Side: Image -->
-    <div class="col-lg-4 mb-4 mb-lg-0">
+    <div class="col-lg-5 mb-4 mb-lg-0">
       <div class="rounded-4 overflow-hidden shadow-sm ">
-        <img [src]="donationData.backgroundImage" alt="Donation Image" class="w-100 h-100 object-fit-cover">
+        <img [src]="donationData.backgroundImage" alt="Donation Image" class="w-100 object-fit-cover">
       </div>
     </div>
 
     <!-- Left Side: Content -->
-    <div class="col-lg-8">
-      <h2 class="fw-bold mb-3">{{ donationData.mainTitle }}</h2>
-      <p class="mb-4 fs-5">{{ donationData.description }}</p>
+    <div class="col-lg-7">
+      <h2 class="fw-bold mb-3 w-75">{{ donationData.mainTitle }}</h2>
+      <p class="mb-4 font-desc w-75">{{ donationData.description }}</p>
 
       <!-- Coupon Card -->
-      <div class="card flex-row align-items-center  rounded-4 p-3 text-dark border-0 shadow-sm mb-3 bg-card">
-        <div class="ms-3">
-          <img [src]="donationData.schoolCouponsImage" alt="School Coupons" class="rounded-3"
-            style="width: 80px; height: 80px; object-fit: cover;">
+      <div class="card flex-row align-items-center  rounded-4 p-3 text-dark border-0 shadow-sm mb-3 bg-card text-white">
+        <div class="ms-3 col-2">
+          <img [src]="donationData.schoolCouponsImage" alt="School Coupons" class="rounded-3 w-100"
+            style=" object-fit: cover;">
         </div>
-        <div class="mx-auto">
-          <h5 class="fw-bold text-success mb-2">{{ donationData.schoolCouponsTitle }}</h5>
-          <p class="small text-muted mb-3">{{ donationData.schoolCouponsDescription }}</p>
+        <div class=" col-6">
+          <h5 class="fw-bold text-white mb-2">{{ donationData.schoolCouponsTitle }}</h5>
+          <p class="small  mb-3 font-desc">{{ donationData.schoolCouponsDescription }}</p>
 
         </div>
-        <div class="me-4">
-          <div class="d-flex flex-wrap justify-content-end gap-2 mb-3">
-            <button class="btn btn-donate px-5 py-2 " (click)="onDonate()">
+        <div class="me-5 col-3 gap-1 justify-content-between d-flex flex-column align-items-center ">
+          <div class="d-flex flex-wrap w-100  gap-2 mb-3">
+            <button class="btn btn-donate w-100 py-2 flex-end" (click)="onDonate()">
               {{ donationData.buttonText }}
             </button>
           </div>
-          <div class="d-flex flex-wrap align-items-center gap-2">
-            <a href="#" class="text-success fw-bold d-flex align-items-center gap-1 small text-decoration-none">
+          <div class="d-flex flex-wrap align-items-center  gap-2 text-center">
+            <a href="#" class="text-white fw-bold d-flex align-items-center gap-1 small text-decoration-none">
               {{ donationData.schoolCouponsButtonText }}
               <i class="bi bi-chevron-left small"></i>
             </a>

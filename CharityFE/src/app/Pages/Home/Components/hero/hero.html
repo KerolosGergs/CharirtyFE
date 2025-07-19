@@ -1,34 +1,24 @@
 <!-- Hero Section -->
 <section class="hero-section position-relative ">
-  <div class="hero-background"><img class="img-cover" src="Images/hero.png" alt="" width="100%" height="100%"></div>
-  <div class="hero-overlay"></div>
-  
-  <div class="container position-relative">
-    <div class="row justify-content-center text-center">    
-      <div class="col-lg-8">
-        <div class="hero-content text-white py-5">
-          <h1 class="display-4 fw-bold mb-4 hero-title">
-            الجمعية الخيرية بمكة المكرمة
-          </h1>
-          <h2 class="h3 mb-4 hero-subtitle">
-            للخدمات الإنسانية
-          </h2>
-          <p class="lead mb-5 hero-description">
-            تقديم الدعم والمساعدة للأسر المحتاجة وخدمات إنسانية متميزة
-          </p>
-          
-          
-        </div>
-      </div>
-    </div>
-    <div class="hero-buttons d-flex justify-content-end gap-3 flex-wrap">
-           <a class="text-decoration-none "  [routerLink]="'/our-service'"> <app-main-button [buttonFunction]="onDiscoverServices" [buttontext]="'اكتشف خدماتنا'" [iconButton]="'bi-arrow-left-short fs-2'"></app-main-button></a> 
-          
-            <button class="btn btn-light btn-lg px-5 py-2 fs-5  hero-btn-primary"
-                    (click)="onLearnMore()">
-              تعرف علينا
-            </button>
-          </div>
-    <app-stat-card></app-stat-card>
+  <div class="hero-background"><img class="img-cover" src="Images/home/bgHead.png" alt="" width="100%" height="100%">
   </div>
+  <!-- <div class="hero-overlay"><img src="Images/home/head.png" width="100%" height="100%" alt=""> </div> -->
+
+  <div class="container position-relative">
+
+    <div class="hero-buttons d-flex justify-content-end gap-3 flex-wrap">
+      <a class="text-decoration-none " [routerLink]="'/all-consultants'"> <app-main-button
+          [buttonFunction]="onDiscoverServices" [buttontext]="'احجز استشارة'"
+          [iconButton]="'bi-arrow-left-short fs-2'"></app-main-button></a>
+
+      <button class="btn btn-light btn-lg px-5 py-2 fs-5  hero-btn-primary" (click)="onLearnMore()">
+        تعرف علينا
+      </button>
+    </div>
+    <div class="hero-statistics">
+      <app-stat-card></app-stat-card>
+
+    </div>
+  </div>
+
 </section>

@@ -35,9 +35,9 @@ export class Footer {
 
   quickLinksMenuItems =
     {
-      label: 'من نحن', link: '/about',
+      label: 'روابط سريعة', link: '/about',
       subLabel: [
-        { label: 'Menu Item 2', link: '/quick-2' },
+        { label: 'من نحن', link: '/quick-2' },
         { label: 'Menu Item 3', link: '/quick-3' },
         { label: 'Menu Item 4', link: '/quick-4' }
       ]
@@ -46,7 +46,7 @@ export class Footer {
 
   // Company information
   companyInfo = {
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    description: 'الجمعية الخيرية بمكة المكرمة، جمعية غير ربحية تم تأسيسها عام ١٣٩٨ هـ. مسجلة بالمركز الوطني لتنمية القطاع غير الربحي بالرقم 29.',
     copyright: 'الجمعية الخيرية بمكة المكرمة للخدمات الإنسانية. جميع الحقوق محفوظة  @  2025'
   };
 

@@ -23,10 +23,10 @@ donationData: DonationData = {
   description: 'تبرعك اليوم قد يطعم جائعاً أو يعلم طفلاً أو يوفر مأوى لعائلة محتاجة. ساهم في صناعة الأثر وكن سبباً في حياة كريمة لغيرك.',
   buttonText: 'تبرع',
   schoolCouponsTitle: 'كوبونات المدارس',
-  schoolCouponsDescription: 'برنامج "قلم ودفتر" هو مبادرة خيرية لدعم الطلاب المحتاجين مع بداية العام الدراسي.',
+  schoolCouponsDescription: 'برنامج "قلم ودفتر" هو مبادرة خيرية تهدف إلى توفير الدعم للطلاب المحتاجين في بداية العام الدراسي،',
   schoolCouponsButtonText: 'اعرف المزيد',
-  schoolCouponsImage: 'Images/1.jpg',
-  backgroundImage:'Images/1.jpg',
+  schoolCouponsImage: 'Images/3.jpg',
+  backgroundImage:'Images/3.jpg',
 };
 
 

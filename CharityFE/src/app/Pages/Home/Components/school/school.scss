@@ -1,11 +1,25 @@
+*{
+  direction: rtl;
+  font-family: 'Cairo', sans-serif;
+}
+.font-desc{
+font-family: Cairo;
+font-weight: 400;
+font-style: Regular;
+font-size: 18px;
+// line-height: 100%;
+text-align: right;
+color:rgba(255, 255, 255, 1);
 
 
+}
 .btn-donate {
   background-color: rgba(2, 86, 50, 1);
   color: #fff;
   font-weight: 600;
   border: none;
   transition: all 0.3s ease;
+  ;
 
   &:hover {
     background-color: #014c2f;
@@ -16,7 +30,6 @@
   object-fit: cover;
 }
 .bg-card{ 
-background-color:  rgba(255, 255, 255, 0.836);
-color:rgba(177, 203, 191, 0.3);
-
+background-color:  #56826f;
+color:#ffffff;
 }

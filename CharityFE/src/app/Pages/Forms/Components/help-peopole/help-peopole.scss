@@ -1,0 +1,127 @@
+.help-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 2rem 1rem;
+  direction: rtl;
+  text-align: right;
+  font-family: 'Cairo', sans-serif;
+  // background: url('/assets/images/pattern-light.svg') no-repeat;
+  // background-size: cover;
+}
+
+.page-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+.tab-button {
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  padding: 0.45rem 1.25rem;
+  color: #333;
+  border: 1px solid #ccc;
+  background: #f8f9fa;
+
+  &.active {
+    background-color: #ffffff;
+    color: #28a745;
+    border-color: #28a745;
+    font-weight: 600;
+  }
+
+  &:hover {
+    background-color: #e9ecef;
+  }
+
+  i {
+    margin-left: 0.3rem;
+  }
+}
+
+.contact-info-box, .contact-form-box {
+  background: #fff;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 15px rgba(14, 13, 13, 0.918);
+}
+
+.contact-form-box .form-group label {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.contact-form-box .form-control {
+  border-radius: 10px;
+  border: 3px solid #ced4da94;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.contact-form-box textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.input-group-text {
+  border-radius: 0 10px 10px 0;
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  color: #28a745;
+}
+
+.btn-success {
+  background-color: #198754;
+  border: none;
+  font-weight: bold;
+  padding: 0.75rem;
+  border-radius: 10px;
+}
+
+.btn-success:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.text-danger.small {
+  margin-top: 5px;
+  font-size: 0.875rem;
+  color: #dc3545;
+}
+
+@media (max-width: 768px) {
+  .tab-button {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .page-title {
+    font-size: 1.25rem;
+  }
+}
+.form-group {
+  position: relative;
+  direction: rtl;
+}
+
+.form-group .form-control {
+  padding-left: 2.5rem;
+  padding-right: 1rem;
+  text-align: right;
+}
+
+.form-group .input-icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  // transform: translateY(-50%);
+  color: #28a745;
+  font-size: 1.1rem;
+  pointer-events: none;
+}

@@ -23,9 +23,9 @@ ngOnInit(): void {
 
 Dashbord() {
   // Navigate to dashboard or trigger desired function
-  if(this.AuthSer.getRole()=="Admin"){
-    this.router.navigate(['/Dashboard']);
-  }
+
+    this.router.navigate(['/dashboard']);
+  
 }
 
 login() {
