@@ -1,0 +1,52 @@
+.search-bar input {
+  flex: 1;
+}
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-tabs .nav-link {
+  cursor: pointer;
+  color: black !important;
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.nav-tabs .nav-link.active {
+  color: black !important;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+}
+
+.card-body {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+/* complaints.component.css */
+.search-bar input {
+  flex: 1;
+}
+
+.nav-tabs .nav-link {
+  cursor: pointer;
+}
+
+.card-body {
+  flex-wrap: wrap;
+}
+
+.card-body h5,
+.card-body p,
+.card-body small {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.card-body .btn {
+  white-space: nowrap;
+}

@@ -17,7 +17,6 @@ export const routes: Routes = [
     { path: 'advisor-details', loadComponent: () => import('../app/Pages/advisor-details/advisor-details').then(m => m.AdvisorDetails), title: 'Advisor Details' },
     { path: 'advisor-reservation', loadComponent: () => import('../app/Pages/reservation/reservation').then(m => m.Reservation), canActivate: [advisoRreservationGuard], title: 'Advisor Reservation' },
     { path: 'must-login', loadComponent: () => import('../app/Pages/must-login/must-login').then(m => m.MustLogin), title: 'Must Login' },
-
     { path: 'questions',component:Questions,title:'Questions'},
     { path: 'dashboard', loadComponent: () => import('../app/Pages/Dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard Main' ,children:[
         { path: '', redirectTo: 'dashboard-main', pathMatch: 'full'},
@@ -30,7 +29,14 @@ export const routes: Routes = [
         { path: 'dashboard-awareness-new-video', loadComponent: ()=> import('../app/Pages/Dashboard/components/awareness/components/add-new-video/add-new-video').then(m => m.AddNewVideo), title: 'Add New Video' },
         { path: 'dashboard-news', loadComponent: ()=> import('../app/Pages/Dashboard/components/dashboard-news/dashboard-news').then(m => m.DashboardNews), title: 'Dashboard News' },
         { path: 'dashboard-news-new', loadComponent: ()=> import('../app/Pages/Dashboard/components/dashboard-news/components/dashboard-add-news/dashboard-add-news').then(m => m.DashboardAddNews), title: 'Add New News' },
-        { path: 'dashboard-news-edit/:id', loadComponent: ()=> import('../app/Pages/Dashboard/components/dashboard-news/components/dashboard-edit-news/dashboard-edit-news').then(m => m.DashboardEditNews), title: 'edit New News' }
+        { path: 'dashboard-news-edit/:id', loadComponent: ()=> import('../app/Pages/Dashboard/components/dashboard-news/components/dashboard-edit-news/dashboard-edit-news').then(m => m.DashboardEditNews), title: 'edit New News' },
+        { path: 'dashboard-services', loadComponent: ()=> import('../app/Pages/Dashboard/components/services/services').then(m => m.ServicesComponent), title: 'Dashboard Services' },
+        { path: 'dashboard-new-services', loadComponent: ()=> import('../app/Pages/Dashboard/components/services/component/add-new-service/add-new-service').then(m => m.AddNewService), title: 'Dashboard New Services' },
+        // { path: 'dashboard-services', loadComponent: ()=> import('../app/Pages/Dashboard/components/services/services').then(m => m.ServicesComponent), title: 'Dashboard Services' },
+        { path: 'dashboard-complaints', loadComponent: ()=> import('../app/Pages/Dashboard/components/complaints/complaints').then(m => m.Complaints), title: 'Complaints' },
+        { path: 'complaint-details/:id', loadComponent: ()=> import('../app/Pages/Dashboard/components/complaints/components/complaint-details/complaint-details').then(m => m.ComplaintDetails), title: 'Complaint Details' },
+        { path: 'consultation-management', loadComponent: ()=> import('../app/Pages/Dashboard/components/consultation-management/consultation-management.component').then(m => m.ConsultationManagementComponent), title: 'Consltation Managment' },
+        
     ]},
     { path: 'advisor-dashboard', loadComponent: ()=> import('../app/Pages/advisor-dashboard/advisor-dashboard').then(m => m.AdvisorDashboard), title: 'Advisor Dashboard', children:[
         { path: '', redirectTo: 'dashboard-main', pathMatch: 'full' },

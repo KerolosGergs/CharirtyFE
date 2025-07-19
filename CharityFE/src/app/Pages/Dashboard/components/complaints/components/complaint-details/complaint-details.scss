@@ -1,0 +1,58 @@
+.card-body p {
+  margin-bottom: 0.5rem;
+}
+/* complaint-details.component.scss */
+img {
+  object-fit: cover;
+}
+textarea {
+  resize: none;
+}
+.editor-container {
+  background-color: #f8f9fa; // Off-white background
+  border: 1px solid #ddd;
+}
+
+.editor-area:focus {
+  outline: none;
+  background-color: white;
+  border-color: #198754;
+}
+
+.editor-toolbar button {
+  font-weight: bold;
+  min-width: 32px;
+  text-align: center;
+}
+
+.bg-card{
+  background-color: rgb(236, 236, 236);
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 12px;
+  background: #f0f0f0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.nav-item {
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-item.active {
+  background-color: white;
+  color: var(--primary-400);
+}
+
+.nav-item:hover {
+  background-color: #e0e0e0;
+}

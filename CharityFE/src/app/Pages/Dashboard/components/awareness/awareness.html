@@ -1,71 +1,39 @@
 <div class="container mt-5 video-manager">
-    <!-- رفع فيديو جديد -->
-    <a class="btn btn-success mb-4" routerLink="/dashboard/dashboard-awareness-new-video">رفع فيديو جديد</a>
+  <a class="btn btn-success mb-4" routerLink="/dashboard/dashboard-awareness-new-video">رفع فيديو جديد</a>
 
-    <!-- الفيديو الحالي -->
-    <h2>الفيديو الحالي</h2>
-    <!-- ... same as before ... -->
-    <div class="card current-video mb-5">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-                <img src="Images/advisor.jpg" class="card-img" alt="Thumbnail">
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">توزيع 1,000 سلة غذائية بمناسبة شهر رمضان</h5>
-                    <p class="card-text">تفاصيل الحملة الرمضانية التي أطلقتها الجمعية...</p>
-                    <p class="card-text"><small class="text-muted">15 مارس 2025</small></p>
-                    <div class="btn-group">
-                        <button class="btn btn-edit">
-                            <i class="bi bi-pencil-fill me-1"></i> تعديل
-                        </button>
-                        <button class="btn btn-outline-danger">
-                            <i class="bi bi-trash-fill me-1"></i> حذف
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <h2 class="mt-5">الفيديوهات التي تم نشرها</h2>
+
+  <!-- Filter -->
+  <div class="row mb-4 align-items-center">
+    <div class="col-md-5">
+      <input type="text" class="form-control" [formControl]="searchControl" (input)="applyFilters()" placeholder="بحث بعنوان الفيديو">
     </div>
-    <!-- الفيديوهات المنشورة -->
-    <h2 class="mt-5">الفيديوهات التي تم نشرها سابقاً</h2>
-
-    <!-- Filter & Search Row -->
-    <div class="row mb-4 align-items-center">
-        <div class="col-md-5">
-            <input type="text" class="form-control" [formControl]="searchControl" placeholder="بحث بعنوان الفيديو">
-        </div>
-        <div class="col-md-4">
-            <select class="form-select" [formControl]="categoryControl">
-                <option value="">كل التصنيفات</option>
-                <option value="رمضان">رمضان</option>
-                <option value="شتاء">شتاء</option>
-                <option value="نظافة">نظافة</option>
-            </select>
-        </div>
-        <div class="col-md-3 text-end">
-            <button class="btn btn-secondary" (click)="applyFilters()">تحديث</button>
-        </div>
+    <div class="col-md-4">
+      <select class="form-select" [formControl]="categoryControl" (change)="applyFilters()">
+        <option value="">كل التصنيفات</option>
+        <option *ngFor="let tag of getUniqueTags()" [value]="tag">{{ tag }}</option>
+      </select>
     </div>
-
-
-    <!-- Cards -->
-    <div class="row">
-        @for (video of filteredVideos(); track video.title) {
-        <div class="col-md-4">
-            <div class="card mb-4">
-                <img [src]="video.thumbnail" class="card-img-top" alt="Thumbnail">
-                <div class="card-body">
-                    <h5 class="card-title">{{ video.title }}</h5>
-                    <p class="card-text">{{ video.description }}</p>
-                    <p class="card-text"><small class="text-muted">{{ video.date }}</small></p>
-                    <div class="d-flex justify-content-between">
-                        <button class="btn btn-success">إعادة نشر</button>
-                        <button class="btn btn-outline-danger">حذف</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        }
+    <div class="col-md-3 text-end">
+      <button class="btn btn-secondary" (click)="applyFilters()">تحديث</button>
     </div>
+  </div>
+
+  <!-- Videos -->
+  <div class="row">
+    <div class="col-md-4" *ngFor="let video of filteredLectures">
+      <div class="card mb-4">
+        <img [src]="video.thumbnailUrl || 'assets/default-thumbnail.jpg'" class="card-img-top" alt="Thumbnail">
+        <div class="card-body">
+          <h5 class="card-title">{{ video.title }}</h5>
+          <p class="card-text">{{ video.description }}</p>
+          <p class="card-text"><small class="text-muted">{{ video.createdAt | date:'dd MMM yyyy' }}</small></p>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-success" (click)="republishLecture(video.id)">إعادة نشر</button>
+            <button class="btn btn-outline-danger" (click)="deleteLecture(video.id)">حذف</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

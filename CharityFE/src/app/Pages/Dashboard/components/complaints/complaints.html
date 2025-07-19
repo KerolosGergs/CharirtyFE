@@ -1,0 +1,35 @@
+<div class="container mt-4" dir="rtl">
+  <div class="search-bar d-flex mb-3">
+    <input type="text" class="form-control me-2" [(ngModel)]="searchText" placeholder="ابحث عن شكوى">
+  </div>
+
+  <ul class="nav nav-tabs mb-3">
+    @for (section of sections; track section) {
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="selectedSection === section"
+           (click)="selectSection(section)">
+          {{ section }}
+        </a>
+      </li>
+    }
+  </ul>
+
+  <div class="complaints-list">
+    @if (filteredComplaints.length > 0) {
+      @for (complaint of filteredComplaints; track complaint.id) {
+        <div class="card mb-2" style="cursor: pointer;" (click)="openComplaintDetails(complaint)">
+          <div class="card-body d-flex align-items-center justify-content-between flex-wrap">
+            <div class="d-flex align-items-center flex-grow-1 gap-3">
+              <h5 class="mb-0">{{ complaint.title }}</h5>
+              <p class="mb-0 text-muted">{{ complaint.description }}</p>
+              <small class="text-muted">{{ complaint.createdAt | date: 'short' }}</small>
+            </div>
+            <button class="btn btn-sm" (click)="deleteComplaint(complaint); $event.stopPropagation()">🗑️</button>
+          </div>
+        </div>
+      }
+    } @else {
+      <div class="alert alert-info">لا توجد شكاوى مطابقة للفلتر الحالي.</div>
+    }
+  </div>
+</div>
