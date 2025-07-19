@@ -17,13 +17,14 @@ export class Dashboard {
     { label: 'المستشارين', icon: 'bi bi-people', link: '/dashboard/dashboard-advisors', active: false },
     { label: 'اصلاح ذات البين', icon: 'bi bi-people', link: '', active: false },
     { label: 'الاستشارات', icon: 'bi bi-chat-dots', link: '/dashboarda', active: false },
-    { label: 'الشكاوى', icon: 'bi bi-graph-up', link: '/dashboards', active: false },
-    { label: 'طلبات التطوع', icon: 'bi bi-file-text', link: '/dashboards', active: false },
+    { label: 'الشكاوى', icon: 'bi bi-graph-up', link: '/dashboard/dashboard-complaints', active: false },
+    { label: 'طلبات التطوع', icon: 'bi bi-file-text', link: '/dashboard', active: false },
     { label: 'طلبات الدعم', icon: 'bi bi-headset', link: '/dashboarda', active: false },
-    // { label: 'أقسام الموقع', icon: 'bi bi-diagram-3', link: '/dashboardd', active: false },
+    // { label: 'أقسام الموقع', icon: 'bi bi-diagram-3', link: '/dashboard', active: false },
+    { label: 'الاستشارات', icon: 'bi bi-diagram-3', link: '/dashboard/consultation-management', active: false },
     { label: 'الاخبار', icon: 'bi bi-newspaper', link: '/dashboard/dashboard-news', active: false },
-    { label: 'الخدمات', icon: 'bi bi-life-preserver', link: '/dashboardd', active: false },
-    { label: 'التوعية', icon: 'bi bi-book-half', link: '/dashboardd', active: false },
+    { label: 'الخدمات', icon: 'bi bi-life-preserver', link: '/dashboard/dashboard-services', active: false },
+    { label: 'التوعية', icon: 'bi bi-book-half', link: '/dashboard/dashboard-awareness', active: false },
   ];
 
   searchOn = false;

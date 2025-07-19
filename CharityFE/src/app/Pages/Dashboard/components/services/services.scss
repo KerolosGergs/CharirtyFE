@@ -1,0 +1,97 @@
+.consultation-management-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.profile-pic {
+  width: 48px;
+  height: 48px;
+  background-color: #2c2c2c;
+  border-radius: 50%;
+}
+
+
+// Consultation Types Section
+.consultation-types-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 24px;
+  padding: 28px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  
+  h2 {
+    margin: 0;
+    color: #2c2c2c;
+    font-size: 20px;
+    font-weight: 600;
+  }
+}
+
+.btn-green{
+  background-color: var(--primary-500);
+  color: white;
+}
+.btn-green:hover{
+  background-color: var(--primary-700);
+}
+
+.consultation-types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.consultation-type-card {
+  border-radius: 20px;
+  padding: 24px;
+  position: relative;
+  transition: all 0.3s ease;
+  background: #f6f6f6;
+  
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    border-color: #2e7d5a;
+  }
+}
+
+.card-header {
+  text-align: right;
+  margin-bottom: 16px;
+  
+  i {
+    font-size: 22px;
+    color: #2e7d5a;
+  }
+}
+
+.card-content {
+  text-align: start;
+  margin-bottom: 24px;
+  
+  h3 {
+    margin: 0;
+    color: #2c2c2c;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+.card-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: start;
+}
+.img-card {
+    width: 63px;
+    height: 63px;
+    object-fit: cover;
+}

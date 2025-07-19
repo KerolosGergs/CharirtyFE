@@ -1,0 +1,62 @@
+<div class="container mt-4" dir="rtl">
+  <div class="row">
+     <!-- RIGHT PANEL: Complaint & Response -->
+<div class="col-md-8">
+  <div class="card h-100">
+    <div class="card-header bg-light fw-bold">تفاصيل الشكوى</div>
+    <div class="card-body d-flex flex-column justify-content-between" style="min-height: 300px;">
+      <div class="mb-3 overflow-auto" style="max-height: 200px;">
+        <p class="text-muted">اى حاجه</p>
+      </div>
+
+      <!-- Unified Editor Section -->
+      <div class="editor-container p-3 rounded" style="background-color: #f8f9fa;">
+        <div class="editor-area border rounded p-2 mb-3" contenteditable="true" id="replyInput"
+             dir="rtl" style="min-height: 100px;" placeholder="">اكتب الرد هنا...</div>
+
+        <div class="d-flex flex-column gap-2">
+          <div class="editor-toolbar d-flex gap-2">
+            <div>
+              <button type="button" class="btn btn-outline-secondary btn-sm" (click)="format('bold')">B</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm" (click)="format('italic')">I</button>
+              <button type="button" class="btn btn-outline-secondary btn-sm" (click)="format('underline')">U</button>
+            </div>
+            <button class="btn btn-success align-self-start me-auto" (click)="sendReply()">إرسال</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <!-- LEFT PANEL: User Info -->
+    <div class="col-md-4">
+      <div class="text-center mb-3">
+        <img src="Images/advisor.jpg" alt="صورة المستخدم" class="img rounded" width="100">
+        <h5 class="mt-2">اى حاجه</h5>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body bg-card">
+          <p><strong>الهاتف:</strong> اى حاجه</p>
+          <p><strong>البريد الإلكتروني:</strong>اى حاجه</p>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <h6>الصور و الملفات</h6>
+        <nav class="nav-tabs">
+          @for (tab of tabs; track $index) {
+            <div (click)="selectTab(tab)" [ngClass]="{'nav-item': true, 'active': selectedTab === tab}">
+            <i [class]="tab.icon"></i>
+            {{ tab.label }}
+          </div>
+          }
+        </nav>
+
+      </div>
+    </div>
+  </div>
+</div>

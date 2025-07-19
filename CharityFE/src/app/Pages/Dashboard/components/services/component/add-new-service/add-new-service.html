@@ -1,0 +1,57 @@
+<div class="card mt-4 shadow-sm add-service-card">
+  <div class="card-header bg-white">
+    <h5 class="my-3 text-center">إضافة خدمة جديدة</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="serviceForm" (ngSubmit)="submit()">
+      <div class="mb-3">
+        <label class="form-label">اسم الخدمة</label>
+        <input type="text" class="form-control" formControlName="name">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">الوصف</label>
+        <textarea class="form-control" rows="4" formControlName="description"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">التصنيف</label>
+        <input type="text" class="form-control" formControlName="category">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">صورة الخدمة</label>
+        <input type="file" class="form-control" (change)="onFileChange($event)">
+        @if (previewUrl){
+            <div class="image-preview mt-2">
+                <img [src]="previewUrl" alt="Preview" class="img-thumbnail" />
+            </div>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">معلومات التواصل</label>
+        <input type="text" class="form-control" formControlName="contactInfo">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">المتطلبات</label>
+        <textarea class="form-control" rows="3" formControlName="requirements"></textarea>
+      </div>
+
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" formControlName="isActive" id="isActive">
+        <label class="form-check-label" for="isActive">نشط</label>
+      </div>
+
+      <button type="submit" class="btn btn-success mb-2 w-100" [disabled]="loading">
+        <i class="fas fa-plus"></i>
+         نشر
+      </button>
+      <button type="submit" class="btn btn-outline-success w-100">
+        <i class="fas fa-plus"></i>
+         الغاء
+      </button>
+    </form>
+  </div>
+</div>

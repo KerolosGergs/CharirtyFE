@@ -1,0 +1,43 @@
+<div class="section-header">
+  <h2>انواع الخدمات</h2>
+  <button class="btn btn-green" (click)="addService()">
+    <i class="fas fa-plus"></i>
+    اضافة خدمة
+  </button>
+</div>
+
+@if (loading) {
+  <div class="text-center py-4">
+  جاري تحميل الخدمات...
+</div>
+}@else if (!loading) {
+  <div class="consultation-types-section">
+  <div class="consultation-types-grid">
+    @for (service of serviceOfferings; track $index) {
+      <div class="consultation-type-card">
+        <div class="d-flex justify-content-start align-items-center gap-2">
+          <picture>
+            <img class="img-card rounded-3" [src]="service.imageUrl || 'Images/advisor.jpg'" alt="">
+          </picture>
+          <div class="card-content">
+            <h3>{{ service.name }}</h3>
+            <span class="text-muted">{{ service.description }}</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-green w-100" (click)="editService(service)">
+            <i class="bi bi-pencil"></i>
+            تعديل
+          </button>
+          <button class="btn text-danger w-100" (click)="deleteService(service)">
+            <i class="bi bi-trash3"></i>
+            حذف
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+}
+
+
