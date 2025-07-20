@@ -39,6 +39,8 @@ export class AdvisorAvailabilityManagerComponent implements OnInit {
   saveSuccess = false;
   saveError = '';
 
+  // (احذف جميع المتغيرات والدوال المتعلقة بالتعديل: editingTimeId, editForm, startEdit, cancelEdit, saveEdit, convertTo24Hour)
+
   @Output() appointmentChange = new EventEmitter<{ timeId: number }>();
 
   ngOnInit(): void {
