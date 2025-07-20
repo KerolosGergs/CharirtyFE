@@ -31,8 +31,10 @@ export class ServicesComponent implements OnInit {
         this.serviceOfferings = res.data;
         this.loading = false;
       },
-      error: () => {
+      error: (err) => {
         this.loading = false;
+        console.log(err);
+        
         alert('حدث خطأ أثناء تحميل الخدمات');
       }
     });
@@ -43,7 +45,7 @@ export class ServicesComponent implements OnInit {
   }
 
   editService(service: IServiceOfferingDTO): void {
-    this.router.navigate(['/dashboard/edit-service', service.id]);
+    this.router.navigate(['/dashboard/dashboard-edit-services', service.id]);
   }
 
   deleteService(service: IServiceOfferingDTO): void {

@@ -44,18 +44,23 @@ export class AddNewService {
   }
 
   submit(): void {
-    if (this.serviceForm.invalid) return;
+    // if (this.serviceForm.invalid) return console.log(this.serviceForm.value);
+    // ;
 
     const dto: ICreateServiceOfferingDTO = this.serviceForm.value;
     this.loading = true;
 
     this.service.create(dto).subscribe({
-      next: () => {
+      next: (res) => {
         this.loading = false;
+        console.log(res);
+        
         this.router.navigate(['/dashboard/dashboard-services']);
       },
-      error: () => {
+      error: (err) => {
         this.loading = false;
+        console.log(err);
+        
         alert('حدث خطأ أثناء إضافة الخدمة');
       }
     });
