@@ -36,7 +36,7 @@ export const routes: Routes = [
         { path: 'dashboard-news-edit/:id', loadComponent: ()=> import('../app/Pages/Dashboard/components/dashboard-news/components/dashboard-edit-news/dashboard-edit-news').then(m => m.DashboardEditNews), title: 'edit New News' },
         { path: 'dashboard-services', loadComponent: ()=> import('../app/Pages/Dashboard/components/services/services').then(m => m.ServicesComponent), title: 'Dashboard Services' },
         { path: 'dashboard-new-services', loadComponent: ()=> import('../app/Pages/Dashboard/components/services/component/add-new-service/add-new-service').then(m => m.AddNewService), title: 'Dashboard New Services' },
-        // { path: 'dashboard-services', loadComponent: ()=> import('../app/Pages/Dashboard/components/services/services').then(m => m.ServicesComponent), title: 'Dashboard Services' },
+        { path: 'dashboard-edit-services/:id', loadComponent: ()=> import('../app/Pages/Dashboard/components/services/component/edit-services/edit-services').then(m => m.EditServices), title: 'Dashboard Edit Services' },
         { path: 'dashboard-complaints', loadComponent: ()=> import('../app/Pages/Dashboard/components/complaints/complaints').then(m => m.Complaints), title: 'Complaints' },
         { path: 'complaint-details/:id', loadComponent: ()=> import('../app/Pages/Dashboard/components/complaints/components/complaint-details/complaint-details').then(m => m.ComplaintDetails), title: 'Complaint Details' },
         { path: 'consultation-management', loadComponent: ()=> import('../app/Pages/Dashboard/components/consultation-management/consultation-management.component').then(m => m.ConsultationManagementComponent), title: 'Consltation Managment' },

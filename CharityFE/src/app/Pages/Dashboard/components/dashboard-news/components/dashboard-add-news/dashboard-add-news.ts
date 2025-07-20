@@ -1,18 +1,19 @@
-import { response } from 'express';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { AddArticle, NewsArticle } from '../../../../../../Core/Interfaces/news';
-import { newsservice } from '../../../../../../Core/Services/news';
 import { ActivatedRoute, Router } from '@angular/router';
+import { newsservice } from '../../../../../../Core/Services/news';
+import { NewsArticle } from '../../../../../../Core/Interfaces/news';
 
 @Component({
   selector: 'app-dashboard-add-news',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './dashboard-add-news.html',
-  styleUrl: './dashboard-add-news.scss'
+  styleUrls: ['./dashboard-add-news.scss']
 })
-export class DashboardAddNews { articleForm: FormGroup;
+export class DashboardAddNews implements OnInit {
+  articleForm: FormGroup;
   uploadedImageUrl: string | null = null;
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -51,7 +52,7 @@ export class DashboardAddNews { articleForm: FormGroup;
             });
             this.uploadedImageUrl = article.imageUrl;
           },
-          error: () => {
+          error: (err) => {
             this.toastr.error('فشل تحميل المقال');
             this.router.navigate(['/dashboard/news']);
           }
@@ -85,12 +86,10 @@ export class DashboardAddNews { articleForm: FormGroup;
     formData.append('category', formValues.category);
     formData.append('isPublished', formValues.isPublished.toString());
 
-    // ✅ Append the image if it exists
     if (formValues.Image instanceof File) {
       formData.append('Image', formValues.Image);
     }
 
-    // ✅ Convert tags: "tag1 tag2 tag3" → "tag1,tag2,tag3"
     const cleanedTags = formValues.tags?.toString().trim().split(/\s+/).join(',') || '';
     formData.append('tags', cleanedTags);
 
@@ -106,19 +105,37 @@ export class DashboardAddNews { articleForm: FormGroup;
 
     const formData = this.createFormData(this.articleForm.value);
 
-    this._news.createNewNews( formData).subscribe({
-      next: (res) => {
-        if (res.success) {
-          this.toastr.success('تم اضافة المقال بنجاح');
-          this.router.navigate(['/dashboard/news']);
-        } else {
-          this.toastr.error('حدث خطأ أثناء اضافة المقال');
+    if (this.articleId) {
+      // Edit existing article
+      this._news.updateNews(this.articleId, formData).subscribe({
+        next: (res) => {
+          if (res.success) {
+            this.toastr.success('تم تعديل المقال بنجاح');
+            this.router.navigate(['/dashboard/news']);
+          } else {
+            this.toastr.error('حدث خطأ أثناء تعديل المقال');
+          }
+        },
+        error: () => {
+          this.toastr.error('حدث خطأ، تأكد من اتصالك بالإنترنت');
         }
-      },
-      error: () => {
-        this.toastr.error('حدث خطأ، تأكد من اتصالك بالإنترنت');
-      }
-    });
+      });
+    } else {
+      // Create new article
+      this._news.createNewNews(formData).subscribe({
+        next: (res) => {
+          if (res.success) {
+            this.toastr.success('تم اضافة المقال بنجاح');
+            this.router.navigate(['/dashboard/news']);
+          } else {
+            this.toastr.error('حدث خطأ أثناء اضافة المقال');
+          }
+        },
+        error: () => {
+          this.toastr.error('حدث خطأ، تأكد من اتصالك بالإنترنت');
+        }
+      });
+    }
   }
 
   onCancel(): void {
