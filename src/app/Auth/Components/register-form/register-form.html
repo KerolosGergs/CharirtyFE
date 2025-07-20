@@ -1,0 +1,182 @@
+<div class="container-fluid min-vh-100 d-flex p-0 main">
+  <!-- Right Side: Register Form -->
+  <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 pt-0 bg-white">
+    <div class="w-100" style="max-width: 500px;">
+
+      <div class="text-end mb-4">
+        <img src="Images/logo.png" alt="Logo Icon" class="mb-2 logo-image" style="max-height: 120px;">
+        <h4 class="fw-bold mb-1">اهلاً وسهلاً بك</h4>
+        <p class="text-success  fw-semibold">اعطنا بياناتك وخل النظام يسجلك</p>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <!-- Full Name -->
+        <div class="mb-3 form-group-with-icon">
+          <label for="fullName" class="form-label">الاسم الكامل</label>
+          <div class="position-relative">
+            <input type="text" id="fullName" class="form-control with-icon" placeholder="اسمك الكامل"
+              formControlName="fullName">
+            <i class="bi bi-person input-icon"></i>
+          </div>
+          @if (registerForm.get('fullName')?.errors && registerForm.get('fullName')?.touched) {
+          @if (registerForm.get('fullName')?.hasError('required')) {
+          <span class="text-danger"> الاسم الكامل مطلوب</span>
+          }@else if (registerForm.get('fullName')?.hasError('minlength'))
+          {
+          <span class="text-danger"> الاسم الكامل يجب ان يكون اكبر من 2 حرف</span>
+          }
+          }
+        </div>
+
+        <!-- Email + phoneNumber -->
+        <div class="row mb-3">
+          <div class="col form-group-with-icon">
+            <label for="email" class="form-label">البريد الإلكتروني</label>
+            <div class="position-relative">
+              <input type="email" id="email" class="form-control with-icon" placeholder="بريدك الإلكتروني"
+                formControlName="email">
+              <i class="bi bi-envelope input-icon"></i>
+
+            </div>
+            @if (registerForm.get('email')?.errors && registerForm.get('email')?.touched) {
+            @if (registerForm.get('email')?.hasError('required')) {
+            <span class="text-danger"> البريد الالكتروني مطلوب</span>
+            }@else if (registerForm.get('email')?.hasError('email'))
+            {
+            <span class="text-danger">يجب ادخال البريد الالكتروني صحيح</span>
+            }
+            }
+          </div>
+          <div class="col form-group-with-icon">
+            <label for="phoneNumber" class="form-label">رقم الهاتف</label>
+            <div class="position-relative">
+              <input type="tel" id="phoneNumber" class="form-control with-icon" placeholder="966xxxxxxxxx"
+                formControlName="phoneNumber">
+              <i class="bi bi-phone input-icon"></i>
+            </div>
+            @if (registerForm.get('phoneNumber')?.errors && registerForm.get('phoneNumber')?.touched) {
+            @if (registerForm.get('phoneNumber')?.hasError('required')) {
+            <span class="text-danger"> رقم الهاتف مطلوب</span>
+            }
+            }
+          </div>
+        </div>
+
+        <!-- ID Number + Address -->
+        <div class="row mb-3">
+          <div class="col form-group-with-icon">
+            <label for="userName" class="form-label">رقم الهوية</label>
+            <div class="position-relative">
+              <input type="text" id="userName" class="form-control with-icon" placeholder="رقم هويتك"
+                formControlName="userName">
+              <i class="bi bi-card-text input-icon"></i>
+            </div>
+            @if (registerForm.get('userName')?.errors && registerForm.get('userName')?.touched) {
+            @if (registerForm.get('userName')?.hasError('required')) {
+            <span class="text-danger"> رقم الهوية مطلوب</span>
+            }@else if (registerForm.get('userName')?.hasError('minlength'))
+            {
+            <span class="text-danger">يجب ادخال رقم الهوية صحيح</span>
+            }
+            }
+          </div>
+          <div class="col form-group-with-icon">
+            <label for="address" class="form-label">العنوان</label>
+            <div class="position-relative">
+              <input type="text" id="address" class="form-control with-icon" placeholder="عنوانك"
+                formControlName="address">
+              <i class="bi bi-geo-alt input-icon"></i>
+            </div>
+            @if (registerForm.get('address')?.errors && registerForm.get('address')?.touched) {
+            @if (registerForm.get('address')?.hasError('required')) {
+            <span class="text-danger"> العنوان مطلوب</span>
+            }
+            @else if (registerForm.get('address')?.hasError('minlength'))
+            {
+            <span class="text-danger">يجب ادخال العنوان صحيح</span>
+            }
+            }
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3 form-group-with-icon">
+          <label for="password" class="form-label">كلمة المرور</label>
+          <div class="position-relative">
+            <input [type]="showPassword ? 'text' : 'password'" id="password" class="form-control with-icon"
+              placeholder="********" formControlName="password">
+            <i class="bi bi-lock input-icon"></i>
+            <button type="button" class="btn btn-sm btn-icon" (click)="togglePasswordVisibility()">
+              <i [ngClass]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+          @if (registerForm.get('password')?.errors && registerForm.get('password')?.touched) {
+          <div class=" p-1" role="alert">
+            @if (registerForm.get('password')?.hasError('required')) {
+            <span class="text-danger">كلمة المرور مطلوبة</span>
+            }
+            @else if (registerForm.get('password')?.hasError('minlength') ) {
+            <span class="text-danger">كلمة المرور يجب ان تكون 8 احرف على الاقل</span>
+            }
+            @else if(registerForm.get('password')?.hasError('maxlength') ) {
+            <span class="text-danger">كلمة المرور يجب ان تكون اقل من 32 احرف </span>
+            }
+          </div>
+          }
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="mb-4 form-group-with-icon">
+          <label for="confirmPassword" class="form-label">تأكيد كلمة المرور</label>
+          <div class="position-relative">
+            <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword"
+              class="form-control with-icon" placeholder="********" formControlName="confirmPassword">
+            <i class="bi bi-lock input-icon"></i>
+            <button type="button" class="btn btn-sm btn-icon" (click)="toggleConfirmPasswordVisibility()">
+              <i [ngClass]="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+          @if (registerForm.hasError('passwordMatchValidator') && registerForm.get('confirmPassword')?.touched) {
+          <span class="text-danger">كلمة المرور غير متطابقة</span>
+          }
+
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success w-100 mb-3 rounded-pill fs-4" [disabled]="isLoading">
+          @if (isLoading) {
+          <span class="spinner-border spinner-border-sm me-2 "></span>
+          }
+          أنشئ حسابي
+        </button>
+
+        <div class="text-center mb-3">
+          <span class="text-muted">عندك حساب قبل؟</span>
+          <a routerLink="/login" class="fw-semibold text-primary">سجل دخول</a>
+        </div>
+
+        <div class="d-flex justify-content-center gap-2 border-top pt-3">
+          @for (social of socialMediaLinks; track $index) {
+          <a href="#" (click)="$event.preventDefault(); onSocialLogin(social.name)"
+            class="btn btn-light border rounded-circle p-2">
+            <i [ngClass]="social.icon"></i>
+          </a>
+          }
+        </div>
+
+        <p class="text-center small text-muted mt-4">© جميع الحقوق محفوظة 2025</p>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Left Side: Full Image -->
+  <div class="col-lg-6 d-none d-lg-block position-relative">
+    <img src="Images/loginBG.jpg" alt="Background" class="img-fluid h-100 w-100 object-fit-cover rounded-start">
+
+    <div class="position-absolute top-0 end-0 mt-5 p-4 bg-light rounded-start">
+      <img src="Images/logoName.png" alt="Logo Text " style="max-height: 80px;">
+    </div>
+  </div>
+</div>

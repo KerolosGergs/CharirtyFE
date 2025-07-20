@@ -1,0 +1,50 @@
+<div class="container text-center my-5">
+  <h4 class="fw-bold mb-4">مجالاتنا الاستشارية... خبرات متنوعة لخدمة الإنسان</h4>
+
+  <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+    <button type="button"
+            class="btn-category"
+            [class.active]="isCategorySelected(null)"
+            (click)="selectCategory(null)">
+      <i class="bi bi-people-fill"></i>
+      كل المستشارين
+    </button>
+
+    @if (categories!.length > 0) {
+      @for (category of categories; track category.id) {
+        <button type="button"
+                class="btn-category"
+                [class.active]="isCategorySelected(category.id)"
+                (click)="selectCategory(category.id)">
+          <i class="bi bi-calendar2-week"></i>
+          {{ category.consultationName }}
+        </button>
+      }
+    }
+  </div>
+
+  @if (isLoadingAdvisors) {
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <p class="mt-3">جاري تحميل المستشارين...</p>
+    </div>
+  }
+
+  @if (!isLoadingAdvisors) {
+    @if (filteredAdvisors.length > 0) {
+      <div class="row g-4">
+        @for (item of filteredAdvisors; track $index) {
+          <div class="col-lg-3 col-md-4 col-sm-6">
+            <app-card-item [itemS]="item"></app-card-item>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="text-center py-5 text-muted">
+        <i class="bi bi-people fs-1 mb-3"></i>
+        <h5 class="fw-bold mb-2">لا يوجد مستشارين متاحين</h5>
+        <p>جاري إضافة مستشارين جدد قريباً</p>
+      </div>
+    }
+  }
+</div>

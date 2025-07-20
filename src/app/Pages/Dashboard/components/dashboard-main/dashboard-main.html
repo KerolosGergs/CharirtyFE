@@ -1,0 +1,124 @@
+<div class="container-fluid py-4">
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+          @for (card of cards; track card){
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow h-100 py-2" [ngStyle]="{ 'background-color': card.bgColor }">
+          <div class="card-body text-center">
+            <div class="text-xs font-weight-bold fs-4 text-primary-500  text-uppercase mb-1">
+              {{ card.name }}
+            </div>
+            <div class="h5 mb-0 font-weight-bold fs-3  text-gray-800">
+              {{ card.number }}
+            </div>
+            <div class="row no-gutters align-items-center mt-2">
+              <div class="col-auto">
+                <i class="bi" [ngClass]="card.icon" style="font-size: 24px;"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row">
+
+        <!-- Volunteer Requests Chart -->
+        <div class="col-xl-6 col-lg-5">
+            <div class="card shadow mb-4 animate__animated animate__fadeIn">
+                <div class="card-body">
+                    <h6 class="font-weight-bold text-primary mb-3">عدد طلبات التطوع</h6>
+                    <div class="text-danger small mb-3">
+                        <i class="bi bi-arrow-down"></i> 26%
+                    </div>
+                    <div class="row text-center">
+                        @for (bar of volunteerBars; track $index) {
+                        <div class="col-2">
+                            <div class="bar-item">
+                                <div class="bar" [style.height.px]="bar.height" [style.background]="bar.color"></div>
+                                <small>{{ bar.label }}</small>
+                            </div>
+                        </div>
+                        }
+
+                    </div>
+                    <div class="text-center mt-3">
+                        <h3 class="text-primary">{{ volunteerTotal }}</h3>
+                        <p class="text-muted">إجمالي الطلبات</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Complaints Chart -->
+        <div class="col-xl-6 col-lg-7">
+            <div class="card shadow mb-4 animate__animated animate__fadeIn">
+                <div class="card-body">
+                    <h6 class="font-weight-bold text-primary mb-3">عدد الشكاوى</h6>
+                    <div class="text-danger small mb-3">
+                        <i class="bi bi-arrow-down"></i> 26%
+                    </div>
+                    <div class="row">
+                        @for (complaint of complaints; track $index) {
+                        <div class="col-md-6">
+                            <h4 class="small font-weight-bold">{{ complaint.title }} <span class="float-left">{{
+                                    complaint.percentage }}%</span></h4>
+                            <div class="progress mb-4">
+                                <div class="progress-bar" [ngClass]="complaint.barClass" role="progressbar"
+                                    [style.width.%]="complaint.percentage"></div>
+                            </div>
+                        </div>
+                        }
+
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-primary">{{ complaintsTotal }}</h3>
+                        <p class="text-muted">إجمالي الشكاوى</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Support Requests Chart -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card shadow mb-4 animate__animated animate__fadeIn">
+                <div class="card-body">
+                    <h6 class="font-weight-bold text-muted mb-3">عدد طلبات الدعم</h6>
+                    <h2 class="fw-bold fs-3 mb-3">{{ supportTotal }}</h2>
+
+                    <div class="chart-area">
+                        <div class="line-chart-points">
+                            @for (point of supportPoints; track $index) {
+                            <div class="point-container">
+                                <span class="point-label">{{ point.label }}</span>
+                                <div class="point-value">{{ point.value }}</div>
+                                @if (point.highlight) {
+
+                                <span class="highlight-badge">{{ point.value }}</span>
+                                }
+                            </div>
+                            }
+
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <div class="progress mb-3 mx-auto" style="width: 300px;">
+                            <div class="progress-bar bg-success" role="progressbar" [style.width.%]="supportGrowth">
+                            </div>
+                        </div>
+                        <p class="text-muted">نمو بنسبة {{ supportGrowth }}% مقارنة بالشهر الماضي</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,47 @@
+<form class="card p-4 shadow-sm h-100" role="form" aria-label="نموذج حجز الاستشارة" [formGroup]="form" (ngSubmit)="submitForm()">
+  @defer (on idle) {
+    <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+      @if (categories!.length > 0) {
+        @for (category of categories; track category.id) {
+          <button 
+            type="button" 
+            class="btn-category" 
+            [class.active]="isCategorySelected(category.id)"
+            (click)="selectCategory(category.id)">
+            <i class="bi bi-calendar2-week"></i>
+            {{ category.consultationName }}
+          </button>
+        }
+      }
+    </div>
+  }
+
+  <div class="form-section">
+    <div class="mb-3">
+      <label for="notes" class="form-label fw-bold fs-4">أعطِ المستشار لمحة عن طلبك</label>
+      <textarea 
+        id="notes" 
+        rows="4" 
+        class="form-control shadow-sm fs-5" 
+        formControlName="notes" 
+        placeholder="اكتب طلبك هنا..."
+        maxlength="500">
+      </textarea>
+
+      @if (form.get('notes')?.touched && form.get('notes')?.invalid) {
+        <span class="text-danger small">المجال مطلوب ولا يزيد عن 500 حرف</span>
+      }
+    </div>
+  </div>
+
+  <app-advisor-availability-manager (appointmentChange)="onAppointmentChange($event)"></app-advisor-availability-manager>
+
+  <div class="text-center mt-4">
+    <button 
+      type="submit" 
+      class="btn btn-success" 
+      [disabled]="!isFormValid()">
+      حجز الموعد
+    </button>
+  </div>
+</form>

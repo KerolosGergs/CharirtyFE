@@ -1,0 +1,50 @@
+@if (Meditation) {
+<div class="meditation-profile container py-5">
+
+  <!-- Profile Card -->
+  <div class="profile-card shadow-lg rounded-4 p-4 bg-white row align-items-center g-4">
+
+    <!-- Profile Image & Status -->
+    <div class="col-lg-3 col-md-4 text-center">
+      <img [src]="Meditation.imageUrl" class="profile-img mb-3" alt="الصورة الشخصية">
+      <h4 class="fw-bold">{{ Meditation.fullName }}</h4>
+
+      <!-- Status Badges -->
+      <div class="mt-2">
+        @if (Meditation.isActive) {
+          <span class="badge rounded-pill bg-success">نشط</span>
+        } @else {
+          <span class="badge rounded-pill bg-secondary">غير نشط</span>
+        }
+
+        <br />
+
+        @if (Meditation.isAvailable) {
+          <span class="badge rounded-pill bg-primary mt-2">متاح</span>
+        } @else {
+          <span class="badge rounded-pill bg-warning text-dark mt-2">غير متاح</span>
+        }
+      </div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="col-lg-9 col-md-8">
+      <div class="info-grid row g-3">
+        <div class="col-sm-6">
+          <label>📧 البريد الإلكتروني</label>
+          <p>{{ Meditation.email }}</p>
+        </div>
+        <div class="col-sm-6">
+          <label>📞 رقم الهاتف</label>
+          <p>{{ Meditation.phoneNumber }}</p>
+        </div>
+        <div class="col-sm-6">
+          <label>📅 تاريخ الإنشاء</label>
+          <p>{{ Meditation.createdAt | date:'dd/MM/yyyy' }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+}

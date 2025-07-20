@@ -1,0 +1,124 @@
+<div class="calendar-component bg-white rounded-3 shadow-sm">
+
+  <!-- Header -->
+  <div class="calendar-header d-flex justify-content-between align-items-center p-3 border-bottom">
+    <h4 class="mb-0 fw-bold text-dark">المواعيد القادمة</h4>
+  </div>
+
+  <!-- Search and Filter Bar -->
+  <div class="search-filter-bar p-3 bg-light border-bottom">
+    <div class="row g-3 align-items-center">
+      <!-- Filter Button -->
+      <div class="col-auto">
+        <button class="btn btn-outline-secondary" (click)="onFilterClick()">
+          <i class="bi bi-funnel me-2"></i>
+          فلتر
+        </button>
+      </div>
+
+      <!-- Search Input -->
+      <div class="col-md-4">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="عن ماذا تبحث" [(ngModel)]="searchQuery"
+            (input)="onSearchChange($event)">
+          <span class="input-group-text">
+            <i class="bi bi-search"></i>
+          </span>
+        </div>
+      </div>
+
+      <!-- Toggle Buttons -->
+      <div class="col-auto">
+        <div class="btn-group" role="group" aria-label="Meeting type toggle">
+          <input type="radio" class="btn-check" name="meetingType" id="inPerson" value="inPerson"
+            [(ngModel)]="selectedMeetingType" (change)="onMeetingTypeChange()">
+          <label class="btn btn-outline-primary" for="inPerson">
+            <i class="bi bi-person-fill me-1"></i> حضوري
+          </label>
+
+          <input type="radio" class="btn-check" name="meetingType" id="online" value="online"
+            [(ngModel)]="selectedMeetingType" (change)="onMeetingTypeChange()">
+          <label class="btn btn-outline-primary" for="online">
+            <i class="bi bi-camera-video me-1"></i> أونلاين
+          </label>
+
+          <input type="radio" class="btn-check" name="meetingType" id="all" value="all"
+            [(ngModel)]="selectedMeetingType" (change)="onMeetingTypeChange()">
+          <label class="btn btn-outline-primary" for="all">
+            <i class="bi bi-list me-1"></i> الكل
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar Navigation -->
+  <div class="calendar-navigation d-flex justify-content-center align-items-center p-3 border-bottom">
+    <button class="btn btn-outline-secondary me-3" (click)="navigateWeek(-1)">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <h5 class="mb-0 fw-semibold text-center">
+      {{ getCurrentMonthYear() }}
+    </h5>
+
+    <button class="btn btn-outline-secondary ms-3" (click)="navigateWeek(1)">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Calendar Grid -->
+  <div class="calendar-grid">
+    <!-- Day Headers -->
+    <div class="day-headers d-flex border-bottom bg-light">
+      <div class="time-column p-2 border-end bg-white">
+        <small class="text-muted">PST</small>
+      </div>
+      <div *ngFor="let day of weekDays; trackBy: trackByDay" class="day-header flex-fill text-center p-2 border-end">
+        <div class="day-name text-muted small">{{ day.name }}</div>
+        <div class="day-number fw-bold">{{ day.number }}</div>
+      </div>
+    </div>
+
+    <!-- Time Grid -->
+    <div class="time-grid position-relative">
+      <!-- Time Labels -->
+      <div class="time-labels position-absolute">
+        <div *ngFor="let timeSlot of timeSlots; trackBy: trackByTimeSlot" class="time-slot d-flex align-items-center">
+          <div class="time-column p-2 border-end bg-light">
+            <small class="text-muted">{{ timeSlot.label }}</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid Lines -->
+      <div class="grid-lines">
+        <div *ngFor="let timeSlot of timeSlots; trackBy: trackByTimeSlot" class="hour-line" [attr.data-hour]="timeSlot.hour"></div>
+      </div>
+
+      <!-- Current Time Line -->
+      <div *ngIf="showCurrentTimeLine" class="current-time-line position-absolute" [style.top.px]="currentTimePosition">
+        <div class="time-indicator">
+          <span class="time-text">{{ currentTimeText }}</span>
+        </div>
+        <div class="time-line"></div>
+      </div>
+
+      <!-- Appointments Container -->
+      <div class="appointments-container position-relative">
+        <div *ngFor="let appointment of filteredAppointments; trackBy: trackByAppointment"
+          class="appointment-card appointment-{{ appointment.color }}"
+          [style.top.px]="getAppointmentPosition(appointment).top"
+          [style.height.px]="getAppointmentPosition(appointment).height"
+          [style.left.%]="getAppointmentPosition(appointment).left"
+          [style.width.%]="getAppointmentPosition(appointment).width"
+          (click)="onAppointmentClick(appointment)">
+          <div class="appointment-content p-2">
+            <div class="appointment-title fw-semibold small">{{ appointment.title }}</div>
+            <div class="appointment-description text-muted small">{{ appointment.description }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

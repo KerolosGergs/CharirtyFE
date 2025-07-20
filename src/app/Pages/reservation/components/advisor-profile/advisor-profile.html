@@ -1,0 +1,83 @@
+<article
+  itemscope
+  itemtype="https://schema.org/Person"
+  class="card advisor-card bg-white border-0 shadow-sm p-4 rounded-4"
+>
+  <!-- Advisor Image -->
+  <img
+    [src]="advisorData.imageUrl"
+    [alt]="advisorData.fullName"
+    class="advisor-img img-fluid shadow-sm mb-3 mx-auto d-block rounded-3"
+    itemprop="image"
+  />
+
+  <!-- Advisor Name -->
+  <p itemprop="name" class="h5 text-success text-center fw-bold mb-2">
+    {{ advisorData.fullName }}
+  </p>
+
+  <!-- Job Title -->
+  <h2
+    itemprop="jobTitle"
+    class="fw-semibold h6 text-center mb-4 text-muted"
+  >
+    {{ advisorData.consultationName }}
+  </h2>
+
+  <!-- "من هو مستشارنا" Section -->
+  <div class="text-end mb-4">
+    <h6 class="fw-bold text-dark mb-2">من هو مستشارنا</h6>
+    <div class="card shadow-sm rounded-3 p-3 border-0 bg-light text-muted small lh-lg">
+      {{ advisorData.description }}
+    </div>
+  </div>
+
+  <!-- "المميزات" Section -->
+  <div class="text-end">
+    <h6 class="fw-bold text-dark mb-3">المميزات</h6>
+
+    <div class="card shadow-sm rounded-3 p-3 border-0 bg-light">
+      <div class="row row-cols-1 row-cols-sm-2 gy-4 text-muted small">
+
+        <!-- شهادات المستشار -->
+        <div class="col d-flex flex-column">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-person-vcard-fill text-success fs-5 ms-2"></i>
+            <span class="fw-semibold text-dark">شهادات المستشار</span>
+          </div>
+          <ul class="list-unstyled mb-0 ps-3 lh-lg">
+            <li>{{advisorData.specialty}}</li>
+          </ul>
+        </div>
+
+        <!-- سنوات الخبرة -->
+        <div class="col d-flex flex-column">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-clock-history text-success fs-5 ms-2"></i>
+            <span class="fw-semibold text-dark">نوع الأستشارة</span>
+          </div>
+          <p class="mb-0 ps-3 lh-lg">{{ advisorData.consultationName }}</p>
+        </div>
+
+        <!-- اللغات -->
+        <div class="col d-flex flex-column">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-globe2 text-success fs-5 ms-2"></i>
+            <span class="fw-semibold text-dark">اللغات</span>
+          </div>
+          <p class="mb-0 ps-3 lh-lg">عربي، إنجليزي</p>
+        </div>
+
+        <!-- أنواع التواصل -->
+        <div class="col d-flex flex-column">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-headset text-success fs-5 ms-2"></i>
+            <span class="fw-semibold text-dark">أنواع التواصل</span>
+          </div>
+          <p class="mb-0 ps-3 lh-lg">حضور او اونلاين</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,56 @@
+<div class="news-section py-5" dir="rtl">
+  <div class="container">
+
+ <div class="d-flex flex-wrap align-items-center justify-content-between mb-4 gap-2">
+  <!-- First div: Header -->
+  <div>
+    <h2 class="fw-bold text-success">آخر أخبارنا التي أنجزناها</h2>
+  </div>
+
+  <!-- Second div: Subtitle (placed right after the title with some spacing) -->
+  <div class="ms-3 me-3 d-flex flex-column justify-content-between">
+    <p class="text-subtitle">
+      نشارككم إنجازاتنا، قصص النجاح، والتقارير الشهرية بكل   </p>
+    <p class="text-subtitle">
+      شفافية ووضوح
+    </p>
+  </div>
+
+  <!-- Spacer to push the next element to the end -->
+  <div class="me-auto d-flex gap-2">
+    <button class="btn btn-icon" (click)="prevSlide()">
+      <i class="bi bi-chevron-compact-right"></i>
+    </button>
+    <button class="btn btn-icon" (click)="nextSlide()">
+      <i class="bi bi-chevron-compact-left"></i>
+    </button>
+  </div>
+</div>
+
+
+    <div class="row g-4">
+      @for ( item of newsItems; track $index; let i = $index) {
+      <div class="col-lg-3 col-md-6">
+        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden" [class.active]="i === currentSlide">
+          <div class="ratio ratio-4x3">
+            <img [src]="item.imageUrl" [alt]="item.title" class="img-fluid object-fit-cover">
+          </div>
+          <div class="p-3">
+            <h5 class="fw-bold text-dark mb-2">
+              {{ item.title }}
+            </h5>
+            <p class="text-muted small mb-3">
+              {{ item.content }}
+            </p>
+            <div class="text-muted small d-flex align-items-center gap-2">
+              <i class="bi bi-calendar"></i>
+              <span>{{ item.createdAt | date }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+  </div>
+</div>

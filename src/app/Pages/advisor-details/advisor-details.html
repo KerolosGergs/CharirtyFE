@@ -1,0 +1,74 @@
+<app-header-component></app-header-component>
+<app-nav></app-nav>
+
+@if (isLoading) {
+  <div class="loading-container">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">جاري التحميل...</span>
+    </div>
+    <p class="mt-3">جاري تحميل بيانات المستشار...</p>
+  </div>
+} @else if (!isLoading && error && !advisorData) {
+  <div class="error-container">
+    <div class="alert alert-danger"  role="alert">
+      <h4 class="alert-heading">خطأ!</h4>
+      <p>{{ error }}</p>
+      <hr>
+      <p class="mb-0">
+        <a routerLink="/all-consultants" class="btn btn-success">العودة لقائمة المستشارين</a>
+      </p>
+    </div>
+  </div>
+} @else {
+<div class="advisor-container container py-5 animate__animated animate__fadeIn">
+  <div class="row align-items-center justify-content-between">
+     <div class="col-lg-4 text-center mt-4 mt-lg-0">
+      <img [src]="advisorData.imageUrl" [alt]="'صورة ' + advisorData.fullName" class="img-fluid rounded shadow-sm" style="max-width: 300px;" />
+    </div>
+    <!-- Text & Info -->
+    <div class="col-lg-8">
+      <h2 class="advisor-name text-success fw-bold mb-3">{{ advisorData.fullName }}</h2>
+      <p class="advisor-description mb-4">
+        {{ advisorData.description }}
+      </p>
+
+      <!-- Info Grid -->
+      <div class="row text-center advisor-info gy-4">
+        <div class="col-6 col-md-3">
+          <i class="bi bi-award-fill fs-2 text-success"></i>
+          <h6 class="fw-bold mt-2">شهادات المستشار</h6>
+          <p class="mb-0 white-space-pre">{{ advisorData.specialty }}</p>
+        </div>
+        <div class="col-6 col-md-3">
+          <i class="bi bi-hourglass-split fs-2 text-success"></i>
+          <h6 class="fw-bold mt-2">نوع الأستشارة</h6>
+          <p class="mb-0">{{ advisorData.consultationName }} </p>
+        </div>
+        <div class="col-6 col-md-3">
+          <i class="bi bi-translate fs-2 text-success"></i>
+          <h6 class="fw-bold mt-2">اللغات</h6>
+          <p class="mb-0">العربية - الانجليزية</p>
+        </div>
+        <div class="col-6 col-md-3">
+          <i class="bi bi-telephone-forward-fill fs-2 text-success"></i>
+          <h6 class="fw-bold mt-2">أنواع التواصل</h6>
+          <p class="mb-0">حضور او اونلاين</p>
+        </div>
+      </div>
+
+      <!-- Button -->
+      <div class="text-center mt-4">
+        <a class="btn btn-success px-5 py-2 fw-bold" routerLink="/advisor-reservation" [queryParams]="{id: advisorData.id}">
+          احجز استشارة
+        </a>
+      </div>
+    </div>
+
+    <!-- Profile Image -->
+   
+  </div>
+</div>
+
+}
+
+<app-footer></app-footer>

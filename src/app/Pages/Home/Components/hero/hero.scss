@@ -1,0 +1,100 @@
+/* Hero Section */
+*{
+  font-family: 'Cairo';
+}
+.hero-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  // margin-bottom: 60px;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: gradientShift 8s ease-in-out infinite;
+  min-height: 100%;
+}
+
+.hero-background::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  // background-image:url('/Images/home/head.png'); 
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 5;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  // background: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+  z-index: 2;
+  position: relative;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  animation: fadeInUp 1s ease-out;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 2rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  animation: fadeInUp 1s ease-out 0.4s both;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.hero-buttons {
+  animation: fadeInUp 1s ease-out 0.6s both;
+  font-family: 'Cairo';
+font-weight: 700;
+text-align: right;
+vertical-align: middle;
+  position: relative;
+  top: 135px;
+
+}
+
+
+.hero-btn-primary {
+  background-color: #ffffff;
+  color: var(--primary);
+}
+
+.hero-btn-primary:hover {
+  background-color: #f8f9fa;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+}
+
+.hero-statistics{
+  animation: fadeInUp 1s ease-out 0.8s both;
+  position: relative;
+  bottom: -120px;
+  width: 100%;
+}

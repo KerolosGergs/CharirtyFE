@@ -1,0 +1,26 @@
+<div class="card news-card shadow-sm mb-4">
+  <img [src]="itemC.imageUrl" class="card-img-top" alt="News Thumbnail">
+  <div class="card-body">
+    <h5 class="card-title">{{ itemC.title }}</h5>
+    <p class="card-text">{{ itemC.summary }}</p>
+    <div class="text-end mb-2">
+  @if (itemC.isPublished) {
+    <i class="bi bi-check-circle-fill text-success" title="منشور"></i>
+    <span class="text-success fw-bold">مقال منشور</span>
+  } @else {
+    <i class="bi bi-x-circle-fill text-danger" title="غير منشور"></i>
+    <span class="text-danger fw-bold">غير منشور</span>
+  }
+</div>
+    <p class="card-text"><small class="text-muted"> {{ itemC.content }} </small></p>
+    <div class="tags mb-2">
+      @for (tag of itemC.tags.toString().split(' '); track $index) {
+        <span class="badge bg-secondary me-1">{{ tag }}</span>
+      }
+    </div>
+    <div class="d-flex justify-content-between mt-3">
+      <button (click)="confirmDelete()" class="btn btn-outline-danger">حذف</button>
+      <a class="decoration-none btn btn-edit" [routerLink]="['/dashboard/dashboard-news-edit', itemC.id]"> <i class="bi bi-pencil-fill me-1"></i> تعديل</a>
+    </div>
+  </div>
+</div>

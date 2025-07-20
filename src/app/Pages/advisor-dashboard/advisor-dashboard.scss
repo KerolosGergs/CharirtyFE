@@ -1,0 +1,85 @@
+/* Custom Dashboard CSS - Fixed Layout Design */
+
+/* CSS Variables */
+:root {
+    --primary-500: #22c55e; /* Green color as requested */
+    --primary-600: #16a34a;
+    --primary-700: #15803d;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+}
+
+/* Font Family */
+* {
+    font-family: 'Cairo', sans-serif;
+}
+
+.user-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-left: 16px;
+  }
+
+  .notification-dropdown {
+    animation-duration: 0.5s;
+  }
+
+  .nav-item{
+    border-right: 3px solid transparent;
+    font-size: 1.2rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .nav-link.active {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: var(--primary-500);
+    border-right: 3px solid var(--primary-500);
+  }
+
+  .nav-link:hover {
+    color: var(--primary-500);
+    background-color: rgba(34, 197, 94, 0.1);
+    transform: translateX(-3px);
+  }
+  
+ .notification-dropdown {
+  border-radius: 12px;
+  min-width: 200px;
+  background-color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  font-family: 'Cairo', sans-serif;
+}
+
+.notification-dropdown .border-bottom:last-child {
+  border-bottom: none !important;
+}
+
+.notification-dropdown .small {
+  font-size: 13px;
+}
+
+.notification-dropdown i {
+  font-size: 16px;
+}
+
+.notification-dropdown .fw-semibold {
+  font-size: 14px;
+}
+
+.notification-dropdown .text-muted {
+  font-size: 12px;
+}
+
+.notification-dropdown .text-center i {
+  font-size: 32px;
+  opacity: 0.5;
+}

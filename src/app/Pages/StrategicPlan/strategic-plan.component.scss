@@ -1,0 +1,27 @@
+.strategic-plan-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(25,135,84,0.08);
+  margin-bottom: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.strategic-plan-container h2 {
+  color: #198754;
+}
+.strategic-plan-pdf-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  background: #f6faf7;
+}
+.strategic-plan-pdf {
+  border: none;
+  min-height: 400px;
+  background: #f6faf7;
+}
+@media (max-width: 767px) {
+  .strategic-plan-pdf { height: 350px !important; }
+  .strategic-plan-container { padding: 1rem; }
+} 

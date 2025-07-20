@@ -1,0 +1,7 @@
+<div *ngIf="appointment">
+  <h2>{{ appointment.title }}</h2>
+  <p><strong>الوصف:</strong> {{ appointment.description }}</p>
+  <p><strong>النوع:</strong> {{ appointment.type === 'inPerson' ? 'حضوري' : 'أونلاين' }}</p>
+  <p><strong>من:</strong> {{ appointment.startTime | date:'shortTime' }}</p>
+  <p><strong>إلى:</strong> {{ appointment.endTime | date:'shortTime' }}</p>
+</div>

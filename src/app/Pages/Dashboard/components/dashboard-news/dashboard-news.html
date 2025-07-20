@@ -1,0 +1,37 @@
+<div class="container news-manager mt-5">
+  <!-- Header Actions -->
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+   <a class="decoration-none" [routerLink]="['/dashboard/dashboard-news-new']" >  <button  class="btn btn-success px-4">نشر خبر جديد</button></a>
+
+    <div class="d-flex flex-wrap gap-2 align-items-center">
+      <input type="text" class="form-control" placeholder="البحث عن خبر" [formControl]="searchControl">
+      
+      <select class="form-select" [formControl]="filterControl">
+        <option value="">فلتر</option>
+        <option value="new">التاريخ الحديث</option>
+        <option value="old">التاريخ القديم</option>
+        <option value="hidden">المخفية</option>
+        <option value="published">الأخبار المنشورة</option>
+      </select>
+
+    </div>
+  </div>
+
+  <!-- News Cards -->
+  <div class="row">
+    @if(filteredArticles().length === 0) {
+      <div class="card text-center p-3 bg-light text-muted">
+      لا يوجد أخبار حالياً
+    </div>
+    }
+  @for (article of filteredArticles(); track article.id) {
+    <div class="col-md-4">
+      <app-dashboard-news-item 
+      [itemC]="article"
+      (delete)="handleDelete($event)"
+      ></app-dashboard-news-item>
+    </div>
+  }
+</div>
+
+</div>

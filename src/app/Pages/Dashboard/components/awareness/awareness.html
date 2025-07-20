@@ -1,0 +1,39 @@
+<div class="container mt-5 video-manager">
+  <a class="btn btn-success mb-4" routerLink="/dashboard/dashboard-awareness-new-video">رفع فيديو جديد</a>
+
+  <h2 class="mt-5">الفيديوهات التي تم نشرها</h2>
+
+  <!-- Filter -->
+  <div class="row mb-4 align-items-center">
+    <div class="col-md-5">
+      <input type="text" class="form-control" [formControl]="searchControl" (input)="applyFilters()" placeholder="بحث بعنوان الفيديو">
+    </div>
+    <div class="col-md-4">
+      <select class="form-select" [formControl]="categoryControl" (change)="applyFilters()">
+        <option value="">كل التصنيفات</option>
+        <option *ngFor="let tag of getUniqueTags()" [value]="tag">{{ tag }}</option>
+      </select>
+    </div>
+    <div class="col-md-3 text-end">
+      <button class="btn btn-secondary" (click)="applyFilters()">تحديث</button>
+    </div>
+  </div>
+
+  <!-- Videos -->
+  <div class="row">
+    <div class="col-md-4" *ngFor="let video of filteredLectures">
+      <div class="card mb-4">
+        <img [src]="video.thumbnailUrl || 'assets/default-thumbnail.jpg'" class="card-img-top" alt="Thumbnail">
+        <div class="card-body">
+          <h5 class="card-title">{{ video.title }}</h5>
+          <p class="card-text">{{ video.description }}</p>
+          <p class="card-text"><small class="text-muted">{{ video.createdAt | date:'dd MMM yyyy' }}</small></p>
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-success" (click)="republishLecture(video.id)">إعادة نشر</button>
+            <button class="btn btn-outline-danger" (click)="deleteLecture(video.id)">حذف</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

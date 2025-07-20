@@ -1,0 +1,27 @@
+.association-sectors-container {
+  background: #e8f8f3;
+  border-radius: 18px;
+  box-shadow: none;
+  margin-bottom: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.association-sectors-pdf {
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(25,135,84,0.10);
+  background: #fff;
+  min-height: 400px;
+  max-width: 100%;
+  width: 100%;
+  display: block;
+}
+@media (max-width: 767px) {
+  .association-sectors-pdf { height: 350px !important; }
+  .association-sectors-container { padding: 1rem; }
+} 

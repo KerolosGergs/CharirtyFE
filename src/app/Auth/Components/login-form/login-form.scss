@@ -1,0 +1,40 @@
+/* Login Component Styles */
+.login-container {
+  direction: ltr;
+  font-family: 'Cario', sans-serif;
+  background-color: #ffffff;
+}
+.login-form-container {
+  max-width: 400px;
+}
+
+.logo-image {
+  max-height: 60px;
+}
+
+.form-group-with-icon {
+  position: relative;
+
+  .with-icon {
+    padding-right: 40px;
+  }
+
+  .input-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    pointer-events: none;
+  }
+
+  .btn-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #666;
+  }
+}

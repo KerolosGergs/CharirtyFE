@@ -1,0 +1,24 @@
+<app-header-component></app-header-component>
+<app-nav></app-nav> 
+@defer (on idle) {
+<div class="container py-4">
+    <div class="row gx-4 gy-4">
+        <section class="col-lg-8 col-md-7 col-sm-12">
+          <app-reservation-form></app-reservation-form>
+        </section>
+  <aside class="col-lg-4 col-md-5 col-sm-12">
+
+        <app-advisor-profile></app-advisor-profile>
+        </aside>
+    </div>
+</div>
+}
+@placeholder {
+<app-spinner></app-spinner>
+}
+@error {
+  <app-not-found></app-not-found>
+  
+}
+
+<app-footer></app-footer>

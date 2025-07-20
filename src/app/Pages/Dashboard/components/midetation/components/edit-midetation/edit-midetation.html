@@ -1,0 +1,69 @@
+<div class="popup-overlay">
+    <div class="popup-card">
+        <div class="text-center">
+            <div class="image-header mb-3">
+                <img src="Images/logo.png" alt="Header" class="header-img" />
+            </div>
+            <h3 class="text-success">تعديل بيانات المستشار</h3>
+        </div>
+
+        <form [formGroup]="consultantForm" (ngSubmit)="onSubmit()">
+            <!-- Full Name -->
+            <div class="form-group">
+                <label for="fullName">الاسم الكامل</label>
+                <input id="fullName" type="text" class="form-control" formControlName="fullName"
+                    placeholder="الاسم الكامل" />
+                @if (consultantForm.get('fullName')?.touched && consultantForm.get('fullName')?.invalid) {
+                <span class="text-danger small">الاسم الكامل مطلوب ولا يزيد عن 50 حرفًا</span>
+                }
+            </div>
+
+            <!-- Email & Phone -->
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input id="email" type="email" class="form-control" formControlName="email"
+                        placeholder="Houda42@gmail.com" />
+                    @if (consultantForm.get('email')?.touched && consultantForm.get('email')?.invalid) {
+                    <span class="text-danger small">يرجى إدخال بريد إلكتروني صحيح</span>
+                    }
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="phoneNumber">رقم الهاتف</label>
+                    <input id="phoneNumber" type="text" class="form-control" formControlName="phoneNumber"
+                        placeholder="رقم الهاتف" />
+                    @if (consultantForm.get('phoneNumber')?.touched && consultantForm.get('phoneNumber')?.invalid) {
+                    <span class="text-danger small">رقم الهاتف مطلوب ولا يزيد عن 20 رقمًا</span>
+                    }
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Profile Image -->
+            <div class="form-group text-center">
+                <label class="fw-bold mb-2">الصورة الشخصية</label>
+                <input id="profileImage" type="file" class="form-control mb-2" (change)="onImageChange($event)" />
+                @if (uploadedImageUrl) {
+                <img [src]="uploadedImageUrl" class="img-thumbnail rounded shadow mt-2" width="150" />
+                }
+            </div>
+            <!-- IsAvailable and IsActive -->
+            <div class="row">
+                <div class="col-md-6 form-group form-check">
+                    <input id="isAvailable" type="checkbox" class="form-check-input" formControlName="isAvailable" />
+                    <label for="isAvailable" class="form-check-label">متاح</label>
+                </div>
+                <div class="col-md-6 form-group form-check">
+                    <input id="isActive" type="checkbox" class="form-check-input" formControlName="isActive" />
+                    <label for="isActive" class="form-check-label">نشط</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn w-100 register-btn">تعديل المستشار</button>
+            <button type="button" class="btn btn-outlet w-100 mt-2" (click)="onCancel()">إلغاء</button>
+        </form>
+    </div>
+</div>

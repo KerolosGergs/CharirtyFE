@@ -1,0 +1,43 @@
+.add-video h2 {
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+
+.file-drop-area {
+  border: 2px dashed #bbb;
+  border-radius: 10px;
+  background-color: #f9fbfd;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.file-drop-area:hover {
+  background-color: #eef2f7;
+}
+
+.file-drop-area button {
+  pointer-events: none;
+}
+
+.form-group label {
+  font-weight: 500;
+}
+
+.btn-success {
+  background-color: var(--primary-500);
+  border: none;
+}
+
+.btn-outline-danger {
+  border-color: #f44336;
+  color: #f44336;
+}
+
+.btn-outline-danger:hover {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.text-muted {
+  font-size: 0.9rem;
+}

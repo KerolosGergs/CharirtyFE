@@ -1,0 +1,134 @@
+.volunteer-form-container {
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 4px 24px #0001;
+  padding: 2rem 2.5rem;
+  max-width: 600px;
+  margin: 2rem auto;
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #234b2c;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 0.4rem;
+  font-size: 1.08rem;
+  color: #234b2c;
+  font-weight: 500;
+  text-align: right;
+}
+
+input, .mat-form-field {
+  width: 100%;
+  border: 1.5px solid #234b2c;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  background: #fafcfb;
+  padding: 0.85rem 1rem;
+  outline: none;
+  transition: border 0.2s;
+  box-sizing: border-box;
+  height: 48px;
+}
+
+input:focus {
+  border-color: #1a7f3c;
+}
+
+.input-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.input-icon input {
+  padding-left: 2.2rem;
+  padding-right: 1rem;
+}
+.input-icon .icon {
+  position: absolute;
+  left: 0.8rem;
+  color: #234b2c;
+  font-size: 1.2rem;
+  pointer-events: none;
+}
+
+.date-field {
+  width: 100%;
+  border-radius: 10px;
+  background: #fafcfb;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin: 0;
+  height: 48px;
+}
+
+.submit-btn {
+  width: 100%;
+  background: #137a3a;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-top: 1.5rem;
+}
+
+.submit-btn[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.success-message {
+  color: #1a7f3c;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.error-message {
+  color: #c0392b;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.loader {
+  border: 3px solid #fff;
+  border-top: 3px solid #1a7f3c;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+/* دعم RTL للأيقونات */
+.input-icon .icon {
+  right: unset;
+  left: 0.8rem;
+}

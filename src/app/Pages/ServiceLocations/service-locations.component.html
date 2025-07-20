@@ -1,0 +1,8 @@
+<div class="service-locations-container p-4 rounded-4 shadow-sm bg-white animate__animated animate__fadeInUp" dir="rtl">
+  <h2 class="fw-bold mb-4 text-success text-center">مواقع تقديم الخدمة</h2>
+  <div class="locations-list-custom d-flex flex-column gap-3">
+    <div *ngFor="let location of locations" class="location-address-card p-3 rounded-4 shadow-sm bg-white animate__animated animate__fadeInUp">
+      <div class="location-text fs-5 text-center">{{ location.text }}</div>
+    </div>
+  </div>
+</div> 
