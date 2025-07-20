@@ -1,0 +1,79 @@
+<div class="container-fluid py-4 animate__animated animate__fadeIn">
+  <!-- Header Section -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+    <h2 class="fs-3 fw-bold text-dark mb-0">مستشارين إصلاح ذات البين</h2>
+    <div class="d-flex gap-2">
+      <a  (click)="openCreateNew()" class="btn btn-outline-success d-flex align-items-center gap-2">
+        <i class="bi bi-plus-circle me-2"></i> إضافة مستشار
+      </a>
+      <button class="btn btn-outline-success d-flex align-items-center gap-2">
+        <i class="bi bi-download me-2"></i> تصدير
+      </button>
+    </div>
+  </div>
+  <!-- <app-new-advisor [isOpenC]="isOpen"></app-new-advisor> -->
+  <!-- <app-edit-advisor [Selectedadvisor]="selectedAdvisor" [isOpenC]="isOpenEdit"></app-edit-advisor> -->
+  <!-- <app-dashboard-advisors-details [Selectedadvisor]="selectedAdvisor" [isOpenC]="isOpenDetails"></app-dashboard-advisors-details> -->
+  <!-- Table Section -->
+  <div class="card shadow-sm rounded-4 border-0">
+    <div class="card-header bg-light border-bottom">
+      <h5 class="mb-0 fw-bold text-center p-2 fs-4">كل المستشارين إصلاح ذات البين</h5>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table align-middle mb-0 px-4  ">
+        <thead class="table-light">
+          <tr>
+            <th scope="col">الاسم</th>
+            <th scope="col">البريد الإلكتروني</th>
+            <th scope="col">الحالة</th>
+            <th scope="col">تاريخ الانضمام</th>
+            <th scope="col">الإجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of midetation?.data; track $index) {
+          <tr>
+            <td>
+              <div class="d-flex align-items-center gap-2">
+                @if(item.imageUrl == null) {
+                  <i class="bi bi-person"></i>
+                }@else {
+                  <img [src]="item.imageUrl" alt="{{item.fullName}}" class="rounded-circle"
+                  style="width: 40px; height: 40px; object-fit: cover;">
+                }
+                
+                <span class="fw-semibold"> {{item.fullName}}</span>
+              </div>
+            </td>
+            <td class="text-muted small">{{item.email}}</td>
+            <td><span class="badge bg-success-subtle text-success">{{item.isActive==true?"نشط":"غير نشط"}}</span></td>
+            <td class="text-muted small">2025-02-23</td>
+            <!-- {{item.joinDate.toLocaleString("ar", {dateStyle: "medium"})}} -->
+            <td class="position-relative text-end">
+              <div ngbDropdownMenu
+                class="  animate__animated animate__fadeIn p-2 text-center  d-flex align-items-center">
+                <a [routerLink]="['/dashboard/dashboard-advisor-details', item.id]"
+                  class="btn btn-icon-only btn-light rounded-circle m-1" title="عرض">
+                  <i class="bi bi-eye"></i>
+                </a>
+                <a [routerLink]="['/dashboard/dashboard-advisor-edit', item.id]"
+                  class="btn btn-icon-only btn-light rounded-circle m-1" title="تعديل">
+                  <i class="bi bi-pencil"></i>
+                </a>
+               <a (click)="deleteAdvisor(item.id)"> <button  class="btn btn-icon-only btn-light rounded-circle m-1 text-danger" title="حذف">
+                  <i class="bi bi-trash"></i>
+                </button></a>
+              </div>
+            </td>
+
+
+          </tr>
+          }
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
