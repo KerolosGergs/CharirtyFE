@@ -10,28 +10,57 @@
   </div>
   <div class="consultation-types-section">
     
-    <div class="consultation-types-grid">
-      @for (type of consultationTypes; track $index) {
-        <div class="consultation-type-card">
-          <div class="card-header">
-            <i class="bi bi-calendar4-week"></i>
+   <div class="consultation-types-dashboard container py-4">
+  <h2 class="mb-4">أنواع الاستشارات</h2>
+
+ <div class="row g-4">
+  @for (type of consultationTypes; track $index) {
+    <div class="col-lg-4 col-md-6">
+      <div class="consultation-card shadow-sm p-3 rounded-3 bg-white h-100 d-flex flex-column justify-content-between">
+        <!-- Header -->
+        <div>
+          <h5 class="fw-bold text-success mb-2">
+            <i class="bi bi-calendar4-week mx-2"></i>
+            {{ type.consultationName }}
+          </h5>
+          <p class="text-muted small">
+            <i class="bi bi-info-circle mx-2"></i>
+            {{ type.description }}
+          </p>
+
+          <div class="small mt-2">
+            <div>
+              <strong><i class="bi bi-calendar-date mx-2 "></i>تاريخ الإنشاء:</strong>
+              {{ type.createdAt | date:'dd/MM/yyyy' }}
+            </div>
+            <div>
+              <strong><i class="bi bi-arrow-repeat mx-2"></i>آخر تعديل:</strong>
+              {{ type.updatedAt | date:'dd/MM/yyyy' }}
+            </div>
+            <div>
+              <strong><i class="bi bi-gear mx-2"></i>الحالة:</strong>
+              <span class="badge" [ngClass]="type.isActive ? 'bg-success' : 'bg-secondary'">
+                {{ type.isActive ? 'نشط' : 'غير نشط' }}
+              </span>
+            </div>
           </div>
-          <div class="card-content">
-            <h3>{{ type.name }}</h3>
-          </div>
-          <div class="card-actions">
-            <button class="btn btn-green" (click)="editConsultationType(type)">
-              <i class="bi bi-pencil"></i>
-              تعديل
-            </button>
-            <button class="btn text-danger" (click)="deleteConsultationType(type)">
-              <i class="bi bi-trash3"></i>
-              حذف
-            </button>
-          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="mt-3 d-flex justify-content-between">
+          <button class="btn btn-sm btn-outline-primary" (click)="editConsultationType(type)">
+            <i class="bi bi-pencil-square me-1"></i> تعديل
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteConsultationType(type)">
+            <i class="bi bi-trash3-fill me-1"></i> حذف
+          </button>
+        </div>
       </div>
-      }
     </div>
+  }
+</div>
+</div>
+
   </div>
 
   <!-- Appointments Section -->

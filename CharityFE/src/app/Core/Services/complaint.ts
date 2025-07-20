@@ -8,7 +8,7 @@ import { ComplaintStatus, IApiResponse, IComplaintDTO, ICreateComplaintDTO, IUpd
   providedIn: 'root'
 })
 export class Complaint {
-  private readonly baseUrl = `${Environment.apiUrl}/complaint`;
+  private readonly baseUrl = `${Environment.apiUrl}complaint`;
 
   constructor(private http: HttpClient) {}
 

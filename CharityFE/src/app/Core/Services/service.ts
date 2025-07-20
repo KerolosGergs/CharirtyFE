@@ -10,7 +10,7 @@ import { ICreateServiceOfferingDTO, IServiceOfferingDTO, IUpdateServiceOfferingD
 })
 export class Service {
 
-  private baseUrl = `${Environment.apiUrl}/serviceoffering`;
+  private baseUrl = `${Environment.apiUrl}serviceoffering`;
 
   constructor(private http: HttpClient) {}
 

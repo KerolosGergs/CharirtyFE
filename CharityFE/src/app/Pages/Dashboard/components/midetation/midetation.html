@@ -53,15 +53,15 @@
             <td class="position-relative text-end">
               <div ngbDropdownMenu
                 class="  animate__animated animate__fadeIn p-2 text-center  d-flex align-items-center">
-                <a [routerLink]="['/dashboard/dashboard-advisor-details', item.id]"
+                <a [routerLink]="['/dashboard/dashboard-midetation-details', item.id]"
                   class="btn btn-icon-only btn-light rounded-circle m-1" title="عرض">
                   <i class="bi bi-eye"></i>
                 </a>
-                <a [routerLink]="['/dashboard/dashboard-advisor-edit', item.id]"
+                <a [routerLink]="['/dashboard/dashboard-midetation-edit', item.id]"
                   class="btn btn-icon-only btn-light rounded-circle m-1" title="تعديل">
                   <i class="bi bi-pencil"></i>
                 </a>
-               <a (click)="deleteAdvisor(item.id)"> <button  class="btn btn-icon-only btn-light rounded-circle m-1 text-danger" title="حذف">
+               <a (click)="deleteMeditation(item.id)"> <button  class="btn btn-icon-only btn-light rounded-circle m-1 text-danger" title="حذف">
                   <i class="bi bi-trash"></i>
                 </button></a>
               </div>

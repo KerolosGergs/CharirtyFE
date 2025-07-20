@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { IMeditation, updateMeditationResponse } from './../../Interfaces/imeditaion';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Environment } from '../../../../Environment/environment';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { deleteMeditationResponse, getMidetationById, IMeditationResponse } from '../../Interfaces/imeditaion';
 
 @Injectable({
@@ -27,17 +28,17 @@ export class MidetationServ {
       
       );
     }
-    // createNewAdvisor(advisor: FormData): Observable<IMeditationResponse> {
-    //   debugger
-    //   const url = `${this._baseUrl}Advisor`;
-    //   return this._httpClient.post<IMeditationResponse>(url, advisor);
-    // }
+    createNewMidetation(Midetation: FormData): Observable<IMeditationResponse> {
+      debugger
+      const url = `${this._baseUrl}Mediation`;
+      return this._httpClient.post<IMeditationResponse>(url, Midetation);
+    }
 
     deletemidetation(ID: number): Observable<deleteMeditationResponse> {
       const url = `${this._baseUrl}Mediation/${ID}`;
       return this._httpClient.delete<deleteMeditationResponse>(url);
     }
-    getAdvisorById(id: number): Observable<getMidetationById> {
+    getMidetationById(id: number): Observable<getMidetationById> {
       const url = `${this._baseUrl}Mediation/${id}`;
       // console.log('Calling getAdvisorById with URL:', url);
       
@@ -49,16 +50,14 @@ export class MidetationServ {
       );
     }
 
-    // getCategories(): Observable<ICategoryResponse> {
-    //   const url = `${this._baseUrl}Consultation`;
-    //   // console.log('Calling getCategories with URL:', url);
+    updateMeditation(id: number, meditation: FormData): Observable<updateMeditationResponse> {
       
-    //   return this._httpClient.get<ICategoryResponse>(url).pipe(
-    //     map(data => {
-    //       return data;
-    //     }),
-    //   );
-    // }
-
-//  
+    const url = `${this._baseUrl}Mediation/${id}`;
+    return this._httpClient.put<any>(url, meditation).pipe(
+      catchError((error: HttpErrorResponse) => {
+        console.error('Update failed:', error);
+        return throwError(() => error);
+      })
+    );
+  }
   }

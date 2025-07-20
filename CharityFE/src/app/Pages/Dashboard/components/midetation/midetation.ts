@@ -47,23 +47,13 @@ export class Midetation implements OnInit {
 
 
   openCreateNew() {
-    this._router.navigate(['dashboard/dashboard-advisor-new']);
-  }
-
-  openEdit(advisor: advisor) {
-
-    this.selectedAdvisor = advisor
-    this.isOpenEdit = !this.isOpenEdit;
-
-  }
-
-  openDetails(advisor: advisor) {
-    this.isOpenDetails = !this.isOpenDetails;
-    this.selectedAdvisor = advisor
+    this._router.navigate(['dashboard/dashboard-midetation-new']);
   }
 
 
-  deleteAdvisor(ID: number) {
+
+
+  deleteMeditation(ID: number) {
     debugger
     this._Meditation.deletemidetation(ID).subscribe({
       next: (res) => {
@@ -85,7 +75,7 @@ export class Midetation implements OnInit {
     })
   }
   loadAdvisorDetails(id: number): void {
-    this._Meditation.getAdvisorById(id).subscribe({
+    this._Meditation.getMidetationById(id).subscribe({
       next: (data) => {
         console.log('Advisor Details:', data);
 

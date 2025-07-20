@@ -1,23 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { TostarServ } from './../../../../Shared/tostar-serv';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import{ ConsultationType, ConsultationAppointment, IConsultantData } from '../../../../Core/Interfaces/consultant';
+import { ConsultationServ } from '../../../../Core/Services/ConcloutionMangement/consultation-serv';
 
-interface ConsultationType {
-  id: number;
-  name: string;
-  showActions: boolean;
-}
-
-interface ConsultationAppointment {
-  id: number;
-  consultant: string;
-  userName: string;
-  email: string;
-  consultationType: string;
-  date: string;
-  time: string;
-  showActions: boolean;
-}
 
 @Component({
   selector: 'app-consultation-management',
@@ -27,12 +14,13 @@ interface ConsultationAppointment {
   styleUrls: ['./consultation-management.component.scss']
 })
 export class ConsultationManagementComponent implements OnInit {
-  consultationTypes: ConsultationType[] = [];
+  consultationTypes: IConsultantData[] = [];
   appointments: ConsultationAppointment[] = [];
   filteredAppointments: ConsultationAppointment[] = [];
   searchTerm: string = '';
   currentPage: number = 1;
-
+  concloutionServ = inject(ConsultationServ);
+  tostarServ = inject(TostarServ);
   constructor() {}
 
   ngOnInit(): void {
@@ -41,15 +29,16 @@ export class ConsultationManagementComponent implements OnInit {
   }
 
   loadConsultationTypes(): void {
+    this.concloutionServ.getAllConsultations().subscribe(data => 
+      {
+        if(data && data.success)
+        {
+          this.consultationTypes = data.data;
+
+        }
+      })
     // Mock data for consultation types
-    this.consultationTypes = [
-      { id: 1, name: 'نوع الاستشارة', showActions: false },
-      { id: 2, name: 'نوع الاستشارة', showActions: false },
-      { id: 3, name: 'نوع الاستشارة', showActions: false },
-      { id: 4, name: 'نوع الاستشارة', showActions: false },
-      { id: 5, name: 'نوع الاستشارة', showActions: false },
-      { id: 6, name: 'نوع الاستشارة', showActions: false }
-    ];
+   
   }
 
   loadAppointments(): void {
@@ -114,14 +103,14 @@ export class ConsultationManagementComponent implements OnInit {
 
   toggleConsultationTypeActions(index: number): void {
     // Close all other action menus
-    this.consultationTypes.forEach((type, i) => {
-      if (i !== index) {
-        type.showActions = false;
-      }
-    });
+    // this.consultationTypes.forEach((type, i) => {
+    //   if (i !== index) {
+    //     type.showActions = false;
+    //   }
+    // });
     
-    // Toggle current action menu
-    this.consultationTypes[index].showActions = !this.consultationTypes[index].showActions;
+    // // Toggle current action menu
+    // this.consultationTypes[index].showActions = !this.consultationTypes[index].showActions;
   }
 
   toggleAppointmentActions(index: number): void {
@@ -136,17 +125,14 @@ export class ConsultationManagementComponent implements OnInit {
     this.filteredAppointments[index].showActions = !this.filteredAppointments[index].showActions;
   }
 
-  editConsultationType(type: ConsultationType): void {
-    console.log('Editing consultation type:', type.name);
-    type.showActions = false;
+  editConsultationType(type: IConsultantData): void {
+    // console.log('Editing consultation type:', type.consultationName);
+    type.isActive = false;
   }
 
-  deleteConsultationType(type: ConsultationType): void {
-    if (confirm(`هل أنت متأكد من حذف نوع الاستشارة "${type.name}"؟`)) {
-      this.consultationTypes = this.consultationTypes.filter(t => t.id !== type.id);
-      console.log('Consultation type deleted:', type.name);
-    }
-    type.showActions = false;
+  deleteConsultationType(type: IConsultantData): void {
+   
+    type.isActive = false;
   }
 
   changeAppointment(appointment: ConsultationAppointment): void {
