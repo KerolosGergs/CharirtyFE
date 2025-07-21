@@ -1,1 +1,229 @@
-<p>dashboard-schedule works!</p>
+<!-- appointment-calendar.component.html -->
+<div class="appointment-calendar-container">
+  <!-- Header Section -->
+  <div class="calendar-header">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <!-- Title -->
+        <div class="col-md-6">
+          <h2 class="calendar-title">جدول المواعيد</h2>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="col-md-6">
+          <div class="d-flex justify-content-end gap-2 flex-wrap">
+            <!-- Availability Toggle -->
+            <button 
+              class="btn availability-toggle"
+              [class.available]="isGenerallyAvailable"
+              [class.unavailable]="!isGenerallyAvailable"
+              (click)="toggleGeneralAvailability()">
+              <i class="bi" [class.bi-check-circle-fill]="isGenerallyAvailable" [class.bi-x-circle-fill]="!isGenerallyAvailable"></i>
+              {{ isGenerallyAvailable ? 'متاح هذا الأسبوع' : 'غير متاح هذا الأسبوع' }}
+            </button>
+            
+            <!-- Save Changes -->
+            <button class="btn btn-success" (click)="saveChanges()">
+              <i class="bi bi-check-lg me-1"></i>
+              حفظ التغييرات
+            </button>
+            
+            <!-- Online/Offline Toggle -->
+            <div class="btn-group" role="group">
+              <input type="radio" class="btn-check" name="appointmentType" id="online" 
+                     [checked]="appointmentType === 'online'" (change)="setAppointmentType('online')">
+              <label class="btn btn-outline-primary" for="online">
+                <i class="bi bi-camera-video me-1"></i>
+                أونلاين
+              </label>
+              
+              <input type="radio" class="btn-check" name="appointmentType" id="inperson" 
+                     [checked]="appointmentType === 'inperson'" (change)="setAppointmentType('inperson')">
+              <label class="btn btn-outline-primary" for="inperson">
+                <i class="bi bi-person me-1"></i>
+                حضوري
+              </label>
+            </div>
+            
+            <!-- Select Available Days -->
+            <button class="btn btn-outline-secondary" (click)="selectAvailableDays()">
+              <i class="bi bi-calendar-check me-1"></i>
+              تحديد الأيام المتاحة
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar Navigation -->
+  <div class="calendar-navigation">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-auto">
+          <button class="btn btn-outline-secondary btn-sm" (click)="previousMonth()">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+        
+        <div class="col text-center">
+          <h4 class="month-year">{{ currentMonthYear }}</h4>
+        </div>
+        
+        <div class="col-auto">
+          <button class="btn btn-outline-secondary btn-sm" (click)="nextMonth()">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar Grid -->
+  <div class="calendar-grid">
+    <div class="container-fluid">
+      <!-- Days Header -->
+      <div class="row days-header">
+        <div class="col day-header" *ngFor="let day of daysOfWeek">
+          {{ day }}
+        </div>
+      </div>
+
+      <!-- Calendar Weeks -->
+      <div class="calendar-weeks">
+        <div class="row calendar-week" *ngFor="let week of calendarWeeks; trackBy: trackByWeek">
+          <div class="col day-cell" *ngFor="let day of week.days; trackBy: trackByDay">
+            
+            <!-- Day Card -->
+            <div class="day-card" 
+                 [class.available]="day.isAvailable"
+                 [class.has-appointments]="day.timeSlots.length > 0"
+                 [class.other-month]="!day.isCurrentMonth">
+              
+              <!-- Day Header -->
+              <div class="day-header-section">
+                <div class="day-info">
+                  <span class="day-number">{{ day.date }}</span>
+                  <span class="day-name">{{ day.dayName }}</span>
+                </div>
+                
+                <!-- Availability Checkbox -->
+                <div class="availability-checkbox" *ngIf="day.isCurrentMonth">
+                  <input 
+                    type="checkbox" 
+                    class="form-check-input"
+                    [id]="'day-' + day.date"
+                    [checked]="day.isAvailable"
+                    (change)="toggleDayAvailability(day)">
+                  <label [for]="'day-' + day.date" class="form-check-label"></label>
+                </div>
+              </div>
+
+              <!-- Time Slots -->
+              <div class="time-slots" *ngIf="day.isCurrentMonth && day.isAvailable">
+                <div class="time-slot" *ngFor="let timeSlot of day.timeSlots; trackBy: trackByTimeSlot">
+                  <div class="time-display">
+                    <i class="bi bi-clock me-1"></i>
+                    {{ timeSlot.startTime }}-{{ timeSlot.endTime }}
+                  </div>
+                  <button class="btn btn-sm btn-outline-danger remove-time" 
+                          (click)="removeTimeSlot(day, timeSlot)">
+                    <i class="bi bi-x"></i>
+                  </button>
+                </div>
+                
+                <!-- Add Time Slot Button -->
+                <button class="btn btn-sm btn-outline-primary add-time-btn" 
+                        (click)="addTimeSlot(day)">
+                  <i class="bi bi-plus me-1"></i>
+                  إضافة وقت جديد
+                </button>
+              </div>
+
+              <!-- No Times Message -->
+              <div class="no-times-message" *ngIf="day.isCurrentMonth && day.isAvailable && day.timeSlots.length === 0">
+                <small class="text-muted">لا توجد أوقات محددة</small>
+              </div>
+
+              <!-- Unavailable Message -->
+              <div class="unavailable-message" *ngIf="day.isCurrentMonth && !day.isAvailable">
+                <small class="text-muted">غير متاح</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">جاري التحميل...</span>
+    </div>
+  </div>
+</div>
+
+<!-- Time Slot Modal -->
+<div class="modal" [class.show]="showTimeSlotModal" [style.display]="showTimeSlotModal ? 'block' : 'none'" 
+     tabindex="-1" *ngIf="showTimeSlotModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">إضافة وقت جديد</h5>
+        <button type="button" class="btn-close" (click)="closeTimeSlotModal()" aria-label="إغلاق"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="timeSlotForm" (ngSubmit)="saveTimeSlot()">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label for="startTime" class="form-label">وقت البداية</label>
+              <input type="time" class="form-control" id="startTime" formControlName="startTime" required>
+              <div class="form-text">اختر وقت بداية الموعد</div>
+            </div>
+            <div class="col-md-6">
+              <label for="endTime" class="form-label">وقت النهاية</label>
+              <input type="time" class="form-control" id="endTime" formControlName="endTime" required>
+              <div class="form-text">اختر وقت نهاية الموعد</div>
+            </div>
+          </div>
+          
+          <!-- Validation Messages -->
+          <div class="mt-3" *ngIf="timeSlotForm.invalid && timeSlotForm.touched">
+            <div class="alert alert-warning" *ngIf="timeSlotForm.get('startTime')?.invalid">
+              يرجى اختيار وقت البداية
+            </div>
+            <div class="alert alert-warning" *ngIf="timeSlotForm.get('endTime')?.invalid">
+              يرجى اختيار وقت النهاية
+            </div>
+          </div>
+          
+          <!-- Preview -->
+          <div class="mt-3" *ngIf="timeSlotForm.valid">
+            <div class="alert alert-info">
+              <i class="bi bi-clock me-2"></i>
+              <strong>معاينة الوقت:</strong> 
+              {{ timeSlotForm.get('startTime')?.value }} - {{ timeSlotForm.get('endTime')?.value }}
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeTimeSlotModal()">
+          <i class="bi bi-x-circle me-1"></i>
+          إلغاء
+        </button>
+        <button type="button" class="btn btn-primary" (click)="saveTimeSlot()" 
+                [disabled]="timeSlotForm.invalid">
+          <i class="bi bi-check-circle me-1"></i>
+          حفظ الوقت
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop" [class.show]="showTimeSlotModal" 
+     [style.display]="showTimeSlotModal ? 'block' : 'none'" 
+     *ngIf="showTimeSlotModal" (click)="closeTimeSlotModal()"></div>

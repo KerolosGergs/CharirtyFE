@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Appointment } from '../../../../../../Core/Services/test';
-import { ActivatedRoute } from '@angular/router';
-import { CalendarService } from '../../../../../../Core/Services/calendar.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
+import { IAdvisorAvailability } from '../../../../../../Core/Interfaces/iavailability';
+import { Availability } from '../../../../../../Core/Services/availability';
 
 @Component({
   selector: 'app-date-details',
@@ -11,19 +11,41 @@ import { CommonModule, NgIf } from '@angular/common';
   styleUrl: './date-details.scss'
 })
 export class DateDetails {
-   appointment: Appointment | undefined;
+   availability?: IAdvisorAvailability;
+  consultationTypeLabel = '';
 
   constructor(
     private route: ActivatedRoute,
-    private calendarService: CalendarService
+    private availabilityService: Availability,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.appointment = this.calendarService
-        .getCurrentState()
-        .appointments.find(a => a.id === id);
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.availabilityService.getAvailabilityById(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        
+        this.availability = res;
+        this.consultationTypeLabel = this.mapConsultationType(res.consultationType);
+      }
+    });
+  }
+
+  mapConsultationType(type: number): string {
+    switch (type) {
+      case 0: return 'اونلاين';
+      case 1: return 'حضوري';
+      case 2: return 'كلاهما';
+      default: return 'غير معروف';
     }
+  }
+
+  deleteAvailability(): void {
+    if (!this.availability) return;
+    this.availabilityService.deleteAvailability(this.availability.id).subscribe(() => {
+      alert('تم حذف الموعد بنجاح');
+      this.router.navigate(['/advisor-dashboard/dashboard-date']);
+    });
   }
 }

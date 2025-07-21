@@ -1,1 +1,102 @@
-<p>dashboard-main works!</p>
+ <div class="container-fluid py-4">
+  <div class="row mb-4">
+            @for (card of cards; track card){
+        <div class="col-xl-4 col-md-6 mb-4">
+          <div class="card shadow h-100 py-2" [ngStyle]="{ 'background-color': card.bgColor }">
+            <div class="card-body text-center">
+              <div class="text-xs font-weight-bold fs-4 text-primary-500  text-uppercase mb-1">
+                {{ card.name }}
+              </div>
+              <div class="h5 mb-0 font-weight-bold fs-3  text-gray-800">
+                {{ card.number }}
+              </div>
+              <div class="row no-gutters align-items-center mt-2">
+                <div class="col-auto">
+                  <i class="bi" [ngClass]="card.icon" style="font-size: 24px;"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      </div>
+
+  <!-- Advice Requests Table -->
+  <div class="table-container">
+    <div class="filters-container mb-3 d-flex gap-3 align-items-center flex-wrap">
+  <!-- 🔎 Search by title -->
+  <input
+    type="text"
+    class="form-control"
+    placeholder="بحث بالعنوان..."
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchChange()"
+    style="max-width: 200px;"
+  />
+
+  <!-- 🗂️ Filter by consultation type -->
+  <select
+    class="form-select"
+    [(ngModel)]="selectedType"
+    (change)="onTypeChange()"
+    style="max-width: 200px;"
+  >
+    <option value="">كل الأنواع</option>
+    <option value="0">اونلاين</option>
+    <option value="1">حضورى</option>
+  </select>
+
+  <!-- 📅 Filter by request date -->
+  <input
+    type="date"
+    class="form-control"
+    [(ngModel)]="selectedDate"
+    (change)="onDateChange()"
+    style="max-width: 200px;"
+  />
+</div>
+
+    <table class="table table-bordered text-center">
+      <thead class="thead-light">
+        <tr>
+          <th></th>
+          <th>الاسم</th>
+          <th>نوع الاجتماع</th>
+          <th>البريد الإلكتروني</th>
+          <th>تاريخ الطلب</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let req of filteredRequests; let i = index; trackBy: trackById">
+          <td><input type="checkbox"></td>
+          <td >{{ req.title }}</td>
+          <td>{{ req.consultationType === 0 ? 'اونلاين' : 'حضورى' }}</td>
+          <td>{{ req.userEmail || 'غير متوفر' }}</td>
+          <td>{{ req.requestDate | date: 'yyyy-MM-dd' }}</td>
+          <td>
+            <div class="position-relative">
+              <i class="bi bi-three-dots cursor-pointer" (click)="toggleActions(i)"></i>
+              <div
+                class=" position-absolute bg-white border rounded shadow-sm p-2 mt-2"
+                *ngIf="req.showActions"
+                style="z-index: 100;"
+              >
+                <div class=" mb-2 cursor-pointer" (click)="viewDetails(req)">
+                  <i class="bi bi-person-circle me-1"></i> عرض الملف الشخصي
+                </div>
+                <div class=" text-danger cursor-pointer" (click)="deleteRequest(req.id)">
+                  <i class="bi bi-trash me-1"></i> حذف
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <tr *ngIf="filteredRequests.length === 0">
+          <td colspan="6">لا توجد استشارات</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

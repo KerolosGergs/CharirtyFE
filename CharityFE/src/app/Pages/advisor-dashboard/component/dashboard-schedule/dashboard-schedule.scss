@@ -1,0 +1,679 @@
+/* appointment-calendar.component.css */
+
+/* ===== GENERAL STYLES ===== */
+.appointment-calendar-container {
+  background: #f8f9fa;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+/* ===== HEADER STYLES ===== */
+.calendar-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e9ecef;
+  padding: 1.5rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-title {
+  color: #2c3e50;
+  font-weight: 700;
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+/* ===== AVAILABILITY TOGGLE BUTTON ===== */
+.availability-toggle {
+  border-radius: 25px;
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  border: 2px solid;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.availability-toggle.available {
+  background: linear-gradient(135deg, #28a745, #20c997);
+  border-color: #28a745;
+  color: white;
+}
+
+.availability-toggle.available:hover {
+  background: linear-gradient(135deg, #218838, #1ea085);
+  border-color: #1e7e34;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.availability-toggle.unavailable {
+  background: linear-gradient(135deg, #dc3545, #e74c3c);
+  border-color: #dc3545;
+  color: white;
+}
+
+.availability-toggle.unavailable:hover {
+  background: linear-gradient(135deg, #c82333, #dc2626);
+  border-color: #bd2130;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}
+
+/* ===== CALENDAR NAVIGATION ===== */
+.calendar-navigation {
+  background: #ffffff;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.month-year {
+  color: #495057;
+  font-weight: 600;
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* ===== CALENDAR GRID ===== */
+.calendar-grid {
+  padding: 1.5rem 0;
+}
+
+.days-header {
+  margin-bottom: 1rem;
+}
+
+.day-header {
+  text-align: center;
+  font-weight: 600;
+  color: #6c757d;
+  padding: 0.75rem 0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.calendar-weeks {
+  gap: 1rem;
+}
+
+.calendar-week {
+  margin-bottom: 1rem;
+}
+
+.day-cell {
+  padding: 0.5rem;
+}
+
+/* ===== DAY CARD STYLES ===== */
+.day-card {
+  background: #ffffff;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1rem;
+  min-height: 180px;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.day-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.day-card.available {
+  border-color: #28a745;
+  background: linear-gradient(135deg, #ffffff, #f8fff9);
+}
+
+.day-card.available::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 20px 20px 0;
+  border-color: transparent #28a745 transparent transparent;
+}
+
+.day-card.has-appointments {
+  border-color: #007bff;
+  background: linear-gradient(135deg, #ffffff, #f8fbff);
+}
+
+.day-card.other-month {
+  opacity: 0.4;
+  background: #f8f9fa;
+  border-color: #dee2e6;
+}
+
+.day-card.other-month:hover {
+  transform: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ===== DAY HEADER SECTION ===== */
+.day-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.day-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.day-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  line-height: 1;
+}
+
+.day-name {
+  font-size: 0.75rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.25rem;
+}
+
+/* ===== AVAILABILITY CHECKBOX ===== */
+.availability-checkbox {
+  position: relative;
+}
+
+.availability-checkbox .form-check-input {
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid #6c757d;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.availability-checkbox .form-check-input:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.availability-checkbox .form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* ===== TIME SLOTS ===== */
+.time-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.time-slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.time-slot:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.time-display {
+  font-size: 0.85rem;
+  color: #495057;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.remove-time {
+  padding: 0.25rem 0.5rem;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.remove-time:hover {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: white;
+}
+
+/* ===== ADD TIME BUTTON ===== */
+.add-time-btn {
+  width: 100%;
+  border-style: dashed;
+  border-width: 2px;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.add-time-btn:hover {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  border-style: solid;
+}
+
+/* ===== MESSAGES ===== */
+.no-times-message,
+.unavailable-message {
+  text-align: center;
+  padding: 1rem 0;
+  color: #6c757d;
+  font-style: italic;
+}
+
+.unavailable-message {
+  color: #dc3545;
+}
+
+/* ===== LOADING OVERLAY ===== */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* ===== MODAL STYLES ===== */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  border-bottom: 1px solid #e9ecef;
+  padding: 1.5rem;
+}
+
+.modal-title {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.modal-footer {
+  border-top: 1px solid #e9ecef;
+  padding: 1rem 1.5rem;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
+/* Large screens (desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .day-card {
+    min-height: 200px;
+  }
+  
+  .calendar-title {
+    font-size: 2rem;
+  }
+}
+
+/* Medium screens (tablets, 768px and up) */
+@media (max-width: 1199.98px) and (min-width: 768px) {
+  .day-card {
+    min-height: 160px;
+  }
+  
+  .calendar-header {
+    padding: 1rem 0;
+  }
+  
+  .calendar-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Small screens (phones, 576px and up) */
+@media (max-width: 767.98px) {
+  .appointment-calendar-container {
+    direction: rtl;
+  }
+  
+  .calendar-header .row {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .calendar-header .col-md-6:last-child {
+    text-align: center;
+  }
+  
+  .day-card {
+    min-height: 140px;
+    padding: 0.75rem;
+  }
+  
+  .day-number {
+    font-size: 1.25rem;
+  }
+  
+  .time-slot {
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .time-display {
+    font-size: 0.8rem;
+  }
+  
+  .add-time-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
+  
+  .calendar-title {
+    font-size: 1.25rem;
+    text-align: center;
+  }
+  
+  .month-year {
+    font-size: 1.25rem;
+  }
+}
+
+/* Extra small screens (phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .day-cell {
+    padding: 0.25rem;
+  }
+  
+  .day-card {
+    min-height: 120px;
+    padding: 0.5rem;
+  }
+  
+  .day-number {
+    font-size: 1.1rem;
+  }
+  
+  .day-name {
+    font-size: 0.7rem;
+  }
+  
+  .time-display {
+    font-size: 0.75rem;
+  }
+  
+  .availability-toggle {
+    font-size: 0.85rem;
+    padding: 0.4rem 1rem;
+  }
+  
+  .btn-group .btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+/* ===== ANIMATION CLASSES ===== */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.text-success-custom {
+  color: #28a745 !important;
+}
+
+.text-danger-custom {
+  color: #dc3545 !important;
+}
+
+.bg-success-light {
+  background-color: rgba(40, 167, 69, 0.1) !important;
+}
+
+.bg-danger-light {
+  background-color: rgba(220, 53, 69, 0.1) !important;
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .calendar-header .col-md-6:last-child,
+  .loading-overlay,
+  .modal {
+    display: none !important;
+  }
+  
+  .day-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .appointment-calendar-container {
+    background: white;
+  }
+}
+
+
+/* ===== ENHANCED MODAL STYLES ===== */
+.modal {
+  z-index: 1055;
+}
+
+.modal.show {
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+.modal-backdrop {
+  z-index: 1050;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-backdrop.show {
+  animation: backdropFadeIn 0.3s ease-out;
+}
+
+.modal-dialog-centered {
+  display: flex;
+  align-items: center;
+  min-height: calc(100% - 1rem);
+}
+
+.modal-content {
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.modal-header {
+  border-bottom: 1px solid #e9ecef;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8f9fa, #ffffff);
+  border-radius: 12px 12px 0 0;
+}
+
+.modal-title {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.25rem;
+}
+
+.modal-body {
+  padding: 2rem 1.5rem;
+}
+
+.modal-footer {
+  border-top: 1px solid #e9ecef;
+  padding: 1rem 1.5rem;
+  background: #f8f9fa;
+  border-radius: 0 0 12px 12px;
+}
+
+/* ===== FORM ENHANCEMENTS ===== */
+.form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-text {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 0.25rem;
+}
+
+.alert {
+  border-radius: 8px;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.alert-info {
+  background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+  color: #0c5460;
+}
+
+.alert-warning {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  color: #856404;
+}
+
+/* ===== BUTTON ENHANCEMENTS ===== */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(108, 117, 125, 0.3);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===== RESPONSIVE MODAL ===== */
+@media (max-width: 767.98px) {
+  .modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+  
+  .modal-body {
+    padding: 1.5rem 1rem;
+  }
+  
+  .modal-header,
+  .modal-footer {
+    padding: 1rem;
+  }
+  
+  .modal-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* ===== ACCESSIBILITY IMPROVEMENTS ===== */
+.btn:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.form-control:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* ===== RTL SUPPORT FOR MODAL ===== */
+[dir="rtl"] .modal-header .btn-close {
+  margin: -0.5rem -0.5rem -0.5rem auto;
+}
+
+[dir="rtl"] .modal-footer {
+  text-align: left;
+}
+
+[dir="rtl"] .modal-footer .btn + .btn {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
