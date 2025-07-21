@@ -1,3 +1,4 @@
+import { AuthServ } from './../auth-serv';
 import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { IloginRequest } from '../../../Core/Interfaces/ilogin';
@@ -12,11 +13,13 @@ import { Environment } from '../../../../Environment/environment';
 export class Login {
 
   _ = inject(HttpClient);
+
   
   constructor() { }
 
 Login(Request: IloginRequest) : Observable<IResponse>
 {
+
   debugger
   return this._.post<IResponse>(Environment.apiUrl + 'Authentication/login', Request).pipe(
     map(data => {

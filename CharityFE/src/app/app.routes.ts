@@ -34,7 +34,7 @@ export const routes: Routes = [
         { path: 'dashboard-midetation-new', loadComponent: ()=> import('../../src/app/Pages/Dashboard/components/midetation/components/add-midetation/add-midetation').then(m => m.AddMidetation), title: 'Dashboard Add Meditation' },
         { path: 'dashboard-midetation-edit/:id', loadComponent: ()=> import('../app/Pages/Dashboard/components/midetation/components/edit-midetation/edit-midetation').then(m => m.EditMidetation), title: 'Dashboard Edit Meditation' },
         { path: 'dashboard-midetation-details/:id', loadComponent: () => import('../app/Pages/Dashboard/components/midetation/components/midetation-detatils/midetation-detatils').then(m => m.MidetationDetatils), title: 'Dashboard Meditation Details' },
-        {path:'dashboard-consultants',loadComponent:()=> import('../app/Pages/Dashboard/components/consultation-management/consultation-management.component').then(m => m.ConsultationManagementComponent),title:'Dashboard Consultants'},
+        { path: 'dashboard-consultants',loadComponent:()=> import('../app/Pages/Dashboard/components/consultation-management/consultation-management.component').then(m => m.ConsultationManagementComponent),title:'Dashboard Consultants'},
         { path: 'dashboard-awareness', loadComponent: ()=> import('../app/Pages/Dashboard/components/awareness/awareness').then(m => m.Awareness), title: 'Dashboard Awareness' },
         { path: 'dashboard-awareness-new-video', loadComponent: ()=> import('../app/Pages/Dashboard/components/awareness/components/add-new-video/add-new-video').then(m => m.AddNewVideo), title: 'Add New Video' },
         

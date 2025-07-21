@@ -54,7 +54,7 @@ export class Midetation implements OnInit {
 
 
   deleteMeditation(ID: number) {
-    debugger
+
     this._Meditation.deletemidetation(ID).subscribe({
       next: (res) => {
         if (res.success) {

@@ -31,7 +31,7 @@ export class EditServices {
       contactInfo: [''],
       requirements: [''],
       isActive: [true],
-      imageUrl: ['']
+      Image: ['']
     });
   }
 
@@ -49,7 +49,6 @@ export class EditServices {
               contactInfo: data.contactInfo,
               requirements: data.requirements,
               isActive: data.isActive,
-              imageUrl: data.imageUrl
             });
             this.previewUrl = data.imageUrl;
           },
@@ -67,29 +66,47 @@ export class EditServices {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       const reader = new FileReader();
+
       reader.onload = () => {
         this.previewUrl = reader.result as string;
-        this.serviceForm.patchValue({ imageUrl: this.previewUrl });
+        // ✅ set the file itself, not just the preview
+        this.serviceForm.patchValue({ Image: file });
       };
+
       reader.readAsDataURL(file);
     }
   }
 
   submit(): void {
+    debugger
+
+    const formData = new FormData();
+    formData.append('Name', this.serviceForm.get('name')?.value);
+    formData.append('Description', this.serviceForm.get('description')?.value);
+    formData.append('Category', this.serviceForm.get('category')?.value);
+    formData.append('ContactInfo', this.serviceForm.get('contactInfo')?.value);
+    formData.append('Requirements', this.serviceForm.get('requirements')?.value);
+    formData.append('IsActive', this.serviceForm.get('isActive')?.value);
+    // Append the image file
+    const imageFile = this.serviceForm.get('Image')?.value;
+    if (imageFile) {
+      formData.append('Image', imageFile);
+    }
+
     if (this.serviceForm.invalid) {
       this.toastr.error('يرجى تعبئة الحقول المطلوبة');
       this.serviceForm.markAllAsTouched();
       return;
     }
 
-    const dto: IUpdateServiceOfferingDTO = this.serviceForm.value;
+    // const dto: IUpdateServiceOfferingDTO = this.serviceForm.value;
     this.loading = true;
 
-    this.serviceApi.update(this.serviceId, dto).subscribe({
+    this.serviceApi.update(this.serviceId, formData).subscribe({
       next: (res) => {
         this.loading = false;
         this.toastr.success('تم تعديل الخدمة بنجاح');
-        this.router.navigate(['/dashboard/services']);
+        this.router.navigate(['/dashboard/dashboard-services']);
       },
       error: () => {
         this.loading = false;
