@@ -25,17 +25,14 @@ export class ServicesComponent implements OnInit {
     this.loading = true;
     this.serviceOfferingService.getAll().subscribe({
       next: (res) => {
-        console.log(res);
-        console.log(res.data);
+ 
         
         this.serviceOfferings = res.data;
         this.loading = false;
       },
       error: (err) => {
         this.loading = false;
-        console.log(err);
         
-        alert('حدث خطأ أثناء تحميل الخدمات');
       }
     });
   }

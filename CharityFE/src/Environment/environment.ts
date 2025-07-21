@@ -4,7 +4,7 @@ export class Environment {
   // static apiUrl: string= 'https://localhost:7121/api/';
   // static ImgUrl: string= 'https://localhost:7121/';
 
-  static apiUrl: string= 'https://localhost:7121/api';
+  static apiUrl: string= 'https://localhost:7121/api/';
   static ImgUrl: string= 'https://localhost:7121/';
 
 }

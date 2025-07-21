@@ -327,3 +327,41 @@
     border-color: #2e7d5a;
   }
 } 
+.popup-overlay {
+  position: sticky;
+  top: 0;
+  left:0;
+  width: 100%;
+  height: 50%;
+  background-color: transparent;
+  // background-color: rgba(0, 0, 0, 0.5); /* Optional dark overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.popup-card {
+  background: #fff;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+.popup-card {
+  animation: fadeIn 0.3s ease-in-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

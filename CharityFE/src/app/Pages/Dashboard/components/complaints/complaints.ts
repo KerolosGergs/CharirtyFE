@@ -29,7 +29,7 @@ export class Complaints {
   complaints: IComplaintDTO[] = [];
 
   ngOnInit() {
-    this._complaintService.getUserComplaints().subscribe({
+    this._complaintService.getAllComplaints().subscribe({
       next: (res) => {
         console.log(res);
         

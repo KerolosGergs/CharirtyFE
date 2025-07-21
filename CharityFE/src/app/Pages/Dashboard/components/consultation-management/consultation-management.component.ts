@@ -1,55 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { TostarServ } from './../../../../Shared/tostar-serv';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-interface ConsultationType {
-  id: number;
-  name: string;
-  showActions: boolean;
-}
-
-interface ConsultationAppointment {
-  id: number;
-  consultant: string;
-  userName: string;
-  email: string;
-  consultationType: string;
-  date: string;
-  time: string;
-  showActions: boolean;
-}
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ConsultationAppointment, IConsultantData } from '../../../../Core/Interfaces/consultant';
+import { ConsultationServ } from '../../../../Core/Services/ConcloutionMangement/consultation-serv';
+import { ConsultationCard } from "./components/consultation-card/consultation-card";
+import { Spinner } from "../../../../Shared/spinner/spinner";
 
 @Component({
   selector: 'app-consultation-management',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ConsultationCard, Spinner],
   templateUrl: './consultation-management.component.html',
   styleUrls: ['./consultation-management.component.scss']
 })
 export class ConsultationManagementComponent implements OnInit {
-  consultationTypes: ConsultationType[] = [];
+  consultationTypes!: IConsultantData[];
   appointments: ConsultationAppointment[] = [];
   filteredAppointments: ConsultationAppointment[] = [];
+
   searchTerm: string = '';
   currentPage: number = 1;
+  concloutionServ = inject(ConsultationServ);
+  tostarServ = inject(TostarServ);
+  showAddPopup = false;
+  addForm: FormGroup;
+  ShowConsultationTypes = false
 
-  constructor() {}
-
-  ngOnInit(): void {
-    this.loadConsultationTypes();
-    this.loadAppointments();
+  constructor(private fb: FormBuilder) {
+    this.addForm = this.fb.group({
+      consultationName: ['', Validators.required],
+      description: [''],
+      isActive: [true]
+    });
   }
-
   loadConsultationTypes(): void {
+    this.concloutionServ.getAllConsultations().subscribe(data => {
+      if (data && data.success) {
+        this.consultationTypes = data.data;
+        this.ShowConsultationTypes = true
+      }
+    })
     // Mock data for consultation types
-    this.consultationTypes = [
-      { id: 1, name: 'نوع الاستشارة', showActions: false },
-      { id: 2, name: 'نوع الاستشارة', showActions: false },
-      { id: 3, name: 'نوع الاستشارة', showActions: false },
-      { id: 4, name: 'نوع الاستشارة', showActions: false },
-      { id: 5, name: 'نوع الاستشارة', showActions: false },
-      { id: 6, name: 'نوع الاستشارة', showActions: false }
-    ];
+
   }
 
   loadAppointments(): void {
@@ -98,6 +91,11 @@ export class ConsultationManagementComponent implements OnInit {
     ];
     this.filteredAppointments = [...this.appointments];
   }
+  ngOnInit(): void {
+    this.loadConsultationTypes();
+    this.loadAppointments();
+  }
+
 
   filterAppointments(): void {
     if (!this.searchTerm.trim()) {
@@ -112,17 +110,7 @@ export class ConsultationManagementComponent implements OnInit {
     }
   }
 
-  toggleConsultationTypeActions(index: number): void {
-    // Close all other action menus
-    this.consultationTypes.forEach((type, i) => {
-      if (i !== index) {
-        type.showActions = false;
-      }
-    });
-    
-    // Toggle current action menu
-    this.consultationTypes[index].showActions = !this.consultationTypes[index].showActions;
-  }
+
 
   toggleAppointmentActions(index: number): void {
     // Close all other action menus
@@ -131,23 +119,12 @@ export class ConsultationManagementComponent implements OnInit {
         appointment.showActions = false;
       }
     });
-    
+
     // Toggle current action menu
     this.filteredAppointments[index].showActions = !this.filteredAppointments[index].showActions;
   }
 
-  editConsultationType(type: ConsultationType): void {
-    console.log('Editing consultation type:', type.name);
-    type.showActions = false;
-  }
 
-  deleteConsultationType(type: ConsultationType): void {
-    if (confirm(`هل أنت متأكد من حذف نوع الاستشارة "${type.name}"؟`)) {
-      this.consultationTypes = this.consultationTypes.filter(t => t.id !== type.id);
-      console.log('Consultation type deleted:', type.name);
-    }
-    type.showActions = false;
-  }
 
   changeAppointment(appointment: ConsultationAppointment): void {
     console.log('Changing appointment for:', appointment.userName);
@@ -163,13 +140,91 @@ export class ConsultationManagementComponent implements OnInit {
     appointment.showActions = false;
   }
 
-  addConsultationType(): void {
-    console.log('Adding new consultation type');
-    // هنا يمكن إضافة منطق إضافة نوع استشارة جديد
-  }
+
 
   exportData(): void {
     console.log('Exporting consultation data');
     // هنا يمكن إضافة منطق تصدير البيانات
   }
-} 
+
+
+
+  openAddPopup() {
+    this.showAddPopup = true;
+    this.addForm.reset({
+      consultationName: '',
+      description: '',
+      isActive: true
+    });
+    // document.body.style.overflow = 'hidden'; // Lock scroll
+
+  }
+
+  closeAddPopup() {
+    this.showAddPopup = false;
+    document.body.style.overflow = ''; // Restore scroll
+
+  }
+
+  addConsultation() {
+    if (this.addForm.invalid) return;
+
+    const formData = new FormData();
+
+    // Append form fields
+    formData.append('consultationName', this.addForm.get('consultationName')?.value);
+    formData.append('description', this.addForm.get('description')?.value);
+    formData.append('isActive', this.addForm.get('isActive')?.value);
+
+    this.concloutionServ.createConsultation(formData).subscribe({
+      next: (res) => {
+        if (res && res.success) {
+          this.tostarServ.showSuccess('تم اضافة الاستشارة بنجاح');
+          this.loadConsultationTypes();
+        } else {
+          this.tostarServ.showError('حدث خطاء تاكد من البيانات');
+        }
+        // Add to the local list, refresh UI, etc.
+        this.closeAddPopup();
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+
+
+  }
+
+
+  onEditConsultation(event: { id: number; formData: FormData }) {
+    this.concloutionServ.updateConsultation(event.id, event.formData).subscribe({
+      next: (res) => {
+        if (res && res.success) {
+          this.tostarServ.showSuccess('تم التعديل بنجاح');
+          this.loadConsultationTypes();
+        } else {
+          this.tostarServ.showError('حدث خطأ تأكد من البيانات');
+        }
+      },
+      error: () => {
+        this.tostarServ.showError('حدث خطأ أثناء التعديل');
+      }
+    });
+  }
+
+  onDeleteConsultation(id: number) {
+    this.concloutionServ.DeleteConsultation(id).subscribe({
+      next: (res) => {
+        if (res && res.success) {
+          this.tostarServ.showSuccess('تم الحذف بنجاح');
+          this.loadConsultationTypes();
+        } else {
+          this.tostarServ.showError('تعذر حذف نوع الاستشارة');
+        }
+      },
+      error: () => {
+        this.tostarServ.showError('حدث خطأ أثناء الحذف');
+      }
+    });
+  }
+}
