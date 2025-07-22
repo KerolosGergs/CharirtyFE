@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule } from '@angular/forms';
-import { FormField, SocialMediaLink } from '../help-peopole/help-peopole';
 import { Nav } from "../../../Home/Components/nav/nav";
 import { Footer } from "../../../../Shared/footer/footer";
 import { HeaderComponent } from "../../../Home/Components/header-component/header-component";
 import { HeaderComponentConsultant } from "../../../Consultant/Components/header-component-consultant/header-component-consultant";
+import { FormField, SocialMediaLink } from '../help-peopole/model/ihelp';
 
 // Interfaces for type safety
 export interface ContactInfo {
