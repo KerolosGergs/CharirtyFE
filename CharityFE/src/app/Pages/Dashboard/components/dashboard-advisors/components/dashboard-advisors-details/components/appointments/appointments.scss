@@ -1,0 +1,69 @@
+.scrollable-slider {
+  max-height: 330px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.scrollable-slider::-webkit-scrollbar {
+  width: 6px;
+}
+.scrollable-slider::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+/* Hide visually */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* Responsive fixes */
+@media (max-width: 768px) {
+  .large-img {
+    max-height: 200px;
+  }
+
+  h1 {
+    font-size: 1.25rem !important;
+  }
+
+  .info-box {
+    font-size: 14px;
+  }
+}.custom-calendar {
+  font-size: 1.1rem; // تكبير الخط العام في التقويم
+
+  .mat-calendar-body-cell {
+    .mat-calendar-body-cell-content {
+      font-size: 1.1rem; // تكبير الخط داخل كل خلية
+    }
+
+    &.available-date .mat-calendar-body-cell-content {
+      font-weight: bold;
+      background-color: #e6f5ea; // خلفية خضراء خفيفة للأيام المتاحة
+      color: #0c684a;
+      border-radius: 50%;
+    }
+
+    &.mat-calendar-body-selected {
+      background-color: #198754 !important; // أخضر عند التحديد
+      color: white !important;
+      border-radius: 50%;
+
+      .mat-calendar-body-cell-content {
+        font-weight: bold;
+        color: white !important;
+      }
+    }
+  }
+
+  .mat-calendar-table-header {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+}

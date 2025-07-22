@@ -43,3 +43,31 @@ export interface IConsultantData {
   requestCount: number
   lectureCount: number
 }
+export interface AllRequestResponse {
+  success: boolean
+  message: string
+  data: RequstedData[]
+  statusCode: number
+  errors: any[]
+}
+
+export interface RequstedData {
+  id: number
+  userId: string
+  userName: any
+  advisorId: number
+  advisorName: any
+  consultationId: number
+  consultationName: any
+  title: string
+  description: string
+  status: string
+  priority: string
+  requestDate: string
+  confirmedDate: any
+  completedDate: any
+  response: string
+  rating: any
+  review: any
+  consultationType: number
+}

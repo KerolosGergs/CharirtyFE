@@ -1,0 +1,48 @@
+<section class="row mb-5 gy-4">
+    <!-- Calendar -->
+    <div class="col-lg-6">
+        <div class="calendar-wrapper text-success fs-4 ">
+            <mat-calendar [(selected)]="selectedDate" [dateClass]="dateClass" [dateFilter]="filterDates"
+                (selectedChange)="onDateChange($event!)" class="custom-calendar">
+            </mat-calendar>
+            @if (selectedAppointments.length > 0) {
+            <div class="times-wrapper mt-3">
+                <h5 class="text-center mb-3">الأوقات المتاحة</h5>
+                <div class="d-flex flex-wrap justify-content-center gap-2">
+                    @for (appointment of selectedAppointments; track appointment) {
+                    <span class="time-slot">
+                        🕒 {{ appointment.time }} -
+                        {{ appointment.consultationType }}
+                    </span>
+                    }
+                </div>
+            </div>}
+
+            @if (selectedAppointments.length === 0) {
+            <div class="text-center text-muted mt-3">لا توجد مواعيد في هذا اليوم</div>
+            }
+        </div>
+    </div>
+
+    <!-- Scrollable Appointments -->
+    <div class="col-lg-6">
+        <div class="card h-100 p-3">
+            <h2 class="fs-5">مواعيد المستشار القادمة</h2>
+            <div class="scrollable-slider">
+                @for (appt of appointments; track appt.time) {
+                <article class="card mb-3">
+                    <div class="card-body">
+                        <p><strong>اسم المستخدم:</strong> {{ appt.userName }}</p>
+                        <p><strong>نوع الاستشارة:</strong> {{ appt.consultationType }}</p>
+                        <p><i class="bi bi-calendar"></i> {{ appt.date | date:'d MMMM y' : '' : 'ar' }}</p>
+                        <p><i class="bi bi-clock"></i> {{ appt.time }}</p>
+                        <p><i class="bi bi-hourglass"></i> {{ appt.duration }} دقيقة</p>
+                        <p>{{ appt.description }}</p>
+                    </div>
+                </article>
+                }
+            </div>
+        </div>
+    </div>
+
+</section>

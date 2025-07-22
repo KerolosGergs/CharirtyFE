@@ -83,12 +83,12 @@ export class AdvisorDetails implements OnInit {
             }
           });
         } else {
-        this.tostar.error(response.message);
+        // this.tostar.error(response.message);
         }
         this.isLoading = false;
       },
       error: (err) => {
-        this.tostar.error(err.error.message);
+        // this.tostar.error(err.error.message);
         console.error('Error loading advisor data:', err);
         this.error = 'حدث خطأ في تحميل بيانات المستشار';
         this.isLoading = false;

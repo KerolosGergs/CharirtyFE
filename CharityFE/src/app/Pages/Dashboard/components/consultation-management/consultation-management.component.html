@@ -50,121 +50,52 @@
     </button>
   </div>
   <div class="consultation-types-section">
-    
-   <div class="consultation-types-dashboard container py-4">
-  <h2 class="mb-4">أنواع الاستشارات</h2>
-  <div>
-    @if (showAddPopup) {
-  <div class="popup-overlay">
-    <div class="popup-card">
-      <h4 class="mb-3">إضافة نوع استشارة جديد</h4>
 
-      <form (ngSubmit)="addConsultation()" [formGroup]="addForm">
-        <div class="mb-3">
-          <label for="consultationName" class="form-label">اسم الاستشارة</label>
-          <input type="text" id="consultationName" class="form-control" formControlName="consultationName" />
-        </div>
-        <div class="mb-3">
-          <label for="description" class="form-label">الوصف</label>
-          <textarea id="description" rows="3" class="form-control" formControlName="description"></textarea>
-        </div>
-        <div class="form-check form-switch mb-3">
-          <input type="checkbox" class="form-check-input" id="isActive" formControlName="isActive" />
-          <label class="form-check-label" for="isActive">نشط</label>
-        </div>
+    <div class="consultation-types-dashboard container py-4">
+      <h2 class="mb-4">أنواع الاستشارات</h2>
+      <div>
+        @if (showAddPopup) {
+        <div class="popup-overlay">
+          <div class="popup-card">
+            <h4 class="mb-3">إضافة نوع استشارة جديد</h4>
 
-        <div class="d-flex justify-content-end gap-2">
-          <button type="submit" class="btn btn-success">إضافة</button>
-          <button type="button" class="btn btn-outline-secondary" (click)="closeAddPopup()">إلغاء</button>
+            <form (ngSubmit)="addConsultation()" [formGroup]="addForm">
+              <div class="mb-3">
+                <label for="consultationName" class="form-label">اسم الاستشارة</label>
+                <input type="text" id="consultationName" class="form-control" formControlName="consultationName" />
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">الوصف</label>
+                <textarea id="description" rows="3" class="form-control" formControlName="description"></textarea>
+              </div>
+              <div class="form-check form-switch mb-3">
+                <input type="checkbox" class="form-check-input" id="isActive" formControlName="isActive" />
+                <label class="form-check-label" for="isActive">نشط</label>
+              </div>
+
+              <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn btn-success">إضافة</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="closeAddPopup()">إلغاء</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
-    </div>
-  </div>
-}
+        }
 
-    @if(ShowConsultationTypes){
-      <app-consultation-card 
-      [consultations]="consultationTypes"
-      (editConsultation)="onEditConsultation($event)"
-      (deleteConsultation)="onDeleteConsultation($event)">
-    </app-consultation-card>
-  }@else {
-    <app-spinner></app-spinner>
-  }
-  
-</div>
-</div>
+        @if(ShowConsultationTypes){
+        <app-consultation-card [consultations]="consultationTypes" (editConsultation)="onEditConsultation($event)"
+          (deleteConsultation)="onDeleteConsultation($event)">
+        </app-consultation-card>
+        }@else {
+        <app-spinner></app-spinner>
+        }
 
-  </div>
-
-  <!-- Appointments Section -->
-  <div class="appointments-section">
-    <div class="section-header">
-      <h2>كل مواعيد الاستشارات</h2>
-      <div class="control-bar">
-        <button class="btn btn-export" (click)="exportData()">
-          <i class="fas fa-download"></i>
-          تصدير
-        </button>
-        <button class="btn btn-filter">
-          <i class="fas fa-question"></i>
-          عام
-        </button>
-        <div class="search-container">
-          <i class="fas fa-search search-icon"></i>
-          <input type="text" placeholder="عن ماذا لبحث" class="search-input" [(ngModel)]="searchTerm" (input)="filterAppointments()">
-        </div>
       </div>
     </div>
 
-    <!-- Appointments Table -->
-    <div class="table-container">
-      <table class="appointments-table">
-        <thead>
-          <tr>
-            <th>المستشار</th>
-            <th>اسم المستخدم</th>
-            <th>البريد الالكتروني</th>
-            <th>نوع الاستشارة</th>
-            <th>التاريخ</th>
-            <th>الوقت</th>
-            <th>الإجراءات</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let appointment of filteredAppointments; let i = index">
-            <td>{{ appointment.consultant }}</td>
-            <td>{{ appointment.userName }}</td>
-            <td>{{ appointment.email }}</td>
-            <td>{{ appointment.consultationType }}</td>
-            <td>{{ appointment.date }}</td>
-            <td>{{ appointment.time }}</td>
-            <td>
-              <div class="action-menu">
-                <i class="fas fa-ellipsis-v" (click)="toggleAppointmentActions(i)"></i>
-                @if (appointment.showActions) {
-                  <div class="action-dropdown">
-                  <div class="action-item" (click)="changeAppointment(appointment)">
-                    <i class="fas fa-calendar-alt"></i>
-                    تغيير الموعد
-                  </div>
-                  <div class="action-item delete" (click)="cancelAppointment(appointment)">
-                    <i class="fas fa-times"></i>
-                    إلغاء
-                  </div>
-                </div>
-                }
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 
-  <!-- Pagination -->
-  <div class="pagination">
-    <div class="page-item" [class.active]="currentPage === 2">2</div>
-    <div class="page-item active">1</div>
-  </div>
-</div> 
+
+  <app-requested-component></app-requested-component>
+
+</div>

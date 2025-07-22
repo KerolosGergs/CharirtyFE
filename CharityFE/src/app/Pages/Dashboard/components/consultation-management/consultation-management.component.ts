@@ -2,27 +2,32 @@ import { TostarServ } from './../../../../Shared/tostar-serv';
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ConsultationAppointment, IConsultantData } from '../../../../Core/Interfaces/consultant';
+import { IConsultantData, RequstedData } from '../../../../Core/Interfaces/consultant';
 import { ConsultationServ } from '../../../../Core/Services/ConcloutionMangement/consultation-serv';
 import { ConsultationCard } from "./components/consultation-card/consultation-card";
 import { Spinner } from "../../../../Shared/spinner/spinner";
-
+import { RequestedComponent } from "./components/requested-component/requested-component";
+enum ConsultationType {
+  Online = 0,
+  InPerson = 1,
+  Both = 2,
+}
 @Component({
   selector: 'app-consultation-management',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, ConsultationCard, Spinner],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ConsultationCard, Spinner, RequestedComponent],
   templateUrl: './consultation-management.component.html',
   styleUrls: ['./consultation-management.component.scss']
 })
 export class ConsultationManagementComponent implements OnInit {
+
+  concloutionServ = inject(ConsultationServ);
+  tostarServ = inject(TostarServ);
   consultationTypes!: IConsultantData[];
-  appointments: ConsultationAppointment[] = [];
-  filteredAppointments: ConsultationAppointment[] = [];
 
   searchTerm: string = '';
   currentPage: number = 1;
-  concloutionServ = inject(ConsultationServ);
-  tostarServ = inject(TostarServ);
+  
   showAddPopup = false;
   addForm: FormGroup;
   ShowConsultationTypes = false
@@ -45,107 +50,38 @@ export class ConsultationManagementComponent implements OnInit {
 
   }
 
-  loadAppointments(): void {
-    // Mock data for appointments
-    this.appointments = [
-      {
-        id: 1,
-        consultant: 'د. فهد العتيبي',
-        userName: 'سعيد أحمد',
-        email: 'Sa123ah@gmail.com',
-        consultationType: 'نوع الاستشارة',
-        date: '23/2/25',
-        time: '3:30 PM',
-        showActions: false
-      },
-      {
-        id: 2,
-        consultant: 'د. فهد العتيبي',
-        userName: 'سعيد أحمد',
-        email: 'Sa123ah@gmail.com',
-        consultationType: 'نوع الاستشارة',
-        date: '23/2/25',
-        time: '3:30 PM',
-        showActions: false
-      },
-      {
-        id: 3,
-        consultant: 'د. فهد العتيبي',
-        userName: 'سعيد أحمد',
-        email: 'Sa123ah@gmail.com',
-        consultationType: 'نوع الاستشارة',
-        date: '23/2/25',
-        time: '3:30 PM',
-        showActions: false
-      },
-      {
-        id: 4,
-        consultant: 'د. فهد العتيبي',
-        userName: 'سعيد أحمد',
-        email: 'Sa123ah@gmail.com',
-        consultationType: 'نوع الاستشارة',
-        date: '23/2/25',
-        time: '3:30 PM',
-        showActions: false
-      }
-    ];
-    this.filteredAppointments = [...this.appointments];
-  }
+
   ngOnInit(): void {
     this.loadConsultationTypes();
-    this.loadAppointments();
+    // this.loadAppointments();
   }
 
 
-  filterAppointments(): void {
-    if (!this.searchTerm.trim()) {
-      this.filteredAppointments = [...this.appointments];
-    } else {
-      this.filteredAppointments = this.appointments.filter(appointment =>
-        appointment.consultant.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        appointment.userName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        appointment.email.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        appointment.consultationType.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
+
+
+ getStatusClass(status: string): string {
+    switch (status) {
+      case 'Pending': return 'badge bg-warning text-dark';
+      case 'Completed': return 'badge bg-success';
+      case 'Rejected': return 'badge bg-danger';
+      case 'InProgress': return 'badge bg-info text-dark';
+      default: return 'badge bg-secondary';
     }
   }
 
-
-
-  toggleAppointmentActions(index: number): void {
-    // Close all other action menus
-    this.filteredAppointments.forEach((appointment, i) => {
-      if (i !== index) {
-        appointment.showActions = false;
-      }
-    });
-
-    // Toggle current action menu
-    this.filteredAppointments[index].showActions = !this.filteredAppointments[index].showActions;
+  getTypeLabel(type: number): string {
+    return type === 0 ? 'أونلاين' : 'حضوري';
   }
 
-
-
-  changeAppointment(appointment: ConsultationAppointment): void {
-    console.log('Changing appointment for:', appointment.userName);
-    appointment.showActions = false;
-  }
-
-  cancelAppointment(appointment: ConsultationAppointment): void {
-    if (confirm(`هل أنت متأكد من إلغاء الموعد للمستخدم ${appointment.userName}؟`)) {
-      this.appointments = this.appointments.filter(a => a.id !== appointment.id);
-      this.filterAppointments();
-      console.log('Appointment cancelled for:', appointment.userName);
-    }
-    appointment.showActions = false;
-  }
+  // toggleActions(index: number): void {
+  //   this.filteredAppointments.forEach((app, i) => {
+  //     if (i !== index) app.showActions = false;
+  //   });
+  //   this.filteredAppointments[index].showActions = !this.filteredAppointments[index].showActions;
+  // }
 
 
 
-  exportData(): void {
-    console.log('Exporting consultation data');
-    // هنا يمكن إضافة منطق تصدير البيانات
-  }
 
 
 
