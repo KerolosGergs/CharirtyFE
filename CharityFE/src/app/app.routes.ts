@@ -61,6 +61,10 @@ export const routes: Routes = [
         { path: 'dashboard-schedule', loadComponent: ()=> import('../app/Pages/advisor-dashboard/component/dashboard-schedule/dashboard-schedule').then(m =>m.DashboardSchedule), title: 'Advisor Dashboard Schedule' },
         { path: 'date-details/:id', loadComponent: ()=> import('../app/Pages/advisor-dashboard/component/dashboard-date/components/date-details/date-details').then(m => m.DateDetails),title: 'Date Details' }
     ] },
+    { path: 'reconcile-dashboard', loadComponent: () => import('../app/Pages/reconcile-dashboard/reconcile-dashboard').then(m => m.ReconcileDashboard), title: 'Reconcile Dashboard', children: [
+        { path: '', redirectTo: 'reconcile-main', pathMatch: 'full' },
+        { path: 'reconcile-main', loadComponent: () => import('../app/Pages/reconcile-dashboard/components/reconcile-main/reconcile-main').then(m => m.ReconcileMain), title: 'Reconcile Main' }
+    ] },
 
     { path: 'questions', component: Questions, title: 'Questions' },
 

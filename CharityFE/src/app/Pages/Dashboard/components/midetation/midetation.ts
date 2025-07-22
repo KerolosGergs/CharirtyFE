@@ -33,6 +33,7 @@ export class Midetation implements OnInit {
     this.isLoadingMidetations = true;
     this._Meditation.getAllmidetations().subscribe({
       next: (data) => {
+        console.log(data);
         if (data && data.success) {
           this.midetation = data;
           this.filteredMeditations = data.data;

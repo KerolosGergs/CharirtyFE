@@ -3,7 +3,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-advisor-dashboard',
-  imports: [RouterOutlet, RouterOutlet,RouterLinkActive, RouterLink],
+  imports: [RouterOutlet,RouterLinkActive, RouterLink],
   templateUrl: './advisor-dashboard.html',
   styleUrl: './advisor-dashboard.scss'
 })

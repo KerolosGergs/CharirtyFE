@@ -89,7 +89,7 @@ export class AddMidetation implements OnInit {
     this._mediation.createNewMidetation(formData).subscribe({
       next: (res) => {
         if (res.success) {
-          // console.log('✅ Advisor created successfully:', res);
+          console.log('✅ Advisor created successfully:', res);
           setTimeout(() => {
             
             this.toastr.showSuccess('تم انشاء المستشار بنجاح');
