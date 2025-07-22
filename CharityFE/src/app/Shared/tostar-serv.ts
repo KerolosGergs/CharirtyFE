@@ -6,6 +6,9 @@ import { ToastrService } from 'ngx-toastr';
   providedIn: 'root'
 })
 export class TostarServ {
+  showInfo(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
   constructor(private toastr: ToastrService) {}
 
  showSuccess(text :string) {

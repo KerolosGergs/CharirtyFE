@@ -2,11 +2,13 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { advisor } from '../../../../../../Core/Interfaces/advisor';
 import { Advisor } from '../../../../../../Core/Services/advisor';
 import { ActivatedRoute } from '@angular/router';
+import { Appointments } from "./components/appointments/appointments";
+import { PreviousConsultations } from "./components/previous-consultations/previous-consultations";
 
 @Component({
   selector: 'app-dashboard-advisors-details',
   standalone: true,
-  imports: [],
+  imports: [Appointments, PreviousConsultations],
   templateUrl: './dashboard-advisors-details.html',
   styleUrl: './dashboard-advisors-details.scss'
 })

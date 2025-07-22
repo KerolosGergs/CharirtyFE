@@ -1,0 +1,142 @@
+<div class="animate__animated animate__fadeIn">
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <div class="row g-3 align-items-end">
+      <div class="col-md-4">
+        <label for="searchTerm" class="form-label">
+          <i class="bi bi-search me-2"></i>البحث
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          id="searchTerm"
+          [(ngModel)]="filter.searchTerm"
+          (input)="onFilterChange()"
+          placeholder="البحث حسب الاسم، الاستشاري، العنوان، أو الوصف..."
+        />
+      </div>
+      <!-- <div class="col-md-3">
+        <label for="typeFilter" class="form-label">
+          <i class="bi bi-filter me-2"></i>نوع الاستشارة
+        </label>
+        <select
+          class="form-select"
+          id="typeFilter"
+          [(ngModel)]="filter.typeFilter"
+          (change)="onFilterChange()"
+        >
+          <option value="all">الكل</option>
+          <option [value]="0">عن بُعد</option>
+          <option [value]="1">حضوري</option>
+          <option [value]="2">النوعين</option>
+        </select>
+      </div> -->
+      <div class="col-md-3">
+        <label for="statusFilter" class="form-label">
+          <i class="bi bi-filter me-2"></i>الحالة
+        </label>
+        <select
+          class="form-select"
+          id="statusFilter"
+          [(ngModel)]="filter.statusFilter"
+          (change)="onFilterChange()"
+        >
+          <option value="all">الكل</option>
+          <option value="pending">قيد الانتظار</option>
+          <option value="completed">مكتمل</option>
+          <option value="rejected">مرفوض</option>
+          <option value="inprogress">قيد التنفيذ</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-outline-secondary w-100" (click)="loadAppointments()">
+          <i class="bi bi-arrow-clockwise me-2"></i>تحديث
+        </button>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Data Table -->
+  <div class="data-table-container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="mb-0">
+        <i class="bi bi-person-lines-fill text-success me-2"></i>
+        المواعيد ({{ pagination.totalItems }})
+      </h5>
+      <button class="btn btn-export" (click)="exportData()">
+        <i class="fas fa-download"></i> تصدير
+      </button>
+    </div>
+
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">جارٍ التحميل...</span>
+      </div>
+    </div>
+
+    <div *ngIf="!loading" class="table-responsive animate__animated animate__fadeIn">
+      <table class="table table-hover text-center align-middle">
+        <thead class="table-light">
+          <tr class="p-2">
+            <th>المستخدم</th>
+            <th>الاستشاري</th>
+            <th>نوع الاستشارة</th>
+        
+            <th>الوصف</th>
+            <th>الحالة</th>
+            <th>الأولوية</th>
+            <th>تاريخ الطلب</th>
+            <!-- <th>الإجراء</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of getPaginatedAppointments()" class="animate__animated animate__fadeInUp p-2">
+            <td>{{ item.userName }}</td>
+            <td>{{ item.advisorName }}</td>
+            <td>{{ getTypeLabel(item.consultationType) }}</td>
+            
+            <td>{{ item.description }}</td>
+            <td><span [class]="getStatusClass(item.status)">{{ item.status }}</span></td>
+            <td>{{ item.priority }}</td>
+            <td>{{ item.requestDate | date: 'short' }}</td>
+            <!-- <td>
+              <button class="btn btn-sm btn-outline-primary" (click)="viewAppointment(item)" title="عرض التفاصيل">
+                <i class="bi bi-eye"></i>
+              </button>
+            </td> -->
+          </tr>
+          <tr *ngIf="getPaginatedAppointments().length === 0">
+            <td colspan="9" class="text-center py-4 text-muted">
+              <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+              لا توجد مواعيد
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <nav *ngIf="pagination.totalPages > 1" aria-label="Appointments pagination">
+      <ul class="pagination">
+        <li class="page-item" [class.disabled]="pagination.currentPage === 1">
+          <button class="page-link" (click)="onPageChange(pagination.currentPage - 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </li>
+        <li 
+          *ngFor="let page of getPageNumbers()" 
+          class="page-item" 
+          [class.active]="page === pagination.currentPage"
+        >
+          <button class="page-link" (click)="onPageChange(page)">{{ page }}</button>
+        </li>
+        <li class="page-item" [class.disabled]="pagination.currentPage === pagination.totalPages">
+          <button class="page-link" (click)="onPageChange(pagination.currentPage + 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>

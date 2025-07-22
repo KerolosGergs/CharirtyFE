@@ -1,0 +1,265 @@
+* {
+    font-family: 'Cairo', sans-serif;
+}
+
+// Appointments Section
+.appointments-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 24px;
+    padding: 28px;
+}
+
+.control-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.search-container {
+    position: relative;
+
+    .search-icon {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #666;
+        font-size: 14px;
+    }
+}
+
+.search-input {
+    padding: 10px 40px 10px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    width: 280px;
+    font-size: 14px;
+
+    &:focus {
+        outline: none;
+        border-color: #2e7d5a;
+        box-shadow: 0 0 0 3px rgba(46, 125, 90, 0.1);
+    }
+
+    &::placeholder {
+        color: #999;
+    }
+}
+
+// Button Styles
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+
+    &.btn-add {
+        background-color: #2e7d5a;
+        color: white;
+
+        &:hover {
+            background-color: #1e5d3a;
+            transform: translateY(-1px);
+        }
+    }
+
+    &.btn-export {
+        background-color: #f8f9fa;
+        color: #495057;
+        border: 1px solid #e0e0e0;
+
+        &:hover {
+            background-color: #e9ecef;
+            border-color: #2e7d5a;
+        }
+    }
+
+    &.btn-filter {
+        background-color: #f8f9fa;
+        color: #495057;
+        border: 1px solid #e0e0e0;
+
+        &:hover {
+            background-color: #e9ecef;
+            border-color: #2e7d5a;
+        }
+    }
+
+    &.btn-edit {
+        background-color: #2e7d5a;
+        color: white;
+
+        &:hover {
+            background-color: #1e5d3a;
+        }
+    }
+
+    &.btn-delete {
+        background-color: #dc3545;
+        color: white;
+
+        &:hover {
+            background-color: #c82333;
+        }
+    }
+}
+
+// Table Styles
+.table-container {
+    margin-top: 24px;
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+}
+
+.appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th,
+    td {
+        padding: 16px 20px;
+        text-align: right;
+        border-bottom: 1px solid #f0f0f0;
+        font-size: 14px;
+    }
+
+    th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+        color: #2c2c2c;
+        border-bottom: 2px solid #e8e8e8;
+    }
+
+    tr:hover {
+        background-color: #f8f9fa;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+}
+
+// Action Menu Styles
+.action-menu {
+    position: relative;
+
+    i {
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 4px;
+        color: #666;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: #f0f0f0;
+            color: #2e7d5a;
+        }
+    }
+}
+
+.action-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 160px;
+    margin-top: 4px;
+}
+
+.action-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 14px;
+
+    &:hover {
+        background-color: #f8f9fa;
+    }
+
+    &.delete {
+        color: #dc3545;
+
+        &:hover {
+            background-color: #f8d7da;
+        }
+    }
+
+    i {
+        width: 16px;
+        font-size: 14px;
+    }
+}
+
+// Pagination Styles
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.page-item {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    font-size: 14px;
+
+    &:hover {
+        background-color: #f8f9fa;
+        border-color: #2e7d5a;
+    }
+
+    &.active {
+        background-color: #2e7d5a;
+        color: white;
+        border-color: #2e7d5a;
+    }
+}
+
+.pagination .btn.active {
+    background-color: #2e7d5a;
+    color: white;
+    border: none;
+}
+.page-link{
+    background-color: #2e7d5a;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    .active{
+        background-color: #2e7d5a;
+        border: none;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+    }
+}
