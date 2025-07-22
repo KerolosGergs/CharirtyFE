@@ -1,225 +1,123 @@
-import { AdvisorAvailabilityService, CreateAvailabilityDTO} from '../../../../Core/Services/makingrequest';
-import { Component, Input, Output, EventEmitter, inject, Inject, PLATFORM_ID } from '@angular/core';
-import { AppointmentSettings, TimeSlot } from '../../../../Core/Interfaces/itest';
-import { AppointmentEvent, CalendarDay, CalendarWeek, TimeSlotFormData } from '../../../../Core/Interfaces/itest';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { ToastrService } from 'ngx-toastr';
+import { IBulkAvailability, IConsultationType, ICreateAvailability } from '../../../../Core/Interfaces/iavailability';
+import { Availability } from '../../../../Core/Services/availability';
+
+export interface TimeSlot {
+  time: string;
+  duration: string;
+  consultationType: IConsultationType;
+  notes?: string;
+}
+
+export interface DayData {
+  date: Date;
+  dayNumber: number;
+  isSelected: boolean;
+  timeSlots: TimeSlot[];
+  isCurrentMonth: boolean;
+}
 
 @Component({
   selector: 'app-dashboard-schedule',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './dashboard-schedule.html',
-  styleUrl: './dashboard-schedule.scss'
+  styleUrls: ['./dashboard-schedule.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule
+  ]
 })
-export class DashboardSchedule {
-   @Input() initialSettings?: AppointmentSettings;
-  @Output() appointmentEvent = new EventEmitter<AppointmentEvent>();
-  @Output() dataChanged = new EventEmitter<CalendarDay[]>();
+export class DashboardSchedule implements OnInit {
+  advisorId: number = 1; // Replace with actual advisor ID
+  currentDate: Date = new Date();
+  currentMonth: number = this.currentDate.getMonth();
+  currentYear: number = this.currentDate.getFullYear();
 
-  currentDate = new Date();
-  currentMonth = this.currentDate.getMonth();
-  currentYear = this.currentDate.getFullYear();
+  calendarDays: DayData[] = [];
+  availableTimesData: { [key: string]: TimeSlot[] } = {};
 
-  isGenerallyAvailable = true;
-  appointmentType: 'online' | 'inperson' = 'online';
-  isLoading = false;
-  showTimeSlotModal = false;
-
-  calendarWeeks: CalendarWeek[] = [];
-  daysOfWeek = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
-  monthNames = [
+  weekDays: string[] = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  monthNames: string[] = [
     'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
     'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
   ];
 
-  timeSlotForm: FormGroup;
-  selectedDay: CalendarDay | null = null;
-
-  private subscriptions = new Subscription();
-
-  // 👇 Inject the service
-  private availabilityService = inject(AdvisorAvailabilityService);
-  availability: any;
-
-  constructor(private formBuilder: FormBuilder, @Inject(PLATFORM_ID) private platformId: Object) {
-    this.timeSlotForm = this.createTimeSlotForm();
-  }
+  constructor(private toastr: ToastrService, private availabilityService: Availability) {}
 
   ngOnInit(): void {
-    this.initializeSettings();
     this.generateCalendar();
-    this.setupFormValidation();
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+  private convertTo24Hour(time: string): string {
+  const match = time.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+  if (!match) return time; // return as-is if format doesn't match
+
+  let [_, hours, minutes, period] = match;
+  let hr = parseInt(hours, 10);
+
+  if (period?.toUpperCase() === 'PM' && hr < 12) {
+    hr += 12;
+  } else if (period?.toUpperCase() === 'AM' && hr === 12) {
+    hr = 0;
   }
-  
-  // ===== INITIALIZATION =====
-  private initializeSettings(): void {
-    if (this.initialSettings) {
-      this.isGenerallyAvailable = this.initialSettings.isGenerallyAvailable;
-      this.appointmentType = this.initialSettings.appointmentType;
+
+  return `${hr.toString().padStart(2, '0')}:${minutes}`;
+}
+
+convertToTimeSpan(timeStr: string): string {
+  // Accepts inputs like "9:00 AM", "13:30", "30" (minutes), or "00:30"
+  if (!timeStr) return '00:00:00';
+
+  // If it's a number representing minutes (like '30'), convert to '00:30:00'
+  if (/^\d+$/.test(timeStr)) {
+    const minutes = parseInt(timeStr, 10);
+    return `00:${minutes.toString().padStart(2, '0')}:00`;
+  }
+
+  // If format includes ":" (e.g., "13:30" or "00:30")
+  if (timeStr.includes(':')) {
+    // If it's HH:mm or mm:ss, add missing parts to HH:mm:ss
+    const parts = timeStr.split(':');
+    if (parts.length === 2) {
+      // Assume HH:mm, add seconds
+      return `${parts[0].padStart(2, '0')}:${parts[1].padStart(2, '0')}:00`;
     }
-    
-    console.log('🚀 Appointment Calendar initialized');
-    console.log('📅 Current month:', this.currentMonthYear);
-    console.log('⚙️ Settings:', {
-      available: this.isGenerallyAvailable,
-      type: this.appointmentType
-    });
-  }
-  
-  private createTimeSlotForm(): FormGroup {
-    return this.formBuilder.group({
-      startTime: ['09:00', [Validators.required]],
-      endTime: ['10:00', [Validators.required]]
-    });
-  }
-  
-  private setupFormValidation(): void {
-    const formSubscription = this.timeSlotForm.valueChanges.subscribe((value: TimeSlotFormData) => {
-      this.validateTimeSlot(value);
-    });
-    
-    this.subscriptions.add(formSubscription);
-  }
-  
-  // ===== CALENDAR GENERATION =====
-  generateCalendar(): void {
-    console.log(`📅 Generating calendar for ${this.monthNames[this.currentMonth]} ${this.currentYear}`);
-    
-    const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
-    const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
-    const firstDayOfWeek = firstDayOfMonth.getDay();
-    const daysInMonth = lastDayOfMonth.getDate();
-    
-    // Calculate previous month days to show
-    const prevMonth = this.currentMonth === 0 ? 11 : this.currentMonth - 1;
-    const prevYear = this.currentMonth === 0 ? this.currentYear - 1 : this.currentYear;
-    const daysInPrevMonth = new Date(prevYear, prevMonth + 1, 0).getDate();
-    
-    // Calculate next month days to show
-    const nextMonth = this.currentMonth === 11 ? 0 : this.currentMonth + 1;
-    const nextYear = this.currentMonth === 11 ? this.currentYear + 1 : this.currentYear;
-    
-    const weeks: CalendarWeek[] = [];
-    let currentWeek: CalendarDay[] = [];
-    let weekNumber = 1;
-    
-    // Add previous month days
-    for (let i = firstDayOfWeek - 1; i >= 0; i--) {
-      const date = daysInPrevMonth - i;
-      const day = this.createCalendarDay(date, prevMonth, prevYear, false);
-      currentWeek.push(day);
+    if (parts.length === 3) {
+      return `${parts[0].padStart(2, '0')}:${parts[1].padStart(2, '0')}:${parts[2].padStart(2, '0')}`;
     }
-    
-    // Add current month days
-    for (let date = 1; date <= daysInMonth; date++) {
-      const day = this.createCalendarDay(date, this.currentMonth, this.currentYear, true);
-      currentWeek.push(day);
-      
-      if (currentWeek.length === 7) {
-        weeks.push({ weekNumber, days: [...currentWeek] });
-        currentWeek = [];
-        weekNumber++;
-      }
-    }
-    
-    // Add next month days to complete the last week
-    let nextMonthDate = 1;
-    while (currentWeek.length < 7) {
-      const day = this.createCalendarDay(nextMonthDate, nextMonth, nextYear, false);
-      currentWeek.push(day);
-      nextMonthDate++;
-    }
-    
-    if (currentWeek.length > 0) {
-      weeks.push({ weekNumber, days: currentWeek });
-    }
-    
-    this.calendarWeeks = weeks;
-    console.log(`✅ Calendar generated with ${weeks.length} weeks`);
-    
-    // Generate sample data for demonstration
-    this.generateSampleData();
   }
-  
-  private createCalendarDay(date: number, month: number, year: number, isCurrentMonth: boolean): CalendarDay {
-    const fullDate = new Date(year, month, date);
-    const today = new Date();
-    const isToday = fullDate.toDateString() === today.toDateString();
-    const isPastDate = fullDate < today && !isToday;
-    const isWeekend = fullDate.getDay() === 5 || fullDate.getDay() === 6; // Friday & Saturday
-    
-    const dayNames = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
-    
-    return {
-      date,
-      dayName: dayNames[fullDate.getDay()],
-      fullDate,
-      isCurrentMonth,
-      isToday,
-      isAvailable: isCurrentMonth && !isPastDate && !isWeekend,
-      timeSlots: [],
-      isWeekend,
-      isPastDate
-    };
+
+  // Otherwise, try to parse AM/PM time (e.g., "9:00 AM")
+  const date = new Date(`1970-01-01T${timeStr}`);
+  if (!isNaN(date.getTime())) {
+    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:00`;
   }
-  
-  // ===== SAMPLE DATA GENERATION =====
-  private generateSampleData(): void {
-    console.log('🎯 Generating sample appointment data...');
-    
-    const sampleTimeSlots: TimeSlot[] = [
-      { id: '1', startTime: '09:00', endTime: '10:00' },
-      { id: '2', startTime: '10:30', endTime: '11:30' },
-      { id: '3', startTime: '14:00', endTime: '15:00' },
-      { id: '4', startTime: '15:30', endTime: '16:30' },
-      { id: '5', startTime: '17:00', endTime: '18:00' }
-    ];
-    
-    // Add sample data to some days
-    this.calendarWeeks.forEach(week => {
-      week.days.forEach(day => {
-        if (day.isCurrentMonth && day.isAvailable && Math.random() > 0.6) {
-          // Randomly assign 1-3 time slots to available days
-          const numSlots = Math.floor(Math.random() * 3) + 1;
-          const shuffled = [...sampleTimeSlots].sort(() => 0.5 - Math.random());
-          day.timeSlots = shuffled.slice(0, numSlots).map(slot => ({
-            ...slot,
-            id: `${day.date}-${slot.id}`,
-            isBooked: Math.random() > 0.8
-          }));
-        }
-      });
-    });
-    
-    console.log('✅ Sample data generated');
+
+  // Fallback
+  return '00:00:00';
+}
+
+
+
+  getCurrentMonthName(): string {
+    return this.monthNames[this.currentMonth];
   }
-  
-  // ===== COMPUTED PROPERTIES =====
-  get currentMonthYear(): string {
-    return `${this.monthNames[this.currentMonth]} ${this.currentYear}`;
-  }
-  
-  get totalAvailableDays(): number {
-    return this.calendarWeeks
-      .flatMap(week => week.days)
-      .filter(day => day.isCurrentMonth && day.isAvailable)
-      .length;
-  }
-  
-  get totalTimeSlots(): number {
-    return this.calendarWeeks
-      .flatMap(week => week.days)
-      .filter(day => day.isCurrentMonth)
-      .reduce((total, day) => total + day.timeSlots.length, 0);
-  }
-  
-  // ===== NAVIGATION =====
+
   previousMonth(): void {
     if (this.currentMonth === 0) {
       this.currentMonth = 11;
@@ -227,12 +125,9 @@ export class DashboardSchedule {
     } else {
       this.currentMonth--;
     }
-    
     this.generateCalendar();
-    this.emitEvent('settings-changed', { month: this.currentMonth, year: this.currentYear });
-    console.log(`⬅️ Navigated to ${this.currentMonthYear}`);
   }
-  
+
   nextMonth(): void {
     if (this.currentMonth === 11) {
       this.currentMonth = 0;
@@ -240,351 +135,163 @@ export class DashboardSchedule {
     } else {
       this.currentMonth++;
     }
-    
     this.generateCalendar();
-    this.emitEvent('settings-changed', { month: this.currentMonth, year: this.currentYear });
-    console.log(`➡️ Navigated to ${this.currentMonthYear}`);
   }
-  
-  // ===== AVAILABILITY MANAGEMENT =====
-  toggleGeneralAvailability(): void {
-    this.isGenerallyAvailable = !this.isGenerallyAvailable;
-    
-    console.log(`🔄 General availability toggled: ${this.isGenerallyAvailable ? 'Available' : 'Unavailable'}`);
-    
-    // Update all days based on general availability
-    if (!this.isGenerallyAvailable) {
-      this.calendarWeeks.forEach(week => {
-        week.days.forEach(day => {
-          if (day.isCurrentMonth) {
-            day.isAvailable = false;
-            day.timeSlots = [];
-          }
-        });
-      });
-    } else {
-      this.calendarWeeks.forEach(week => {
-        week.days.forEach(day => {
-          if (day.isCurrentMonth && !day.isPastDate && !day.isWeekend) {
-            day.isAvailable = true;
-          }
-        });
+
+  generateCalendar(): void {
+    this.calendarDays = [];
+
+    const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
+    const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
+    const firstDayIndex = firstDayOfMonth.getDay();
+
+    for (let i = firstDayIndex - 1; i >= 0; i--) {
+      const prevDate = new Date(this.currentYear, this.currentMonth, -i);
+      this.calendarDays.push({
+        date: prevDate,
+        dayNumber: prevDate.getDate(),
+        isSelected: false,
+        timeSlots: [],
+        isCurrentMonth: false
       });
     }
-    
-    this.emitEvent('settings-changed', { isGenerallyAvailable: this.isGenerallyAvailable });
-    this.emitDataChanged();
-  }
-  
-  toggleDayAvailability(day: CalendarDay): void {
-    if (!day.isCurrentMonth || day.isPastDate) return;
-    
-    day.isAvailable = !day.isAvailable;
-    
-    if (!day.isAvailable) {
-      day.timeSlots = [];
-    }
-    
-    console.log(`📅 Day ${day.date} availability: ${day.isAvailable ? 'Available' : 'Unavailable'}`);
-    
-    this.emitEvent('day-availability-changed', { day, isAvailable: day.isAvailable });
-    this.emitDataChanged();
-  }
-  
-  // ===== APPOINTMENT TYPE =====
-  setAppointmentType(type: 'online' | 'inperson'): void {
-    this.appointmentType = type;
-    console.log(`💻 Appointment type changed to: ${type}`);
-    this.emitEvent('settings-changed', { appointmentType: type });
-  }
-  
- // ===== TIME SLOT MANAGEMENT =====
-addTimeSlot(day: CalendarDay): void {
-  console.log(`🔄 Attempting to add time slot for day ${day.date}`);
-  
-  if (!day.isCurrentMonth) {
-    console.warn('⚠️ Cannot add time slot: Day is not in current month');
-    return;
-  }
-  
-  if (!day.isAvailable) {
-    console.warn('⚠️ Cannot add time slot: Day is not available');
-    alert('لا يمكن إضافة وقت لهذا اليوم. يرجى تفعيل توفر اليوم أولاً.');
-    return;
-  }
-  
-  this.selectedDay = day;
-  this.showTimeSlotModal = true;
-  
-  // Reset form with default values
-  this.timeSlotForm.patchValue({
-    startTime: '09:00',
-    endTime: '10:00'
-  });
-  
-  // Mark form as untouched to avoid showing validation errors immediately
-  this.timeSlotForm.markAsUntouched();
-  
-  console.log(`✅ Opening time slot modal for day ${day.date}`);
-  console.log('📝 Form initial values:', this.timeSlotForm.value);
-}
-  
-  removeTimeSlot(day: CalendarDay, timeSlot: TimeSlot): void {
-    const index = day.timeSlots.findIndex(slot => slot.id === timeSlot.id);
-    if (index > -1) {
-      day.timeSlots.splice(index, 1);
-      console.log(`🗑️ Removed time slot: ${timeSlot.startTime}-${timeSlot.endTime} from day ${day.date}`);
-      
-      this.emitEvent('time-slot-removed', { day, timeSlot });
-      this.emitDataChanged();
-    }
-  }
-  
-saveTimeSlot(): void {
-  console.log('💾 Attempting to save time slot...');
-  console.log('📝 Form valid:', this.timeSlotForm.valid);
-  console.log('📝 Form value:', this.timeSlotForm.value);
-  console.log('📝 Selected day:', this.selectedDay?.date);
-  
-  if (!this.selectedDay) {
-    console.error('❌ No day selected');
-    alert('خطأ: لم يتم تحديد يوم');
-    return;
-  }
-  
-  // Mark form as touched to show validation errors
-  this.timeSlotForm.markAllAsTouched();
-  
-  if (!this.timeSlotForm.valid) {
-    console.warn('⚠️ Form is invalid');
-    alert('يرجى ملء جميع الحقول المطلوبة');
-    return;
-  }
-  
-  const formValue = this.timeSlotForm.value as TimeSlotFormData;
-  
-  if (!this.isValidTimeSlot(formValue)) {
-    console.warn('⚠️ Invalid time slot: End time must be after start time');
-    alert('وقت النهاية يجب أن يكون بعد وقت البداية');
-    return;
-  }
-  
-  // Check for time conflicts
-  const hasConflict = this.selectedDay.timeSlots.some(existingSlot => {
-    return this.hasTimeConflict(formValue, existingSlot);
-  });
-  
-  if (hasConflict) {
-    console.warn('⚠️ Time conflict detected');
-    alert('يوجد تداخل مع وقت موجود. يرجى اختيار وقت آخر.');
-    return;
-  }
-  
-  const newTimeSlot: TimeSlot = {
-    id: `${this.selectedDay.date}-${Date.now()}`,
-    startTime: formValue.startTime,
-    endTime: formValue.endTime,
-    isBooked: false
-  };
-  
-  this.selectedDay.timeSlots.push(newTimeSlot);
-  
-  // Sort time slots by start time
-  this.selectedDay.timeSlots.sort((a, b) => a.startTime.localeCompare(b.startTime));
-  
-  console.log(`✅ Added time slot: ${newTimeSlot.startTime}-${newTimeSlot.endTime} to day ${this.selectedDay.date}`);
-  console.log('📊 Total time slots for this day:', this.selectedDay.timeSlots.length);
-  
-  this.emitEvent('time-slot-added', { day: this.selectedDay, timeSlot: newTimeSlot });
-  this.emitDataChanged();
-  this.closeTimeSlotModal();
-  
-  // Show success message
-  alert(`تم إضافة الوقت ${newTimeSlot.startTime} - ${newTimeSlot.endTime} بنجاح!`);
-}
 
-closeTimeSlotModal(): void {
-  console.log('🔒 Closing time slot modal');
-  this.showTimeSlotModal = false;
-  this.selectedDay = null;
-  this.timeSlotForm.reset({
-    startTime: '09:00',
-    endTime: '10:00'
-  });
-  this.timeSlotForm.markAsUntouched();
-}
-
-  // ===== VALIDATION =====
-  private validateTimeSlot(timeSlot: TimeSlotFormData): boolean {
-    return this.isValidTimeSlot(timeSlot);
-  }
-  
-  private isValidTimeSlot(timeSlot: TimeSlotFormData): boolean {
-    if (!timeSlot.startTime || !timeSlot.endTime) {
-      return false;
-    }
-    
-    const start = new Date(`2000-01-01T${timeSlot.startTime}:00`);
-    const end = new Date(`2000-01-01T${timeSlot.endTime}:00`);
-    return end > start;
-  }
-  
-  private hasTimeConflict(newTimeSlot: TimeSlotFormData, existingTimeSlot: TimeSlot): boolean {
-    const newStart = new Date(`2000-01-01T${newTimeSlot.startTime}:00`);
-    const newEnd = new Date(`2000-01-01T${newTimeSlot.endTime}:00`);
-    const existingStart = new Date(`2000-01-01T${existingTimeSlot.startTime}:00`);
-    const existingEnd = new Date(`2000-01-01T${existingTimeSlot.endTime}:00`);
-    
-    // Check if there's any overlap
-    return (newStart < existingEnd && newEnd > existingStart);
-  }
-  
-  // ===== BULK OPERATIONS =====
-  selectAvailableDays(): void {
-    console.log('📋 Opening available days selection...');
-    // This would typically open a modal or sidebar for bulk day selection
-    // For now, we'll just log the action
-    alert('ميزة تحديد الأيام المتاحة ستكون متاحة قريباً');
-  }
-  
-  // ===== CHANGES MADE HERE IN saveChanges() =====
- saveChanges(): void {
-  this.isLoading = true;
-
-  console.log('💾 Saving changes...');
-  console.log('📊 Summary:', {
-    totalAvailableDays: this.totalAvailableDays,
-    totalTimeSlots: this.totalTimeSlots,
-    appointmentType: this.appointmentType,
-    isGenerallyAvailable: this.isGenerallyAvailable
-  });
-
-  const allAvailableDays = this.calendarWeeks
-    .flatMap(week => week.days)
-    .filter(day => day.isCurrentMonth && day.isAvailable);
-
-  if (allAvailableDays.length === 0) {
-    alert('لا توجد أيام متاحة للحفظ.');
-    this.isLoading = false;
-    return;
-  }
-
-  const availabilityPayload: CreateAvailabilityDTO[] = [];
-
-  // Safely read advisorId if we're in browser context
-  const advisorId = isPlatformBrowser(this.platformId)
-    ? Number(localStorage.getItem('advisorId')) || 0
-    : 0;
-
-  allAvailableDays.forEach(day => {
-    day.timeSlots.forEach(slot => {
-      const duration = this.calculateDuration(slot.startTime, slot.endTime);
-      availabilityPayload.push({
-        advisorId: advisorId,
-        date: day.fullDate.toISOString().split('T')[0], // e.g., "2025-07-21"
-        time: slot.startTime,
-        duration: this.minutesToHHMMSS(duration),
-        consultationType: this.appointmentType === 'online' ? 0 : 1,
-        notes: ''
+    for (let day = 1; day <= lastDayOfMonth.getDate(); day++) {
+      const date = new Date(this.currentYear, this.currentMonth, day);
+      const dateKey = this.getDateKey(date);
+      this.calendarDays.push({
+        date,
+        dayNumber: day,
+        isSelected: false,
+        timeSlots: this.availableTimesData[dateKey] || [],
+        isCurrentMonth: true
       });
+    }
+
+    while (this.calendarDays.length < 42) {
+      const nextDate = new Date(this.currentYear, this.currentMonth, this.calendarDays.length - firstDayIndex + 1);
+      this.calendarDays.push({
+        date: nextDate,
+        dayNumber: nextDate.getDate(),
+        isSelected: false,
+        timeSlots: [],
+        isCurrentMonth: false
+      });
+    }
+  }
+
+  getDateKey(date: Date): string {
+    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+  }
+
+  selectDay(day: DayData): void {
+    if (!day.isCurrentMonth) return;
+    this.calendarDays.forEach(d => d.isSelected = false);
+    day.isSelected = true;
+  }
+
+  addNewTimeSlot(day: DayData): void {
+    day.timeSlots.push({
+      time: '',
+      duration: '',
+      consultationType: IConsultationType.Online,
+      notes: ''
     });
-  });
+    this.availableTimesData[this.getDateKey(day.date)] = day.timeSlots;
+  }
 
-  this.availabilityService.createBulkAvailability({ availabilities: availabilityPayload }).subscribe({
-    next: response => {
-      this.isLoading = false;
-      alert('تم حفظ التغييرات بنجاح!');
-      console.log('✅ Changes saved to backend', response);
-      this.emitEvent('settings-changed', { action: 'save' });
+  removeTimeSlot(day: DayData, index: number): void {
+    day.timeSlots.splice(index, 1);
+    this.availableTimesData[this.getDateKey(day.date)] = day.timeSlots;
+  }
+
+  updateTimeSlot(day: DayData, index: number, field: keyof TimeSlot, value: string): void {
+    (day.timeSlots[index] as any)[field] = value;
+    this.availableTimesData[this.getDateKey(day.date)] = day.timeSlots;
+  }
+
+  getAllAvailableTimesData(): { [key: string]: TimeSlot[] } {
+    return this.availableTimesData;
+  }
+
+ submitSingleAvailability(day: DayData): void {
+  if (!day.timeSlots.length) {
+    this.toastr.warning('يرجى إضافة وقت واحد على الأقل');
+    return;
+  }
+
+  const dateStr = day.date.toISOString().split('T')[0]; // yyyy-mm-dd
+
+  for (const slot of day.timeSlots) {
+    if (!slot.time || !slot.duration) {
+      this.toastr.error('يرجى ملء الوقت والمدة');
+      return;
+    }
+
+    // Assuming time is already in 24-hour HH:mm format
+    const availability: ICreateAvailability = {
+  advisorId: this.advisorId,
+  date: dateStr,
+  time: this.convertToTimeSpan(slot.time),        // Convert time
+  duration: this.convertToTimeSpan(slot.duration), // Convert duration
+  consultationType: slot.consultationType,
+  notes: slot.notes || ''
+};
+
+
+
+    this.availabilityService.createAvailability(availability).subscribe({
+      next: (res) => {
+        console.log(res);
+        
+        this.toastr.success(`تم حفظ الموعد بنجاح: ${slot.time}`);
+      },
+      error: (err) => {
+        console.error('Validation errors:', err.error?.errors);
+        this.toastr.error('حدث خطأ أثناء حفظ الموعد');
+      }
+    });
+  }
+}
+
+  submitAllAvailabilities(): void {
+  const availabilities: ICreateAvailability[] = [];
+
+  for (const [key, slots] of Object.entries(this.availableTimesData)) {
+    const [year, month, day] = key.split('-').map(Number);
+    const dateStr = new Date(year, month, day).toISOString().split('T')[0];
+
+    for (const slot of slots) {
+      if (!slot.time || !slot.duration) continue;
+
+      availabilities.push({
+        advisorId: this.advisorId,
+        date: dateStr,
+        time: this.convertToTimeSpan(slot.time),      // convert time
+        duration: this.convertToTimeSpan(slot.duration),  // convert duration
+        consultationType: slot.consultationType,
+        notes: slot.notes || ''
+      });
+    }
+  }
+
+  if (!availabilities.length) {
+    this.toastr.warning('لا توجد مواعيد صالحة للحفظ');
+    return;
+  }
+
+  const bulk: IBulkAvailability = { availabilities };
+
+  this.availabilityService.createBulkAvailability(bulk).subscribe({
+    next: (res) => {
+      console.log(res);
+      this.toastr.success('تم حفظ جميع المواعيد بنجاح');
     },
-    error: err => {
-      this.isLoading = false;
-      alert('حدث خطأ أثناء الحفظ. حاول مرة أخرى.');
-      console.error('❌ Failed to save availability:', err);
+    error: (err) => {
+      console.log(err);
+      this.toastr.error('فشل حفظ المواعيد');
     }
   });
 }
 
-// Add this helper method to calculate duration in minutes
-private calculateDuration(startTime: string, endTime: string): number {
-  const [startHour, startMinute] = startTime.split(':').map(Number);
-  const [endHour, endMinute] = endTime.split(':').map(Number);
-  return (endHour * 60 + endMinute) - (startHour * 60 + startMinute);
-}
-
-// Helper to convert minutes to "HH:mm:ss" string
-private minutesToHHMMSS(minutes: number): string {
-  const h = Math.floor(minutes / 60).toString().padStart(2, '0');
-  const m = (minutes % 60).toString().padStart(2, '0');
-  return `${h}:${m}:00`;
-}
-  
-  // ===== EVENT EMISSION =====
-  private emitEvent(type: AppointmentEvent['type'], data: any): void {
-    const event: AppointmentEvent = {
-      type,
-      data,
-      timestamp: new Date()
-    };
-    
-    this.appointmentEvent.emit(event);
-  }
-  
-  private emitDataChanged(): void {
-    const allDays = this.calendarWeeks.flatMap(week => week.days);
-    this.dataChanged.emit(allDays);
-  }
-  
-  // ===== TRACK BY FUNCTIONS (for performance) =====
-  trackByWeek(index: number, week: CalendarWeek): number {
-    return week.weekNumber;
-  }
-  
-  trackByDay(index: number, day: CalendarDay): string {
-    return `${day.fullDate.getTime()}-${day.isAvailable}`;
-  }
-  
-  trackByTimeSlot(index: number, timeSlot: TimeSlot): string {
-    return timeSlot.id;
-  }
-  
-  // ===== UTILITY METHODS =====
-  getDayClasses(day: CalendarDay): string[] {
-    const classes: string[] = [];
-    
-    if (day.isAvailable) classes.push('available');
-    if (day.timeSlots.length > 0) classes.push('has-appointments');
-    if (!day.isCurrentMonth) classes.push('other-month');
-    if (day.isToday) classes.push('today');
-    if (day.isPastDate) classes.push('past-date');
-    if (day.isWeekend) classes.push('weekend');
-    
-    return classes;
-  }
-  
-  getTimeSlotStatus(timeSlot: TimeSlot): string {
-    return timeSlot.isBooked ? 'محجوز' : 'متاح';
-  }
-  
-  // ===== DEBUG METHODS =====
-  logCalendarState(): void {
-    console.group('📊 Calendar State Debug');
-    console.log('Current Month/Year:', this.currentMonthYear);
-    console.log('General Availability:', this.isGenerallyAvailable);
-    console.log('Appointment Type:', this.appointmentType);
-    console.log('Total Weeks:', this.calendarWeeks.length);
-    console.log('Available Days:', this.totalAvailableDays);
-    console.log('Total Time Slots:', this.totalTimeSlots);
-    console.table(
-      this.calendarWeeks.flatMap(week => week.days)
-        .filter(day => day.isCurrentMonth && day.timeSlots.length > 0)
-        .map(day => ({
-          date: day.date,
-          dayName: day.dayName,
-          available: day.isAvailable,
-          timeSlots: day.timeSlots.length
-        }))
-    );
-    console.groupEnd();
-  }
 }

@@ -1,7 +1,7 @@
+<p *ngIf="!pdfSrc">No file specified.</p>
 <ngx-extended-pdf-viewer 
-  *ngIf="isBrowser"
-  [src]="'Pdf/إحصاءات عامة.pdf'" 
-  useBrowserLocale="true"
-  height="600px">
+  *ngIf="pdfSrc"
+  [src]="pdfSrc"
+  height="600px"
+  useBrowserLocale="true">
 </ngx-extended-pdf-viewer>
-

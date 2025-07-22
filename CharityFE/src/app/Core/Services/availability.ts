@@ -8,7 +8,7 @@ import { IAdvisorAvailability, IBulkAvailability, ICreateAvailability } from '..
 })
 export class Availability {
 
-  private readonly baseUrl = 'api/advisor';
+  private readonly baseUrl = 'https://localhost:7121/api/Advisor';
 
   constructor(private http: HttpClient) {}
 
