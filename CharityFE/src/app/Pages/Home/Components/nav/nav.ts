@@ -12,16 +12,16 @@ export class Nav {
   // Navigation items
 navigationItems = [
   { label: 'الرئيسية', href: '/home', subLibels: [] },
-  { label: 'عن الجمعية', href: '#', subLibels: [
-    { subTitle: 'الرسالة', subLink: '/about/vision' },
-    { subTitle: 'الرؤية', subLink: '/about/team' },
-    { subTitle: 'الأهداف', subLink: '/about/team' },
-    { subTitle: 'القيم', subLink: '/about/team' },
-    { subTitle: 'مهام الجمعية', subLink: '/about/team' },
+  { label: 'عن الجمعية', href: '/about-layout/about', subLibels: [
+    { subTitle: ' الرسالة والرؤية', subLink: '/about-layout/vision-mission' },
+    { subTitle: 'نبذة عن الجمعية', subLink: '/about-layout/about-summary' },
+    // { subTitle: 'الأهداف', subLink: '/about/team' },
+    // { subTitle: 'القيم', subLink: '/about/team' },
+    { subTitle: 'مهام الجمعية', subLink: '/about-layout/tasks-authorities' },
     { subTitle: 'الجمعية العمومية', subLink: '/about/team' },
     { subTitle: 'مجلس الأدارة', subLink: '/about/team' },
     { subTitle: 'الهيكل النظيمى', subLink: '/about/team' },
-    { subTitle: 'مواقع العمل', subLink: '/about/team' },
+    { subTitle: 'مواقع العمل', subLink: '/about-layout/service-locations' },
   ]},
   {label: 'الحوكمة', href: '#', subLibels: [
       { subTitle: 'الأنظمة', subLink: '/governance/rules' },
@@ -32,7 +32,7 @@ navigationItems = [
       { subTitle: 'القوائم المالية', subLink: '/governance/financials' },
       { subTitle: 'معايير الحوكمة', subLink: '/governance/standards' },
       { subTitle: 'نتائج تقييم الحوكمة', subLink: '/governance/evaluation' },
-      { subTitle: 'الخطة الاستراتيجية', subLink: '/governance/strategic-plan' },
+      { subTitle: 'الخطة الاستراتيجية', subLink: '/about-layout/strategic-plan' },
       { subTitle: 'الخطة التشغيلية', subLink: '/governance/operational-plan' },
     ]
   },
@@ -56,7 +56,7 @@ navigationItems = [
    {
     label: 'التنمية وإصلاح ذات البين', href: '#', subLibels: [
       { subTitle: 'تعريف عام بالنشاط', subLink: '/development/overview' },
-      { subTitle: 'طلب استشارة أون لاين', subLink: '/development/online-consult' },
+      { subTitle: 'طلب استشارة أون لاين', subLink: '/all-consultants' },
       { subTitle: 'تقديم شكوى', subLink: '/complaints' },
       { subTitle: 'محاضرات توعوية', subLink: '/development/lectures' },
       { subTitle: 'إحصاءات', subLink: '/development/statistics' },
@@ -89,15 +89,15 @@ navigationItems = [
     ]
   },
   {
-    label: 'إنجازات الجمعية', href: '#', subLibels: [
-      { subTitle: 'إحصاءات عامة', subLink: '/achievements/statistics' },
+    label: 'إنجازات الجمعية', href: '/achive', subLibels: [
+      { subTitle: 'إحصاءات عامة', subLink: '/achive' },
     ]
   },
   {
-    label: 'التواصل والشكاوى', href: '#', subLibels: [
+    label: 'التواصل والشكاوى', href: '/about-layout/contact-phone', subLibels: [
       { subTitle: 'تقديم مقترح', subLink: '/contact/suggestion' },
       { subTitle: 'تقديم شكوى', subLink: '/complaints' },
-      { subTitle: 'قياسات الرضا', subLink: '/contact/satisfaction' },
+      { subTitle: 'قياسات الرضا', subLink: '/Satisfaction' },
     ]
   },
 ];

@@ -94,7 +94,10 @@
 .text-primary-dark   { color: var(--primary-dark); }
 .text-secondary-light{ color: var(--secondary-light); }
 .text-secondary-dark { color: var(--secondary-dark); }
-
+*{
+  font-family: 'Cairo', sans-serif;
+  line-height: 1.5;
+}
 .bg-primary-600:hover {
     background-color: var(--primary-dark);
 }

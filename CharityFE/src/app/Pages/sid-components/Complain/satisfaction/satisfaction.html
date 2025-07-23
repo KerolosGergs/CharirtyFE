@@ -1,0 +1,81 @@
+<app-header-component></app-header-component>
+<app-nav></app-nav>
+<div class="satisfaction-container">
+<!-- Hero Section -->
+<div class="hero-section text-white text-center mb-4">
+  <div class="hero-overlay d-flex align-items-center justify-content-center">
+    <h1 class="display-5 fw-bold">قياسات الرضا</h1>
+  </div>
+</div>
+
+<!-- Buttons -->
+<div class="text-center mb-4 d-flex flex-wrap justify-content-center gap-2">
+  <button class="btn btn-outline-success" (click)="showPdf(0)">استبيانات قياس الرضا</button>
+  <button class="btn btn-outline-success" (click)="showPdf(1)">محاضر اعتماد قياسات الرضا</button>
+  <button class="btn btn-outline-success" (click)="showPdf(2)">نتائج قياسات الرضا 2021</button>
+  <button class="btn btn-outline-success" (click)="showPdf(3)">نتائج قياسات الرضا 2022</button>
+  <button class="btn btn-outline-success" (click)="showPdf(4)">نتائج قياسات الرضا 2023</button>
+</div>
+
+<!-- PDF Viewers -->
+<div class="row justify-content-center mb-4">
+  <div class="col-12">
+    @if (selectedIndex != -1) {     
+    <div class="card shadow-lg border-0 animate__animated animate__fadeInUp" >
+      <div class="card-body p-0">
+        <div class="pdf-viewer-container">
+
+          @if (selectedIndex === 0) {
+            <iframe
+              src="Pdf/satisfaction/استبيانات قياس الرضا.pdf"
+              class="pdf-viewer"
+              [style.transform]="'scale(' + pdfZoom + ')'"
+              style="transform-origin: top right;"
+            ></iframe>
+          }
+
+          @if (selectedIndex === 1) {
+            <iframe
+              src="Pdf/satisfaction/محاضر اعتماد قياسات الرضا والتغذية الراجحة.pdf"
+              class="pdf-viewer"
+              [style.transform]="'scale(' + pdfZoom + ')'"
+              style="transform-origin: top right;"
+            ></iframe>
+          }
+
+          @if (selectedIndex === 2) {
+            <iframe
+              src="Pdf/satisfaction/نتائج قياسات الرضا لعام 2021.pdf"
+              class="pdf-viewer"
+              [style.transform]="'scale(' + pdfZoom + ')'"
+              style="transform-origin: top right;"
+            ></iframe>
+          }
+
+          @if (selectedIndex === 3) {
+            <iframe
+              src="Pdf/satisfaction/نتائج قياسات الرضا لعام 2022.pdf"
+              class="pdf-viewer"
+              [style.transform]="'scale(' + pdfZoom + ')'"
+              style="transform-origin: top right;"
+            ></iframe>
+          }
+
+          @if (selectedIndex === 4) {
+            <iframe
+              src="Pdf/satisfaction/نتائج قياسات الرضا لعام 2023.pdf"
+              class="pdf-viewer"
+              [style.transform]="'scale(' + pdfZoom + ')'"
+              style="transform-origin: top right;"
+            ></iframe>
+          }
+
+        </div>
+      </div>
+    </div>
+  }
+  </div>
+</div>
+
+</div>
+<app-footer ></app-footer>

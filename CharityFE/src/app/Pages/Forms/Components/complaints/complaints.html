@@ -1,6 +1,10 @@
+
 <app-header-component></app-header-component>
 <app-nav></app-nav>
 <app-header-component-consultant [title]="Title" [description]="description"></app-header-component-consultant>
+
+@defer {
+
 <div class="help-container animate__animated animate__fadeInUp">
 
 
@@ -75,5 +79,8 @@
     </div>
   </div>
 </div>
+}@placeholder {
+  <app-spinner></app-spinner>
+}
 
 <app-footer></app-footer>

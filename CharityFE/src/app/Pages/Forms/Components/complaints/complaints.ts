@@ -11,10 +11,11 @@ import { CommonModule } from '@angular/common';
 import { ContactInfo, SocialMediaLink } from '../help-peopole/model/ihelp';
 import { CategoryOptions, RequestModel } from './model/ihelp';
 import { ContactInfoComponent } from "../contact-info/contact-info";
+import { Spinner } from "../../../../Shared/spinner/spinner";
 
 @Component({
   selector: 'app-complaints',
-  imports: [Footer, HeaderComponentConsultant, Nav, HeaderComponent, ReactiveFormsModule, FormsModule, CommonModule, ContactInfoComponent],
+  imports: [Footer, HeaderComponentConsultant, Nav, HeaderComponent, ReactiveFormsModule, FormsModule, CommonModule, ContactInfoComponent, Spinner],
   templateUrl: './complaints.html',
   styleUrl: './complaints.scss'
 })

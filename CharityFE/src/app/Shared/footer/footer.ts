@@ -17,29 +17,27 @@ export class Footer {
   };
 
   // Footer menu items - you can customize these
-  contactMenuItems ={ label: 'تواصل معنا', link: '', subLabel: [
-    { label: 'Menu Item 1', link: '/contact-1' },
-    { label: 'Menu Item 2', link: '/contact-2' },
-    { label: 'Menu Item 3', link: '/contact-3' },
-    { label: 'Menu Item 4', link: '/contact-4' }
+  contactMenuItems ={ label: 'تواصل معنا', link: '/about-layout/contact-phone', subLabel: [
+    { label: 'أرقام التواصل', link: '/about-layout/contact-phone' },
+    // { label: 'Menu Item 2', link: '/contact-2' },
+    // { label: 'Menu Item 3', link: '/contact-3' },
+    // { label: 'Menu Item 4', link: '/contact-4' }
   ]};
 
   servicesMenuItems = {
     label: 'خدماتنا', link: '', subLabel: [
-      { label: 'Menu Item 1', link: '/service-1' },
-      { label: 'Menu Item 2', link: '/service-2' },
-      { label: 'Menu Item 3', link: '/service-3' },
-      { label: 'Menu Item 4', link: '/service-4' }
+      { label: 'طلبات المساعدة', link: '/HelpPeopole' },
+      { label: 'طلب أستشارة', link: '/all-consultants' },
+      { label: 'تقديم شكوى', link: '/complaints' },
     ]
   };
 
   quickLinksMenuItems =
     {
-      label: 'روابط سريعة', link: '/about',
+      label: 'روابط سريعة', link: '/about-layout',
       subLabel: [
-        { label: 'من نحن', link: '/quick-2' },
-        { label: 'Menu Item 3', link: '/quick-3' },
-        { label: 'Menu Item 4', link: '/quick-4' }
+        { label: 'من نحن', link:'/about-layout' },
+        { label: 'الرسالة والرؤية', link: 'about-layout/vision-mission' },
       ]
     }
     ;

@@ -1,10 +1,11 @@
 import { Component, Pipe, PipeTransform  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Footer } from "../../../Shared/footer/footer";
-import { HeaderComponent } from "../../Home/Components/header-component/header-component";
-import { Nav } from "../../Home/Components/nav/nav";
+import { Footer } from "../../../../Shared/footer/footer";
+import { HeaderComponent } from "../../../Home/Components/header-component/header-component";
+import { Nav } from "../../../Home/Components/nav/nav";
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Spinner } from "../../../../Shared/spinner/spinner";
 // @Pipe({
 //   name: 'safeUrl'
 // })
@@ -16,7 +17,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 // }
 @Component({
   selector: 'app-achive',
-  imports: [CommonModule, ReactiveFormsModule, Footer, HeaderComponent, Nav],
+  imports: [CommonModule, ReactiveFormsModule, Footer, HeaderComponent, Nav, Spinner],
   templateUrl: './achive.html',
   styleUrl: './achive.scss'
 })

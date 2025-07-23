@@ -34,7 +34,7 @@ cards: Card[] = [
     image: 'Images/home/2.jpg',
     title: 'اصلاح ذات البين',
      description:'نسعى لإصلاح ات البين للوصول لمجتمع مطمئن آمن',
-     link: '/donations'
+     link: '/RequesrRepair'
 
   },
   {
