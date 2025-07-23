@@ -1,26 +1,42 @@
 .registration-certificate-container {
-  background: #e8f8f3;
+  background: linear-gradient(135deg, #e8f8f3, #f0fdfa);
   border-radius: 18px;
-  box-shadow: none;
-  margin-bottom: 2rem;
+  padding: 3rem 1rem;
+  margin: auto;
   max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 }
-.registration-certificate-img {
-  border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(25,135,84,0.10);
+
+.certificate-card {
   background: #fff;
-  max-width: 100%;
-  max-height: 500px;
-  display: block;
+  border-radius: 18px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-@media (max-width: 767px) {
-  .registration-certificate-img { max-width: 95vw; max-height: 300px; }
-  .registration-certificate-container { padding: 1rem; }
-} 
+
+.certificate-card:hover {
+  box-shadow: 0 12px 28px rgba(25, 135, 84, 0.15);
+  transform: translateY(-4px);
+}
+
+.certificate-image-box {
+  cursor: zoom-in;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(25,135,84,0.08);
+}
+
+.registration-certificate-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  transition: transform 0.2s;
+}
+
+.registration-certificate-img:hover {
+  transform: scale(1.03);
+}
+
+.modal-content {
+  background: transparent;
+  border: none;
+}

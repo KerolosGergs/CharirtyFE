@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-registration-certificate',
@@ -9,9 +9,16 @@ import { CommonModule } from '@angular/common';
   styleUrl: './registration-certificate.component.scss'
 })
 export class RegistrationCertificateComponent {
+
+  selectedImage: string = '';
+
   images = [
-    '/Files/شهادة تسجيل 1.png',
-    '/Files/شهادة تسجيل 2.jpg',
-    '/Files/شهادة تسجيل 3.png',
+    'Images/registration-certificate/شهادة تسجيل 1.png',
+    'Images/registration-certificate/شهادة تسجيل 2.jpg',
+    'Images/registration-certificate/شهادة تسجيل 3.png',
   ];
+
+  openModal(img: string) {
+    this.selectedImage = img;
+  }
 } 

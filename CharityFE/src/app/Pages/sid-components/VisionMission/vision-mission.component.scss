@@ -292,3 +292,44 @@
   .goal-accordion-card { min-height: 60px; padding: 1rem; }
   .goal-icon-circle { width: 32px; height: 32px; font-size: 1.1rem; }
 } 
+/* 🔥 Smooth hover transitions on cards */
+.value-icon-card:hover,
+.goal-accordion-card:hover,
+.vision-mission-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 12px 36px rgba(25, 135, 84, 0.18);
+}
+
+/* ✨ Hover pulse on icons */
+.value-icon-card:hover .value-icon-circle,
+.goal-accordion-card:hover .goal-icon-circle {
+  animation: pulseIcon 0.4s ease-in-out;
+}
+
+@keyframes pulseIcon {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15) rotate(5deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 🎯 Highlight title color on hover */
+.goal-accordion-card:hover .goal-title,
+.value-icon-card:hover span,
+.vision-mission-card:hover .card-title {
+  color: #0d684d !important;
+}
+
+/* ✨ Optional hover for the icon itself */
+.goal-accordion-card:hover .bi,
+.value-icon-card:hover .bi,
+.vision-mission-card:hover .bi {
+  transition: transform 0.3s ease;
+  transform: scale(1.15) rotate(-2deg);
+}

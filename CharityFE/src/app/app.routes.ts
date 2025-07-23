@@ -84,6 +84,7 @@ export const routes: Routes = [
     { path: 'service-locations', loadComponent: () => import('../app/Pages/sid-components/ServiceLocations/service-locations.component').then(m => m.ServiceLocationsComponent), title: 'Service Locations' },
     { path: 'strategic-plan', loadComponent: () => import('../app/Pages/sid-components/StrategicPlan/strategic-plan.component').then(m => m.StrategicPlanComponent), title: 'Strategic Plan' },
     { path: 'tasks-authorities', loadComponent: () => import('../app/Pages/sid-components/TasksAuthorities/tasks-authorities.component').then(m => m.TasksAuthoritiesComponent), title: 'Tasks Authorities' },
+    { path: 'vision-mission', loadComponent: () => import('../app/Pages/sid-components/VisionMission/vision-mission.component').then(m => m.VisionMissionComponent), title: 'Vision Mission' },
 
     { path: 'questions', component: Questions, title: 'Questions' },
 

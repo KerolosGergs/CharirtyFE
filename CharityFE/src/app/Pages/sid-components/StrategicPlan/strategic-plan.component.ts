@@ -11,6 +11,6 @@ export class StrategicPlanComponent {
   pdfUrl: SafeResourceUrl;
 
   constructor(private sanitizer: DomSanitizer) {
-    this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl('/Files/الخطة الاستراتيجية.pdf');
+    this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl('Pdf/الخطة الاستراتيجية.pdf');
   }
 } 

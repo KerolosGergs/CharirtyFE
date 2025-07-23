@@ -1,6 +1,45 @@
-<div class="registration-certificate-container p-4 rounded-4 shadow-sm bg-white animate__animated animate__fadeInUp d-flex flex-column align-items-center justify-content-center" dir="rtl">
-  <h2 class="fw-bold mb-4 text-success text-center"><i class="bi bi-patch-check me-2"></i> شهادة تسجيل مؤسسة أهلية</h2>
-  <div class="d-flex flex-column align-items-center gap-4 w-100">
-    <img *ngFor="let img of images" [src]="img" alt="شهادة تسجيل" class="registration-certificate-img img-fluid rounded-4 shadow-sm" style="max-width: 600px; max-height: 800px; width: 100%;" />
+<div class="registration-certificate-container animate__animated animate__fadeInUp" dir="rtl">
+  <h2 class="fw-bold mb-4 text-success text-center">
+    <i class="bi bi-patch-check me-2"></i> شهادة تسجيل مؤسسة أهلية
+  </h2>
+
+  <div class="row g-4 justify-content-center w-100">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let img of images; let i = index">
+      <div class="certificate-card p-3 rounded-4 shadow-sm text-center">
+        <div class="certificate-image-box mb-2">
+          <img
+            [src]="img"
+            alt="شهادة تسجيل {{ i + 1 }}"
+            class="registration-certificate-img img-fluid rounded-3"
+            data-bs-toggle="modal"
+            data-bs-target="#imagePreviewModal"
+            (click)="openModal(img)"
+          />
+        </div>
+        <a [href]="img" download class="btn btn-outline-success btn-sm w-100">
+          <i class="bi bi-download me-1"></i> تحميل الشهادة
+        </a>
+      </div>
+    </div>
   </div>
-</div> 
+</div>
+
+<!-- Lightbox Modal -->
+<div
+  class="modal fade"
+  id="imagePreviewModal"
+  tabindex="-1"
+  aria-labelledby="imagePreviewModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close btn-close-white ms-auto" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-0 text-center">
+        <img [src]="selectedImage" alt="شهادة تسجيل" class="img-fluid rounded-3 shadow-lg" style="max-height: 90vh;" />
+      </div>
+    </div>
+  </div>
+</div>

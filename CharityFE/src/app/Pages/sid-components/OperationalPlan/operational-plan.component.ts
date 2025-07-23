@@ -12,7 +12,7 @@ export class OperationalPlanComponent {
   goalsUrl: SafeResourceUrl;
 
   constructor(private sanitizer: DomSanitizer) {
-    this.planUrl = this.sanitizer.bypassSecurityTrustResourceUrl('/Files/الخطة التشغيلية.pdf');
-    this.goalsUrl = this.sanitizer.bypassSecurityTrustResourceUrl('/Files/الأهداف.pdf');
+    this.planUrl = this.sanitizer.bypassSecurityTrustResourceUrl('Pdf/الخطة التشغيلية.pdf');
+    this.goalsUrl = this.sanitizer.bypassSecurityTrustResourceUrl('Pdf/الأهداف.pdf');
   }
 } 

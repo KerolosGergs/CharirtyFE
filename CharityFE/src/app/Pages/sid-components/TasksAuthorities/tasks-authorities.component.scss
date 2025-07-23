@@ -1,48 +1,78 @@
 .tasks-authorities-container {
-  background: #e8f8f3;
+  background: linear-gradient(145deg, #e8f8f3, #f0fdfa);
   border-radius: 18px;
-  box-shadow: none;
-  margin-bottom: 2rem;
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
+  padding: 3rem 1rem;
+  max-width: 1200px;
+  margin: auto;
 }
-.tasks-list-custom {
-  width: 100%;
+
+/* Fancy Card */
+.fancy-task-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 18px rgba(25, 135, 84, 0.08);
+  border: 2px solid transparent;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
-.task-card {
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 16px rgba(25,135,84,0.10);
-  border: none;
-  min-height: 70px;
-  transition: box-shadow 0.2s, transform 0.2s;
-  cursor: pointer;
+.fancy-task-card::before {
+  content: "";
+  position: absolute;
+  background: linear-gradient(135deg, #198754, #20c997);
+  height: 300%;
+  width: 300%;
+  top: -100%;
+  left: -100%;
+  z-index: -1;
+  transition: all 0.4s ease;
 }
-.task-card:hover {
-  box-shadow: 0 8px 32px rgba(25,135,84,0.13);
-  transform: translateY(-2px) scale(1.01);
+.fancy-task-card:hover::before {
+  top: 0;
+  left: 0;
 }
-.task-icon-circle {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.fancy-task-card:hover {
+  border-color: #20c997;
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 12px 38px rgba(25, 135, 84, 0.18);
+}
+
+/* Icon circle */
+.task-icon-wrapper {
   background: #e8f8f3;
   color: #198754;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.7rem;
-  margin-left: 0.5rem;
-  box-shadow: 0 2px 8px rgba(25,135,84,0.10);
+  box-shadow: 0 4px 12px rgba(25, 135, 84, 0.1);
+  transition: transform 0.3s ease;
 }
+.fancy-task-card:hover .task-icon-wrapper {
+  transform: scale(1.1) rotate(4deg);
+}
+
+/* Task text */
 .task-text {
   color: #14532d;
   font-weight: 500;
+  line-height: 1.6;
 }
+
+/* Responsive tweaks */
 @media (max-width: 767px) {
-  .task-card { min-height: 60px; padding: 1rem; }
-  .task-icon-circle { width: 32px; height: 32px; font-size: 1.1rem; }
-} 
+  .fancy-task-card {
+    padding: 1.5rem;
+  }
+  .task-text {
+    font-size: 0.95rem;
+  }
+  .task-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    font-size: 1.3rem;
+  }
+}
