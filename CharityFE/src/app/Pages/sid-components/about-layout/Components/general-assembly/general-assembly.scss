@@ -1,0 +1,39 @@
+.general-assembly-container {
+  background: #f9fffc;
+  padding: 2.5rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(25, 135, 84, 0.1);
+  max-width: 1000px;
+  margin: auto;
+  font-family: "Cairo", sans-serif;
+}
+
+.accordion-button {
+  background-color: #e8f8f3;
+  color: #14532d;
+  font-size: 1.2rem;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #d1f4eb;
+  color: #0f5132;
+}
+
+.member-list {
+  padding: 0;
+  list-style-position: inside;
+  column-count: 2;
+  column-gap: 3rem;
+  font-size: 1.05rem;
+}
+
+.member-list li {
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .member-list {
+    column-count: 1;
+    font-size: 1rem;
+  }
+}

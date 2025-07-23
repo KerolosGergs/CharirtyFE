@@ -99,6 +99,10 @@ export const routes: Routes = [
             { path: 'strategic-plan', loadComponent: () => import('./Pages/sid-components/about-layout/Components/StrategicPlan/strategic-plan.component').then(m => m.StrategicPlanComponent), title: 'Strategic Plan' },
             { path: 'tasks-authorities', loadComponent: () => import('./Pages/sid-components/about-layout/Components/TasksAuthorities/tasks-authorities.component').then(m => m.TasksAuthoritiesComponent), title: 'Tasks Authorities' },
             { path: 'vision-mission', loadComponent: () => import('./Pages/sid-components/about-layout/Components/VisionMission/vision-mission.component').then(m => m.VisionMissionComponent), title: 'Vision Mission' },
+            { path: 'general-assembly', loadComponent: () => import('./Pages/sid-components/about-layout/Components/general-assembly/general-assembly').then(m => m.GeneralAssembly), title: 'General Assembly' },
+            { path: 'board-members', loadComponent: () => import('./Pages/sid-components/about-layout/Components/board-members/board-members').then(m => m.BoardMembers), title: 'Board Members' },
+            { path: 'board-duties', loadComponent: () => import('./Pages/sid-components/about-layout/Components/board-duties/board-duties').then(m => m.BoardDuties), title: 'Board Duties' },
+            { path: 'organizational-structure', loadComponent: () => import('./Pages/sid-components/about-layout/Components/organizational-structure/organizational-structure').then(m => m.OrganizationalStructure), title: 'Organizational Structure' },
             { path: '', pathMatch: 'full', redirectTo: 'about' }
         ]
     }

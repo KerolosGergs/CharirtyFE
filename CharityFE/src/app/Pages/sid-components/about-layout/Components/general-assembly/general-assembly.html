@@ -1,0 +1,67 @@
+<div class="general-assembly-container" dir="rtl">
+  <h2 class="text-success fw-bold text-center mb-4">
+    <i class="bi bi-people-fill me-2"></i> الجمعية العمومية
+  </h2>
+
+  <!-- Image section -->
+  <div class="general-assembly-image-wrapper mb-4">
+    <img src="Images/general/الجمعية العمومية.png" alt="الجمعية العمومية" class="img-fluid rounded shadow-sm" />
+  </div>
+
+  <!-- Accordion -->
+  <div class="accordion" id="assemblyAccordion">
+    <!-- Founders -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#founders">
+          <i class="bi bi-person-check me-2 text-success"></i> الأعضاء المؤسسين
+        </button>
+      </h2>
+      <div id="founders" class="accordion-collapse collapse show" data-bs-parent="#assemblyAccordion">
+        <div class="accordion-body">
+          <ul class="member-list">
+            @for (member of founders; track $index) {
+                <li>{{ member }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Members 2021 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#members2021">
+          <i class="bi bi-calendar3 me-2 text-primary"></i> الأعضاء العاملين لعام 2021
+        </button>
+      </h2>
+      <div id="members2021" class="accordion-collapse collapse" data-bs-parent="#assemblyAccordion">
+        <div class="accordion-body">
+          <ul class="member-list">
+            @for (member of members2021; track $index) {
+                <li>{{ member }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Members 2022 -->
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#members2022">
+          <i class="bi bi-calendar3 me-2 text-info"></i> الأعضاء العاملين لعام 2022
+        </button>
+      </h2>
+      <div id="members2022" class="accordion-collapse collapse" data-bs-parent="#assemblyAccordion">
+        <div class="accordion-body">
+          <ul class="member-list">
+            @for (member of members2022; track $index) {
+                <li>{{ member }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
