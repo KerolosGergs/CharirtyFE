@@ -1,4 +1,9 @@
-.bg{
+*{
+  direction: rtl;
+  font-family: 'Cairo', sans-serif;
+line-height: 200%;
+
+}.bg{
   background-color:var(--primary-700);
 }
 .description{

@@ -23,4 +23,8 @@ export const serverRoutes: ServerRoute[] = [
     path: 'advisor-dashboard/date-details/:id',
     renderMode: RenderMode.Client
   },
+   {
+    path: 'achive',
+    renderMode: RenderMode.Client
+  },
 ];

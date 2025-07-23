@@ -1,22 +1,18 @@
-body {
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background-color: #f8f9fa;
+// Custom variables
+:root {
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  --info-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  --warning-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  --danger-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  --secondary-gradient: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
 }
 
-.section-title {
-  font-size: 1.8rem;
-  position: relative;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-}
-.section-title::after {
-  content: '';
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: #198754;
-  margin-top: 6px;
-  border-radius: 3px;
+// Global styles
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  min-height: 100vh;
 }
 
 .hero-section {
@@ -26,30 +22,223 @@ body {
   background-position: center;
   position: relative;
 }
-.hero-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-shadow: 1px 1px 3px #000;
+// Header styles
+.display-4 {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--primary-gradient);
+    border-radius: 2px;
+  }
 }
 
-.shadow-top {
-  box-shadow: 0 -4px 8px rgba(0,0,0,0.05);
+// Achievement cards
+.achievement-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 20px !important;
+  overflow: hidden;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--primary-gradient);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+    
+    &::before {
+      transform: scaleX(1);
+    }
+    
+    .achievement-icon {
+      transform: scale(1.2) rotate(5deg);
+    }
+  }
+  
+  &.border-primary::before { background: var(--primary-gradient); }
+  &.border-success::before { background: var(--success-gradient); }
+  &.border-info::before { background: var(--info-gradient); }
+  &.border-warning::before { background: var(--warning-gradient); }
+  &.border-danger::before { background: var(--danger-gradient); }
+  &.border-secondary::before { background: var(--secondary-gradient); }
 }
 
-form input, form textarea, form select {
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-form input:focus, form textarea:focus, form select:focus {
-  border-color: #198754;
-  box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+.achievement-icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
 }
 
-.btn-outline-info:hover {
-  background-color: #0dcaf0;
-  color: #fff;
-  transition: background-color 0.3s ease-in-out;
+// Card enhancements
+.card {
+  border-radius: 20px !important;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95) !important;
+  
+  &.shadow-lg {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+  }
 }
+
+// Button styles
+.btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none !important;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  
+  &.btn-danger {
+    background: var(--danger-gradient);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+      background: var(--danger-gradient);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Text color gradients
+.text-primary { 
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-success { 
+  background: var(--success-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-info { 
+  background: var(--info-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-warning { 
+  background: var(--warning-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-danger { 
+  background: var(--danger-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-secondary { 
+  background: var(--secondary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Image enhancements
+img {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2.5rem;
+  }
+  
+  .achievement-card {
+    margin-bottom: 1rem;
+  }
+  
+  .btn-lg {
+    padding: 0.75rem 2rem !important;
+    font-size: 1rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+// Animation delays for staggered effect
+@for $i from 1 through 6 {
+  .achievement-card:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.2 + 3}s;
+  }
+}
+
+// Loading animation
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.loading {
+  animation: pulse 2s infinite;
+}
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-gradient);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-gradient);
+}
+

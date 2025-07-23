@@ -7,6 +7,7 @@ import { Questions } from './Pages/questions/questions';
 import { OurService } from './Pages/Home/our-service/our-service';
 import { HelpPeopole } from './Pages/Forms/Components/help-peopole/help-peopole';
 import { RequestRepair } from './Pages/Forms/Components/request-repair/request-repair';
+// import { Achive } from './Pages/achievements-communication/achive/achive';
 
 export const routes: Routes = [
 
@@ -14,9 +15,12 @@ export const routes: Routes = [
     { path: 'login', component: LoginForm },
     { path: 'register', component: RegisterForm },
     { path: 'home', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
-
-    { path: 'HelpPeopole',component:HelpPeopole,title:'HelpPeopole' },
+    { path:'achive',loadComponent:()=>import('./Pages/achievements-communication/achive/achive').then(m=>m.Achive),title:'Achive'},
+    {path:'Satisfaction',loadComponent:()=>import('./Pages/achievements-communication/satisfaction/satisfaction').then(m=>m.Satisfaction),title:'Satisfaction'},
+    // Forms 
+    { path: 'HelpPeopole',loadComponent:()=>import('./Pages/Forms/Components/help-peopole/help-peopole').then(m=>m.HelpPeopole),title:'HelpPeopole' },
     { path: 'RequesrRepair',component:RequestRepair,title:'RequestRepair' },
+    { path:'complaints',loadComponent:()=>import('./Pages/Forms/Components/complaints/complaints').then(m=>m.Complaints),title:'Complaints'},
     
     { path: 'our-service', component:OurService,title:'Our Service' },
     

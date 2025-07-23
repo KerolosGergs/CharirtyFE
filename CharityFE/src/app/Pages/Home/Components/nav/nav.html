@@ -1,5 +1,7 @@
 <!-- Navigation Section -->
-<nav class="navigation-section">
+ @defer 
+  {
+    <nav class="navigation-section">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -42,20 +44,5 @@
     </div>
   </div>
 </nav>
+  }
 
-<!-- <ul class="nav nav-pills justify-content-center py-2 flex-wrap">
-          @for(item of navigationItems; track $index; let i = $index ) {
-          <ul class="nav-item dropdown">
-            <li>
-              <a class="nav-link text-white dropdown-toggle" [href]="item.href" (click)="onNavigationClick(item)">
-                {{ item.label }}
-              </a>
-            </li>
-
-          </ul>
-          }
-        </ul> -->
-<!-- </div>
-    </div>
-  </div>
-</nav> -->

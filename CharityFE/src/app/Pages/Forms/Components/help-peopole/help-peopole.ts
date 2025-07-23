@@ -10,6 +10,7 @@ import { Footer } from "../../../../Shared/footer/footer";
 import { HeaderComponent } from "../../../Home/Components/header-component/header-component";
 import { HeaderComponentConsultant } from "../../../Consultant/Components/header-component-consultant/header-component-consultant";
 import { ContactInfo, FormField, IHelpType, NavigationTab, SocialMediaLink } from './model/ihelp';
+import { ContactInfoComponent } from "../contact-info/contact-info";
 
 
 
@@ -17,7 +18,7 @@ import { ContactInfo, FormField, IHelpType, NavigationTab, SocialMediaLink } fro
 @Component({
   selector: 'app-help-peopole',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule, Nav, Footer, HeaderComponent, HeaderComponentConsultant],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, Nav, Footer, HeaderComponent, HeaderComponentConsultant, ContactInfoComponent],
   templateUrl: './help-peopole.html',
   styleUrl: './help-peopole.scss'
 })
@@ -34,23 +35,9 @@ description = 'نسعى لمدّ يد العون لكل من يمر بظروف �
 navigationTabs: NavigationTab[] = [];
 selectedTabId: number | null = null;
 
-contactSection = {
-  title: 'محتاج مساعدة أكثر!',
-  subtitle: 'نحن هنا لمساعدتك و الرد على استفساراتك.'
-};
 
-contactInfo: ContactInfo = {
-  phone: '456-7890 (123)',
-  email: 'Groupcharity@gmail.com'
-};
 
-socialMediaLinks: SocialMediaLink[] = [
-  { platform: 'Facebook', icon: 'bi-facebook', url: '#' },
-  { platform: 'Twitter', icon: 'bi-twitter-x', url: '#' },
-  { platform: 'LinkedIn', icon: 'bi-linkedin', url: '#' },
-  { platform: 'WhatsApp', icon: 'bi-whatsapp', url: '#' },
-  { platform: 'Instagram', icon: 'bi-instagram', url: '#' }
-];
+
 
 formSection = {
   title: 'مساعدة تعليمية'
@@ -147,8 +134,5 @@ resetForm(): void {
   this.navigationTabs.forEach(tab => tab.active = false);
 }
 
-onSocialMediaClick(link: SocialMediaLink): void {
-  window.open(link.url, '_blank');
-}
 
 }

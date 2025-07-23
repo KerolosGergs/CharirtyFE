@@ -1,9 +1,10 @@
-<div class="container-fluid min-vh-100 bg text-white d-flex align-items-center justify-content-center position-relative overflow-hidden">
+<div
+  class="container-fluid min-vh-100 bg text-white d-flex align-items-center justify-content-center position-relative overflow-hidden">
 
   <div class="container position-relative py-5">
 
     <div class="row align-items-center mb-5">
-      <div class="col-lg-6 text-lg-end text-center mb-4 mb-lg-0">
+      <div class="col-6 text-lg-end text-center mb-4 mb-lg-0">
         <h1 class="fw-bold display-4 mb-3">شاهد... كيف يصنع</h1>
         <h2 class="fw-bold display-5">عطاؤك الفرق</h2>
       </div>
@@ -17,27 +18,22 @@
     </div>
 
     <div class="ratio ratio-16x9 rounded overflow-hidden position-relative bg-secondary">
-  @if (videoUrl) {
-    <iframe
-      [src]="videoUrl"
-      frameborder="0"
-      allowfullscreen
-      allow="autoplay; encrypted-media"
-      class="rounded">
-    </iframe>
-  } @else {
-    <div class="d-flex flex-column justify-content-center align-items-center h-100 text-dark">
-      <div class="mb-3 fs-1 text-success" role="button" (click)="playVideo()">
-        <i class="bi bi-play-circle-fill"></i>
+      @if (videoUrl) {
+      <iframe [src]="videoUrl" frameborder="0" allowfullscreen allow="autoplay; encrypted-media" class="rounded">
+      </iframe>
+      } @else {
+      <div class="d-flex flex-column justify-content-center align-items-center h-100 text-dark">
+        <div class="mb-3 fs-1 text-success" role="button" (click)="playVideo()">
+          <i class="bi bi-play-circle-fill"></i>
+        </div>
+        <p class="fw-bold text-success mb-1">انقر لتشغيل الفيديو</p>
+        <small class="text-muted">سيتم تحميل الفيديو هنا</small>
       </div>
-      <p class="fw-bold text-success mb-1">انقر لتشغيل الفيديو</p>
-      <small class="text-muted">سيتم تحميل الفيديو هنا</small>
+      }
     </div>
-  }
-</div>
 
 
-    
+
     <app-school></app-school>
   </div>
 </div>

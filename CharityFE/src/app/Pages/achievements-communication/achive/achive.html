@@ -1,0 +1,105 @@
+<app-header-component></app-header-component>
+<app-nav></app-nav>
+<div class="hero-section text-white text-center">
+  <div class="hero-overlay d-flex align-items-center justify-content-center">
+    <h1 class="display-5 fw-bold">إنجازات الجمعية</h1>
+  </div>
+</div>
+<div class="container-fluid py-5 bg-light">
+  <!-- Header and Text Section -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-12 text-center">
+      <h1 class="display-4 fw-bold fs-1 text-success animate__animated animate__fadeInDown">
+        {{ title }}
+      </h1>
+      <img src="Pdf/achivement/الإنجازات في أرقام.png" class="img-thumbnail shadow mb-3" alt="الإنجازات في أرقام">
+      <p class="pt-3 fs-4 lead text-muted animate__animated animate__fadeInUp animate__delay-1s">
+        تقرير شامل عن الإنجازات والنتائج المحققة خلال الفترة الماضية
+      </p>
+      <p class="pt-3 fs-4 text-muted animate__animated animate__fadeInUp animate__delay-2s">
+        يمكنك الاطلاع على التقارير التفصيلية والإحصاءات العامة من خلال الأزرار أدناه
+      </p>
+    </div>
+  </div>
+
+  <!-- Buttons Section -->
+  <div class="row justify-content-center mb-5">
+    <div class="col-lg-8 col-md-10 col-12">
+      <div class="row g-4">
+        <!-- Achievements Report Button -->
+        <div class="col-md-6 col-12">
+          <div class="card shadow-sm border-0 h-100 animate__animated animate__fadeInLeft animate__delay-3s">
+            <div class="card-body text-center p-4">
+              <div class="mb-3">
+                <i class="fas fa-chart-line text-primary" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="card-title mb-3 text-dark">تقرير الإنجازات</h4>
+              <p class="card-text text-muted mb-4">
+                تقرير مفصل عن جميع الإنجازات والمشاريع المنجزة
+              </p>
+              <button type="button" 
+                      class="btn btn-primary btn-lg px-4 py-2 rounded-pill"
+                      (click)="showAchievementsReport()">
+                <i class="fas fa-eye me-2"></i>
+                عرض التقرير
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statistics Report Button -->
+        <div class="col-md-6 col-12">
+          <div class="card shadow-sm border-0 h-100 animate__animated animate__fadeInRight animate__delay-3s">
+            <div class="card-body text-center p-4">
+              <div class="mb-3">
+                <i class="fas fa-chart-bar text-success" style="font-size: 3rem;"></i>
+              </div>
+              <h4 class="card-title mb-3 text-dark">إحصاءات عامة</h4>
+              <p class="card-text text-muted mb-4">
+                إحصاءات شاملة وتحليلات مفصلة للبيانات
+              </p>
+              <button type="button" 
+                      class="btn btn-success btn-lg px-4 py-2 rounded-pill"
+                      (click)="showStatisticsReport()">
+                <i class="fas fa-chart-pie me-2"></i>
+                عرض الإحصاءات
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF Viewer Section -->
+  <div class="row justify-content-center" >
+    <div class="col-12">
+      <div class="card shadow-lg border-0 animate__animated animate__fadeInUp">
+        <div class="card-body p-0">
+          <div class="pdf-viewer-container">
+            @if (showPdfViewer) 
+            {
+                <iframe src="Pdf/achivement/تقرير الإنجازات.pdf" 
+                    class="pdf-viewer"
+                    [style.transform]="'scale(' + pdfZoom + ')'"
+                    style="transform-origin: top right;">
+            </iframe>
+            }
+            @else {
+                 <iframe src="Pdf/achivement/إحصاءات عامة.pdf" 
+                    class="pdf-viewer"
+                    [style.transform]="'scale(' + pdfZoom + ')'"
+                    style="transform-origin: top right;">
+            </iframe>
+            }
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+</div>
+<app-footer></app-footer>

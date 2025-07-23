@@ -57,7 +57,7 @@ navigationItems = [
     label: 'التنمية وإصلاح ذات البين', href: '#', subLibels: [
       { subTitle: 'تعريف عام بالنشاط', subLink: '/development/overview' },
       { subTitle: 'طلب استشارة أون لاين', subLink: '/development/online-consult' },
-      { subTitle: 'تقديم شكوى', subLink: '/development/complaint' },
+      { subTitle: 'تقديم شكوى', subLink: '/complaints' },
       { subTitle: 'محاضرات توعوية', subLink: '/development/lectures' },
       { subTitle: 'إحصاءات', subLink: '/development/statistics' },
     ]
@@ -96,7 +96,7 @@ navigationItems = [
   {
     label: 'التواصل والشكاوى', href: '#', subLibels: [
       { subTitle: 'تقديم مقترح', subLink: '/contact/suggestion' },
-      { subTitle: 'تقديم شكوى', subLink: '/contact/complaint' },
+      { subTitle: 'تقديم شكوى', subLink: '/complaints' },
       { subTitle: 'قياسات الرضا', subLink: '/contact/satisfaction' },
     ]
   },

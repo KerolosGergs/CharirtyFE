@@ -1,12 +1,13 @@
 <app-header-component></app-header-component>
 <app-nav></app-nav>
-<app-header-component-consultant title="نسعى للصلح... لننعم جميعًا بالأمان والسكينة" description="في سعينا لبناء مجتمع مطمئن ومتآلف، نعمل على إصلاح ذات البين وحل النزاعات الأسرية والاجتماعية بروح المحبة والحكمة."></app-header-component-consultant>
+<app-header-component-consultant title="نسعى للصلح... لننعم جميعًا بالأمان والسكينة"
+  description="في سعينا لبناء مجتمع مطمئن ومتآلف، نعمل على إصلاح ذات البين وحل النزاعات الأسرية والاجتماعية بروح المحبة والحكمة."></app-header-component-consultant>
 <div class="help-container animate__animated animate__fadeInUp">
   <div class="page-header text-center mb-4">
     <h2 class="page-title">طلب إصلاح</h2>
   </div>
   <div class="row g-4">
- <div class="col-lg-6 animate__animated animate__fadeInRight">
+    <div class="col-lg-6 animate__animated animate__fadeInRight">
       <div class="bg-white p-4 rounded-3 shadow-sm">
         <div class="text-center mb-4">
           <h3 class="text-dark">{{ formSection.title }}</h3>
@@ -47,34 +48,12 @@
         </form>
       </div>
     </div>
-  <!-- Contact Info -->
-  <div class=" col-lg-6 animate__animated animate__fadeInLeft my-auto">
-    <div class="bg-white p-4 rounded-3 shadow-sm">
-      <div class="text-center mb-3">
-        <h3 class="text-dark">{{ contactSection.title }}</h3>
-        <p class="text-muted small">{{ contactSection.subtitle }}</p>
-      </div>
-
-      <div class="text-start">
-        <div class="mb-3 d-flex justify-content-center align-items-center gap-3">
-          <i class="bi bi-telephone-fill text-success me-2"></i>
-          <span>{{ contactInfo.phone }}</span>
-        </div>
-        <div class="mb-4 d-flex justify-content-center align-items-center gap-3">
-          <i class="bi bi-envelope-fill text-success me-2"></i>
-          <span>{{ contactInfo.email }}</span>
-        </div>
-
-        <div class="d-flex justify-content-center gap-2">
-          @for (social of socialMediaLinks; track social.platform) {
-          <button type="button" class="btn btn-light border rounded-circle" (click)="onSocialMediaClick(social)">
-            <i [class]="social.icon"></i>
-          </button>
-          }
-        </div>
+    <div class=" col-lg-6 animate__animated animate__fadeInLeft my-auto">
+      <div class="bg-white p-4 rounded-3 shadow-sm">
+        <app-contact-info></app-contact-info>
       </div>
     </div>
+
   </div>
-</div>
 </div>
 <app-footer></app-footer>

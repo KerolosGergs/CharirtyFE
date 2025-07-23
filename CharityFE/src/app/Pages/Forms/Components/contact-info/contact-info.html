@@ -1,0 +1,25 @@
+<div class="text-center mb-3">
+    <h3 class="contact-title">{{ contactSection.title }}</h3>
+    <p class="contact-subtitle">{{ contactSection.subtitle }}</p>
+</div>
+
+<div class="text-start">
+    <div class="mb-3 d-flex justify-content-center align-items-center gap-3 contact-info-item">
+        <i class="bi bi-telephone-fill contact-info-icon"></i>
+        <span>{{ contactInfo.phone }}</span>
+    </div>
+
+    <div class="mb-4 d-flex justify-content-center align-items-center gap-3 contact-info-item">
+        <i class="bi bi-envelope-fill contact-info-icon"></i>
+        <span>{{ contactInfo.email }}</span>
+    </div>
+
+    <div class="d-flex justify-content-center gap-2">
+        @for (social of socialMediaLinks; track social.platform) {
+        <button type="button" class="btn btn-light border rounded-circle social-btn"
+            (click)="onSocialMediaClick(social)">
+            <i [class]="social.icon"></i>
+        </button>
+        }
+    </div>
+</div>

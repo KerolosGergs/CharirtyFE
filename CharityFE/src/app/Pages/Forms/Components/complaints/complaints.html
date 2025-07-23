@@ -1,0 +1,79 @@
+<app-header-component></app-header-component>
+<app-nav></app-nav>
+<app-header-component-consultant [title]="Title" [description]="description"></app-header-component-consultant>
+<div class="help-container animate__animated animate__fadeInUp">
+
+
+  <div class="row g-4">
+    <!-- Contact Form -->
+    <div class="col-lg-6 animate__animated animate__fadeInRight">
+      <div class="bg-white p-4 rounded-3 shadow-sm">
+        <div class="text-center mb-4">
+          <h3 class="text-dark fs-4">{{ formSection.title }}</h3>
+        </div>
+
+        <form [formGroup]="requestForm" (ngSubmit)="submit()" class="p-4 animate__animated animate__fadeInUp">
+          <div class="row g-3">
+            <!-- Category -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-tags me-2"></i>التصنيف</label>
+              <select class="form-select" formControlName="category">
+                <option disabled value="">اختر التصنيف</option>
+                @for (cat of categories; track cat.value) {
+                <option [value]="cat.value">{{ cat.text }}</option>
+                }
+              </select>
+              @if (requestForm.get('category')?.touched && requestForm.get('category')?.invalid) {
+              <span class="text-danger small">التصنيف مطلوب</span>
+              }
+            </div>
+            <!-- Title -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-pencil-square me-2"></i>العنوان</label>
+              <input type="text" class="form-control" formControlName="title" placeholder="أدخل العنوان">
+              @if (requestForm.get('title')?.touched && requestForm.get('title')?.invalid) {
+              <span class="text-danger small">العنوان مطلوب</span>
+              }
+            </div>
+
+            <!-- Priority -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-exclamation-triangle me-2"></i>أهمية الشكوي</label>
+              <input type="text" class="form-control" formControlName="priority" placeholder="أهمية الشكوي">
+              @if (requestForm.get('priority')?.touched && requestForm.get('priority')?.invalid) {
+              <span class="text-danger small">الأولوية مطلوبة</span>
+              }
+            </div>
+
+            <!-- Description -->
+            <div class="col-12">
+              <label class="form-label fw-semibold"><i class="bi bi-textarea-resize me-2"></i>الوصف</label>
+              <textarea rows="3" class="form-control" formControlName="description" placeholder="أدخل وصفًا"></textarea>
+              @if (requestForm.get('description')?.touched && requestForm.get('description')?.invalid) {
+              <span class="text-danger small">الوصف مطلوب</span>
+              }
+            </div>
+
+            
+
+            <!-- Submit -->
+            <div class="col-12 text-center mt-3">
+              <button class="btn btn-success" type="submit" [disabled]="requestForm.invalid">
+                <i class="bi bi-check-circle me-2"></i>إرسال
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+      <div class=" col-lg-6 animate__animated animate__fadeInLeft my-auto">
+      <div class="bg-white p-4 rounded-3 shadow-sm">
+        <app-contact-info></app-contact-info>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

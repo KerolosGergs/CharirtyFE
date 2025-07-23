@@ -14,8 +14,12 @@
 
     <div class="row justify-content-center align-items-end gy-5 mt-2">
       @for ( card of cards; let i = $index; track i) {
+       
+
+     
       <div class="col-12 col-sm-6 col-lg-3 d-flex flex-column"
         [ngClass]="{ 'card-up': i % 2 === 0, 'card-down': i % 2 !== 0 }">
+         <a routerLink="{{ card.link }}" class="text-decoration-none text-white">
         <div class="impact-card shadow rounded-4 overflow-hidden position-relative">
           <div class="impact-card-img" [ngStyle]="{'background-image': 'url(' + card.image + ')'}"></div>
           <div class="impact-card-overlay"></div>
@@ -27,8 +31,9 @@
           <!-- <div class="impact-card-text">
             {{ card.title }}
           </div> -->
-        </div>
+        </div>   </a>
       </div>
+      
       }
     </div>
 
