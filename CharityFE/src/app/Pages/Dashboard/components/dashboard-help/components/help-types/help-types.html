@@ -1,0 +1,254 @@
+<div class="help-types-container container animate__animated animate__fadeInUp">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <h4 class="mb-2 mb-md-0">انواع المساعدات</h4>
+    <button class="btn btn-success d-flex align-items-center gap-2" (click)="openAddModal()">
+      <i class="bi bi-plus-circle"></i>
+      <span>اضافة نوع جديد</span>
+    </button>
+  </div>
+
+  <!-- Search and Filter Section -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-search"></i>
+        </span>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="ابحث عن طريق الاسم او الوصف" 
+          [(ngModel)]="searchTerm" 
+          (input)="onSearchChange()"
+        >
+        <button 
+          class="btn btn-outline-secondary" 
+          type="button" 
+          (click)="clearSearch()"
+          *ngIf="searchTerm"
+        >
+          <i class="bi bi-x-circle"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <select class="form-select" [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange()">
+        <option value="5">5لكل صفحة </option>
+        <option value="10">10 لكل صفحة </option>
+        <option value="25">25 لكل صفحة </option>
+        <option value="50">50 لكل صفحة </option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <div class="text-muted small d-flex align-items-center h-100">
+        العدد: {{ filteredHelpTypes.length }} أنواع
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-responsive shadow-sm rounded overflow-hidden">
+    <table class="table table-hover table-bordered mb-0">
+      <thead class="table-light text-center align-middle">
+        <tr>
+          <th>#</th>
+          <th>الاسم</th>
+          <th>الوصف</th>
+          <th>الاجراءات</th>
+        </tr>
+      </thead>
+      <tbody class="text-center align-middle">
+        @for (helpType of paginatedHelpTypes; track helpType.id) {
+          <tr class="animate__animated animate__fadeIn">
+            <td>{{ helpType.id }}</td>
+            <td class="text-start">{{ helpType.name }}</td>
+            <td class="text-start">{{ helpType.description }}</td>
+            <td>
+              <div class="d-flex justify-content-center gap-2">
+                <button 
+                  class="btn btn-sm btn-outline-primary" 
+                  title="Edit" 
+                  (click)="openEditModal(helpType)"
+                >
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button 
+                  class="btn btn-sm btn-outline-danger" 
+                  title="Delete" 
+                  (click)="deleteHelpType(helpType.id!)"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+        @if (paginatedHelpTypes.length === 0) {
+          <tr>
+            <td colspan="4" class="text-center py-5 text-muted">
+              <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+              <div class="fs-5 mb-2">لا يوجد اي عناصر</div>
+              
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between align-items-center mt-4 flex-wrap gap-3">
+    <div class="text-muted small">النتائج
+       {{ getStartIndex() }} - {{ getEndIndex() }} من {{ filteredHelpTypes.length }} 
+    </div>
+    <nav *ngIf="totalPages > 1">
+      <ul class="pagination pagination-sm mb-0">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="changePage(1)" [disabled]="currentPage === 1">
+            <i class="bi bi-chevron-double-left"></i>
+          </button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <button class="page-link" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </li>
+        
+        @for (page of getVisiblePageNumbers(); track page) {
+          @if (page === '...') {
+            <li class="page-item disabled">
+              <span class="page-link">...</span>
+            </li>
+          } @else {
+            <li class="page-item" [class.active]="currentPage === page">
+              <button class="page-link" (click)="changePage(+page)">{{ page }}</button>
+            </li>
+          }
+        }
+        
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </li>
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <button class="page-link" (click)="changePage(totalPages)" [disabled]="currentPage === totalPages">
+            <i class="bi bi-chevron-double-right"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<!-- Add/Edit Modal -->
+<div class="modal fade " [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'" *ngIf="showModal">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content animate__animated animate__zoomIn">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <!-- <i class="bi bi-{{ isEditMode ? 'pencil' : 'plus-circle' }} me-2"></i> -->
+          {{ isEditMode ? 'تعديل نوع المساعدة' : 'أضافة نوع مساعدة جديد' }}
+        </h5>
+        <!-- <button type="button" class="btn-close" (click)="closeModal()"></button> -->
+      </div>
+      <form (ngSubmit)="saveHelpType()" #helpTypeForm="ngForm">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12 mb-3">
+              <label for="helpTypeName" class="form-label">
+                الاسم <span class="text-danger">*</span>
+              </label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="helpTypeName"
+                name="name"
+                [(ngModel)]="currentHelpType.name" 
+                required
+                #nameInput="ngModel"
+                placeholder="ادخال الاسم"
+                [class.is-invalid]="nameInput.invalid && nameInput.touched"
+              >
+              <div class="invalid-feedback" *ngIf="nameInput.invalid && nameInput.touched">
+                الاسم مطلوب 
+              </div>
+            </div>
+            <div class="col-12 mb-3">
+              <label for="helpTypeDescription" class="form-label">
+                الوصف <span class="text-danger">*</span>
+              </label>
+              <textarea 
+                class="form-control" 
+                id="helpTypeDescription"
+                name="description"
+                rows="4"
+                [(ngModel)]="currentHelpType.description" 
+                required
+                #descriptionInput="ngModel"
+                placeholder="ادخل الوصف"
+                [class.is-invalid]="descriptionInput.invalid && descriptionInput.touched"
+              ></textarea>
+              <div class="invalid-feedback" *ngIf="descriptionInput.invalid && descriptionInput.touched">
+                الوصف مطلوب
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">
+            <i class="bi bi-x-circle me-1"></i>
+            إلغاء
+          </button>
+          <button 
+            type="submit" 
+            class="btn btn-{{ isEditMode ? 'warning' : 'success' }}"
+            [disabled]="helpTypeForm.invalid || isLoading"
+          >
+            <i class="bi bi-{{ isLoading ? 'hourglass-split' : (isEditMode ? 'check-circle' : 'plus-circle') }} me-1"></i>
+            {{ isLoading ? 'حفظ...' : (isEditMode ? 'تعديل' : 'اضافة') }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" [class.show]="showDeleteModal" [style.display]="showDeleteModal ? 'block' : 'none'" *ngIf="showDeleteModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content animate__animated animate__zoomIn">
+      <div class="modal-header border-0">
+        <h5 class="modal-title text-danger">
+          <i class="bi bi-exclamation-triangle me-2"></i>
+         تأكيد الحذف
+        </h5>
+      </div>
+      <div class="modal-body text-center py-4">
+        <i class="bi bi-trash text-danger fs-1 mb-3 d-block"></i>
+        <h6 class="mb-3">هل انت متأكد من حذف هذا النوع</h6>
+      </div>
+      <div class="modal-footer border-0 justify-content-center">
+        <button type="button" class="btn btn-secondary px-4" (click)="closeDeleteModal()">
+          <i class="bi bi-x-circle me-1"></i>
+          إلغاء
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-danger px-4" 
+          (click)="confirmDelete()"
+          [disabled]="isLoading"
+        >
+          <i class="bi bi-{{ isLoading ? 'hourglass-split' : 'trash' }} me-1"></i>
+          {{ isLoading ? 'Deleting...' : 'Delete' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop fade show" *ngIf="showModal || showDeleteModal"></div>
+

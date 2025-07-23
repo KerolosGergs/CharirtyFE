@@ -5,14 +5,24 @@
   <div class="page-header text-center mb-4">
     <h2 class="page-title">{{ pageTitle }}</h2>
   </div>
-  <div class="navigation-tabs mb-4 d-flex justify-content-center flex-wrap gap-2">
+
+  <!-- Navigation Tabs -->
+  <div class="navigation-tabs mb-2 d-flex justify-content-center flex-wrap gap-2">
     @for (tab of navigationTabs; track tab.id) {
-    <button type="button" class="btn tab-button" [class.active]="tab.active" (click)="selectTab(tab.id)"
-      [attr.aria-selected]="tab.active">
-      <i class="me-2" [class]="tab.icon"></i>{{ tab.label }}
-    </button>
+      <button type="button" class="btn tab-button" [class.active]="tab.active" (click)="selectTab(tab.id)"
+        [attr.aria-selected]="tab.active">
+        {{ tab.label }}
+      </button>
     }
   </div>
+
+  <!-- Validation Message for Tabs -->
+  <div class="text-center mb-3">
+    @if (!selectedTabId) {
+      <span class="text-danger small">يجب اختيار نوع المساعدة أولاً</span>
+    }
+  </div>
+
   <div class="row g-4">
     <!-- Contact Form -->
     <div class="col-lg-6 animate__animated animate__fadeInRight">
@@ -23,16 +33,15 @@
 
         <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
           @for (field of formFields; track field.id) {
-          <div class="form-group mb-3">
-            <label [for]="field.id">{{ field.label }}</label>
-            <input class="form-control" [id]="field.id" [type]="field.type" [placeholder]="field.placeholder"
-              [(ngModel)]="field.value" [name]="field.id" [required]="field.required" #fieldRef="ngModel">
-            <i class="bi input-icon" [ngClass]="field.iconClass"></i>
-            @if (fieldRef.invalid && fieldRef.touched) {
-            <span class="text-danger small">{{ field.label }} مطلوب</span>
-            }
-          </div>
-
+            <div class="form-group mb-3">
+              <label [for]="field.id">{{ field.label }}</label>
+              <input class="form-control" [id]="field.id" [type]="field.type" [placeholder]="field.placeholder"
+                [(ngModel)]="field.value" [name]="field.id" [required]="field.required" #fieldRef="ngModel">
+              <i class="bi input-icon" [ngClass]="field.iconClass"></i>
+              @if (fieldRef.invalid && fieldRef.touched) {
+                <span class="text-danger small">{{ field.label }} مطلوب</span>
+              }
+            </div>
           }
 
           <div class="form-group mb-3">
@@ -42,7 +51,7 @@
               required #messageRef="ngModel"></textarea>
             <div class="d-flex justify-content-between mt-1">
               @if (messageRef.invalid && messageRef.touched) {
-              <span class="text-danger small">الرسالة مطلوبة</span>
+                <span class="text-danger small">الرسالة مطلوبة</span>
               }
               <small class="text-muted">{{ getCharacterCount() }}/{{ messageField.maxLength }}</small>
             </div>
@@ -56,8 +65,9 @@
         </form>
       </div>
     </div>
+
     <!-- Contact Info -->
-    <div class=" col-lg-6 animate__animated animate__fadeInLeft my-auto">
+    <div class="col-lg-6 animate__animated animate__fadeInLeft my-auto">
       <div class="bg-white p-4 rounded-3 shadow-sm">
         <div class="text-center mb-3">
           <h3 class="text-dark">{{ contactSection.title }}</h3>
@@ -76,19 +86,15 @@
 
           <div class="d-flex justify-content-center gap-2">
             @for (social of socialMediaLinks; track social.platform) {
-            <button type="button" class="btn btn-light border rounded-circle" (click)="onSocialMediaClick(social)">
-              <i [class]="social.icon"></i>
-            </button>
+              <button type="button" class="btn btn-light border rounded-circle" (click)="onSocialMediaClick(social)">
+                <i [class]="social.icon"></i>
+              </button>
             }
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
-
-
-
 </div>
+
 <app-footer></app-footer>
