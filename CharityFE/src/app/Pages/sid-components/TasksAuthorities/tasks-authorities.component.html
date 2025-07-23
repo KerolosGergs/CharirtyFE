@@ -1,0 +1,13 @@
+<div class="tasks-authorities-container p-4 rounded-4 shadow-sm bg-white animate__animated animate__fadeInUp" dir="rtl">
+  <h2 class="fw-bold mb-4 text-success text-center"><i class="bi bi-list-task me-2"></i> المهام والاختصاصات</h2>
+  <div class="tasks-list-custom d-flex flex-column gap-3">
+    <div *ngFor="let task of tasks" class="task-card p-3 rounded-4 shadow-sm d-flex align-items-center gap-3 animate__animated animate__fadeInUp">
+      <div class="task-icon-circle d-flex align-items-center justify-content-center flex-shrink-0">
+        <i class="bi" [ngClass]="task.icon + ' fs-3'"></i>
+      </div>
+      <div class="flex-grow-1">
+        <div class="task-text fs-5">{{ task.text }}</div>
+      </div>
+    </div>
+  </div>
+</div> 

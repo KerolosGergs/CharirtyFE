@@ -1,0 +1,53 @@
+<div class="vision-mission-container p-4 rounded-4 shadow-sm bg-white animate__animated animate__fadeInUp" dir="rtl">
+  <h2 class="fw-bold mb-4 text-success"><i class="bi bi-eye me-2"></i> الرؤية والرسالة والقيم والأهداف</h2>
+  <div class="row g-4 mb-4">
+    <div class="col-md-6">
+      <div class="card vision-mission-card h-100">
+        <div class="card-body">
+          <h3 class="card-title text-success mb-3"><i class="bi bi-bullseye me-2"></i> الرسالة</h3>
+          <p class="card-text fs-5">{{ message }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card vision-mission-card h-100">
+        <div class="card-body">
+          <h3 class="card-title text-success mb-3"><i class="bi bi-stars me-2"></i> الرؤية</h3>
+          <p class="card-text fs-5">{{ vision }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-4">
+    <h3 class="fw-bold text-success mb-4 text-center"><i class="bi bi-gem me-2"></i> قيمنا</h3>
+    <div class="row g-4 vision-values-row flex-wrap justify-content-center">
+      <div class="col-12 col-sm-6 col-lg-4 col-xl-4 d-flex" *ngFor="let value of values; let i = index">
+        <div class="value-icon-card p-4 rounded-4 shadow-sm d-flex flex-column align-items-center justify-content-center text-center h-100 animate__animated animate__fadeInUp w-100">
+          <div class="value-icon-circle mb-3 d-flex align-items-center justify-content-center">
+            <i class="bi" [ngClass]="value.icon + ' fs-2'"></i>
+          </div>
+          <span class="fs-5 fw-medium">{{ value.text }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-4">
+    <h3 class="fw-bold text-success mb-4 text-center"><i class="bi bi-flag me-2"></i> أهدافنا</h3>
+    <div class="goals-list-custom d-flex flex-column gap-3">
+      <div *ngFor="let goal of goals; let i = index" class="goal-accordion-card p-3 rounded-4 shadow-sm d-flex align-items-center gap-3 animate__animated animate__fadeInUp" [class.active]="openGoalIndex === i">
+        <div class="goal-icon-circle d-flex align-items-center justify-content-center flex-shrink-0">
+          <i class="bi" [ngClass]="goal.icon + ' fs-3'"></i>
+        </div>
+        <div class="flex-grow-1">
+          <div class="goal-title fw-bold fs-5" (click)="toggleGoal(i)" style="cursor:pointer;">
+            {{ goal.title }}
+            <span *ngIf="goal.details" class="ms-2"><i class="bi" [ngClass]="openGoalIndex === i ? 'bi-chevron-up' : 'bi-chevron-down'"></i></span>
+          </div>
+          <div *ngIf="goal.details && openGoalIndex === i" class="goal-details mt-2 text-secondary">
+            {{ goal.details }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

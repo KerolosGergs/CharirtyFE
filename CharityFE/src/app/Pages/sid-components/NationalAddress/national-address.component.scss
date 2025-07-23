@@ -1,0 +1,22 @@
+.national-address-container {
+  background: #e8f8f3;
+  border-radius: 18px;
+  box-shadow: none;
+  margin-bottom: 2rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.national-address-img {
+  border-radius: 16px;
+  box-shadow: 0 2px 16px rgba(25,135,84,0.10);
+  background: #fff;
+  max-width: 100%;
+  max-height: 700px;
+  display: block;
+} 

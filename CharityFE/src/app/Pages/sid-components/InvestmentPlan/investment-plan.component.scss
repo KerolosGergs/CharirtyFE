@@ -1,0 +1,30 @@
+.investment-plan-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(25,135,84,0.08);
+  margin-bottom: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.investment-plan-container h2, .investment-plan-container h3 {
+  color: #198754;
+}
+.investment-plan-container h3 {
+  color: #0d6efd;
+}
+.investment-plan-pdf-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  background: #f6faf7;
+}
+.investment-plan-pdf {
+  border: none;
+  min-height: 300px;
+  background: #f6faf7;
+}
+@media (max-width: 767px) {
+  .investment-plan-pdf { height: 220px !important; }
+  .investment-plan-container { padding: 1rem; }
+} 
