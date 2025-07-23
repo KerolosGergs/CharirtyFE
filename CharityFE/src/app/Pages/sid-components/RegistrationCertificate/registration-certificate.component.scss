@@ -1,0 +1,42 @@
+.registration-certificate-container {
+  background: linear-gradient(135deg, #e8f8f3, #f0fdfa);
+  border-radius: 18px;
+  padding: 3rem 1rem;
+  margin: auto;
+  max-width: 1100px;
+  text-align: center;
+}
+
+.certificate-card {
+  background: #fff;
+  border-radius: 18px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.certificate-card:hover {
+  box-shadow: 0 12px 28px rgba(25, 135, 84, 0.15);
+  transform: translateY(-4px);
+}
+
+.certificate-image-box {
+  cursor: zoom-in;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(25,135,84,0.08);
+}
+
+.registration-certificate-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  transition: transform 0.2s;
+}
+
+.registration-certificate-img:hover {
+  transform: scale(1.03);
+}
+
+.modal-content {
+  background: transparent;
+  border: none;
+}

@@ -1,0 +1,335 @@
+.vision-mission-container {
+  background: #e8f8f3;
+  border-radius: 18px;
+  box-shadow: none;
+  margin-bottom: 2rem;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+.vision-mission-card {
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  border: 1.5px solid #e0e0e0;
+  background: #f6faf7;
+}
+.vision-values-row {
+  flex-wrap: wrap !important;
+  overflow-x: unset;
+  padding-bottom: 0;
+}
+.value-card {
+  min-width: unset;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  border: 1.5px solid #e0e0e0;
+  transition: box-shadow 0.2s, transform 0.2s;
+  white-space: normal;
+}
+.value-card:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.13);
+  transform: translateY(-4px) scale(1.03);
+}
+.goals-list li {
+  background: #f6faf7;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 1px 4px rgba(25,135,84,0.05);
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #14532d;
+}
+.goals-grid {
+  flex-wrap: wrap !important;
+}
+.goal-grid-item {
+  min-width: unset;
+  max-width: unset;
+  background: #f6faf7;
+  border-radius: 10px;
+  color: #14532d;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(25,135,84,0.05);
+  padding: 1rem 1rem;
+}
+.goals-timeline {
+  position: relative;
+  min-height: 120px;
+  padding-bottom: 1rem;
+}
+.goal-timeline-item {
+  min-width: 260px;
+  max-width: 320px;
+  position: relative;
+}
+.goal-timeline-dot {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #198754;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.13);
+  margin-bottom: 0;
+  border: 3px solid #fff;
+  z-index: 2;
+}
+.goal-timeline-content {
+  background: none;
+  border-radius: 0;
+  color: #14532d;
+  font-weight: 500;
+  padding: 0;
+  box-shadow: none;
+  min-height: unset;
+}
+.vision-accordion .accordion-item {
+  border: none;
+  background: transparent;
+}
+.vision-accordion .accordion-header {
+  margin-bottom: 0.5rem;
+}
+.vision-accordion .accordion-button {
+  background: #f8faf9;
+  border-radius: 10px !important;
+  font-weight: 500;
+  color: #222;
+  margin-bottom: 10px;
+  border: 1.5px solid #e0e0e0;
+  transition: background 0.2s, color 0.2s;
+}
+.vision-accordion .accordion-button:not(.collapsed) {
+  background: #14532d;
+  color: #ffffff !important;
+}
+.vision-accordion .accordion-body {
+  background: #f8faf9;
+  border-radius: 0 0 10px 10px;
+  color: #444;
+  margin-bottom: 10px;
+}
+.goal-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  border: 1.5px solid #e0e0e0;
+  transition: box-shadow 0.2s, transform 0.2s;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.goal-card:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.13);
+  transform: translateY(-4px) scale(1.03);
+}
+.goal-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #e8f5e9;
+  color: #198754;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.goal-text {
+  color: #14532d;
+  font-weight: 500;
+}
+.value-mini-card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  border: 1.5px solid #e0e0e0;
+  transition: box-shadow 0.2s, transform 0.2s;
+  min-height: 90px;
+  min-width: 120px;
+  max-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.98rem;
+  padding: 1rem 0.5rem;
+}
+.value-mini-card:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.13);
+  transform: translateY(-4px) scale(1.03);
+}
+.value-circle-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  border: 1.5px solid #e0e0e0;
+  transition: box-shadow 0.2s, transform 0.2s;
+  min-height: 120px;
+  min-width: 120px;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 1.2rem 0.7rem;
+  position: relative;
+  background: linear-gradient(180deg, #f6faf7 60%, #fff 100%);
+}
+.value-circle-card:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.13);
+  transform: translateY(-4px) scale(1.03);
+}
+.value-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #198754 60%, #20c997 100%);
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.value-icon-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(25,135,84,0.10);
+  border: none;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.value-icon-card:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.13);
+  transform: translateY(-4px) scale(1.03);
+}
+.value-icon-circle {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #e8f8f3;
+  color: #198754;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.10);
+}
+.goals-list-custom {
+  width: 100%;
+}
+.goal-accordion-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(25,135,84,0.10);
+  border: none;
+  min-height: 70px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.goal-accordion-card.active, .goal-accordion-card:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.13);
+  transform: translateY(-2px) scale(1.01);
+}
+.goal-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #e8f8f3;
+  color: #198754;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  margin-left: 0.5rem;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.10);
+}
+.goal-title {
+  color: #198754;
+  font-weight: bold;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+.goal-details {
+  color: #444;
+  font-size: 1rem;
+  background: #f6faf7;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  margin-top: 0.5rem;
+}
+@media (max-width: 767px) {
+  .vision-mission-container { padding: 1rem; }
+  .vision-mission-card { margin-bottom: 1rem; }
+  .value-card { min-width: 220px; font-size: 1rem; }
+  .goals-list li { padding: 0.7rem 1rem; font-size: 1rem; }
+  .goal-timeline-item { min-width: 180px; max-width: 220px; }
+  .goal-timeline-content { padding: 0.7rem 0.5rem; font-size: 1rem; }
+  .value-card { font-size: 1rem; }
+  .goal-grid-item { font-size: 1rem; }
+  .goal-card { min-height: 120px; padding: 1rem; }
+  .goal-icon { width: 36px; height: 36px; font-size: 1.2rem; }
+  .value-mini-card { min-width: 90px; max-width: 100%; font-size: 0.92rem; padding: 0.7rem 0.3rem; }
+  .value-circle-card { min-width: 90px; max-width: 100%; font-size: 0.92rem; padding: 0.7rem 0.3rem; }
+  .value-circle { width: 28px; height: 28px; }
+  .value-icon-card { min-height: 120px; padding: 1rem; }
+  .value-icon-circle { width: 36px; height: 36px; font-size: 1.2rem; }
+  .goal-accordion-card { min-height: 60px; padding: 1rem; }
+  .goal-icon-circle { width: 32px; height: 32px; font-size: 1.1rem; }
+} 
+/* 🔥 Smooth hover transitions on cards */
+.value-icon-card:hover,
+.goal-accordion-card:hover,
+.vision-mission-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 12px 36px rgba(25, 135, 84, 0.18);
+}
+
+/* ✨ Hover pulse on icons */
+.value-icon-card:hover .value-icon-circle,
+.goal-accordion-card:hover .goal-icon-circle {
+  animation: pulseIcon 0.4s ease-in-out;
+}
+
+@keyframes pulseIcon {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15) rotate(5deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 🎯 Highlight title color on hover */
+.goal-accordion-card:hover .goal-title,
+.value-icon-card:hover span,
+.vision-mission-card:hover .card-title {
+  color: #0d684d !important;
+}
+
+/* ✨ Optional hover for the icon itself */
+.goal-accordion-card:hover .bi,
+.value-icon-card:hover .bi,
+.vision-mission-card:hover .bi {
+  transition: transform 0.3s ease;
+  transform: scale(1.15) rotate(-2deg);
+}

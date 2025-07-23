@@ -1,0 +1,140 @@
+<div class="about-us-hero-bg position-relative d-flex align-items-center justify-content-center mb-4">
+  <img src="Images/about/صورة المبنى.png" alt="صورة المبنى" class="about-hero-bg-img">
+  <div class="about-hero-overlay"></div>
+  <div class="about-hero-content text-center text-white position-absolute top-50 start-50 translate-middle">
+    <img src="/Images/logoName.png" alt="شعار الجمعية" class="about-hero-logo mb-3">
+    <h1 class="fw-bold mb-3 display-4">من نحن؟</h1>
+    <p class="lead mx-auto about-hero-desc fs-4">
+      مؤسسة غير ربحية واقعة تحت إشراف الدولة ممثلة في وزارة العمل والتنمية الاجتماعية ونطاق عملها في النطاق الجغرافي لمكة المكرمة.
+    </p>
+  </div>
+</div>
+
+<div class="container about-us-page">
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb bg-transparent p-0 fs-5">
+      <li class="breadcrumb-item"><a href="/home">الرئيسية</a></li>
+      <li class="breadcrumb-item active" aria-current="page">عن الجمعية</li>
+    </ol>
+  </nav>
+
+  <!-- ماذا نقدم -->
+  <section class="about-section about-services py-4 mb-5">
+    <h2 class="section-title mb-4 fs-3"><i class="bi bi-stars about-section-icon"></i> ماذا نقدم ؟</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-6 col-md-4 col-lg-3" *ngFor="let service of services">
+        <div class="service-circle-card d-flex flex-column align-items-center justify-content-center mx-auto">
+          <i class="bi" [ngClass]="service.icon + ' service-circle-icon'"></i>
+        </div>
+        <div class="text-center mt-2 service-title fs-5 fw-bold">{{ service.title }}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- كيف تغطي الجمعية نفقاتها -->
+  <section class="about-section about-expenses py-4 mb-5 bg-light rounded-4">
+    <h2 class="section-title mb-4 fs-3"><i class="bi bi-wallet2 about-section-icon"></i> كيف تغطي الجمعية نفقاتها؟</h2>
+    <div class="row justify-content-center g-4">
+      <div class="col-12 col-md-10 d-flex flex-wrap gap-3 justify-content-center">
+        <div class="expense-card d-flex flex-column align-items-center justify-content-center p-3 rounded-4 shadow-sm bg-white position-relative animate__animated animate__fadeInUp"
+             *ngFor="let expense of expenses; let i = index">
+          <div class="expense-icon mb-2">
+            <i class="bi" [ngClass]="getExpenseIcon(i)"></i>
+          </div>
+          <div class="expense-desc text-center fs-5">{{ expense }}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- نشأة الجمعية -->
+  <section class="about-section about-history py-4 mb-5">
+    <h2 class="section-title mb-4 fs-3"><i class="bi bi-clock-history about-section-icon"></i> نشأة الجمعية</h2>
+    <div class="history-summary mb-4 mx-auto">
+      <div class="history-summary-item">
+        <div class="history-summary-icon bg-success"><i class="bi bi-flag-fill"></i></div>
+        <div class="history-summary-content">
+          <span class="history-summary-label">تأسست عام</span>
+          <span class="history-summary-value">1398هـ</span>
+        </div>
+      </div>
+      <div class="history-summary-item">
+        <div class="history-summary-icon bg-primary"><i class="bi bi-people-fill"></i></div>
+        <div class="history-summary-content">
+          <span class="history-summary-label">مدة العطاء</span>
+          <span class="history-summary-value">40+ سنة</span>
+        </div>
+      </div>
+      <div class="history-summary-item">
+        <div class="history-summary-icon bg-warning"><i class="bi bi-award-fill"></i></div>
+        <div class="history-summary-content">
+          <span class="history-summary-label">عدد الأعضاء الحالي</span>
+          <span class="history-summary-value">95 عضوًا</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-7 founders-grid">
+        <p class="mb-3 p-4 border rounded-4 s-5 fs-5 founder-card-grid animate__animated animate__fadeInUp">
+          رحم الله تعالى مؤسسي الجمعية الخيرية بمكة المكرمة وكل من ساهم في دعمها طوال أكثر من 40 عاما من العطاء الخيري لفقراء الحرم حيث يبلغ عدد أعضاء الجمعية العمومية حالياً 95 عضواً. تأسست هذه الجمعية عام 1398هـ، وتعتبر من أوائل الجمعيات في المملكة العربية السعودية، والأعضاء المؤسسون هم:
+        </p>
+        <div class="row g-4 founders-grid justify-content-center">
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let founder of founders; let i = index">
+            <div class="founder-card-grid text-center p-4 h-100 animate__animated animate__fadeInUp">
+              <div class="founder-avatar-grid mx-auto mb-2" [ngStyle]="{'background': founderColors[i % founderColors.length]}">
+                {{ getInitials(founder) }}
+              </div>
+              <div class="fw-bold founder-name-grid fs-5 mb-1">{{ founder }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 d-flex align-items-center justify-content-center">
+        <img src="Images/about/صورة المبنى.png" alt="صورة المبنى" class="img-fluid rounded-4 shadow about-img-history">
+      </div>
+    </div>
+  </section>
+
+  <!-- الحسابات البنكية -->
+  <section class="about-section about-banks py-4 mb-5 bg-light rounded-4">
+    <h2 class="section-title mb-4 fs-3"><i class="bi bi-bank about-section-icon"></i> حسابات الجمعية البنكية</h2>
+    <div class="table-responsive mb-4">
+      <table class="table table-bordered text-center align-middle about-bank-table fs-5">
+        <thead class="table-light">
+          <tr>
+            <th>البنك</th>
+            <th>نوع الحساب</th>
+            <th>رقم الحساب</th>
+            <th>الايبان</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let account of bankAccounts; let i = index">
+            <td>{{ account.bank }}</td>
+            <td>{{ account.type }}</td>
+            <td class="position-relative">
+              <span>{{ account.number }}</span>
+              <button class="btn btn-outline-success btn-sm ms-2 align-bottom position-absolute end-0 top-50 translate-middle-y" (click)="copyToClipboard(account.number, i, 'number')" style="z-index:2;">
+                <i class="bi bi-clipboard"></i>
+              </button>
+              <div *ngIf="copiedIndex === i && copiedField === 'number'" class="copy-popup">تم النسخ!</div>
+            </td>
+            <td class="position-relative">
+              <span>{{ account.iban }}</span>
+              <button class="btn btn-outline-primary btn-sm ms-2 align-bottom position-absolute end-0 top-50 translate-middle-y" (click)="copyToClipboard(account.iban, i, 'iban')" style="z-index:2;">
+                <i class="bi bi-clipboard-check"></i>
+              </button>
+              <div *ngIf="copiedIndex === i && copiedField === 'iban'" class="copy-popup">تم النسخ!</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="about-section about-cta py-4 text-center">
+    <a href="/HelpPeopole" class="btn btn-success btn-lg px-5 mx-2">طلب مساعدة</a>
+    <a href="/support/donate" class="btn btn-outline-success btn-lg px-5 mx-2">تبرع الآن</a>
+  </section>
+</div> 

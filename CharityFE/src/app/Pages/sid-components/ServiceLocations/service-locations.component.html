@@ -1,0 +1,20 @@
+<div class="service-locations-container container animate__animated animate__fadeInUp" dir="rtl">
+  <h2 class="fw-bold mb-5 text-success text-center">
+    <i class="bi bi-geo-alt-fill me-2"></i> مواقع تقديم الخدمة
+  </h2>
+
+  <div class="row g-4 justify-content-center">
+    <div
+      *ngFor="let location of locations; let i = index"
+      class="col-12 col-sm-6 col-md-4 col-lg-3"
+      [attr.data-index]="i"
+    >
+      <div class="location-card fancy-location-card p-4 text-center">
+        <div class="location-icon mb-3">
+          <i class="bi bi-geo-alt-fill fs-3"></i>
+        </div>
+        <div class="location-text fw-semibold">{{ location.text }}</div>
+      </div>
+    </div>
+  </div>
+</div>

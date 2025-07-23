@@ -1,0 +1,396 @@
+.about-us-hero-bg {
+  position: relative;
+  min-height: 320px;
+  background: #f6faf7;
+  border-radius: 0 0 32px 32px;
+  overflow: hidden;
+}
+.about-hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(2px) brightness(0.93);
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 1;
+}
+.about-hero-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(25,135,84,0.18); /* أقل اخضرارًا */
+  z-index: 2;
+}
+.about-hero-content {
+  z-index: 3;
+  max-width: 700px;
+}
+.about-hero-logo {
+  max-width: 180px;
+  max-height: 90px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-circle-card {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(25,135,84,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  border: 3px solid #e8f5e9;
+  transition: box-shadow 0.2s;
+}
+.service-circle-card:hover {
+  box-shadow: 0 6px 24px rgba(25,135,84,0.18);
+}
+.service-circle-icon {
+  font-size: 2.7rem;
+  color: #198754;
+}
+.service-title {
+  font-size: 1.15rem;
+  color: #198754;
+}
+
+.section-title {
+  color: #198754;
+  font-weight: bold;
+  font-size: 2rem;
+  border-right: 4px solid #198754;
+  padding-right: 12px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.about-section-icon {
+  font-size: 2rem;
+  color: #198754;
+}
+
+.about-expenses-list {
+  list-style: disc inside;
+  padding-right: 1.5rem;
+  font-size: 1.2rem;
+}
+
+.founders-grid .founder-card-grid {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  border: 1.5px solid #e0e0e0;
+  transition: box-shadow 0.2s;
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.founders-grid .founder-card-grid:hover {
+  box-shadow: 0 6px 24px rgba(25,135,84,0.13);
+}
+.founder-avatar-grid {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1.7rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.10);
+  border: 2px solid #fff;
+  background: #198754;
+}
+.founder-name-grid {
+  font-size: 1.15rem;
+  color: #198754;
+  line-height: 1.3;
+}
+
+.about-bank-table th, .about-bank-table td {
+  font-size: 1.1rem;
+  vertical-align: middle;
+}
+.about-bank-table th {
+  background: #e8f5e9;
+  color: #198754;
+}
+.about-bank-table td button {
+  min-width: 36px;
+}
+
+.about-cta {
+  background: linear-gradient(90deg, #e8f5e9 0%, #fff 100%);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+}
+
+.copy-popup {
+  position: absolute;
+  top: -36px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #198754;
+  color: #fff;
+  padding: 4px 16px;
+  border-radius: 8px;
+  font-size: 1rem;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.13);
+  opacity: 0.95;
+  z-index: 10;
+  animation: fadeInCopy 0.2s;
+}
+@keyframes fadeInCopy {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 0.95; transform: translateX(-50%) translateY(0); }
+}
+
+.about-bank-table td {
+  position: relative;
+  vertical-align: middle;
+  padding-right: 2.5rem !important;
+}
+.about-bank-table td .btn {
+  min-width: 36px;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+// بطاقات النفقات
+.expense-card {
+  width: 180px;
+  min-height: 140px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(25,135,84,0.08);
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: 1.5px solid #e0e0e0;
+  cursor: pointer;
+  position: relative;
+}
+.expense-card:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.18);
+  transform: translateY(-6px) scale(1.03);
+}
+.expense-icon {
+  font-size: 2.5rem;
+  color: #198754;
+  background: #e8f5e9;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.10);
+}
+.expense-desc {
+  color: #14532d;
+  font-weight: 500;
+}
+
+// خط الزمن
+.timeline {
+  display: flex;
+  gap: 32px;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.timeline-dot {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #198754;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.13);
+}
+.timeline-content {
+  text-align: center;
+}
+.timeline-year {
+  font-weight: bold;
+  color: #198754;
+  font-size: 1.1rem;
+  display: block;
+}
+.timeline-label {
+  color: #444;
+  font-size: 0.98rem;
+  display: block;
+}
+
+// تحسينات إضافية لبطاقات المؤسسين
+.founder-card-grid {
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.founder-card-grid:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.18);
+  transform: translateY(-6px) scale(1.03);
+}
+
+// خط زمني عمودي لنشأة الجمعية
+.vertical-timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  max-width: 400px;
+  margin-bottom: 2.5rem;
+}
+.vtimeline-item {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+  margin-bottom: 32px;
+}
+.vtimeline-dot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.13);
+  margin-left: 18px;
+  flex-shrink: 0;
+  border: 3px solid #fff;
+  z-index: 2;
+}
+.vtimeline-content {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  padding: 12px 24px;
+  margin-right: 0;
+  margin-left: 0;
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+}
+.vtimeline-year {
+  font-weight: bold;
+  color: #198754;
+  font-size: 1.2rem;
+  margin-bottom: 2px;
+}
+.vtimeline-label {
+  color: #444;
+  font-size: 1.05rem;
+}
+.vertical-timeline:before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #198754 0%, #e8f5e9 100%);
+  z-index: 1;
+  border-radius: 2px;
+}
+.vtimeline-item:last-child { margin-bottom: 0; }
+
+// ملخص نشأة الجمعية
+.history-summary {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 32px;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.history-summary-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  padding: 16px 28px;
+  min-width: 180px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: 1.5px solid #e0e0e0;
+}
+.history-summary-item:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.13);
+  transform: translateY(-4px) scale(1.03);
+}
+.history-summary-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #fff;
+  margin-left: 16px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.13);
+}
+.history-summary-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.history-summary-label {
+  color: #888;
+  font-size: 1.02rem;
+  margin-bottom: 2px;
+}
+.history-summary-value {
+  color: #198754;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 767px) {
+  .about-hero-content h1 { font-size: 1.5rem; }
+  .about-hero-content .about-hero-desc { font-size: 1rem; }
+  .service-circle-card { width: 80px; height: 80px; }
+  .service-circle-icon { font-size: 1.7rem; }
+  .founders-grid .founder-card-grid { min-height: 120px; }
+  .founder-avatar-grid {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+  }
+  .expense-card { width: 100%; min-width: 0; }
+  .timeline { gap: 12px; }
+  .vertical-timeline { max-width: 100%; }
+  .vtimeline-content { padding: 10px 12px; font-size: 0.98rem; }
+  .vtimeline-dot { width: 36px; height: 36px; font-size: 1.1rem; }
+  .history-summary { gap: 12px; }
+  .history-summary-item { padding: 10px 12px; min-width: 120px; }
+  .history-summary-icon { width: 32px; height: 32px; font-size: 1.1rem; margin-left: 8px; }
+  .history-summary-value { font-size: 1rem; }
+} 

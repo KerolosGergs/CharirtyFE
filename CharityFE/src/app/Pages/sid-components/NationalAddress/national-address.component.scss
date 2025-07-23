@@ -1,0 +1,38 @@
+.national-address-container {
+  background: linear-gradient(135deg, #e8f8f3, #f0fdfa);
+  border-radius: 18px;
+  padding: 3rem 1rem;
+  max-width: 750px;
+  margin: auto;
+  text-align: center;
+}
+
+.national-address-wrapper {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 2px 16px rgba(25,135,84,0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.national-address-wrapper:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(25,135,84,0.13);
+}
+
+.national-address-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+  background: #fff;
+}
+
+@media (max-width: 767px) {
+  .national-address-container {
+    padding: 2rem 1rem;
+  }
+  .national-address-img {
+    border-radius: 12px;
+  }
+}

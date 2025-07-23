@@ -76,6 +76,19 @@ export const routes: Routes = [
         { path: '', redirectTo: 'reconcile-main', pathMatch: 'full' },
         { path: 'reconcile-main', loadComponent: () => import('../app/Pages/reconcile-dashboard/components/reconcile-main/reconcile-main').then(m => m.ReconcileMain), title: 'Reconcile Main' }
     ] },
+    { path: 'about', loadComponent: () => import('../app/Pages/sid-components/About/about-us').then(m => m.AboutUs), title: 'About' },
+    { path: 'about-summary', loadComponent: () => import('../app/Pages/sid-components/AboutSummary/about-summary.component').then(m => m.AboutSummaryComponent), title: 'About Summary' },
+    { path: 'association', loadComponent: () => import('../app/Pages/sid-components/AssociationSectors/association-sectors.component').then(m => m.AssociationSectorsComponent), title: 'Association Sectors' },
+    { path: 'contact-phone', loadComponent: () => import('../app/Pages/sid-components/ContactPhone/contact-phone.component').then(m => m.ContactPhoneComponent), title: 'Contact Phone' },
+    { path: 'investment', loadComponent: () => import('../app/Pages/sid-components/InvestmentPlan/investment-plan.component').then(m => m.InvestmentPlanComponent), title: 'Investment Plan' },
+    { path: 'national-address', loadComponent: () => import('../app/Pages/sid-components/NationalAddress/national-address.component').then(m => m.NationalAddressComponent), title: 'National Address' },
+    { path: 'operational-plan', loadComponent: () => import('../app/Pages/sid-components/OperationalPlan/operational-plan.component').then(m => m.OperationalPlanComponent), title: 'Operational Plan' },
+    { path: 'operational-plan-2023', loadComponent: () => import('../app/Pages/sid-components/OperationalPlan2023/operational-plan-2023.component').then(m => m.OperationalPlan2023Component), title: 'Operational Plan 2023' },
+    { path: 'registration-certificate', loadComponent: () => import('../app/Pages/sid-components/RegistrationCertificate/registration-certificate.component').then(m => m.RegistrationCertificateComponent), title: 'Registration Certificate' },
+    { path: 'service-locations', loadComponent: () => import('../app/Pages/sid-components/ServiceLocations/service-locations.component').then(m => m.ServiceLocationsComponent), title: 'Service Locations' },
+    { path: 'strategic-plan', loadComponent: () => import('../app/Pages/sid-components/StrategicPlan/strategic-plan.component').then(m => m.StrategicPlanComponent), title: 'Strategic Plan' },
+    { path: 'tasks-authorities', loadComponent: () => import('../app/Pages/sid-components/TasksAuthorities/tasks-authorities.component').then(m => m.TasksAuthoritiesComponent), title: 'Tasks Authorities' },
+    { path: 'vision-mission', loadComponent: () => import('../app/Pages/sid-components/VisionMission/vision-mission.component').then(m => m.VisionMissionComponent), title: 'Vision Mission' },
 
     { path: 'questions', component: Questions, title: 'Questions' },
 
