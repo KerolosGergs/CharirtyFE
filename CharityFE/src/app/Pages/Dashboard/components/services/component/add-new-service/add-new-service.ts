@@ -80,4 +80,7 @@ export class AddNewService {
       }
     });
   }
+  cancel(): void {
+    this.router.navigate(['/dashboard/dashboard-services']);
+  }
 }

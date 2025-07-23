@@ -23,6 +23,21 @@ export const serverRoutes: ServerRoute[] = [
     path: 'advisor-dashboard/date-details/:id',
     renderMode: RenderMode.Client
   },
+  {
+    path: 'dashboard/dashboard-midetation-edit/:id',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'dashboard/dashboard-midetation-details/:id',
+    renderMode: RenderMode.Client
+  },
+   {
+    path: 'dashboard/dashboard-edit-services/:id',
+    renderMode: RenderMode.Client
+  },{
+    path: 'dashboard/complaint-details/:id',
+    renderMode: RenderMode.Client
+  },
    {
     path: 'achive',
     renderMode: RenderMode.Client

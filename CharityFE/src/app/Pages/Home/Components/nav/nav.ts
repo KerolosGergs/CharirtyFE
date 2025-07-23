@@ -18,9 +18,9 @@ navigationItems = [
     // { subTitle: 'الأهداف', subLink: '/about/team' },
     // { subTitle: 'القيم', subLink: '/about/team' },
     { subTitle: 'مهام الجمعية', subLink: '/about-layout/tasks-authorities' },
-    { subTitle: 'الجمعية العمومية', subLink: '/about/team' },
-    { subTitle: 'مجلس الأدارة', subLink: '/about/team' },
-    { subTitle: 'الهيكل النظيمى', subLink: '/about/team' },
+    { subTitle: 'الجمعية العمومية', subLink: '/about-layout/general-assembly' },
+    { subTitle: 'مجلس الأدارة', subLink: '/about-layout/board-members' },
+    { subTitle: 'الهيكل النظيمى', subLink: '/about-layout/organizational-structure' },
     { subTitle: 'مواقع العمل', subLink: '/about-layout/service-locations' },
   ]},
   {label: 'الحوكمة', href: '#', subLibels: [

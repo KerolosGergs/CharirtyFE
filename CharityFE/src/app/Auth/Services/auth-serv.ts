@@ -26,6 +26,19 @@ export class AuthServ {
     }
     return null;
   }
+getUserInfo(): { id: string | null; fullName: string | null } {
+  if (this.isBrowser()) {
+    const userData = localStorage.getItem(this.userKey); // assuming you store the JSON under "user"
+    if (userData) {
+      const user = JSON.parse(userData);
+      return {
+        id: user.id || null,
+        fullName: user.fullName || null
+      };
+    }
+  }
+  return { id: null, fullName: null };
+}
 
   getUser(): any {
     if (this.isBrowser()) {
@@ -34,6 +47,14 @@ export class AuthServ {
     }
     return null;
   }
+getUserName(): string | null {
+  const user = this.getUserInfo();
+  return user.fullName;
+}
+getUserID(): string | null {
+  const user = this.getUserInfo();
+  return user.id;
+}
 
   getRole(): string | null {
     if (this.isBrowser()) {

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ComplaintCategory, IComplaintDTO } from '../../../../Core/Interfaces/icomplaint';
 import { Complaint } from '../../../../Core/Services/complaint';
 import { CommonModule } from '@angular/common';
+import { TostarServ } from '../../../../Shared/tostar-serv';
+import { error } from 'console';
 
 @Component({
   selector: 'app-complaints',
@@ -15,7 +17,7 @@ import { CommonModule } from '@angular/common';
 export class Complaints {
   private _router = inject(Router);
   private _complaintService = inject(Complaint);
-
+  private _tostar =inject(TostarServ)
   sections: string[] = [
     'الكل',
     'شكوى عن موظف',
@@ -47,14 +49,22 @@ export class Complaints {
   }
 
   get filteredComplaints(): IComplaintDTO[] {
-    return this.complaints.filter(c => {
-      const typeLabel = this.getCategoryLabel(c.category);
-      const matchesSection = this.selectedSection === 'الكل' || typeLabel === this.selectedSection;
-      const matchesSearch =
-        c.description.includes(this.searchText) || c.title.includes(this.searchText);
-      return matchesSection && matchesSearch;
-    });
-  }
+  return this.complaints.filter(c => {
+    const typeLabel = this.getCategoryLabel(c.category);
+    const matchesSection = this.selectedSection === 'الكل' || typeLabel === this.selectedSection;
+
+    const search = this.searchText.toLowerCase();
+    const matchesSearch =
+      c.title?.toLowerCase().includes(search) ||
+      c.description?.toLowerCase().includes(search) ||
+      c.userName?.toLowerCase().includes(search) ||
+      c.email?.toLowerCase().includes(search) ||
+      c.phoneNumber?.includes(search);
+
+    return matchesSection && matchesSearch;
+  });
+}
+
 
   selectSection(section: string) {
     this.selectedSection = section;
@@ -62,6 +72,14 @@ export class Complaints {
 
   deleteComplaint(complaint: IComplaintDTO) {
     this.complaints = this.complaints.filter(c => c.id !== complaint.id);
+    this._complaintService.deleteComplaint(complaint.id).subscribe(
+      next => this._tostar.showSuccess("تم حذف الشكوى بنجاح"),
+      
+      error => {
+        this._tostar.showError("خطاء في حذف الشكوى")
+      }
+    );
+
     // Optional: Call service to delete from backend
     // this._complaintService.deleteComplaint(complaint.id).subscribe();
   }

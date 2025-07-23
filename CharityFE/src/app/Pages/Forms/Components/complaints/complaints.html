@@ -20,20 +20,20 @@
           <div class="row g-3">
             <!-- Category -->
             <div class="col-md-12">
-              <label class="form-label fw-semibold"><i class="bi bi-tags me-2"></i>التصنيف</label>
+              <label class="form-label fw-semibold"><i class="bi bi-tags ms-2"></i>نوع الشكوى</label>
               <select class="form-select" formControlName="category">
-                <option disabled value="">اختر التصنيف</option>
+                <option disabled value="">اختر نوع الشكوي</option>
                 @for (cat of categories; track cat.value) {
                 <option [value]="cat.value">{{ cat.text }}</option>
                 }
               </select>
               @if (requestForm.get('category')?.touched && requestForm.get('category')?.invalid) {
-              <span class="text-danger small">التصنيف مطلوب</span>
+              <span class="text-danger small">نوع الشكوي مطلوب</span>
               }
             </div>
             <!-- Title -->
             <div class="col-md-12">
-              <label class="form-label fw-semibold"><i class="bi bi-pencil-square me-2"></i>العنوان</label>
+              <label class="form-label fw-semibold"><i class="bi bi-pencil-square ms-2"></i>العنوان</label>
               <input type="text" class="form-control" formControlName="title" placeholder="أدخل العنوان">
               @if (requestForm.get('title')?.touched && requestForm.get('title')?.invalid) {
               <span class="text-danger small">العنوان مطلوب</span>
@@ -42,7 +42,7 @@
 
             <!-- Priority -->
             <div class="col-md-12">
-              <label class="form-label fw-semibold"><i class="bi bi-exclamation-triangle me-2"></i>أهمية الشكوي</label>
+              <label class="form-label fw-semibold"><i class="bi bi-exclamation-triangle ms-2"></i>أهمية الشكوي</label>
               <input type="text" class="form-control" formControlName="priority" placeholder="أهمية الشكوي">
               @if (requestForm.get('priority')?.touched && requestForm.get('priority')?.invalid) {
               <span class="text-danger small">الأولوية مطلوبة</span>
@@ -51,7 +51,7 @@
 
             <!-- Description -->
             <div class="col-12">
-              <label class="form-label fw-semibold"><i class="bi bi-textarea-resize me-2"></i>الوصف</label>
+              <label class="form-label fw-semibold"><i class="bi bi-textarea-resize ms-2"></i>الوصف</label>
               <textarea rows="3" class="form-control" formControlName="description" placeholder="أدخل وصفًا"></textarea>
               @if (requestForm.get('description')?.touched && requestForm.get('description')?.invalid) {
               <span class="text-danger small">الوصف مطلوب</span>

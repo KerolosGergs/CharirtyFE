@@ -139,6 +139,6 @@ export class DashboardAddNews implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/dashboard/news']);
+    this.router.navigate(['/dashboard/dashboard-news']);
   }
 }

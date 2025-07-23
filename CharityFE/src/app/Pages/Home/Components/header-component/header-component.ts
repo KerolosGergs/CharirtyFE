@@ -31,7 +31,9 @@ Dashbord() {
 login() {
   this.router.navigate(['/login']);
 }
-
+go(){
+  // this.router.navigate(['http://109.166.90.247/Login.aspx']);
+}
 logout() {
   this.AuthSer.logout();
   window.location.reload();  // Optional: reload to reflect changes

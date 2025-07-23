@@ -11,9 +11,10 @@
           [buttonFunction]="onDiscoverServices" [buttontext]="'احجز استشارة'"
           [iconButton]="'bi-arrow-left-short fs-2'"></app-main-button></a>
 
-      <button class="btn btn-light btn-lg px-5 py-2 fs-5  hero-btn-primary" (click)="onLearnMore()">
-        تعرف علينا
-      </button>
+      <a class="text-decoration-none " [routerLink]="'/about-layout/about'"> <button
+          class="btn btn-light btn-lg px-5 py-2 fs-5  hero-btn-primary" (click)="onLearnMore()">
+          تعرف علينا
+        </button></a>
     </div>
     <div class="hero-statistics">
       <app-stat-card></app-stat-card>

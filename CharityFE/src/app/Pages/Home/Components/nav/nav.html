@@ -1,7 +1,7 @@
 <!-- Navigation Section -->
- @defer 
-  {
-    <nav class="navigation-section">
+@defer
+{
+<nav class="navigation-section">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -20,18 +20,10 @@
             <ul class="dropdown-menu custom-dropdown mt-1" [class.show]="item === activeItem">
               @for (subItem of item.subLibels; track $index) {
               <li>
-                @if (subItem.subTitle === 'الخدمات الألكترونية') {
-                  <a class="dropdown-item d-flex align-items-center gap-2" href="/http://109.166.90.247/Login.aspx" target="_blank" rel="noopener">
+                <a class="dropdown-item d-flex align-items-center gap-2" [routerLink]="subItem.subLink">
                   <i class="bi bi-box-arrow-in-left"></i> <!-- You can change this to other icons -->
                   {{ subItem.subTitle }}
                 </a>
-                }@else {
-                   <a class="dropdown-item d-flex align-items-center gap-2" [href]="subItem.subLink">
-                  <i class="bi bi-box-arrow-in-left"></i> <!-- You can change this to other icons -->
-                  {{ subItem.subTitle }}
-                </a>
-                }
-               
               </li>
               }
             </ul>
@@ -44,5 +36,4 @@
     </div>
   </div>
 </nav>
-  }
-
+}

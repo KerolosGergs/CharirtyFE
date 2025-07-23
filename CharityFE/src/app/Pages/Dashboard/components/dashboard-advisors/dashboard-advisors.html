@@ -6,9 +6,9 @@
       <a  (click)="openCreateNew()" class="btn btn-outline-success d-flex align-items-center gap-2">
         <i class="bi bi-plus-circle me-2"></i> إضافة مستشار
       </a>
-      <button class="btn btn-outline-success d-flex align-items-center gap-2">
+      <!-- <button class="btn btn-outline-success d-flex align-items-center gap-2">
         <i class="bi bi-download me-2"></i> تصدير
-      </button>
+      </button> -->
     </div>
   </div>
   <!-- <app-new-advisor [isOpenC]="isOpen"></app-new-advisor> -->
@@ -53,10 +53,10 @@
             <td class="position-relative text-end">
               <div ngbDropdownMenu
                 class="  animate__animated animate__fadeIn p-2 text-center  d-flex align-items-center">
-                <a [routerLink]="['/dashboard/dashboard-advisor-details', item.id]"
+                <!-- <a [routerLink]="['/dashboard/dashboard-advisor-details', item.id]"
                   class="btn btn-icon-only btn-light rounded-circle m-1" title="عرض">
                   <i class="bi bi-eye"></i>
-                </a>
+                </a> -->
                 <a [routerLink]="['/dashboard/dashboard-advisor-edit', item.id]"
                   class="btn btn-icon-only btn-light rounded-circle m-1" title="تعديل">
                   <i class="bi bi-pencil"></i>
@@ -70,8 +70,6 @@
 
           </tr>
           }
-
-
         </tbody>
       </table>
     </div>

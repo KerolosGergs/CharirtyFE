@@ -3,15 +3,15 @@
     <div class="row align-items-center  justify-content-center">
 
       <!-- Logo -->
-      <div class="col-md-3">
+      <div class="col-md-1">
         <div class="logo-section">
           <img src="Images/img1.png" class=" my-1" width="70" height="80" alt="Logo">
         </div>
       </div>
 
       <!-- Contact Info -->
-      <div class="col-md-5 text-end">
-        <div class="contact-info d-flex justify-content-end gap-4">
+      <div class="col-md-3 text-end">
+        <div class="contact-info d-flex justify-content-center gap-4">
           <div class="contact-item d-flex align-items-center">
             <div class="icon-bg rounded-circle px-2 ms-2">
               <i class="bi bi-envelope-fill text-white"></i>
@@ -28,7 +28,7 @@
       </div>
 
       <!-- Action Buttons -->
-      <div class="col-md-4 d-flex justify-content-end">
+      <div class="col-md-8 d-flex justify-content-end">
         <div class="action-buttons d-flex gap-2 ">
 
           @if (token) {
@@ -53,7 +53,16 @@
               [iconButton]="''">
             </app-main-button></a>
           }
-
+             <a class="text-decoration-none text-white" href="http://109.166.90.247/Login.aspx"><app-main-button 
+              [buttonFunction]="go"
+              [buttontext]="'الخدمات الألكترونية'"
+              [iconButton]="''">
+            </app-main-button></a>
+            <a class="text-decoration-none text-white" href="http://109.166.90.247/Login.aspx"><app-main-button 
+              [buttonFunction]="go"
+              [buttontext]="'متجر التبرع'"
+              [iconButton]="''">
+            </app-main-button></a>
         </div>
       </div>
 

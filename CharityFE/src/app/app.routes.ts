@@ -36,7 +36,7 @@ export const routes: Routes = [
 
     {
         path: 'dashboard', loadComponent: () => import('../app/Pages/Dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard Main', children: [
-            { path: '', redirectTo: 'dashboard-main', pathMatch: 'full' },
+            { path: '', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Dashboard Main' },
             { path: 'dashboard-main', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Dashboard Main' },
             { path: 'dashboard-advisors', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-advisors/dashboard-advisors').then(m => m.DashboardAdvisors), title: 'Dashboard Advisors' },
             { path: 'dashboard-advisor-details/:id', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-advisors/components/dashboard-advisors-details/dashboard-advisors-details').then(m => m.DashboardAdvisorsDetails), title: 'Dashboard Advisor Details' },
@@ -68,7 +68,7 @@ export const routes: Routes = [
     },
     {
         path: 'advisor-dashboard', loadComponent: () => import('../app/Pages/advisor-dashboard/advisor-dashboard').then(m => m.AdvisorDashboard), title: 'Advisor Dashboard', children: [
-            { path: '', redirectTo: 'dashboard-main', pathMatch: 'full' },
+            { path: '', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Advisor Dashboard Main' },
             { path: 'dashboard-main', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Advisor Dashboard Main' },
             { path: 'dashboard-date', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-date/dashboard-date').then(m => m.DashboardDate), title: 'Advisor Dashboard Date' },
             { path: 'dashboard-schedule', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-schedule/dashboard-schedule').then(m => m.DashboardSchedule), title: 'Advisor Dashboard Schedule' },
@@ -77,7 +77,7 @@ export const routes: Routes = [
     },
     {
         path: 'reconcile-dashboard', loadComponent: () => import('../app/Pages/reconcile-dashboard/reconcile-dashboard').then(m => m.ReconcileDashboard), title: 'Reconcile Dashboard', children: [
-            { path: '', redirectTo: 'reconcile-main', pathMatch: 'full' },
+            { path: '', loadComponent: () => import('../app/Pages/reconcile-dashboard/components/reconcile-main/reconcile-main').then(m => m.ReconcileMain), title: 'Reconcile Main' },
             { path: 'reconcile-main', loadComponent: () => import('../app/Pages/reconcile-dashboard/components/reconcile-main/reconcile-main').then(m => m.ReconcileMain), title: 'Reconcile Main' }
         ]
     },
@@ -103,7 +103,7 @@ export const routes: Routes = [
             { path: 'board-members', loadComponent: () => import('./Pages/sid-components/about-layout/Components/board-members/board-members').then(m => m.BoardMembers), title: 'Board Members' },
             { path: 'board-duties', loadComponent: () => import('./Pages/sid-components/about-layout/Components/board-duties/board-duties').then(m => m.BoardDuties), title: 'Board Duties' },
             { path: 'organizational-structure', loadComponent: () => import('./Pages/sid-components/about-layout/Components/organizational-structure/organizational-structure').then(m => m.OrganizationalStructure), title: 'Organizational Structure' },
-            { path: '', pathMatch: 'full', redirectTo: 'about' }
+            { path: '', loadComponent: () => import('./Pages/sid-components/about-layout/Components/About/about-us').then(m => m.AboutUs), title: 'About' },
         ]
     }
     ,

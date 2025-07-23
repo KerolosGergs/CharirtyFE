@@ -1,6 +1,6 @@
 <div class="card mt-4 shadow-sm add-service-card">
   <div class="card-header bg-white">
-    <h5 class="my-3 text-center">تعديل الخدمة</h5>
+     <h5 class="my-3 text-center fs-2 text-success">تعديل الخدمة</h5>
   </div>
   <div class="card-body">
     <form [formGroup]="serviceForm" (ngSubmit)="submit()">
@@ -48,7 +48,7 @@
         <i class="fas fa-save"></i>
          حفظ التعديلات
       </button>
-      <button type="button" class="btn btn-outline-success w-100" routerLink="/dashboard/dashboard-services">
+      <button type="button" (click)="cancel()" class="btn btn-outline-success w-100" >
         <i class="fas fa-times"></i>
          إلغاء
       </button>

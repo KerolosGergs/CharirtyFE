@@ -12,6 +12,7 @@ import { ContactInfo, SocialMediaLink } from '../help-peopole/model/ihelp';
 import { CategoryOptions, RequestModel } from './model/ihelp';
 import { ContactInfoComponent } from "../contact-info/contact-info";
 import { Spinner } from "../../../../Shared/spinner/spinner";
+import { AuthServ } from '../../../../Auth/Services/auth-serv';
 
 @Component({
   selector: 'app-complaints',
@@ -26,8 +27,8 @@ export class Complaints {
   Router = inject(Router);
   requestForm!: FormGroup;
   categories = CategoryOptions;
-
-  userId = 'b09744b6-410d-449d-b89b-8dda1cbee185'; // fetched or injected
+  Auth = inject(AuthServ);
+  userId =  this.Auth.getUserID(); // fetched or injected
 
   Title = 'هل لديك شكوى أو ملاحظة؟';
   description = 'نحن نرحب بسماع صوتك ونسعى جاهدين لتحسين خدماتنا. إذا كانت لديك شكوى أو تجربة غير مرضية، نرجو منك تزويدنا بالتفاصيل عبر النموذج أدناه، وسيقوم فريقنا المختص بالتواصل معك في أقرب وقت ممكن.';

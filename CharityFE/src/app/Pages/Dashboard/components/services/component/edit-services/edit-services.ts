@@ -114,4 +114,7 @@ export class EditServices {
       }
     });
   }
+   cancel(): void {
+    this.router.navigate(['/dashboard/dashboard-services']);
+  }
 }

@@ -16,6 +16,8 @@ export interface IComplaintDTO {
   id: number;
   userId: string;
   userName: string;
+  email:string;
+  phoneNumber:string;
   title: string;
   description: string;
   category: ComplaintCategory;

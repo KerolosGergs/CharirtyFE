@@ -1,6 +1,6 @@
 <div class="card mt-4 shadow-sm add-service-card">
   <div class="card-header bg-white">
-    <h5 class="my-3 text-center">إضافة خدمة جديدة</h5>
+    <h5 class="my-3 text-center fs-2 text-success">إضافة خدمة جديدة</h5>
   </div>
   <div class="card-body">
     <form [formGroup]="serviceForm" (ngSubmit)="submit()">
@@ -48,7 +48,7 @@
         <i class="fas fa-plus"></i>
          نشر
       </button>
-      <button type="submit" class="btn btn-outline-success w-100">
+      <button (click)="cancel()" class="btn btn-outline-success w-100">
         <i class="fas fa-plus"></i>
          الغاء
       </button>
