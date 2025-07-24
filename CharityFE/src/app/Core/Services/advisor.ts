@@ -1,9 +1,11 @@
   import { Environment } from './../../../Environment/environment';
   import { inject, Injectable } from '@angular/core';
-  import { IAdvisor, IAdvisorResponse, ICategory, ICategoryResponse,  ICreateAdvisor, advisor, getAdvisorByIdResponse, DeleateAdvisorResponse } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
-  import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+  import { IAdvisorResponse, ICategoryResponse, getAdvisorByIdResponse, DeleateAdvisorResponse } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
+  import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
   import { map, Observable, catchError, throwError } from 'rxjs';
-import { Availbity, AvailbityResponse } from '../Interfaces/iappointment';
+import { AvailbityResponse } from '../Interfaces/iappointment';
+import { AdvisorAvailabilityDTO, ConsultationType } from './makingrequest';
+import { AdvisorAvailabilityDTOO, ApiResponse } from '../Interfaces/iadvisorappointment';
 
   @Injectable({
     providedIn: 'root'
@@ -86,6 +88,27 @@ import { Availbity, AvailbityResponse } from '../Interfaces/iappointment';
     );
   }
 
+  getAvailableSlots(advisorId: number, date: Date): Observable<AdvisorAvailabilityDTOO[]> {
+    const dateString = date.toISOString();
+    const params = new HttpParams().set('date', dateString);
+
+    return this._httpClient.get<ApiResponse<AdvisorAvailabilityDTOO[]>>(`${this._baseUrl}${advisorId}/available-slots`, { params } )
+      .pipe(
+        map(response => response.data) // Extract the data array from the API response
+      );
+  }
+
+  getAvailableSlotsByType(advisorId: number, date: Date, consultationType: ConsultationType): Observable<AdvisorAvailabilityDTOO[]> {
+    const dateString = date.toISOString();
+    let params = new HttpParams()
+      .set('date', dateString)
+      .set('consultationType', consultationType.toString());
+
+    return this._httpClient.get<ApiResponse<AdvisorAvailabilityDTOO[]>>(`${this._baseUrl}${advisorId}/available-slots-by-type`, { params } )
+      .pipe(
+        map(response => response.data)
+      );
+  }
 
 
   //     Consultants:IAdvisor[] = [
