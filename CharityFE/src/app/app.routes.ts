@@ -6,11 +6,13 @@ import { Consultant } from './Pages/Consultant/all-consultants/consultant';
 import { Questions } from './Pages/questions/questions';
 import { OurService } from './Pages/Home/our-service/our-service';
 import { RequestRepair } from './Pages/Forms/Components/request-repair/request-repair';
+import { MedcineGeneralDefinition } from './Pages/sid-components/Medcine_service/components/medcine-general-definition/medcine-general-definition';
+
 // import { Achive } from './Pages/achievements-communication/achive/achive';
 
 export const routes: Routes = [
 
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
     { path: 'login', component: LoginForm },
     { path: 'register', component: RegisterForm },
     { path: 'home', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
@@ -18,8 +20,9 @@ export const routes: Routes = [
     { path: 'Satisfaction', loadComponent: () => import('./Pages/sid-components/Complain/satisfaction/satisfaction').then(m => m.Satisfaction), title: 'Satisfaction' },
     // Forms 
     { path: 'HelpPeopole', loadComponent: () => import('./Pages/Forms/Components/help-peopole/help-peopole').then(m => m.HelpPeopole), title: 'HelpPeopole' },
-    { path: 'RequesrRepair', component: RequestRepair, title: 'RequestRepair' },
+    { path: 'RequesrRepair', loadComponent:() =>  import('./Pages/Forms/Components/request-repair/request-repair').then(m => m.RequestRepair), title: 'RequestRepair' },
     { path: 'complaints', loadComponent: () => import('./Pages/Forms/Components/complaints/complaints').then(m => m.Complaints), title: 'Complaints' },
+    { path: 'Voulenteer', loadComponent: () => import('./Pages/Forms/Components/volunteer/volunteer').then(m => m.VolunteerComponent), title: 'Complaints' },
 
     { path: 'our-service', component: OurService, title: 'Our Service' },
 
@@ -86,6 +89,7 @@ export const routes: Routes = [
         loadComponent: () => import('./Pages/sid-components/about-layout/about-layout').then(m => m.AboutLayout),
         title: 'About Layout',
         children: [
+            { path: '', loadComponent: () => import('./Pages/sid-components/about-layout/Components/About/about-us').then(m => m.AboutUs), title: 'About' },
             { path: 'about', loadComponent: () => import('./Pages/sid-components/about-layout/Components/About/about-us').then(m => m.AboutUs), title: 'About' },
             { path: 'about-summary', loadComponent: () => import('./Pages/sid-components/about-layout/Components/AboutSummary/about-summary.component').then(m => m.AboutSummaryComponent), title: 'About Summary' },
             { path: 'association', loadComponent: () => import('./Pages/sid-components/about-layout/Components/AssociationSectors/association-sectors.component').then(m => m.AssociationSectorsComponent), title: 'Association Sectors' },
@@ -103,10 +107,52 @@ export const routes: Routes = [
             { path: 'board-members', loadComponent: () => import('./Pages/sid-components/about-layout/Components/board-members/board-members').then(m => m.BoardMembers), title: 'Board Members' },
             { path: 'board-duties', loadComponent: () => import('./Pages/sid-components/about-layout/Components/board-duties/board-duties').then(m => m.BoardDuties), title: 'Board Duties' },
             { path: 'organizational-structure', loadComponent: () => import('./Pages/sid-components/about-layout/Components/organizational-structure/organizational-structure').then(m => m.OrganizationalStructure), title: 'Organizational Structure' },
-            { path: '', loadComponent: () => import('./Pages/sid-components/about-layout/Components/About/about-us').then(m => m.AboutUs), title: 'About' },
         ]
-    }
-    ,
+    },
+    {
+        path: 'medcineLayout', loadComponent: () => import('./Pages/sid-components/Medcine_service/medcine-layout/medcine-layout').then(m => m.MedcineLayout), title: 'MedcineLayout',
+        children: [
+
+            { path: '', component: MedcineGeneralDefinition, title: 'medicine' },
+            { path: 'GeneralDefinition', loadComponent: () => import('./Pages/sid-components/Medcine_service/components/medcine-general-definition/medcine-general-definition').then(m => m.MedcineGeneralDefinition), title: 'MedcineGeneralDefinition' },
+            { path: 'MedicalCenter', loadComponent: () => import('./Pages/sid-components/Medcine_service/components/medical-center/medical-center').then(m => m.MedicalCenter), title: 'MedicalCenter' },
+            { path: 'HairingCenter', loadComponent: () => import('./Pages/sid-components/Medcine_service/components/hearing-center/hearing-center').then(m => m.HearingCenter), title: 'HairingCenter' },
+        ]   
+    },
+    {
+        path:'support-layout', loadComponent: () => import('./Pages/sid-components/support/support-layout/support-layout').then(m => m.SupportLayout), title: 'SupportLayout',
+        children: [
+            {path:'', loadComponent() {return import('./Pages/sid-components/support/components/bank-accounts/bank-accounts').then(m => m.BankAccounts);}, title: 'BankAccounts'},
+            {path:'bank-accounts', loadComponent() {return import('./Pages/sid-components/support/components/bank-accounts/bank-accounts').then(m => m.BankAccounts);}, title: 'BankAccounts'},
+            // {path:'financial-accounts', component: FinancialAccounts, title: 'FinancialAccounts'},
+            // {path:'bank-accounts', component: BankAccounts, title: 'BankAccounts'},
+        ]
+    },
+    {
+        path:'volunteer-layout', loadComponent: () => import('./Pages/sid-components/Voulnteree-Layout/volunteer/volunteer').then(m => m.Volunteer), title: 'Volunteer',
+        children: [
+            {path:'', loadComponent() {return import('./Pages/sid-components/Voulnteree-Layout/components/unit/unit').then(m => m.Unit);}, title: 'Unit'},
+            {path:'unit', loadComponent() {return import('./Pages/sid-components/Voulnteree-Layout/components/unit/unit').then(m => m.Unit);}, title: 'Unit'},
+            {path:'volunteer-medical', loadComponent() {return import('./Pages/sid-components/Voulnteree-Layout/components/medical-volunteering/medical-volunteering').then(m => m.MedicalVolunteering);}, title: 'VolunteerMedical'},
+        ]
+    },
+    {
+        path:'investment-layout', loadComponent: () => import('./Pages/sid-components/Investment-projects/invest-layout/invest-layout').then(m => m.InvestLayout), title: 'InvestmentLayout',
+        children: [
+            {path:'', loadComponent() {return import('./Pages/sid-components/Investment-projects/components/real-state/real-state').then(m => m.RealState);}, title: 'RealState'},
+            {path:'real-state', loadComponent() {return import('./Pages/sid-components/Investment-projects/components/real-state/real-state').then(m => m.RealState);}, title: 'RealState'},
+            {path:'invest-project', loadComponent() {return import('./Pages/sid-components/Investment-projects/components/invest-project/invest-project').then(m => m.InvestProject);}, title: 'InvestProject'},
+        ]   
+    },
+    {
+        path:'help-layout', loadComponent: () => import('./Pages/sid-components/Help-Layout/help-layout/help-layout').then(m => m.HelpLayout), title: 'HelpLayout',
+        children: [
+            {path:'', loadComponent() {return import('./Pages/sid-components/Help-Layout/components/we-offer/we-offer').then(m => m.WeOffer);}, title: 'WeOffer'},
+            {path:'we-offer', loadComponent() {return import('./Pages/sid-components/Help-Layout/components/we-offer/we-offer').then(m => m.WeOffer);}, title: 'WeOffer'},
+            {path:'eligible', loadComponent() {return import('./Pages/sid-components/Help-Layout/components/eligible/eligible').then(m => m.Eligible);}, title: 'Eligible'},
+            {path:'requirements', loadComponent() {return import('./Pages/sid-components/Help-Layout/components/required-documents/required-documents').then(m => m.RequiredDocuments);}, title: 'Requirements'},
+        ]
+    },
 
     { path: 'questions', component: Questions, title: 'Questions' },
 

@@ -2,12 +2,12 @@
   <div class="row">
 
     <!-- Sidebar -->
-    <nav class="col-md-3 col-lg-2 bg-light sidebar p-3 animate__animated animate__fadeInLeft">
+    <nav class="col-md-3 col-lg-2 sidebar p-3 animate__animated animate__fadeInLeft bg-light vh-100 d-flex flex-column">
       <div class="text-center mb-4">
         <img class="w-100" src="Images/logo.png" alt="Logo">
       </div>
 
-      <ul class="nav flex-column">
+      <ul class="nav flex-column flex-grow-1">
         @for (item of sidebarItems; track $index) {
         <li class="nav-item">
           <a class="text-decoration-none text-dark nav-link d-flex align-items-center py-2" [routerLink]="item.link"
@@ -19,6 +19,7 @@
         }
       </ul>
     </nav>
+
 
     <!-- Main Content -->
     <main class="col-md-9 col-lg-10 px-md-4 main-content animate__animated animate__fadeInUp">

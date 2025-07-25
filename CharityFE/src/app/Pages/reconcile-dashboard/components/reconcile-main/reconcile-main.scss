@@ -1,23 +1,58 @@
+@import 'animate.css';
+
 .search-bar input {
   flex: 1;
 }
 
-.card-body {
-  flex-wrap: wrap;
+.nav-tabs {
+  border-bottom: none;
 }
 
-.card-body h5,
-.card-body p,
-.card-body small {
-  margin: 0;
-  white-space: nowrap;
+.nav-tabs .nav-link {
+  cursor: pointer;
+  color: black !important;
+  background-color: transparent !important;
+  border: none !important;
 }
 
-.card-body .btn {
-  white-space: nowrap;
+.nav-tabs .nav-link.active {
+  color: black !important;
+  font-weight: bold;
+  border-bottom: 2px solid black;
 }
 
-.info {
-  gap: 1rem;
-  flex-wrap: wrap;
+.complaint-card {
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .card-body {
+    padding: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .complaint-field {
+    label {
+      font-weight: 600;
+      color: #198754;
+      font-size: 0.95rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    div {
+      font-size: 0.95rem;
+      color: #212529;
+    }
+  }
+
+  button.btn {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+  }
 }

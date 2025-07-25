@@ -1,0 +1,96 @@
+<app-header-component></app-header-component>
+<app-nav></app-nav>
+  <app-header-component-consultant
+    title="نسعى للصلح... لننعم جميعًا بالأمان والسكينة"
+    description="في سعينا لبناء مجتمع مطمئن ومتآلف، نعمل على إصلاح ذات البين وحل النزاعات الأسرية والاجتماعية بروح المحبة والحكمة."
+  ></app-header-component-consultant>
+@defer {
+<div class="help-container animate__animated animate__fadeInUp">
+  <div class="row g-4">
+    <!-- Volunteer Form -->
+    <div class="col-lg-6 animate__animated animate__fadeInRight">
+      <div class="bg-white p-4 rounded-3 shadow-sm">
+        <div class="text-center mb-4">
+          <h3 class="text-dark fs-4">{{ formSection.title }}</h3>
+        </div>
+
+        <form [formGroup]="volunteerForm" (ngSubmit)="submit()" class="p-4 animate__animated animate__fadeInUp">
+          <div class="row g-3">
+            <!-- First Name -->
+            <div class="col-md-6">
+              <label class="form-label fw-semibold"><i class="bi bi-person ms-2"></i>الاسم الأول</label>
+              <input type="text" class="form-control" formControlName="firstName" placeholder="أدخل الاسم الأول">
+              @if (volunteerForm.get('firstName')?.touched && volunteerForm.get('firstName')?.invalid) {
+              <span class="text-danger small">الاسم الأول مطلوب</span>
+              }
+            </div>
+            <!-- Last Name -->
+            <div class="col-md-6">
+              <label class="form-label fw-semibold"><i class="bi bi-person ms-2"></i>الاسم الأخير</label>
+              <input type="text" class="form-control" formControlName="lastName" placeholder="أدخل الاسم الأخير">
+              @if (volunteerForm.get('lastName')?.touched && volunteerForm.get('lastName')?.invalid) {
+              <span class="text-danger small">الاسم الأخير مطلوب</span>
+              }
+            </div>
+            <!-- Email -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-envelope ms-2"></i>البريد الإلكتروني</label>
+              <input type="email" class="form-control" formControlName="email" placeholder="أدخل البريد الإلكتروني">
+              @if (volunteerForm.get('email')?.touched && volunteerForm.get('email')?.invalid) {
+              <span class="text-danger small">البريد الإلكتروني مطلوب ويجب أن يكون صالحًا</span>
+              }
+            </div>
+            <!-- Phone Number -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-telephone ms-2"></i>رقم الهاتف</label>
+              <input type="text" class="form-control" formControlName="phoneNumber" placeholder="أدخل رقم الهاتف">
+              @if (volunteerForm.get('phoneNumber')?.touched && volunteerForm.get('phoneNumber')?.invalid) {
+              <span class="text-danger small">رقم الهاتف مطلوب</span>
+              }
+            </div>
+            <!-- Date of Birth -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-calendar ms-2"></i>تاريخ الميلاد</label>
+              <input type="date" class="form-control" formControlName="dateOfBirth">
+              @if (volunteerForm.get('dateOfBirth')?.touched && volunteerForm.get('dateOfBirth')?.invalid) {
+              <span class="text-danger small">تاريخ الميلاد مطلوب</span>
+              }
+            </div>
+            <!-- Address -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-geo-alt ms-2"></i>العنوان</label>
+              <input type="text" class="form-control" formControlName="address" placeholder="أدخل العنوان">
+              @if (volunteerForm.get('address')?.touched && volunteerForm.get('address')?.invalid) {
+              <span class="text-danger small">العنوان مطلوب</span>
+              }
+            </div>
+            <!-- Education -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-book ms-2"></i>التعليم</label>
+              <input type="text" class="form-control" formControlName="education" placeholder="أدخل المؤهل التعليمي">
+              @if (volunteerForm.get('education')?.touched && volunteerForm.get('education')?.invalid) {
+              <span class="text-danger small">التعليم مطلوب</span>
+              }
+            </div>
+            <!-- Submit -->
+            <div class="col-12 text-center mt-3">
+              <button class="btn btn-success" type="submit" [disabled]="volunteerForm.invalid">
+                <i class="bi bi-check-circle me-2"></i>إرسال طلب التطوع
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-6 animate__animated animate__fadeInLeft my-auto">
+      <div class="bg-white p-4 rounded-3 shadow-sm">
+        <app-contact-info></app-contact-info>
+      </div>
+    </div>
+  </div>
+</div>
+}@placeholder {
+  <app-spinner></app-spinner>
+}
+
+<app-footer></app-footer>

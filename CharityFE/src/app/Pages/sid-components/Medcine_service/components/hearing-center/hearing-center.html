@@ -1,0 +1,156 @@
+<div class="medical-center container-fluid animate__animated animate__fadeInUp">
+    <!-- Header Section -->
+    <div class="header-section">
+        <h1>
+            <i class="bi bi-hospital"></i>
+          مركز السمع والنطق
+        </h1>
+    </div>
+
+    <!-- Image Section -->
+    <div class="image-section animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="image-gallery">
+            <img src="/hearingCenter/1.jpg" alt="مستوصف - المنظر الخارجي" class="gallery-image"
+                (click)="openImageModal('/hearingCenter/1.jpg')">
+            <img src="/hearingCenter/2.png" alt="قسم التخاطب" class="gallery-image"
+                (click)="openImageModal('/hearingCenter/2.png')">
+            <img src="/hearingCenter/3.png" alt="أجهزة السمعيات" class="gallery-image"
+                (click)="openImageModal('/hearingCenter/3.png')">
+            <img src="/hearingCenter/4.png" alt="الحضانة الطبية" class="gallery-image"
+                (click)="openImageModal('/hearingCenter/4.png')">
+            <img src="/hearingCenter/5.png" alt="الحضانة الطبية" class="gallery-image"
+                (click)="openImageModal('/hearingCenter/5.png')">
+            <img src="/hearingCenter/6.png" alt="الحضانة الطبية" class="gallery-image"
+                (click)="openImageModal('/hearingCenter/6.png')">
+
+        </div>
+    </div>
+
+    <!-- Manager and Contact Information -->
+    <div class="info-section animate__animated animate__fadeInUp animate__delay-2s">
+        <h3><i class="bi bi-person-badge"></i>معلومات المدير</h3>
+        <p><strong>مدير المركز:</strong> أحمد بن صديق جستنيه</p>
+        <p><strong>الهاتف:</strong> <a href="tel:0125207311">0125207311</a></p>
+        <p><strong>تحويلة:</strong> ١١١</p>
+    </div>
+
+    <!-- Location Information -->
+    <div class="location-section animate__animated animate__fadeInUp animate__delay-3s">
+        <h3><i class="bi bi-geo-alt"></i>الموقع</h3>
+        <p><strong>العنوان:</strong> مكة المكرمة – النوارية</p>
+    </div>
+
+    <!-- Departments Section -->
+    <div class="departments-section animate__animated animate__fadeInUp animate__delay-4s">
+        <h3><i class="bi bi-list-check"></i>أقسام المركز</h3>
+        <div class="accordion" id="departmentsAccordion">
+            <!-- ENT Department -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingENT">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseENT" aria-selected="1" aria-expanded="true"
+                        aria-controls="collapseENT">
+                        ١ - قسم الأنف والأذن والحنجرة
+                    </button>
+                </h2>
+                <div id="collapseENT" class="accordion-collapse collapse" aria-labelledby="headingENT"
+                    data-bs-parent="#departmentsAccordion">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>الفحص الحنجري بالمنظار</li>
+                            <li>تحليل الصوت بالكمبيوتر</li>
+                            <li>تشخيص وعلاج أمراض اللغة والكلام</li>
+                            <li>استئصال اللوزتين واللحمية</li>
+                            <li>علاج أورام الحلق والحنجرة</li>
+                            <li>مناظير الجيوب الأنفية</li>
+                            <li>شق الطبلة وتركيب الأنابيب</li>
+                            <li>ترقيع طبلة الأذن</li>
+                            <li>التنسيق لزراعة القوقعة</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Speech Therapy Department -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingSpeech">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseSpeech" aria-expanded="false" aria-controls="collapseSpeech">
+                        ٢ - قسم التخاطب
+                    </button>
+                </h2>
+                <div id="collapseSpeech" class="accordion-collapse collapse" aria-labelledby="headingSpeech"
+                    data-bs-parent="#departmentsAccordion">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>التأخر اللغوي عند الأطفال</li>
+                            <li>التوحد</li>
+                            <li>قصور الانتباه وفرط الحركة</li>
+                            <li>التلعثم والتأتأة</li>
+                            <li>صعوبة التعلم</li>
+                            <li>الحبسة الكلامية</li>
+                            <li>فقدان اللغة بعد الإصابة الدماغية</li>
+                            <li>البحة الصوتية</li>
+                            <li>صعوبة البلع</li>
+                            <li>اضطرابات الصوت</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Audiology Department -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingAudiology">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseAudiology" aria-expanded="false" aria-controls="collapseAudiology">
+                        ٣ - قسم السمعيات
+                    </button>
+                </h2>
+                <div id="collapseAudiology" class="accordion-collapse collapse" aria-labelledby="headingAudiology"
+                    data-bs-parent="#departmentsAccordion">
+                    <div class="accordion-body">
+                        <ul>
+                            <li>تخطيط السمع بالكمبيوتر</li>
+                            <li>قياس ضغط الأذن الوسطى</li>
+                            <li>قياس انبعاث الصوت</li>
+                            <li>المسح السمعي للأطفال حديثي الولادة</li>
+                            <li>معايرة وصيانة السماعات الطبية</li>
+                            <li>صنع القالب السمعي</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Specialized Nursery Department -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingNursery">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#collapseNursery" aria-expanded="false" aria-controls="collapseNursery">
+                        ٤ - الحضانة الطبية التخصصية
+                    </button>
+                </h2>
+                <div id="collapseNursery" class="accordion-collapse collapse" aria-labelledby="headingNursery"
+                    data-bs-parent="#departmentsAccordion">
+                    <div class="accordion-body">
+                        <p>أنشأت برنامجاً تأهيلياً متكاملاً للأطفال بين عمر 2-6 سنوات الذين يعانون اضطرابات في السمع
+                            والتخاطب، ويهدف البرنامج إلى تنمية قدرات الأطفال في كافة المهارات المعرفية الأساسية والتي
+                            تشمل المهارات الإدراكية، السلوكية، الاجتماعية، اللغوية والحركية، ينفذ البرنامج نخبة من حملة
+                            الشهادات العليا والاستشاريين والأخصائيين في أمراض التخاطب ومدرسات رياض الأطفال وأخصائي
+                            القياس النفسي</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="custom-close" (click)="closeImageModal()" aria-label="Close">×</button>
+      </div>
+      <div class="modal-body text-center">
+        <img [src]="selectedImage" class="img-fluid rounded" alt="صورة المستوصف">
+      </div>
+    </div>
+  </div>
+</div>

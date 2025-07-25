@@ -16,7 +16,9 @@ export class VideoSection implements OnInit {
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrlRaw);
+  }
 
   playVideo(): void {
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrlRaw);

@@ -1,0 +1,308 @@
+:root {
+  --primary-50: #e6eeeb;
+  --primary-100: #b1cbbf;
+  --primary-200: #8bb1a1;
+  --primary-300: #558e76;
+  --primary-400: #35785b;
+  --primary-500: #025632;
+  --primary-600: #024e2e;
+  --primary-700: #013d24;
+  --primary-800: #012f1c;
+  --primary-900: #012415;
+
+  --secondary-50: #f9f1ea;
+  --secondary-100: #ebd5bd;
+  --secondary-200: #e1c09d;
+  --secondary-300: #d3a370;
+  --secondary-400: #cb9155;
+  --secondary-500: #be762a;
+  --secondary-600: #ad6b26;
+  --secondary-700: #87541e;
+  --secondary-800: #694117;
+  --secondary-900: #503212;
+
+  --font-family: 'Cairo', 'sans-serif';
+}
+
+.medical-administration-container {
+  direction: rtl;
+  text-align: right;
+  padding: 2.5rem 1.5rem;
+  background: linear-gradient(135deg, var(--primary-50) 0%, #f5f7fa 100%);
+  min-height: 100vh;
+  font-family: var(--font-family);
+
+  .header-section {
+    background: linear-gradient(90deg, var(--primary-500), var(--primary-400));
+    border-radius: 1.5rem;
+    color: #fff;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+    i {
+      font-size: 3rem;
+      transition: transform 0.3s ease;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+    }
+
+    &:hover i {
+      transform: scale(1.1);
+    }
+  }
+
+  .card {
+    border: none;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-header {
+      background: linear-gradient(90deg, var(--primary-500), var(--primary-400));
+      color: #fff;
+      border-radius: 1.5rem 1.5rem 0 0;
+      padding: 1.5rem 2rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .card-body {
+      padding: 2rem;
+      font-size: 1.25rem;
+    }
+  }
+
+  .statistics-section {
+    .card {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 1rem;
+
+      i {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-900);
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        font-size: 1.25rem;
+        color: var(--primary-800);
+      }
+    }
+  }
+
+  .accordion-item {
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background: #fff;
+
+    .accordion-button {
+      background-color: var(--primary-50);
+      font-size: 1.25rem;
+      font-weight: 600;
+      padding: 1.5rem;
+      color: var(--primary-900);
+
+      &:not(.collapsed) {
+        background: var(--primary-300);
+        color: #fff;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+    .accordion-body {
+      background-color: #fff;
+      font-size: 1.2rem;
+      line-height: 1.8;
+      padding: 1.5rem 2rem;
+    }
+  }
+
+  .nav-pills {
+    .nav-link {
+      border-radius: 50px;
+      margin: 0 0.5rem;
+      padding: 0.8rem 1.5rem;
+      font-size: 1.25rem;
+      font-weight: 500;
+      background: var(--primary-100);
+      color: var(--primary-900);
+      transition: all 0.3s ease;
+
+      &.active {
+        background: var(--primary-500);
+        color: #fff;
+      }
+
+      .badge {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+      }
+    }
+  }
+
+  .staff-member-card {
+    .card {
+      text-align: center;
+      padding: 1.5rem;
+
+      i {
+        font-size: 2.5rem;
+        color: var(--primary-500);
+        margin-bottom: 1rem;
+      }
+
+      h6 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        color: var(--primary-900);
+      }
+
+      .badge {
+        font-size: 1rem;
+        background-color: var(--secondary-100);
+        color: var(--secondary-800);
+        padding: 0.5rem 1rem;
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    padding: 1.5rem;
+
+    .header-section {
+      padding: 1.5rem;
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+      }
+
+      i {
+        font-size: 2.5rem;
+      }
+    }
+
+    .statistics-section {
+      .card {
+        h2 {
+          font-size: 2rem;
+        }
+
+        p {
+          font-size: 1.1rem;
+        }
+      }
+    }
+
+    .card-header {
+      font-size: 1.25rem;
+    }
+
+    .card-body {
+      font-size: 1.1rem;
+    }
+
+    .nav-pills .nav-link {
+      font-size: 1.1rem;
+      padding: 0.6rem 1.2rem;
+    }
+
+    .staff-member-card {
+      .card {
+        h6 {
+          font-size: 1.2rem;
+        }
+
+        .badge {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    padding: 1rem;
+
+    .header-section {
+      padding: 1rem;
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      i {
+        font-size: 2rem;
+      }
+    }
+
+    .statistics-section {
+      .card {
+        h2 {
+          font-size: 1.75rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .nav-pills {
+      flex-wrap: wrap;
+
+      .nav-link {
+        font-size: 1rem;
+        margin: 0.3rem;
+        padding: 0.5rem 1rem;
+      }
+    }
+
+    .staff-member-card {
+      .card {
+        h6 {
+          font-size: 1.1rem;
+        }
+
+        .badge {
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}

@@ -10,29 +10,29 @@
       </div>
 
       <!-- Contact Info -->
-      <div class="col-md-3 text-end">
+      <div class="col-md-4 text-end">
         <div class="contact-info d-flex justify-content-center gap-4">
           <div class="contact-item d-flex align-items-center">
             <div class="icon-bg rounded-circle px-2 ms-2">
-              <i class="bi bi-envelope-fill text-white"></i>
+              <i class="bi bi-envelope-fill text-white fs-5"></i>
             </div>
-            <span>456-7890 (123)</span>
+            <span class="fw-bold">456-7890 (123)</span>
           </div>
           <div class="contact-item d-flex align-items-center">
             <div class="icon-bg rounded-circle px-2 ms-2">
-              <i class="bi bi-telephone-fill text-white"></i>
+              <i class="bi bi-telephone-fill text-white fs-5"></i>
             </div>
-            <span>456-7890 (123)</span>
+            <span class="fw-bold ">456-7890 (123)</span>
           </div>
         </div>
       </div>
 
       <!-- Action Buttons -->
-      <div class="col-md-8 d-flex justify-content-end">
+      <div class="col-md-7 d-flex justify-content-end">
         <div class="action-buttons d-flex gap-2 ">
 
           @if (token) {
-              <button class="btn  btn-lg  px-4 py-2 hero-btn-secondary d-flex align-items-center"
+              <button class="btn  btn-md  px-3 py-1 hero-btn-secondary d-flex align-items-center"
                     (click)="Dashbord()">
                     لوحة التحكم
             </button>
@@ -47,7 +47,7 @@
               تسجيل الخروج
             </button>
           } @else {
-          <a class="text-decoration-none text-white"  routerLink="/login"><app-main-button 
+          <a class="text-decoration-none text-white "  routerLink="/login"><app-main-button 
               [buttonFunction]="login"
               [buttontext]="'تسجيل الدخول'"
               [iconButton]="''">

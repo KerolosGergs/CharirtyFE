@@ -1,0 +1,180 @@
+
+
+.required-documents {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(2, 86, 50, 0.1);
+
+  .header-section {
+    background: linear-gradient(90deg, var(--primary-500), var(--primary-400));
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    color: white;
+    margin-bottom: 2rem;
+
+    h1 {
+      font-weight: 700;
+      line-height: 1.3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        font-size: 2.5rem;
+        margin-left: 0.75rem;
+      }
+    }
+  }
+
+  .conditions-section {
+    h3 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--primary-700);
+      display: flex;
+      align-items: center;
+
+      i {
+        font-size: 2rem;
+        margin-left: 0.5rem;
+        color: var(--primary-500);
+      }
+    }
+
+    .condition-card {
+      border: 1px solid var(--primary-100);
+      border-radius: 0.75rem;
+      transition: all 0.3s ease;
+      background: white;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        border-color: var(--primary-300);
+      }
+
+      .card-body {
+        padding: 2rem;
+
+        i {
+          font-size: 4rem;
+          color: var(--primary-500);
+        }
+
+        .card-text {
+          font-size: 1.2rem;
+          color: var(--primary-900);
+          line-height: 1.8;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  /* Animations */
+  .animate__fadeInUp {
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .required-documents {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+
+    .header-section {
+      padding: 1rem;
+
+      h1 {
+        font-size: 1.75rem;
+
+        i {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .conditions-section {
+      h3 {
+        font-size: 1.5rem;
+
+        i {
+          font-size: 1.75rem;
+        }
+      }
+
+      .condition-card {
+        .card-body {
+          padding: 1.5rem;
+
+          i {
+            font-size: 3.5rem;
+          }
+
+          .card-text {
+            font-size: 1.1rem;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .required-documents {
+      margin: 0.75rem;
+      padding: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .header-section {
+      padding: 0.75rem;
+
+      h1 {
+        font-size: 1.5rem;
+
+        i {
+          font-size: 1.75rem;
+        }
+      }
+    }
+
+    .conditions-section {
+      h3 {
+        font-size: 1.3rem;
+
+        i {
+          font-size: 1.5rem;
+        }
+      }
+
+      .condition-card {
+        .card-body {
+          padding: 1rem;
+
+          i {
+            font-size: 3rem;
+          }
+
+          .card-text {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+}
