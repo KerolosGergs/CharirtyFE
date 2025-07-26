@@ -19,7 +19,7 @@ export class RequestRepairService {
   //   return this._httpClient.get<IHelpType[]>(URL).pipe();
   //  }
    AddRequestRapir(help: any): Observable<{success: boolean}> {
-     return this._httpClient.post<{success: boolean}>(this.Url + `ReconcileRequest?userId=${this.authServ.getUserID()}`, help);
+     return this._httpClient.post<{success: boolean}>(this.Url + `ReconcileRequest/UserId?UserId=${this.authServ.getUserID()}`, help);
    }
   
 

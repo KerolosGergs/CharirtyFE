@@ -1,10 +1,9 @@
 import { Component, computed, HostListener, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { HeadDashboard } from "../../Shared/head-dashboard/head-dashboard";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [RouterLink, RouterOutlet, RouterLinkActive, HeadDashboard],
+  imports: [RouterLink, RouterOutlet,RouterLinkActive],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })

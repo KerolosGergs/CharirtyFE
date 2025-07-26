@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IReconcileRequestDTO } from '../../../../Core/Interfaces/ireconcilerequest';
 import { Reconcilerequest } from '../../../../Core/Services/reconcilerequest';
 import { FormsModule, NgModel } from '@angular/forms';
@@ -11,11 +11,9 @@ import { FormsModule, NgModel } from '@angular/forms';
   templateUrl: './reconcile-main.html',
   styleUrl: './reconcile-main.scss'
 })
-export class ReconcileMain implements OnInit {
+export class ReconcileMain {
   requests: IReconcileRequestDTO[] = [];
   searchText: string = '';
-  sections: string[] = ['الكل', 'موافقة', 'مرفوضة', 'بانتظار المراجعة'];
-  selectedSection: string = 'الكل';
 
   constructor(private reconcileService: Reconcilerequest) {}
 
@@ -30,26 +28,15 @@ export class ReconcileMain implements OnInit {
           this.requests = res.data;
         }
       },
-      error: (err) => console.error('فشل تحميل الطلبات', err)
+      error: (err) => console.error('Failed to load requests', err)
     });
   }
 
- get filteredRequests(): IReconcileRequestDTO[] {
-  return this.requests.filter(r => {
-    const matchesSection = this.selectedSection === 'الكل'; // No status field, so default match
-    const search = this.searchText.toLowerCase();
-    const matchesSearch =
-      r.name?.toLowerCase().includes(search) ||
-      r.email?.toLowerCase().includes(search) ||
-      r.phoneNumber?.includes(search) ||
-      r.requestText?.toLowerCase().includes(search);
-
-    return matchesSection && matchesSearch;
-  });
-}
-
-  selectSection(section: string): void {
-    this.selectedSection = section;
+  get filteredRequests(): IReconcileRequestDTO[] {
+    return this.requests.filter(r =>
+      r.name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      r.email.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
 
   deleteRequest(request: IReconcileRequestDTO): void {
@@ -60,8 +47,9 @@ export class ReconcileMain implements OnInit {
             this.requests = this.requests.filter(r => r.id !== request.id);
           }
         },
-        error: (err) => console.error('فشل حذف الطلب', err)
+        error: (err) => console.error('Failed to delete request', err)
       });
     }
   }
+
 }

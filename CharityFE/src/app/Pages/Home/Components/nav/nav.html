@@ -20,18 +20,10 @@
             <ul class="dropdown-menu custom-dropdown mt-1" [class.show]="item === activeItem">
               @for (subItem of item.subLibels; track $index) {
               <li>
-                @if (item.label == 'المشاركة في الدعم'&& subItem.subTitle == 'الحصول على الخدمة') {
-                  <a class="dropdown-item d-flex align-items-center gap-2" [href]="subItem.subLink">
+                <a class="dropdown-item d-flex align-items-center gap-2" [routerLink]="subItem.subLink">
                   <i class="bi bi-box-arrow-in-left"></i> <!-- You can change this to other icons -->
                   {{ subItem.subTitle }}
                 </a>
-                }@else {
-                  <a class="dropdown-item d-flex align-items-center gap-2" [routerLink]="subItem.subLink">
-                  <i class="bi bi-box-arrow-in-left"></i> <!-- You can change this to other icons -->
-                  {{ subItem.subTitle }}
-                </a>
-                }
-                
               </li>
               }
             </ul>

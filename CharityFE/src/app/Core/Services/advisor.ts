@@ -1,11 +1,12 @@
-  import { Environment } from './../../../Environment/environment';
-  import { inject, Injectable } from '@angular/core';
-  import { IAdvisorResponse, ICategoryResponse, getAdvisorByIdResponse, DeleateAdvisorResponse } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
-  import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-  import { map, Observable, catchError, throwError } from 'rxjs';
+import { Environment } from './../../../Environment/environment';
+import { inject, Injectable } from '@angular/core';
+import { IAdvisorResponse, ICategoryResponse, getAdvisorByIdResponse, DeleateAdvisorResponse } from '../Interfaces/advisor'; // Assuming you have a model for Advisor
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { map, Observable, catchError, throwError } from 'rxjs';
 import { AvailbityResponse } from '../Interfaces/iappointment';
-import { AdvisorAvailabilityDTO, ConsultationType } from './makingrequest';
+import { ConsultationType } from './makingrequest';
 import { AdvisorAvailabilityDTOO, ApiResponse } from '../Interfaces/iadvisorappointment';
+import { AdvisorRequest, AdvisorRequestApiResponse } from '../Interfaces/iadvisorrequest';
 
   @Injectable({
     providedIn: 'root'
@@ -89,14 +90,24 @@ import { AdvisorAvailabilityDTOO, ApiResponse } from '../Interfaces/iadvisorappo
   }
 
   getAvailableSlots(advisorId: number, date: Date): Observable<AdvisorAvailabilityDTOO[]> {
-    const dateString = date.toISOString();
-    const params = new HttpParams().set('date', dateString);
+  const dateString = `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`; // ✅ Format to MM-DD-YYYY
 
-    return this._httpClient.get<ApiResponse<AdvisorAvailabilityDTOO[]>>(`${this._baseUrl}${advisorId}/available-slots`, { params } )
-      .pipe(
-        map(response => response.data) // Extract the data array from the API response
-      );
-  }
+  const params = new HttpParams().set('date', dateString);
+
+  return this._httpClient.get<ApiResponse<AdvisorAvailabilityDTOO[]>>(
+    `${this._baseUrl}Advisor/${advisorId}/available-slots`, // ✅ Matches backend route
+    { params }
+  ).pipe(
+    map(response => response.data)
+  );
+}
+
+getRequestsByAdvisorId(id: number): Observable<AdvisorRequest[]> {
+  return this._httpClient
+    .get<AdvisorRequestApiResponse>(`${this._baseUrl}Advisor/${id}/requests`)
+    .pipe(map(response => response.data));
+}
+
 
   getAvailableSlotsByType(advisorId: number, date: Date, consultationType: ConsultationType): Observable<AdvisorAvailabilityDTOO[]> {
     const dateString = date.toISOString();

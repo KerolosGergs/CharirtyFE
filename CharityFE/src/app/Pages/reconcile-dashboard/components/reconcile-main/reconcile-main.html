@@ -1,61 +1,38 @@
 <div class="container mt-4" dir="rtl">
-  <!-- Search -->
   <div class="search-bar d-flex mb-3">
-    <input type="text" class="form-control me-2" [(ngModel)]="searchText" placeholder="ابحث عن طلب صلح" />
+    <input
+      type="text"
+      class="form-control me-2"
+      [(ngModel)]="searchText"
+      placeholder="ابحث بالاسم أو البريد الإلكتروني"
+    />
   </div>
 
-  <!-- Tabs -->
-  <!-- <ul class="nav nav-tabs mb-3">
-    @for (section of sections; track section) {
-    <li class="nav-item">
-      <a class="nav-link fs-5" [class.active]="selectedSection === section" (click)="selectSection(section)">
-        {{ section }}
-      </a>
-    </li>
-    }
-  </ul> -->
-
-  <!-- Requests List -->
   <div class="complaints-list">
-    @if (filteredRequests.length > 0) {
-    @for (request of filteredRequests; track request.id) {
-    <div class="card complaint-card mb-3 animate__animated animate__fadeInUp">
-      <div class="card-body d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
-        <div class="flex-grow-1">
-          <div class="row gy-3">
-            <div class="col-md-4 complaint-field">
-              <label>👤 الاسم:</label>
-              <div>{{ request.name }}</div>
-            </div>
-            <div class="col-md-4 complaint-field">
-              <label>📧 البريد الإلكتروني:</label>
-              <div>{{ request.email }}</div>
-            </div>
-            <div class="col-md-4 complaint-field">
-              <label>📱 رقم الجوال:</label>
-              <div>{{ request.phoneNumber }}</div>
-            </div>
-            <div class="col-md-4 complaint-field">
-              <label>📝 نص الطلب:</label>
-              <div>{{ request.requestText }}</div>
-            </div>
-            <div class="col-md-4 complaint-field">
-              <label>📅 تاريخ الإنشاء:</label>
-              <div class="text-muted small">{{ request.createdAt | date: 'short' }}</div>
-            </div>
+    <div *ngIf="filteredRequests.length > 0; else noResults">
+      @for (request of filteredRequests; track $index) {
+        <div class="card mb-2">
+        <div class="card-body d-flex align-items-center justify-content-between flex-wrap">
+          <div class="info d-flex align-items-center flex-grow-1 gap-3 flex-wrap">
+            <h5 class="mb-0">{{ request.name }}</h5>
+            <p class="mb-0 text-muted">{{ request.email }}</p>
+            <small class="text-muted">تاريخ الانضمام: {{ request.createdAt | date:'short' }}</small>
           </div>
-
-        </div>
-        <div class="mt-3 mt-md-0">
-          <button class="btn btn-outline-danger btn-sm" (click)="deleteRequest(request); $event.stopPropagation()">
-            حذف
-          </button>
+          <div class="actions">
+            <button
+              class="btn btn-sm btn-danger"
+              (click)="deleteRequest(request); $event.stopPropagation()"
+            >
+              🗑️ حذف
+            </button>
+          </div>
         </div>
       </div>
+      }
     </div>
-    }
-    } @else {
-    <div class="alert alert-info">لا توجد طلبات مطابقة للفلتر الحالي.</div>
-    }
+
+    <ng-template #noResults>
+      <div class="alert alert-info">لا توجد طلبات مطابقة.</div>
+    </ng-template>
   </div>
 </div>

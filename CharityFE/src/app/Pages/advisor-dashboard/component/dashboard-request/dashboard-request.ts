@@ -7,39 +7,45 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
-import { Advisor } from '../../../../Core/Services/advisor';
-import { Router } from '@angular/router';
-import { AdvisorAvailabilityDTOO, ConsultationType } from '../../../../Core/Interfaces/iadvisorappointment'
 import { HttpClientModule } from '@angular/common/http';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatTooltipModule }  from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { Router } from '@angular/router';
+import { Advisor } from '../../../../Core/Services/advisor';
+import { AdvisorAvailabilityDTOO, ConsultationType } from '../../../../Core/Interfaces/iadvisorappointment';
+import { AdvisorRequest } from '../../../../Core/Interfaces/iadvisorrequest';
 
 @Component({
-  selector: 'app-dashboard-date',
+  selector: 'app-dashboard-request',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatCardModule,
+  imports: [
+    CommonModule,
+    FormsModule,
     HttpClientModule,
 
-    // Material Imports
+    // Angular Material
+    MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule,
-    MatTooltipModule],
-  templateUrl: './dashboard-date.html',
-  styleUrls: ['./dashboard-date.scss']
+    MatTooltipModule
+  ],
+  templateUrl: './dashboard-request.html',
+  styleUrl: './dashboard-request.scss'
 })
-export class DashboardDate{
+export class DashboardRequest {
   currentDate: Date = new Date();
   currentWeekStart!: Date;
   weekDays: Date[] = [];
   timeSlots: string[] = [];
-  
-  advisorId = 1; // Example Advisor ID
+
+  advisorId = 1; // Change this to dynamic if needed
   availableSlots: AdvisorAvailabilityDTOO[] = [];
+  advisorRequests: AdvisorRequest[] = [];
 
   constructor(
     private advisorService: Advisor,
@@ -51,16 +57,15 @@ export class DashboardDate{
 
   ngOnInit(): void {
     this.fetchSlotsForCurrentWeek();
+    this.fetchAdvisorRequests();
   }
 
-  // Generates time labels for the entire day
   generateTimeSlots(): void {
     for (let i = 0; i < 24; i++) {
       this.timeSlots.push(`${i.toString().padStart(2, '0')}:00`);
     }
   }
 
-  // Sets the current week based on a given date
   setWeek(date: Date): void {
     this.currentDate = new Date(date);
     const dayOfWeek = this.currentDate.getDay();
@@ -74,20 +79,31 @@ export class DashboardDate{
     }
   }
 
-  // Fetches slots for all days in the current week view
   fetchSlotsForCurrentWeek(): void {
-    this.availableSlots = []; // Clear previous slots
+    this.availableSlots = [];
     this.weekDays.forEach(day => {
       this.advisorService.getAvailableSlots(this.advisorId, day).subscribe({
         next: (slots) => {
           this.availableSlots.push(...slots);
         },
-        error: (err) => console.error(`Failed to fetch slots for ${day.toDateString()}`, err)
+        error: (err) => {
+          console.error(`❌ Failed to fetch slots for ${day.toDateString()}`, err);
+        }
       });
     });
   }
 
-  // Changes the week forward or backward
+  fetchAdvisorRequests(): void {
+    this.advisorService.getRequestsByAdvisorId(this.advisorId).subscribe({
+      next: (requests) => {
+        this.advisorRequests = requests;
+      },
+      error: (err) => {
+        console.error('❌ Failed to fetch advisor requests:', err);
+      }
+    });
+  }
+
   changeWeek(direction: number): void {
     const newDate = new Date(this.currentWeekStart);
     newDate.setDate(this.currentWeekStart.getDate() + (7 * direction));
@@ -95,7 +111,6 @@ export class DashboardDate{
     this.fetchSlotsForCurrentWeek();
   }
 
-  // Handles date selection from the date picker
   onDateChange(event: MatDatepickerInputEvent<Date>): void {
     if (event.value) {
       this.setWeek(event.value);
@@ -103,7 +118,6 @@ export class DashboardDate{
     }
   }
 
-  // Filters slots for a specific day from the main list
   getSlotsForDay(day: Date): AdvisorAvailabilityDTOO[] {
     return this.availableSlots.filter(slot => {
       const slotDate = new Date(slot.date);
@@ -111,7 +125,6 @@ export class DashboardDate{
     });
   }
 
-  // Calculates the dynamic style for a slot card
   getSlotStyle(slot: AdvisorAvailabilityDTOO): any {
     const [hours, minutes] = slot.time.split(':').map(Number);
     const [dHours, dMinutes] = slot.duration.split(':').map(Number);
@@ -126,7 +139,6 @@ export class DashboardDate{
     };
   }
 
-  // Returns a CSS class based on the consultation type for coloring
   getSlotColor(type: ConsultationType): string {
     switch (type) {
       case ConsultationType.Online: return 'color-online';
@@ -136,10 +148,8 @@ export class DashboardDate{
     }
   }
 
-  // Handles click event on a slot card
   onSlotClick(slotId: number): void {
-    console.log(`Navigating for slot ID: ${slotId}`);
-    // Example route, change '/booking' to your actual route
+    console.log(`🔗 Navigating to slot ID: ${slotId}`);
     this.router.navigate(['/advisor-dashboard/date-details', slotId]);
   }
 }

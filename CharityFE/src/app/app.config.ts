@@ -17,7 +17,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 
 import { provideToastr } from 'ngx-toastr';
-
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 
 export const appConfig: ApplicationConfig = {
@@ -27,6 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
     { provide: LOCALE_ID, useValue: 'ar' },
+    importProvidersFrom(NgxExtendedPdfViewerModule),
 
     // Required for animations
     provideToastr({
