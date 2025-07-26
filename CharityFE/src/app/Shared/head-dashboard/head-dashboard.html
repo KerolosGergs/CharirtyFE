@@ -1,0 +1,47 @@
+ <div class="header-container d-flex justify-content-between align-items-center py-2 animate__animated animate__fadeInUp">
+    <!-- User Greeting -->
+    <div class="user-greeting">
+      <h3 class="fw-bold">{{ userName }}</h3>
+      <p class="text-muted">مرحبًا بك في لوحة التحكم الخاصة بك.</p>
+    </div>
+
+    <!-- Notification and User Avatar -->
+    <div class="d-flex align-items-center gap-3">
+      <!-- Notification Button -->
+      <div class="notification-button-container position-relative">
+        <button type="button" class="btn btn-outline-secondary btn-sm notification-button" (click)="toggleNotifications()">
+          <i class="bi bi-bell"></i>
+          @if (hasNotifications) {
+            <span class="notification-badge">
+              <span class="visually-hidden">New alerts</span>
+            </span>
+          }
+        </button>
+        @if (showNotifications) {
+          <div class="notification-list animate__animated animate__fadeInUp">
+            @for (notification of notifications; track notification.id) {
+              <div class="notification-item">
+                <i class="bi bi-bell-fill me-2"></i>
+                <span>{{ notification.message }}</span>
+              </div>
+            }
+            @empty {
+              <div class="notification-item text-center">
+                <span>لا توجد إشعارات</span>
+              </div>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- User Avatar/Icon -->
+      <div class="user-info d-flex align-items-center">
+        @if (userAvatar != '') {
+          <img [src]="userAvatar" class="user-avatar" alt="User Avatar">
+        } @else {
+          <i class="bi bi-person me-2"></i>
+        }
+        <span class="fw-bold">{{ userName }}</span>
+      </div>
+    </div>
+  </div>

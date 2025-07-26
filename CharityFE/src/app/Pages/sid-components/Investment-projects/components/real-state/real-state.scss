@@ -1,0 +1,247 @@
+
+
+body {
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, var(--primary-50) 0%, var(--secondary-50) 100%);
+  min-height: 100vh;
+  direction: rtl;
+  text-align: right;
+}
+
+.real-estate-projects {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(2, 86, 50, 0.1);
+
+  .header-section {
+    background: linear-gradient(90deg, var(--primary-500), var(--primary-400));
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    color: white;
+    margin-bottom: 2rem;
+
+    h1 {
+      font-weight: 700;
+      line-height: 1.3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      i {
+        font-size: 2.5rem;
+        margin-left: 0.75rem;
+      }
+    }
+  }
+
+  .projects-section {
+    h3 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--primary-700);
+      display: flex;
+      align-items: center;
+
+      i {
+        font-size: 2rem;
+        margin-left: 0.5rem;
+        color: var(--primary-500);
+      }
+    }
+
+    .accordion-item {
+      border-radius: 0.75rem;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      background: white;
+      border: 1px solid var(--primary-100);
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        border-color: var(--primary-300);
+      }
+
+      .accordion-button {
+        background: var(--primary-50);
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding: 1.25rem;
+        color: var(--primary-900);
+
+        &:not(.collapsed) {
+          background: var(--primary-300);
+          color: white;
+        }
+
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      .accordion-body {
+        font-size: 1.25rem;
+        line-height: 1.8;
+        padding: 1.5rem;
+        color: var(--primary-900);
+
+        .project-image {
+          max-width: 100%;
+          height: auto;
+          border-radius: 0.5rem;
+          margin-bottom: 1.5rem;
+          object-fit: fill;
+          max-height: 300px;
+        }
+
+        p {
+          margin-bottom: 1rem;
+        }
+
+        .list-group-item {
+          font-size: 1.2rem;
+          color: var(--primary-900);
+          background: transparent;
+          border: none;
+          padding: 0.5rem 0;
+          line-height: 1.8;
+        }
+
+        strong {
+          color: var(--primary-700);
+          font-weight: bold;
+          min-width: 120px;
+        }
+
+        ul ul {
+          padding-right: 1.5rem;
+          margin-top: 0.5rem;
+        }
+      }
+    }
+  }
+
+  /* Animations */
+  .animate__fadeInUp {
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .real-estate-projects {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+
+    .header-section {
+      padding: 1rem;
+
+      h1 {
+        font-size: 1.75rem;
+
+        i {
+          font-size: 2rem;
+        }
+      }
+    }
+
+    .projects-section {
+      h3 {
+        font-size: 1.5rem;
+
+        i {
+          font-size: 1.75rem;
+        }
+      }
+
+      .accordion-button {
+        font-size: 1.3rem;
+        padding: 1rem;
+      }
+
+      .accordion-body {
+        font-size: 1.1rem;
+        padding: 1rem;
+
+        .project-image {
+          max-height: 300px;
+        }
+
+        .list-group-item {
+          font-size: 1.1rem;
+        }
+
+        strong {
+          min-width: 100px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .real-estate-projects {
+      margin: 0.75rem;
+      padding: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .header-section {
+      padding: 0.75rem;
+
+      h1 {
+        font-size: 1.5rem;
+
+        i {
+          font-size: 1.75rem;
+        }
+      }
+    }
+
+    .projects-section {
+      h3 {
+        font-size: 1.3rem;
+
+        i {
+          font-size: 1.5rem;
+        }
+      }
+
+      .accordion-button {
+        font-size: 1.2rem;
+        padding: 0.75rem;
+      }
+
+      .accordion-body {
+        font-size: 1rem;
+        padding: 0.75rem;
+
+        .project-image {
+          max-height: 150px;
+        }
+
+        .list-group-item {
+          font-size: 1rem;
+        }
+
+        strong {
+          min-width: 90px;
+        }
+      }
+    }
+  }
+}
