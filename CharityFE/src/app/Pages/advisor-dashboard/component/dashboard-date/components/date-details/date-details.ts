@@ -13,6 +13,7 @@ import { Availability } from '../../../../../../Core/Services/availability';
 export class DateDetails {
    availability?: IAdvisorAvailability;
   consultationTypeLabel = '';
+  availabilityId! : any
 
   constructor(
     private route: ActivatedRoute,
@@ -21,8 +22,9 @@ export class DateDetails {
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.availabilityService.getAvailabilityById(id).subscribe({
+    this.availabilityId = Number(this.route.snapshot.paramMap.get('id'))
+    // const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.availabilityService.getAvailabilityById(this.availabilityId).subscribe({
       next: (res) => {
         console.log(res);
         
@@ -42,10 +44,22 @@ export class DateDetails {
   }
 
   deleteAvailability(): void {
-    if (!this.availability) return;
-    this.availabilityService.deleteAvailability(this.availability.id).subscribe(() => {
+  // if (!this.availability || this.availability.id === undefined || this.availability.id === null) {
+  //   console.error('Invalid availability or missing ID:', this.availability);
+  //   return;
+  // }
+
+  this.availabilityService.deleteAvailability(this.availabilityId).subscribe({
+    next: (res) => {
+      console.log(res);
+      
       alert('تم حذف الموعد بنجاح');
       this.router.navigate(['/advisor-dashboard/dashboard-date']);
-    });
-  }
+    },
+    error: (err) => {
+      console.error('Error deleting availability:', err);
+    }
+  });
+}
+
 }

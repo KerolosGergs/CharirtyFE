@@ -17,7 +17,10 @@ export class Availability {
   }
 
   getAvailabilityById(id: number): Observable<IAdvisorAvailability> {
-    return this.http.get<IAdvisorAvailability>(`${this.baseUrl}/availability/${id}`);
+    return this.http.get<IAdvisorAvailability>(`${this.baseUrl}/${id}/availability`);
+  }
+  getRequestsByAdvisorId(id: number): Observable<IAdvisorAvailability> {
+    return this.http.get<IAdvisorAvailability>(`${this.baseUrl}/${id}/requests`);
   }
 
   createAvailability(data: ICreateAvailability): Observable<IAdvisorAvailability> {

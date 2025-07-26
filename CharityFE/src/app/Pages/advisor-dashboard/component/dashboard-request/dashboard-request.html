@@ -1,0 +1,35 @@
+<!-- Calendar stays unchanged above -->
+
+<!-- Advisor Requests Table -->
+<div class="advisor-requests-section">
+  <h2>طلبات الاستشارة</h2>
+
+  <mat-card *ngIf="advisorRequests.length === 0">
+    <mat-card-content>لا توجد طلبات حتى الآن.</mat-card-content>
+  </mat-card>
+
+  <table *ngIf="advisorRequests.length > 0" class="requests-table">
+    <thead>
+      <tr>
+        <th>الاسم</th>
+        <th>البريد الإلكتروني</th>
+        <th>تاريخ الحجز</th>
+        <th>الحالة</th>
+        <th>ملاحظات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of advisorRequests">
+        <td>{{ request.userFullName }}</td>
+        <td>{{ request.userEmail }}</td>
+        <td>
+          {{ request.appointmentTime && request.appointmentTime !== '0001-01-01T00:00:00'
+            ? (request.appointmentTime | date: 'yyyy/MM/dd HH:mm')
+            : 'لم يتم التحديد بعد' }}
+        </td>
+        <td>{{ request.status }}</td>
+        <td>{{ request.notes || 'لا يوجد' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

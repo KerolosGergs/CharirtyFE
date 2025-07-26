@@ -1,0 +1,110 @@
+:host {
+  font-family: 'Cairo', sans-serif;
+  direction: rtl;
+}
+
+.calendar-container {
+  padding: 20px;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.calendar-header h2 {
+  margin: 0 20px;
+  min-width: 150px;
+  text-align: center;
+}
+
+.date-picker {
+  position: absolute !important;
+  right: 0;
+}
+
+.calendar-grid {
+  display: flex;
+  border-top: 1px solid #e0e0e0;
+}
+
+.time-column {
+  flex: 0 0 60px;
+  padding-top: 60px; /* Offset for day headers */
+  text-align: center;
+  color: #6c757d;
+}
+
+.days-container {
+  display: flex;
+  flex-grow: 1;
+}
+
+.day-column {
+  flex: 1;
+  border-left: 1px solid #e0e0e0;
+}
+
+.day-header {
+  text-align: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  height: 60px;
+}
+
+.day-name {
+  font-weight: bold;
+}
+
+.day-body {
+  position: relative;
+  height: 1440px; /* 24 hours * 60px/hour */
+  background-image: repeating-linear-gradient(to bottom, #eee, #eee 1px, transparent 1px, transparent 60px);
+}
+
+.time-slot {
+  height: 60px; /* 60px per hour */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.appointment-card {
+  position: absolute;
+  width: 90%;
+  left: 5%;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 8px;
+  font-size: 12px;
+}
+
+.appointment-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+.slot-time {
+  font-weight: bold;
+}
+
+/* Color classes based on ConsultationType */
+.color-online {
+  background-color: #e3f2fd; /* Light Blue */
+  border-right: 4px solid #2196f3;
+}
+
+.color-inperson {
+  background-color: #e8f5e9; /* Light Green */
+  border-right: 4px solid #4caf50;
+}
+
+.color-both {
+  background-color: #fff3e0; /* Light Orange */
+  border-right: 4px solid #ff9800;
+}

@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Environment } from '../../../Environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
+import { AdviceRequestDTO } from '../Interfaces/iadvisorrequest';
 
 export interface IAdviceRequestDTO {
   id: number;
@@ -38,7 +39,7 @@ export interface ApiResponse<T> {
   providedIn: 'root'
 })
 export class Advicereques {
-  private baseUrl = `${Environment.apiUrl}/advicerequest`;
+  private baseUrl = `${Environment.apiUrl}advicerequest`;
   private advisorId: string | null = null;
 
   constructor(
@@ -48,6 +49,15 @@ export class Advicereques {
     if (isPlatformBrowser(this.platformId)) {
       this.advisorId = localStorage.getItem('advisorId');
     }
+  }
+
+
+  getAllRequests(): Observable<ApiResponse<AdviceRequestDTO[]>> {
+    return this.http.get<ApiResponse<AdviceRequestDTO[]>>(`${this.baseUrl}`);
+  }
+
+  confirmRequest(id: number): Observable<ApiResponse<AdviceRequestDTO>> {
+    return this.http.put<ApiResponse<AdviceRequestDTO>>(`${this.baseUrl}/${id}/confirm`, {});
   }
 
   getRequestsForAdvisor(advisorId: string): Observable<ApiResponse<IAdviceRequestDTO[]>> {
@@ -60,7 +70,11 @@ export class Advicereques {
     );
   }
 
-  cancelRequest(requestId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${requestId}`);
+  cancelRequest(id: number): Observable<ApiResponse<boolean>> {
+    return this.http.delete<ApiResponse<boolean>>(`${this.baseUrl}/${id}`);
   }
+
+  // cancelRequest(requestId: number): Observable<any> {
+  //   return this.http.delete(`${this.baseUrl}/${requestId}`);
+  // }
 }

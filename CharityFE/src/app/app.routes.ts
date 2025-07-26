@@ -72,7 +72,8 @@ export const routes: Routes = [
             { path: 'dashboard-main', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Advisor Dashboard Main' },
             { path: 'dashboard-date', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-date/dashboard-date').then(m => m.DashboardDate), title: 'Advisor Dashboard Date' },
             { path: 'dashboard-schedule', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-schedule/dashboard-schedule').then(m => m.DashboardSchedule), title: 'Advisor Dashboard Schedule' },
-            { path: 'date-details/:id', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-date/components/date-details/date-details').then(m => m.DateDetails), title: 'Date Details' }
+            { path: 'date-details/:id', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-date/components/date-details/date-details').then(m => m.DateDetails), title: 'Date Details' },
+            { path: 'dashboard-request', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-request/dashboard-request').then(m => m.DashboardRequest), title: 'Advisor Requests' }
         ]
     },
     {
