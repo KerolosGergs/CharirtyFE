@@ -1,24 +1,44 @@
 import { AuthServ } from './../../Auth/Services/auth-serv';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { Notification } from "./components/notification/notification";
+import { INotification, NotificationService } from './service/notification-service';
 
 @Component({
   selector: 'app-head-dashboard',
-  imports: [],
+  imports: [Notification],
   templateUrl: './head-dashboard.html',
   styleUrl: './head-dashboard.scss'
 })
 export class HeadDashboard {
-  Auth = inject(AuthServ);
 
+  Auth = inject(AuthServ);
+  notifyService = inject(NotificationService);
+  userId = this.Auth.getUserID();
   userName = this.Auth.getUserName() ;
 
   userEmail = this.Auth.getUserName();
   userAvatar = '';
 
+  
   showNotifications = false;
-  notifications = [
-    { id: 1, message: 'إشعار 1' },
-    { id: 2, message: 'إشعار 2' }
+  notifications:INotification[] = [
+
+    {
+      id: 1, message: 'إشعار 1',
+      userId: '',
+      title: '',
+      isRead: false,
+      createdAt: '',
+      type: 0
+    },
+    {
+      id: 2, message: 'إشعار 2',
+      userId: '',
+      title: '',
+      isRead: false,
+      createdAt: '',
+      type: 0
+    }
   ];
 
   toggleNotifications() {

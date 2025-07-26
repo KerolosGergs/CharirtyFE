@@ -3,6 +3,9 @@ import { Router, RouterLink } from '@angular/router';
 import { ApiResponse, CreateLecture, LectureType } from '../../../../../../Core/Interfaces/ilecture';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Lecture } from '../../../../../../Core/Services/lecture';
+import { Video } from './models/video-model';
+import { VideoService } from './services/video-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-new-video',
@@ -12,101 +15,45 @@ import { Lecture } from '../../../../../../Core/Services/lecture';
 })
 export class AddNewVideo {
   form: FormGroup;
-  selectedFile: File | null = null;
   isSubmitting = false;
 
   constructor(
     private fb: FormBuilder,
-    private lectureService: Lecture,
-    private router: Router
+    private videoService: VideoService,
+    private toastr: ToastrService
   ) {
     this.form = this.fb.group({
-      title: ['', [Validators.required, Validators.maxLength(200)]],
+      title: ['', Validators.required],
       description: ['', [Validators.required, Validators.maxLength(150)]],
-      videoLink: ['']
+      videoUrl: ['', [Validators.required]]
     });
   }
 
-  triggerFileBrowse(): void {
-    const input = document.getElementById('videoFile') as HTMLInputElement;
-    input?.click();
-  }
-
-  handleFileInput(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    if (target.files?.length) {
-      this.selectedFile = target.files[0];
-    }
-  }
-
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-  }
-
-  onFileDrop(event: DragEvent): void {
-    event.preventDefault();
-    if (event.dataTransfer?.files?.length) {
-      this.selectedFile = event.dataTransfer.files[0];
-    }
-  }
-
   onSubmit(): void {
-    if (this.form.invalid) return;
-
-    const { title, description, videoLink } = this.form.value;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
     this.isSubmitting = true;
 
-    if (this.selectedFile) {
-      // Upload via file
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('description', description);
-      formData.append('speaker', 'Unknown'); // Replace if needed
-      formData.append('type', LectureType.Video);
-      formData.append('videoFile', this.selectedFile);
-      formData.append('tags', JSON.stringify([])); // Optional
-      // formData.append('consultationId', ...); // Optional
+    const videoData: Video = {
+      title: this.form.value.title,
+      description: this.form.value.description,
+      videoUrl: this.form.value.videoUrl
+    };
 
-      this.lectureService.uploadLectureVideo(formData).subscribe({
-        next: (res: ApiResponse<any>) => {
-          console.log(res);
-          
-          this.isSubmitting = false;
-          if (res.success) this.router.navigate(['/dashboard/dashboard-awareness']);
-        },
-        error: (err) => {
-          console.log(err);
-          
-          this.isSubmitting = false;
-          alert('فشل في رفع الفيديو.');
-        }
-      });
-
-    } else if (videoLink?.trim()) {
-      // Upload via link
-      const lecture: CreateLecture = {
-        title,
-        description,
-        speaker: 'Unknown',
-        type: LectureType.Video,
-        videoUrl: videoLink,
-        tags: [],
-      };
-
-      this.lectureService.createLectureByLink(lecture).subscribe({
-        next: (res: ApiResponse<any>) => {
-          this.isSubmitting = false;
-          if (res.success) this.router.navigate(['/dashboard/dashboard-awareness']);
-        },
-        error: () => {
-          this.isSubmitting = false;
-          alert('فشل في إرسال الرابط.');
-        }
-      });
-    } else {
-      this.isSubmitting = false;
-      alert('الرجاء تحديد ملف أو إدخال رابط.');
-    }
+    this.videoService.addVideo(videoData).subscribe({
+      next: () => {
+        this.toastr.success('تم إضافة الفيديو بنجاح');
+        this.isSubmitting = false;
+        this.form.reset();
+      },
+      error: (err) => {
+        console.error(err);
+        this.toastr.error('حدث خطأ أثناء إضافة الفيديو');
+        this.isSubmitting = false;
+      }
+    });
   }
 }

@@ -62,7 +62,7 @@ export class DashboardMain {
     { label: 'سبتمبر', value: '1,200', highlight: false },
     { label: 'أكتوبر', value: '1,800', highlight: false },
     { label: 'نوفمبر', value: '2,100', highlight: false },
-    { label: 'ديسمبر', value: '2,683', highlight: true },
+    { label: 'ديسمبر', value: '2,683', highlight: false },
     { label: 'يناير', value: '3,200', highlight: false },
     { label: 'فبراير', value: '3,800', highlight: false }
   ];

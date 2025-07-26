@@ -5,15 +5,15 @@
       <div class="col-xl-3 col-md-6 mb-4">
         <div class="card shadow h-100 py-2" [ngStyle]="{ 'background-color': card.bgColor }">
           <div class="card-body text-center">
-            <div class="text-xs font-weight-bold fs-4 text-primary-500  text-uppercase mb-1">
+            <div class="text-xs fw-bold fs-4 text-primary-500  text-uppercase mb-1">
               {{ card.name }}
             </div>
-            <div class="h5 mb-0 font-weight-bold fs-3  text-gray-800">
+            <div class="h5 mb-0 fw-bold fs-4  text-gray-800">
               {{ card.number }}
             </div>
             <div class="row no-gutters align-items-center mt-2">
               <div class="col-auto">
-                <i class="bi" [ngClass]="card.icon" style="font-size: 24px;"></i>
+                <i class="bi text-success fs-3" [ngClass]="card.icon" style="font-size: 24px;"></i>
               </div>
             </div>
           </div>
@@ -30,24 +30,22 @@
         <div class="col-xl-6 col-lg-5">
             <div class="card shadow mb-4 animate__animated animate__fadeIn">
                 <div class="card-body">
-                    <h6 class="font-weight-bold fs-4  text-success mb-3">عدد طلبات التطوع</h6>
-                    <div class="text-danger small mb-3">
-                        <i class="bi bi-arrow-down"></i> 26%
-                    </div>
+                    <h6 class="fw-bold fs-4  text-success mb-5">عدد طلبات التطوع</h6>
+                    
                     <div class="row text-center">
                         @for (bar of volunteerBars; track $index) {
                         <div class="col-2">
                             <div class="bar-item">
                                 <div class="bar" [style.height.px]="bar.height" [style.background]="bar.color"></div>
-                                <small>{{ bar.label }}</small>
+                                <span class="text-success fw-bold fs-5">{{ bar.label }}</span>
                             </div>
                         </div>
                         }
 
                     </div>
                     <div class="text-center mt-3">
-                        <h3 class="text-primary">{{ volunteerTotal }}</h3>
-                        <p class="text-muted fs-5">إجمالي الطلبات</p>
+                        <h3 class="text-success fw-bold fs-5">{{ volunteerTotal }}</h3>
+                        <p class="text-success fw-bold fs-4">إجمالي الطلبات</p>
                     </div>
                 </div>
             </div>
@@ -57,14 +55,12 @@
         <div class="col-xl-6 col-lg-7">
             <div class="card shadow mb-4 animate__animated animate__fadeIn">
                 <div class="card-body">
-                    <h6 class="font-weight-bold text-success fs-4 mb-3">عدد الشكاوى</h6>
-                    <div class="text-danger small mb-3">
-                        <i class="bi bi-arrow-down"></i> 26%
-                    </div>
+                    <h6 class="fw-bold text-success fs-4 mb-3">عدد الشكاوى</h6>
+                   
                     <div class="row">
                         @for (complaint of complaints; track $index) {
                         <div class="col-md-6">
-                            <h4 class="small font-weight-bold">{{ complaint.title }} <span class="float-left">{{
+                            <h4 class="text-muted fs-5 fw-bold">{{ complaint.title }} <span class="float-left">{{
                                     complaint.percentage }}%</span></h4>
                             <div class="progress mb-4">
                                 <div class="progress-bar" [ngClass]="complaint.barClass" role="progressbar"
@@ -75,8 +71,8 @@
 
                     </div>
                     <div class="text-center">
-                        <h3 class="text-primary">{{ complaintsTotal }}</h3>
-                        <p class="text-muted text-success fs-5">إجمالي الشكاوى</p>
+                        <h3 class="text-success fw-bold fs-5">{{ complaintsTotal }}</h3>
+                        <p class="text-success fw-bold fs-4">إجمالي الشكاوى</p>
                     </div>
                 </div>
             </div>
@@ -89,18 +85,18 @@
         <div class="col-xl-12">
             <div class="card shadow mb-4 animate__animated animate__fadeIn">
                 <div class="card-body">
-                    <h6 class="font-weight-bold text-muted mb-3">عدد طلبات الدعم</h6>
+                    <h6 class="fw-bold fs-4 text-success mb-3">عدد طلبات الدعم</h6>
                     <h2 class="fw-bold fs-3 mb-3">{{ supportTotal }}</h2>
 
                     <div class="chart-area">
                         <div class="line-chart-points">
                             @for (point of supportPoints; track $index) {
                             <div class="point-container">
-                                <span class="point-label">{{ point.label }}</span>
-                                <div class="point-value">{{ point.value }}</div>
+                                <span class="point-label fs-5 text-success">{{ point.label }}</span>
+                                <div class="point-value fs-4 ">{{ point.value }}</div>
                                 @if (point.highlight) {
 
-                                <span class="highlight-badge">{{ point.value }}</span>
+                                <span class="highlight-badge fs-4 fw-bold">{{ point.value }}</span>
                                 }
                             </div>
                             }
@@ -113,7 +109,7 @@
                             <div class="progress-bar bg-success" role="progressbar" [style.width.%]="supportGrowth">
                             </div>
                         </div>
-                        <p class="text-muted">نمو بنسبة {{ supportGrowth }}% مقارنة بالشهر الماضي</p>
+                        <p class="text-success fs-4 fw-bold">نمو بنسبة {{ supportGrowth }}% مقارنة بالشهر الماضي</p>
                     </div>
 
                 </div>
