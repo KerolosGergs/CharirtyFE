@@ -1,438 +1,211 @@
-/* Calendar Component Styles */
-
-/* Container Styles */
-.calendar-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  direction: rtl;
-  text-align: right;
+:root {
+  --primary-500: #4caf50;
 }
 
-/* Header Styles */
-.calendar-header {
-  background: linear-gradient(135deg, #2e7d32, #4caf50);
-  color: white;
-  padding: 20px;
+/* Redesigned Time Slot Card */
+.slot-card {
+  background: #ffffff;
+  border: 1px solid #dcefe6;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+  position: relative;
 }
 
-.calendar-title {
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin: 0;
+.slot-card:hover {
+  background-color: #f7fdf9;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
 }
 
-.btn-action {
-  min-width: 120px;
-  height: 40px;
-  border-radius: 8px;
-  font-weight: 500;
+.slot-card .mat-form-field {
+  background: #f9f9f9;
+  border-radius: 6px;
+  padding-inline: 4px;
 }
 
-/* Month Navigation */
-.month-navigation {
-  background: #f8f9fa;
-  padding: 15px 20px;
-  border-radius: 10px;
-  border: 1px solid #e9ecef;
-}
-
-.month-year-display {
-  text-align: center;
-}
-
-.month-year-display h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #2e7d32;
-  margin: 0;
-}
-
-.month-year-display p {
-  margin: 5px 0 0 0;
-  font-size: 0.9rem;
-}
-
-.nav-btn {
-  background: #2e7d32;
-  color: white;
-  width: 45px;
-  height: 45px;
+/* Remove Button */
+.slot-card .remove-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: #f44336;
+  color: #fff;
   border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  z-index: 2;
 }
 
-.nav-btn:hover {
-  background: #1b5e20;
-  transform: scale(1.05);
-  transition: all 0.2s ease;
+.slot-card .remove-btn:hover {
+  background-color: #d32f2f;
 }
 
-/* Calendar Grid */
-.calendar-grid {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e9ecef;
+.slot-card .remove-btn .mat-icon {
+  font-size: 18px;
+  color: white;
 }
 
-/* Week Header */
-.week-header {
-  background: #f1f8e9;
-  padding: 10px 0;
-  border-radius: 8px;
-  margin-bottom: 15px;
+/* Slot Action Buttons */
+.slot-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-.week-day-label {
+.add-time-btn,
+.day-cell button[color="primary"] {
+  background-color: var(--primary-500) !important;
+  color: #fff !important;
   font-weight: 600;
-  color: #2e7d32;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  width: 100%;
 }
 
-/* Day Cell Styles */
+.add-time-btn:hover,
+.day-cell button[color="primary"]:hover {
+  background-color: #43a047 !important;
+  transform: translateY(-1px);
+}
+
+/* General Styles */
 .day-cell {
-  min-height: 180px;
+  min-height: 200px;
+  padding: 12px;
+  background: #fff;
   border: 2px solid #e9ecef;
   border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 10px;
-  background: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-}
-
-.day-cell:hover {
-  border-color: #4caf50;
-  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
-  transform: translateY(-2px);
-}
-
-.day-cell.current-month {
-  background: #ffffff;
-  border-color: #dee2e6;
-}
-
-.day-cell.other-month {
-  background: #f8f9fa;
-  border-color: #e9ecef;
-  opacity: 0.6;
-  pointer-events: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .day-cell.selected {
-  border-color: #2e7d32;
-  background: linear-gradient(135deg, #e8f5e8, #f1f8e9);
-  box-shadow: 0 4px 16px rgba(46, 125, 50, 0.3);
+  border-color: var(--primary-500);
+  background: #f1f8e9;
 }
 
-/* Day Number */
 .day-number {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-weight: bold;
   margin-bottom: 10px;
-  font-weight: 600;
-  font-size: 1.1rem;
   color: #333;
 }
 
 .day-number .highlight {
-  color: #2e7d32;
-  font-weight: 700;
+  color: var(--primary-500);
 }
 
 .selected-icon {
-  color: #4caf50;
+  color: var(--primary-500);
   font-size: 18px;
 }
 
-/* Time Slots Section */
-.time-slots-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.time-slot {
-  background: #f8f9fa;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #e9ecef;
-}
-
-.time-inputs {
-  align-items: center;
-}
-
-.time-field {
-  flex: 1;
-  font-size: 0.8rem;
-}
-
-.time-field .mat-form-field-wrapper {
-  padding-bottom: 0;
-}
-
-.time-field .mat-form-field-infix {
-  padding: 8px 0;
-  border-top: none;
-}
-
-.time-field input {
-  font-size: 0.8rem;
-  text-align: center;
-}
-
-.time-separator {
-  font-weight: 600;
-  color: #666;
-  margin: 0 5px;
-}
-
-.remove-btn {
-  width: 30px;
-  height: 30px;
-  min-height: 30px;
-}
-
-.remove-btn .mat-icon {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
-
-/* Add Time Button */
-.add-time-btn {
-  background: #4caf50;
-  color: white;
-  font-size: 0.8rem;
-  padding: 8px 12px;
-  min-height: 36px;
-  border-radius: 6px;
-  font-weight: 500;
-}
-
-.add-time-btn:hover {
-  background: #45a049;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
-}
-
-.add-time-btn .mat-icon {
-  font-size: 16px;
-  margin-left: 5px;
-}
-
-/* Empty State */
 .empty-state {
-  height: 100px;
+  min-height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ccc;
+  color: #aaa;
+  font-size: 0.9rem;
 }
 
-/* Summary Section */
-.calendar-summary {
-  margin-top: 30px;
-}
-
+/* Summary Card */
 .summary-card {
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.summary-card .mat-card-header {
-  background: #f1f8e9;
-  margin: -16px -16px 16px -16px;
-  padding: 16px;
-  border-radius: 12px 12px 0 0;
+  padding: 10px;
 }
 
 .summary-card .mat-card-title {
-  color: #2e7d32;
-  font-weight: 600;
+  color: var(--primary-500);
+  font-weight: bold;
 }
 
 .summary-item {
   padding: 8px 0;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.summary-item:last-child {
-  border-bottom: none;
-}
-
-/* Action Buttons */
-.action-buttons {
-  margin-top: 30px;
-  padding: 20px 0;
-}
-
+/* Global Buttons */
 .action-btn {
   min-width: 150px;
-  height: 45px;
-  border-radius: 8px;
-  font-weight: 500;
-  font-size: 1rem;
+  font-weight: bold;
 }
 
 .action-btn .mat-icon {
-  margin-left: 8px;
+  margin-left: 5px;
+}
+/* Top action buttons */
+.action-buttons {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .calendar-container {
-    padding: 10px;
-  }
-  
-  .day-cell {
-    min-height: 150px;
-    padding: 8px;
-  }
-  
-  .calendar-header {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-  }
-  
-  .month-navigation {
-    padding: 10px 15px;
-  }
-  
-  .time-field {
-    font-size: 0.7rem;
-  }
-  
-  .add-time-btn {
-    font-size: 0.7rem;
-    padding: 6px 10px;
-  }
-  
-  .action-btn {
-    min-width: 120px;
-    height: 40px;
-    font-size: 0.9rem;
-  }
+.action-btn {
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 10px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-@media (max-width: 576px) {
-  .day-cell {
-    min-height: 120px;
-    padding: 6px;
-  }
-  
-  .week-day-label {
-    font-size: 0.8rem;
-  }
-  
-  .day-number {
-    font-size: 1rem;
-  }
-  
-  .time-inputs {
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .time-separator {
-    display: none;
-  }
-  
-  .remove-btn {
-    align-self: flex-end;
-  }
+/* Primary button style */
+.primary-btn {
+  background-color: var(--primary-500) !important;
+  color: #fff !important;
 }
 
-/* Animation Classes */
-.fade-in {
-  animation: fadeIn 0.3s ease-in;
+.primary-btn:hover {
+  background-color: #43a047 !important;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Reset button style */
+.reset-btn {
+  background-color: #e0e0e0 !important;
+  color: #333 !important;
 }
 
-.slide-in {
-  animation: slideIn 0.3s ease-out;
+.reset-btn:hover {
+  background-color: #d6d6d6 !important;
+}
+.pending-bookings {
+  background: #fff9db;
+  border: 1px solid #ffecb3;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 16px;
+  color: #8a6d00;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 6px rgba(255, 193, 7, 0.3);
 }
 
-@keyframes slideIn {
-  from {
-    transform: translateX(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+.pending-bookings h4 {
+  margin: 0 0 8px 0;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #c28500;
 }
 
-/* Custom Material Design Overrides */
-.mat-form-field-appearance-outline .mat-form-field-outline {
-  color: #e9ecef;
+.pending-bookings ul {
+  list-style: disc inside;
+  margin: 0;
+  padding-left: 0;
 }
 
-.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: #4caf50;
-}
-
-.mat-form-field-appearance-outline .mat-form-field-label {
-  color: #666;
-}
-
-.mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
-  color: #4caf50;
-}
-
-/* Accessibility Improvements */
-.day-cell:focus {
-  outline: 2px solid #4caf50;
-  outline-offset: 2px;
-}
-
-.add-time-btn:focus,
-.action-btn:focus,
-.nav-btn:focus {
-  outline: 2px solid #4caf50;
-  outline-offset: 2px;
-}
-
-/* Print Styles */
-@media print {
-  .calendar-container {
-    box-shadow: none;
-    border: 1px solid #ccc;
-  }
-  
-  .action-buttons {
-    display: none;
-  }
-  
-  .nav-btn {
-    display: none;
-  }
-}
-
-.invalid-time {
-  border: 1px solid red;
-  border-radius: 4px;
+.pending-bookings li {
+  margin-bottom: 4px;
 }

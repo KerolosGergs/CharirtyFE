@@ -1,157 +1,106 @@
-<<<<<<< HEAD
 <div class="container-fluid d-flex justify-content-center align-items-center min-vh-100 bg-light">
-        <div class="appointment-card">
-            <!-- Header -->
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <div class="user-info-icon">
-                    <i class="fas fa-info-circle"></i>
-                    <span>المستخدم</span>
-                </div>
-                <h5 class="appointment-title mb-0">تفاصيل الموعد</h5>
-            </div>
-
-            <!-- Main Content -->
-            <div class="card-body">
-                <div class="row">
-                    <!-- Left Column - User Info -->
-                    <div class="col-md-4 text-center">
-                        <!-- Profile Image Placeholder -->
-                        <div class="profile-image-container mb-3">
-                            <div class="profile-image-placeholder">
-                                <i class="fas fa-user"></i>
-                            </div>
-                        </div>
-                        
-                        <!-- User Name -->
-                        <h6 class="user-name mb-3">{{availability?.advisorName}}</h6>
-                        
-                        <!-- Contact Info -->
-                        <div class="contact-info">
-                            <div class="contact-item mb-2">
-                                <span class="contact-label">رقم الهاتف</span>
-                                <div class="contact-value">998472581</div>
-                            </div>
-                            
-                            <div class="contact-item">
-                                <span class="contact-label">البريد الإلكتروني</span>
-                                <div class="contact-value">sakdu23-gmail.com</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Column - Appointment Details -->
-                    <div class="col-md-8">
-                        <!-- Action Buttons -->
-                        <div class="action-buttons mb-4">
-                            <button class="btn btn-outline-danger btn-sm me-2" (click)="deleteAvailability()">
-                                <i class="fas fa-times"></i>
-                                إلغاء
-                            </button>
-                            <button class="btn btn-success btn-sm">
-                                <i class="fas fa-clock"></i>
-                                تأجيل
-                            </button>
-                        </div>
-
-                        <!-- User Details -->
-                        <div class="appointment-details">
-                            <div class="detail-row mb-3">
-                                <div class="detail-item">
-                                    <span class="detail-label">اسم المستخدم</span>
-                                    <div class="detail-value-container">
-                                        <span class="detail-value">أحمد سعيد</span>
-                                        <div class="detail-placeholder"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="detail-row mb-3">
-                                <div class="detail-item">
-                                    <span class="detail-label">نوع الاستشارة</span>
-                                    <div class="detail-value-container">
-                                        <span class="detail-value">استشارة في مجال</span>
-                                        <div class="detail-placeholder"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="detail-row mb-3">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="detail-item">
-                                            <span class="detail-label">
-                                                <i class="fas fa-calendar"></i>
-                                                1 يونيو 2025
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="detail-item">
-                                            <span class="detail-label">
-                                                <i class="fas fa-clock"></i>
-                                                9:30 PM
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="detail-row mb-3">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <div class="detail-item">
-                                            <span class="detail-label">
-                                                <i class="fas fa-map-marker-alt"></i>
-                                                أونلاين
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="detail-item">
-                                            <span class="detail-label">
-                                                <i class="fas fa-clock"></i>
-                                                30 دقيقة
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="detail-row">
-                                <div class="detail-item">
-                                    <span class="detail-label">
-                                        <i class="fas fa-comment"></i>
-                                        رابط الاستشارة
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Consultation Description -->
-                            <div class="consultation-description mt-3">
-                                <p>احتاج استشارة في مجال احتاج استشارة في مجال احتاج استشارة في مجال احتاج استشارة في مجال</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="appointment-card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="appointment-title mb-0">تفاصيل الموعد</h5>
+      <div class="user-info-icon">
+        <i class="fas fa-info-circle"></i>
+        <span>المستخدم</span>
+      </div>
     </div>
-=======
-<div class="card availability-card">
-  <div class="card-body">
-    <h5 class="card-title">📅 تفاصيل الموعد</h5>
-    <ul class="list-group">
-      <li class="list-group-item"><strong>الاسم:</strong> {{ availability?.advisorName }}</li>
-      <li class="list-group-item"><strong>النوع:</strong> {{ consultationTypeLabel }}</li>
-      <li class="list-group-item"><strong>التاريخ:</strong> {{ availability?.date | date }}</li>
-      <li class="list-group-item"><strong>الوقت:</strong> {{ availability?.time }}</li>
-      <li class="list-group-item"><strong>المدة:</strong> {{ availability?.duration }}</li>
-      <li class="list-group-item"><strong>ملاحظات:</strong> {{ availability?.notes || 'لا يوجد' }}</li>
-    </ul>
-    <div class="mt-3 text-end">
-      <button class="btn btn-danger me-2" (click)="deleteAvailability()">🗑 حذف</button>
-      <button class="btn btn-warning" disabled>✏️ تعديل</button>
+
+    <div class="card-body">
+      <div class="row">
+        <!-- Right Column -->
+        <div class="col-md-8">
+          <div class="action-buttons mb-4">
+            <button class="btn btn-outline-danger btn-sm me-2" (click)="deleteAvailability()">
+              <i class="fas fa-times"></i> إلغاء
+            </button>
+            <button class="btn btn-success btn-sm">
+              <i class="fas fa-clock"></i> تأجيل
+            </button>
+          </div>
+
+          <div class="appointment-details">
+            <div class="detail-row mb-3">
+              <div class="detail-item">
+                <span class="detail-label">اسم المستشار</span>
+                <div class="detail-value">{{ availability.advisorName || 'غير متوفر' }}</div>
+              </div>
+            </div>
+
+            <div class="detail-row mb-3">
+              <div class="detail-item">
+                <span class="detail-label">نوع الاستشارة</span>
+                <div class="detail-value">{{ consultationTypeLabel }}</div>
+              </div>
+            </div>
+
+            <div class="detail-row mb-3">
+              <div class="row">
+                <div class="col-6">
+                  <div class="detail-item">
+                    <span class="detail-label"><i class="fas fa-calendar"></i> {{ formatDate(availability.date) }}</span>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="detail-item">
+                    <span class="detail-label"><i class="fas fa-clock"></i> {{ formatTime(availability.time) }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-row mb-3">
+              <div class="row">
+                <div class="col-6">
+                  <div class="detail-item">
+                    <span class="detail-label"><i class="fas fa-map-marker-alt"></i> {{ consultationTypeLabel }}</span>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="detail-item">
+                    <span class="detail-label"><i class="fas fa-clock"></i> {{ availability.duration || 'غير متوفر' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-item">
+                <span class="detail-label"><i class="fas fa-comment"></i> ملاحظات</span>
+              </div>
+            </div>
+
+            <div class="consultation-description mt-3">
+              <p>{{ availability.notes || 'لا توجد ملاحظات' }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Left Column -->
+        <div class="col-md-4 text-center">
+          <div class="profile-image-container mb-3">
+            <div class="profile-image-placeholder">
+              <i class="fas fa-user"></i>
+            </div>
+          </div>
+
+          <h6 class="user-name mb-3">{{ availability.advisorName || 'غير معروف' }}</h6>
+
+          <div class="contact-info">
+            <div class="contact-item mb-2">
+              <span class="contact-label">رقم الهاتف</span>
+              <div class="contact-value">998472581</div> <!-- Replace with real data if available -->
+            </div>
+
+            <div class="contact-item">
+              <span class="contact-label">البريد الإلكتروني</span>
+              <div class="contact-value">sakdu23-gmail.com</div> <!-- Replace with real data if available -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
->>>>>>> b5ad47bc0fc6ca6516fd3369f65d4efbe666ed6e

@@ -48,7 +48,8 @@ export class DashboardMain implements OnInit {
 
   ngOnInit(): void {
 
-      this.advisorId = +this.authServ.getId();
+      const idFromStorage = localStorage.getItem('advisorId');
+      this.advisorId = idFromStorage ? +idFromStorage : 0;
       if (!this.advisorId) {
         console.error('advisorId not found in localStorage');
         return;
@@ -71,6 +72,26 @@ export class DashboardMain implements OnInit {
     }
   });
 }
+
+confirmRequest(requestId: number): void {
+  if (confirm('هل أنت متأكد من تأكيد هذه الاستشارة؟')) {
+    this.adviceService.confirmRequest(requestId).subscribe({
+      next: (res) => {
+        alert('تم تأكيد الاستشارة بنجاح.');
+        // Optionally update status or refresh list
+        this.adviceRequests = this.adviceRequests.map(r => 
+          r.id === requestId ? { ...r, status: 'Confirmed' } : r
+        );
+        this.filterRequests();
+      },
+      error: (err) => {
+        console.error('فشل في تأكيد الاستشارة:', err);
+        alert('حدث خطأ أثناء تأكيد الاستشارة.');
+      }
+    });
+  }
+}
+
 
 
   filterRequests(): void {

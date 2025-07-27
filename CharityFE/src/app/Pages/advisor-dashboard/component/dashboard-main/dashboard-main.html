@@ -77,20 +77,24 @@
           <td>{{ req.appointmentTime| date: 'yyyy-MM-dd' }}</td>
           <td>
             <div class="position-relative">
-              <i class="bi bi-three-dots cursor-pointer" (click)="toggleActions(i)"></i>
-              <div
-                class=" position-absolute bg-white border rounded shadow-sm p-2 mt-2"
-                *ngIf="req.showActions"
-                style="z-index: 100;"
-              >
-                <div class=" mb-2 cursor-pointer" (click)="viewDetails(req)">
-                  <i class="bi bi-person-circle me-1"></i> عرض الملف الشخصي
-                </div>
-                <div class=" text-danger cursor-pointer" (click)="deleteRequest(req.id)">
-                  <i class="bi bi-trash me-1"></i> حذف
-                </div>
-              </div>
-            </div>
+  <i class="bi bi-three-dots cursor-pointer" (click)="toggleActions(i)"></i>
+  <div
+    class="position-absolute bg-white border rounded shadow-sm p-2 mt-2"
+    *ngIf="req.showActions"
+    style="z-index: 100;"
+  >
+    <div class="mb-2 cursor-pointer" (click)="viewDetails(req)">
+      <i class="bi bi-person-circle me-1"></i> عرض الملف الشخصي
+    </div>
+    <div class="mb-2 text-success cursor-pointer" (click)="confirmRequest(req.id)">
+      <i class="bi bi-check2-circle me-1"></i> تأكيد
+    </div>
+    <div class="text-danger cursor-pointer" (click)="deleteRequest(req.id)">
+      <i class="bi bi-trash me-1"></i> حذف
+    </div>
+  </div>
+</div>
+
           </td>
         </tr>
         <tr *ngIf="filteredRequests.length === 0">

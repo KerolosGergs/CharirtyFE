@@ -1,12 +1,14 @@
-import { Component, computed, HostListener, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { HeadDashboard } from "../../Shared/head-dashboard/head-dashboard";
+import { Router } from '@angular/router';
+import { AuthServ } from '../../Auth/Services/auth-serv';
 
 @Component({
   selector: 'app-advisor-dashboard',
   imports: [RouterOutlet, RouterLinkActive, RouterLink, HeadDashboard],
   templateUrl: './advisor-dashboard.html',
-  styleUrl: './advisor-dashboard.scss'
+  styleUrls: ['./advisor-dashboard.scss']
 })
 export class AdvisorDashboard {
   userName = 'User Name';
@@ -28,7 +30,7 @@ export class AdvisorDashboard {
     { id: 2, message: 'Notification 2' }
   ];
 
-  
+  constructor(private authService: AuthServ, private router: Router) {}
 
   toggleNotifications() {
     this.showNotifications = !this.showNotifications;
@@ -36,5 +38,10 @@ export class AdvisorDashboard {
 
   get hasNotifications(): boolean {
     return this.notifications.length > 0;
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);  // Redirect to login page after logout
   }
 }

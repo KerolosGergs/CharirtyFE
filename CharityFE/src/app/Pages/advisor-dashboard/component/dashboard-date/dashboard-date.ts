@@ -39,7 +39,7 @@ export class DashboardDate{
   weekDays: Date[] = [];
   timeSlots: string[] = [];
   auth = inject(AuthServ);
-  advisorId = +this.auth.getId(); // Example Advisor ID
+  advisorId :any // Example Advisor ID
   availableSlots: AdvisorAvailabilityDTOO[] = [];
 
   constructor(
@@ -51,6 +51,8 @@ export class DashboardDate{
   }
 
   ngOnInit(): void {
+    const idFromStorage = localStorage.getItem('advisorId');
+    this.advisorId = idFromStorage ? +idFromStorage : 0;
     this.fetchSlotsForCurrentWeek();
   }
 
@@ -81,6 +83,8 @@ export class DashboardDate{
     this.weekDays.forEach(day => {
       this.advisorService.getAvailableSlots(this.advisorId, day).subscribe({
         next: (slots) => {
+          console.log(this.advisorId);
+          console.log(slots);
           this.availableSlots.push(...slots);
         },
         error: (err) => console.error(`Failed to fetch slots for ${day.toDateString()}`, err)
@@ -104,11 +108,11 @@ export class DashboardDate{
     }
   }
 
-  // Filters slots for a specific day from the main list
+  // Filters slots for a specific day from the main list and only returns approved slots
   getSlotsForDay(day: Date): AdvisorAvailabilityDTOO[] {
     return this.availableSlots.filter(slot => {
       const slotDate = new Date(slot.date);
-      return slotDate.toDateString() === day.toDateString();
+      return slotDate.toDateString() === day.toDateString() && slot.isBooked === true;
     });
   }
 
@@ -138,9 +142,10 @@ export class DashboardDate{
   }
 
   // Handles click event on a slot card
-  onSlotClick(slotId: number): void {
-    console.log(`Navigating for slot ID: ${slotId}`);
-    // Example route, change '/booking' to your actual route
-    this.router.navigate(['/advisor-dashboard/date-details', slotId]);
+  onSlotClick(slotId: number, slotData: AdvisorAvailabilityDTOO): void {
+    this.router.navigate(
+      ['/advisor-dashboard/date-details', slotId],
+      { state: { slot: slotData } }
+    );
   }
 }

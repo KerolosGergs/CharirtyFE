@@ -1,12 +1,14 @@
-import { Component, computed, HostListener, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { HeadDashboard } from "../../Shared/head-dashboard/head-dashboard";
+import { Router } from '@angular/router';
+import { AuthServ } from '../../Auth/Services/auth-serv';
 
 @Component({
   selector: 'app-dashboard',
   imports: [RouterLink, RouterOutlet, RouterLinkActive, HeadDashboard],
   templateUrl: './dashboard.html',
-  styleUrl: './dashboard.scss'
+  styleUrls: ['./dashboard.scss']
 })
 export class Dashboard {
   userName = 'User Name';
@@ -35,7 +37,7 @@ export class Dashboard {
     { id: 2, message: 'Notification 2' }
   ];
 
-  
+  constructor(private authService: AuthServ, private router: Router) {}
 
   toggleNotifications() {
     this.showNotifications = !this.showNotifications;
@@ -44,6 +46,9 @@ export class Dashboard {
   get hasNotifications(): boolean {
     return this.notifications.length > 0;
   }
-}
 
-/* To install animate.css: npm install animate.css */
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']); // redirect to login page after logout
+  }
+}

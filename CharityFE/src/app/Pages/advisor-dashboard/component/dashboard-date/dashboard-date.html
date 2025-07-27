@@ -21,12 +21,15 @@
   <div class="calendar-grid">
     <!-- Time Column -->
     <div class="time-column">
-      <div class="time-slot" *ngFor="let hour of timeSlots">{{ hour }}</div>
+      @for (hour of timeSlots; track $index) {
+        <div class="time-slot">{{ hour }}</div>
+      }
     </div>
 
     <!-- Days Columns -->
     <div class="days-container">
-      <div class="day-column" *ngFor="let day of weekDays">
+      @for (day of weekDays; track $index) {
+        <div class="day-column">
         <div class="day-header">
           <div class="day-name">{{ day | date:'EEE' }}</div>
           <div class="day-date">{{ day | date:'d' }}</div>
@@ -38,7 +41,7 @@
             class="appointment-card"
             [ngStyle]="getSlotStyle(slot)"
             [ngClass]="getSlotColor(slot.consultationType)"
-            (click)="onSlotClick(slot.id)"
+            (click)="onSlotClick(slot.id, slot)"
             matTooltip="ملاحظات: {{ slot.notes || 'لا يوجد' }}">
             <mat-card-content>
               <div class="slot-time">{{ slot.time | slice:0:5 }}</div>
@@ -47,6 +50,7 @@
           </mat-card>
         </div>
       </div>
+      }
     </div>
   </div>
 </div>
