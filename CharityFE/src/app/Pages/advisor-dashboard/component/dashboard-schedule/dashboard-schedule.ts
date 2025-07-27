@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { IAdvisorAvailability } from './../../../../Core/Interfaces/iavailability';
+import { AuthServ } from './../../../../Auth/Services/auth-serv';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ToastrService } from 'ngx-toastr';
 import { IBulkAvailability, IConsultationType, ICreateAvailability } from '../../../../Core/Interfaces/iavailability';
 import { Availability } from '../../../../Core/Services/availability';
+import { Advicereques, GetRequests } from '../../../../Core/Services/advicereques';
 
 export interface TimeSlot {
   time: string;
@@ -43,7 +46,8 @@ export interface DayData {
   ]
 })
 export class DashboardSchedule implements OnInit {
-  advisorId: number = 1; // Replace with actual advisor ID
+  AuthServ = inject(AuthServ)
+  advisorId: number = +this.AuthServ.getId()!; // Replace with actual advisor ID
   currentDate: Date = new Date();
   currentMonth: number = this.currentDate.getMonth();
   currentYear: number = this.currentDate.getFullYear();
@@ -57,60 +61,61 @@ export class DashboardSchedule implements OnInit {
     'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
   ];
 
-  constructor(private toastr: ToastrService, private availabilityService: Availability) {}
+  constructor(private toastr: ToastrService, private availabilityService: Availability, private adviceService: Advicereques,
+  ) { }
 
   ngOnInit(): void {
     this.generateCalendar();
   }
 
   private convertTo24Hour(time: string): string {
-  const match = time.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
-  if (!match) return time; // return as-is if format doesn't match
+    const match = time.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+    if (!match) return time; // return as-is if format doesn't match
 
-  let [_, hours, minutes, period] = match;
-  let hr = parseInt(hours, 10);
+    let [_, hours, minutes, period] = match;
+    let hr = parseInt(hours, 10);
 
-  if (period?.toUpperCase() === 'PM' && hr < 12) {
-    hr += 12;
-  } else if (period?.toUpperCase() === 'AM' && hr === 12) {
-    hr = 0;
-  }
-
-  return `${hr.toString().padStart(2, '0')}:${minutes}`;
-}
-
-convertToTimeSpan(timeStr: string): string {
-  // Accepts inputs like "9:00 AM", "13:30", "30" (minutes), or "00:30"
-  if (!timeStr) return '00:00:00';
-
-  // If it's a number representing minutes (like '30'), convert to '00:30:00'
-  if (/^\d+$/.test(timeStr)) {
-    const minutes = parseInt(timeStr, 10);
-    return `00:${minutes.toString().padStart(2, '0')}:00`;
-  }
-
-  // If format includes ":" (e.g., "13:30" or "00:30")
-  if (timeStr.includes(':')) {
-    // If it's HH:mm or mm:ss, add missing parts to HH:mm:ss
-    const parts = timeStr.split(':');
-    if (parts.length === 2) {
-      // Assume HH:mm, add seconds
-      return `${parts[0].padStart(2, '0')}:${parts[1].padStart(2, '0')}:00`;
+    if (period?.toUpperCase() === 'PM' && hr < 12) {
+      hr += 12;
+    } else if (period?.toUpperCase() === 'AM' && hr === 12) {
+      hr = 0;
     }
-    if (parts.length === 3) {
-      return `${parts[0].padStart(2, '0')}:${parts[1].padStart(2, '0')}:${parts[2].padStart(2, '0')}`;
+
+    return `${hr.toString().padStart(2, '0')}:${minutes}`;
+  }
+
+  convertToTimeSpan(timeStr: string): string {
+    // Accepts inputs like "9:00 AM", "13:30", "30" (minutes), or "00:30"
+    if (!timeStr) return '00:00:00';
+
+    // If it's a number representing minutes (like '30'), convert to '00:30:00'
+    if (/^\d+$/.test(timeStr)) {
+      const minutes = parseInt(timeStr, 10);
+      return `00:${minutes.toString().padStart(2, '0')}:00`;
     }
-  }
 
-  // Otherwise, try to parse AM/PM time (e.g., "9:00 AM")
-  const date = new Date(`1970-01-01T${timeStr}`);
-  if (!isNaN(date.getTime())) {
-    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:00`;
-  }
+    // If format includes ":" (e.g., "13:30" or "00:30")
+    if (timeStr.includes(':')) {
+      // If it's HH:mm or mm:ss, add missing parts to HH:mm:ss
+      const parts = timeStr.split(':');
+      if (parts.length === 2) {
+        // Assume HH:mm, add seconds
+        return `${parts[0].padStart(2, '0')}:${parts[1].padStart(2, '0')}:00`;
+      }
+      if (parts.length === 3) {
+        return `${parts[0].padStart(2, '0')}:${parts[1].padStart(2, '0')}:${parts[2].padStart(2, '0')}`;
+      }
+    }
 
-  // Fallback
-  return '00:00:00';
-}
+    // Otherwise, try to parse AM/PM time (e.g., "9:00 AM")
+    const date = new Date(`1970-01-01T${timeStr}`);
+    if (!isNaN(date.getTime())) {
+      return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}:00`;
+    }
+
+    // Fallback
+    return '00:00:00';
+  }
 
 
 
@@ -214,84 +219,102 @@ convertToTimeSpan(timeStr: string): string {
     return this.availableTimesData;
   }
 
- submitSingleAvailability(day: DayData): void {
-  if (!day.timeSlots.length) {
-    this.toastr.warning('يرجى إضافة وقت واحد على الأقل');
-    return;
-  }
-
-  const dateStr = day.date.toISOString().split('T')[0]; // yyyy-mm-dd
-
-  for (const slot of day.timeSlots) {
-    if (!slot.time || !slot.duration) {
-      this.toastr.error('يرجى ملء الوقت والمدة');
+  submitSingleAvailability(day: DayData): void {
+    if (!day.timeSlots.length) {
+      this.toastr.warning('يرجى إضافة وقت واحد على الأقل');
       return;
     }
 
-    // Assuming time is already in 24-hour HH:mm format
-    const availability: ICreateAvailability = {
-  advisorId: this.advisorId,
-  date: dateStr,
-  time: this.convertToTimeSpan(slot.time),        // Convert time
-  duration: this.convertToTimeSpan(slot.duration), // Convert duration
-  consultationType: slot.consultationType,
-  notes: slot.notes || ''
-};
+    const dateStr = day.date.toISOString().split('T')[0]; // yyyy-mm-dd
 
-
-
-    this.availabilityService.createAvailability(availability).subscribe({
-      next: (res) => {
-        console.log(res);
-        
-        this.toastr.success(`تم حفظ الموعد بنجاح: ${slot.time}`);
-      },
-      error: (err) => {
-        console.error('Validation errors:', err.error?.errors);
-        this.toastr.error('حدث خطأ أثناء حفظ الموعد');
+    for (const slot of day.timeSlots) {
+      if (!slot.time || !slot.duration) {
+        this.toastr.error('يرجى ملء الوقت والمدة');
+        return;
       }
-    });
-  }
-}
 
-  submitAllAvailabilities(): void {
-  const availabilities: ICreateAvailability[] = [];
-
-  for (const [key, slots] of Object.entries(this.availableTimesData)) {
-    const [year, month, day] = key.split('-').map(Number);
-    const dateStr = new Date(year, month, day).toISOString().split('T')[0];
-
-    for (const slot of slots) {
-      if (!slot.time || !slot.duration) continue;
-
-      availabilities.push({
+      // Assuming time is already in 24-hour HH:mm format
+      const availability: ICreateAvailability = {
         advisorId: this.advisorId,
         date: dateStr,
-        time: this.convertToTimeSpan(slot.time),      // convert time
-        duration: this.convertToTimeSpan(slot.duration),  // convert duration
+        time: this.convertToTimeSpan(slot.time),        // Convert time
+        duration: this.convertToTimeSpan(slot.duration), // Convert duration
         consultationType: slot.consultationType,
         notes: slot.notes || ''
+      };
+
+
+
+      this.availabilityService.createAvailability(availability).subscribe({
+        next: (res) => {
+          console.log(res);
+
+          this.toastr.success(`تم حفظ الموعد بنجاح: ${slot.time}`);
+        },
+        error: (err) => {
+          console.error('Validation errors:', err.error?.errors);
+          this.toastr.error('حدث خطأ أثناء حفظ الموعد');
+        }
       });
     }
   }
 
-  if (!availabilities.length) {
-    this.toastr.warning('لا توجد مواعيد صالحة للحفظ');
-    return;
-  }
+  submitAllAvailabilities(): void {
+    const availabilities: ICreateAvailability[] = [];
 
-  const bulk: IBulkAvailability = { availabilities };
+    for (const [key, slots] of Object.entries(this.availableTimesData)) {
+      const [year, month, day] = key.split('-').map(Number);
+      const dateStr = new Date(year, month, day).toISOString().split('T')[0];
 
-  this.availabilityService.createBulkAvailability(bulk).subscribe({
-    next: (res) => {
-      console.log(res);
-      this.toastr.success('تم حفظ جميع المواعيد بنجاح');
-    },
-    error: (err) => {
-      console.log(err);
-      this.toastr.error('فشل حفظ المواعيد');
+      for (const slot of slots) {
+        if (!slot.time || !slot.duration) continue;
+
+        availabilities.push({
+          advisorId: this.advisorId,
+          date: dateStr,
+          time: this.convertToTimeSpan(slot.time),      // convert time
+          duration: this.convertToTimeSpan(slot.duration),  // convert duration
+          consultationType: slot.consultationType,
+          notes: slot.notes || ''
+        });
+      }
     }
-  });
-}
 
+    if (!availabilities.length) {
+      this.toastr.warning('لا توجد مواعيد صالحة للحفظ');
+      return;
+    }
+
+    const bulk: IBulkAvailability = { availabilities };
+
+    this.availabilityService.createBulkAvailability(bulk).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.toastr.success('تم حفظ جميع المواعيد بنجاح');
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error('فشل حفظ المواعيد');
+      }
+    });
+  }
+adviceRequests!:GetRequests[];
+  fetchAdvisorRequests(advisorId: number): void {
+    this.adviceService.getRequestsForAdvisor(advisorId).subscribe({
+      next: (res) => {
+        this.adviceRequests = (res?.data || []).map(r => ({ ...r, showActions: false }));
+       
+      },
+      error: (err) => console.error('Failed to fetch advisor requests:', err)
+    });
+  }
+IAdvisorAvailability!:IAdvisorAvailability
+  fetchAvialbly(advisorId: number): void {
+    this.availabilityService.getAvailabilityById(advisorId).subscribe({
+      next: (res) => {
+        this.IAdvisorAvailability = res;
+      },
+      error: (err) => console.error('Failed to fetch advisor requests:', err)
+    });
+  }
 }

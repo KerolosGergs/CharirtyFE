@@ -1,10 +1,11 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Environment } from '../../../Environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { AdviceRequestDTO } from '../Interfaces/iadvisorrequest';
 import e from 'express';
+import { AuthServ } from '../../Auth/Services/auth-serv';
 
 export interface IAdviceRequestDTO {
   id: number;
@@ -28,17 +29,19 @@ export interface IAdviceRequestDTO {
   userEmail?: string;
 }
 export interface GetRequests {
-  id: number
-  userId: string
-  userFullName: string
-  userEmail: string
-  advisorId: number
-  advisorFullName: any
-  consultationId: number
-  consultationName: any
-  appointmentTime: string
-  notes: any
-  status: string
+  id: number;
+  userId: string;
+  userFullName: string;
+  userEmail: string;
+  advisorId: number;
+  advisorFullName: string;
+  consultationId: number;
+  consultationName: string;
+  date: string;
+  time: string;
+  duration: string;
+  notes: string;
+  status: string;
 }
 
 
@@ -55,14 +58,14 @@ export interface ApiResponse<T> {
 })
 export class Advicereques {
   private baseUrl = `${Environment.apiUrl}advicerequest`;
-  private advisorId: string | null = null;
-
+  private auth = inject(AuthServ);
+  private advisorId!: number;
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      this.advisorId = localStorage.getItem('advisorId');
+      this.advisorId = this.auth.getId();
     }
   }
 
@@ -72,7 +75,7 @@ export class Advicereques {
   }
 
   confirmRequest(id: number): Observable<ApiResponse<AdviceRequestDTO>> {
-    return this.http.put<ApiResponse<AdviceRequestDTO>>(`${this.baseUrl}/${id}/confirm`, {});
+    return this.http.put<ApiResponse<AdviceRequestDTO>>(`${this.baseUrl}/${id}/confirm?advisorId=${this.advisorId}`, {});
   }
 
   getRequestsForAdvisor(advisorId: number): Observable<ApiResponse<GetRequests[]>> {

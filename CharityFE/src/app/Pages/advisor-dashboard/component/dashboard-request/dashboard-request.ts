@@ -44,7 +44,7 @@ export class DashboardRequest {
   weekDays: Date[] = [];
   timeSlots: string[] = [];
   AuthServ = inject(AuthServ);
-  advisorId = 10 ; // Change this to dynamic if needed
+  advisorId = this.AuthServ.getId() ; // Change this to dynamic if needed
   availableSlots: AdvisorAvailabilityDTOO[] = [];
   advisorRequests: AdvisorRequest[] = [];
 

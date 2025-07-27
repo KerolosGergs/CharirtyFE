@@ -51,7 +51,7 @@ export class DashboardDate{
   }
 
   ngOnInit(): void {
-    const idFromStorage = localStorage.getItem('advisorId');
+    const idFromStorage = this.auth.getId();
     this.advisorId = idFromStorage ? +idFromStorage : 0;
     this.fetchSlotsForCurrentWeek();
   }

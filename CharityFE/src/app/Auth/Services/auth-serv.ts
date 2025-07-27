@@ -55,12 +55,13 @@ getUserID(): string | null {
   const user = this.getUserInfo();
   return user.id;
 }
-getId(): string | null {
-  const token = localStorage.getItem('token');
-  if (!token) return null;
+getId(): number  {
+  // const token = localStorage.getItem('token');
+  // if (!token) return null;
 
-  const payload = JSON.parse(atob(token.split('.')[1]));
-  return payload?.userId ?? null;
+  // const payload = JSON.parse(atob(token.split('.')[1]));
+  // return payload?.userId ?? null;
+  return 10;
 }
 
 

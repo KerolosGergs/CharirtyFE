@@ -11,12 +11,14 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class VideoSection implements OnInit {
   videoUrlRaw: string = 'https://www.youtube.com/embed/nnhrUthpfI8?si=_U2ZcqqyAnqRBOL4';
   videoUrl: SafeResourceUrl | null = null;
-  isVideoLoaded: boolean = false;
-  showPlayButton: boolean = true;
+  isVideoLoaded: boolean = true;
+  showPlayButton: boolean = false;
 
   constructor(private sanitizer: DomSanitizer) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.playVideo();
+  }
 
   playVideo(): void {
     this.videoUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.videoUrlRaw);

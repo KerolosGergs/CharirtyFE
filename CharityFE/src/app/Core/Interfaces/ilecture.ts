@@ -5,28 +5,14 @@ export enum LectureType {
   Presentation = 'Presentation'
 }
 export interface ILecture {
-  id: number;
-  title: string;
-  description: string;
-  speaker: string;
-  type: LectureType;
-  videoUrl: string;
-  thumbnailUrl: string;
-  filePath: string;
-  fileSize: number;
-  fileFormat: string;
-  duration: number;
-  isPublished: boolean;
-  createdAt: string;
-  publishedAt?: string;
-  updatedAt?: string;
-  viewCount: number;
-  downloadCount: number;
-  consultationId?: number;
-  consultationName: string;
-  tags: string[];
-  createdBy: string;
-  createdByName: string;
+   id: number
+  title: string
+  description: string
+  videoUrl: string
+  isPublished: boolean
+  createdAt: string
+  publishedAt: any
+  updatedAt: any;
 }
 
 export interface CreateLecture {

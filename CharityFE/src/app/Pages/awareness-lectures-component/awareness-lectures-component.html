@@ -1,0 +1,51 @@
+<app-header-component></app-header-component>
+<app-nav></app-nav>
+
+<div class="container mt-5" dir="rtl">
+  <h2 class="text-center mb-4 fw-bold text-success fs-4">محاضرات توعية</h2>
+
+  <!-- Search Filter -->
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-8">
+      <input type="text" class="form-control form-control-lg" placeholder="ابحث عن المحاضرة بعنوان أو وصف..."
+        [formControl]="searchControl" (input)="applyFilter()" />
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  @if (loading) {
+  <div class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">جارٍ التحميل...</span>
+    </div>
+  </div>
+  } @else {
+  @if (filteredLectures.length === 0) {
+  <p class="text-center text-muted">لا توجد نتائج مطابقة للبحث.</p>
+  } @else {
+  <div class="row">
+    @for (lecture of filteredLectures; track lecture.id) {
+    <div class="col-12 mb-4">
+      <div class="card shadow-sm">
+        <!-- Instead of calling getSafeVideoUrl(lecture.videoUrl), use cached safeUrl -->
+        <iframe class="w-100" [src]="lecture.safeUrl" frameborder="0" allowfullscreen height="450"></iframe>
+
+        <div class="card-body">
+          <h4 class="card-title">{{ lecture.title }}</h4>
+          <p class="card-text">{{ lecture.description }}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="badge" [ngClass]="lecture.isPublished ? 'bg-success' : 'bg-secondary'">
+              {{ lecture.isPublished ? 'منشور' : 'غير منشور' }}
+            </span>
+            <small class="text-muted">{{ lecture.createdAt | date:'dd MMM yyyy - hh:mm a' }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  }
+  }
+</div>
+
+<app-footer></app-footer>

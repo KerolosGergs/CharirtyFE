@@ -8,7 +8,7 @@ import { Environment } from '../../../Environment/environment';
   providedIn: 'root'
 })
 export class Lecture {
-  private baseUrl = `${Environment.apiUrl}/lecture`;
+  private baseUrl = `${Environment.apiUrl}lecture`;
 
   constructor(private http: HttpClient) {}
 
@@ -33,10 +33,13 @@ export class Lecture {
   }
 
   deleteLecture(id: number): Observable<ApiResponse<boolean>> {
-    return this.http.delete<ApiResponse<boolean>>(`${this.baseUrl}${id}`);
+    return this.http.delete<ApiResponse<boolean>>(`${this.baseUrl}/${id}`);
   }
 
   publishLecture(id: number): Observable<ApiResponse<boolean>> {
-    return this.http.put<ApiResponse<boolean>>(`${this.baseUrl}${id}/publish`, {});
+    return this.http.put<ApiResponse<boolean>>(`${this.baseUrl}/${id}/publish`, {});
+  }
+    UnpublishLecture(id: number): Observable<ApiResponse<boolean>> {
+    return this.http.put<ApiResponse<boolean>>(`${this.baseUrl}/${id}/unpublish`, {});
   }
 }
