@@ -2,22 +2,17 @@
 <div class="calendar-container">
 
   <!-- Global Actions -->
-<div class="action-buttons d-flex justify-content-end gap-3 mt-4">
-  <button mat-raised-button
-          color="accent"
-          class="add-time-btn w-25"
-          (click)="submitAllAvailabilities()">
-    <mat-icon>send</mat-icon>
-    حفظ جميع الأيام
-  </button>
+  <div class="action-buttons d-flex justify-content-end gap-3 mt-4">
+    <button mat-raised-button color="accent" class="add-time-btn w-25" (click)="submitAllAvailabilities()">
+      <mat-icon>send</mat-icon>
+      حفظ جميع الأيام
+    </button>
 
-  <button mat-raised-button
-          class="btn w-25"
-          (click)="generateCalendar()">
-    <mat-icon>refresh</mat-icon>
-    إعادة تعيين
-  </button>
-</div>
+    <button mat-raised-button class="btn w-25" (click)="generateCalendar()">
+      <mat-icon>refresh</mat-icon>
+      إعادة تعيين
+    </button>
+  </div>
 
 
   <!-- Month Navigation -->
@@ -57,11 +52,8 @@
               <div class="col" *ngFor="let day of calendarDays.slice(weekIndex, weekIndex + 7)">
 
                 <!-- Day Cell -->
-                <div class="day-cell"
-                     [class.current-month]="day.isCurrentMonth"
-                     [class.other-month]="!day.isCurrentMonth"
-                     [class.selected]="day.isSelected"
-                     (click)="selectDay(day)">
+                <div class="day-cell" [class.current-month]="day.isCurrentMonth"
+                  [class.other-month]="!day.isCurrentMonth" [class.selected]="day.isSelected" (click)="selectDay(day)">
 
                   <!-- Day Number -->
                   <div class="day-number">
@@ -107,33 +99,32 @@
                             <input matInput [(ngModel)]="timeSlot.notes">
                           </mat-form-field>
 
-                          <button mat-icon-button
-                                  color="warn"
-                                  class="remove-btn"
-                                  (click)="removeTimeSlot(day, i)">
+                          <button mat-icon-button color="warn" class="remove-btn" (click)="removeTimeSlot(day, i)">
                             <mat-icon>close</mat-icon>
                           </button>
                         </div>
                       </div>
                     </div>
+                    <div class="d-flex gap-1 justify-content-center align-items-center">
 
+                      <!-- <div>
+                        {{day}}
+                      </div> -->
+                      <!-- Add New Time Button -->
+                      <button mat-raised-button color="accent" class="add-time-btn w-100" (click)="addNewTimeSlot(day)">
+                        <!-- <mat-icon>add</mat-icon> -->
+                        <i class="bi bi-plus"></i>
+                        <!-- إضافة وقت جديد -->
+                      </button>
+
+                      <!-- Save This Day Button -->
+                      <button mat-raised-button color="primary" class="w-100" (click)="submitSingleAvailability(day)">
+                        <i class="bi bi-floppy"></i> <!-- <mat-icon>send</mat-icon> -->
+                        <!-- حفظ هذا اليوم -->
+                      </button>
+                    </div>
                     <!-- Add New Time Button -->
-                    <button mat-raised-button
-                            color="accent"
-                            class="add-time-btn w-100"
-                            (click)="addNewTimeSlot(day)">
-                      <mat-icon>add</mat-icon>
-                      إضافة وقت جديد
-                    </button>
 
-                    <!-- Save This Day Button -->
-                    <button mat-raised-button
-                            color="primary"
-                            class="w-100 mt-2"
-                            (click)="submitSingleAvailability(day)">
-                      <mat-icon>send</mat-icon>
-                      حفظ هذا اليوم
-                    </button>
                   </div>
 
                   <!-- Placeholder for Other Month Days -->
@@ -149,7 +140,7 @@
     </div>
   </div>
 
-  <!-- Summary Section -->
+  <!-- Summary Section
   <div class="calendar-summary mt-4" *ngIf="getAllAvailableTimesData() | keyvalue">
     <mat-card class="summary-card">
       <mat-card-header>
@@ -164,7 +155,7 @@
         </div>
       </mat-card-content>
     </mat-card>
-  </div>
+  </div> -->
 
-  
+
 </div>

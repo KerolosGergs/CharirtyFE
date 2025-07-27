@@ -1,0 +1,100 @@
+<!-- Calendar container for the schedule component -->
+<div class="calendar-container">
+  <!-- Month navigation controls -->
+  <div class="month-navigation d-flex justify-content-between align-items-center mb-4">
+    <button mat-icon-button (click)="previousMonth()" class="nav-btn">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <div class="month-year-display">
+      <h3>{{ getCurrentMonthName() }} {{ currentYear }}</h3>
+    </div>
+    <button mat-icon-button (click)="nextMonth()" class="nav-btn">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+
+  <!-- Legend for time slot types -->
+  <div class="slot-type-legend">
+    <div class="legend-item">
+      <div class="legend-color availability"></div>
+      <span>متاح</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color confirmed"></div>
+      <span>مؤكد</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color pending"></div>
+      <span>معلق</span>
+    </div>
+  </div>
+
+  <!-- Calendar grid containing week headers and days -->
+  <div class="calendar-grid">
+    <!-- Week days header -->
+    <div class="week-header row g-0 mb-2">
+      <div class="col text-center" *ngFor="let day of weekDays">
+        <div class="week-day-label">{{ day }}</div>
+      </div>
+    </div>
+
+    <!-- Calendar days grid -->
+    <div class="calendar-body">
+      <div class="row g-0" *ngFor="let week of calendarDays | slice:0:42; let weekIndex = index">
+        <ng-container *ngIf="weekIndex % 7 === 0">
+          <!-- Single week row -->
+          <div class="col-12">
+            <div class="row g-0">
+              <div class="col" *ngFor="let day of calendarDays.slice(weekIndex, weekIndex + 7)">
+                <!-- Day cell, clickable to toggle time slots -->
+                <div class="day-cell" [class.current-month]="day.isCurrentMonth"
+                     [class.other-month]="!day.isCurrentMonth" [class.selected]="day.isSelected"
+                     [class.has-time-slots]="day.hasTimeSlots" (click)="toggleTimeSlots(day)">
+                  <!-- Day number and indicators -->
+                  <div class="day-number">
+                    <span [class.highlight]="day.isSelected">{{ day.dayNumber }}</span>
+                    <mat-icon *ngIf="day.isSelected" class="selected-icon">check_circle</mat-icon>
+                    <!-- Indicator for days with time slots -->
+                    <span *ngIf="day.hasTimeSlots && !day.showTimeSlots" class="time-slot-indicator"></span>
+                  </div>
+
+                  <!-- Time slots list, shown when day.showTimeSlots is true -->
+                  <div class="time-slots-section" *ngIf="day.isCurrentMonth && day.showTimeSlots">
+                    <div class="time-slot-list">
+                      @for (timeSlot of day.timeSlots; track $index) {
+                        <div class="time-slot-item {{ timeSlot.type?.toLocaleLowerCase() }}"
+                             [title]="'النوع: ' + consultationTypeToText(timeSlot.consultationType) + (timeSlot.notes ? ' | ملاحظات: ' + timeSlot.notes : '')">
+                          <div class="time-slot-content">
+                            <div class="time-info">
+                              <span class="fw-bold">{{ timeSlot.time }}</span>
+                              <span class="mx-2 text-muted small">({{ timeSlot.duration }})</span>
+                            </div>
+                            <span class="badge {{ timeSlot.type | lowercase }}">
+                              {{ consultationTypeToText(timeSlot.consultationType) }}
+                            </span>
+                          </div>
+                          @if (timeSlot.notes) {
+                            <div class="notes text-muted small">
+                              <i class="bi bi-chat-left-text"></i> {{ timeSlot.notes }}
+                            </div>
+                          }
+                        </div>
+                      } @empty {
+                        <div class="no-time-slots text-muted small">
+                          لا توجد مواعيد متاحة
+                        </div>
+                      }
+                    </div>
+                  </div>
+
+                  <!-- Placeholder for non-current month days -->
+                  <div class="empty-state" *ngIf="!day.isCurrentMonth"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

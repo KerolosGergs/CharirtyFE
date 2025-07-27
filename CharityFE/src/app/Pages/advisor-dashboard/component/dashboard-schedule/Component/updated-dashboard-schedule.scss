@@ -1,0 +1,347 @@
+/* Define color variables for consistency */
+:root {
+  --primary-500: #4caf50; /* Primary green color */
+  --availability-bg: #e6f4ea; /* Light green for availability */
+  --confirmed-bg: #e0f7fa; /* Light cyan for confirmed */
+  --pending-bg: #fff4e6; /* Light orange for pending */
+  --availability-border: #4caf50; /* Green border for availability */
+  --confirmed-border: #00acc1; /* Cyan border for confirmed */
+  --pending-border: #fb8c00; /* Orange border for pending */
+  --has-time-slots-bg: #ececec; /* Gray background for days with time slots */
+  --has-time-slots-border: #4caf50; /* Green border for days with time slots */
+}
+
+/* Calendar container styles */
+.calendar-container {
+  max-width: 1200px; /* Limit max width for large screens */
+  padding: 16px;
+  margin: 0 auto;
+}
+
+/* Day cell styles for calendar-like appearance */
+.day-cell {
+  aspect-ratio: 1 / 1; /* Square shape */
+  padding: 6px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  min-height: 80px; /* Compact height */
+  height: auto; /* Allow expansion for time slots */
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.day-cell:hover {
+  background-color: #f8f8f8;
+  transform: scale(1.02); /* Slight zoom on hover */
+}
+
+.day-cell.current-month {
+  background-color: #ffffff;
+}
+
+.day-cell.other-month {
+  background-color: #f0f0f0;
+  color: #aaaaaa;
+}
+
+.day-cell.selected {
+  background-color: var(--availability-bg) !important;
+  border: 2px solid var(--primary-500) !important;
+}
+
+.day-cell.has-time-slots {
+  background-color: var(--has-time-slots-bg) !important; /* Distinct background for days with time slots */
+  border: 2px solid var(--has-time-slots-border) !important; /* Prominent green border */
+}
+
+/* Day number styles */
+.day-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333333;
+  padding: 4px;
+  position: relative;
+}
+
+.day-number .highlight {
+  color: var(--primary-500);
+}
+
+.selected-icon {
+  color: var(--primary-500);
+  font-size: 14px;
+  margin-left: 4px;
+}
+
+/* Indicator for days with time slots */
+.time-slot-indicator {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--primary-500);
+  border-radius: 50%;
+  border: 1px solid #ffffff; /* White border for contrast */
+}
+
+/* Time slot list container */
+.time-slot-list {
+  margin-top: 8px;
+  max-height: 180px; /* Limit height with scrolling */
+  overflow-y: auto;
+  padding: 0 4px;
+}
+
+/* Individual time slot item */
+.time-slot-item {
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  border-left: 4px solid transparent; /* Thicker border for emphasis */
+  transition: background 0.2s ease;
+}
+
+.time-slot-item.availability {
+  background-color: var(--availability-bg);
+  border-left-color: var(--availability-border);
+}
+
+.time-slot-item.confirmed {
+  background-color: var(--confirmed-bg);
+  border-left-color: var(--confirmed-border);
+}
+
+.time-slot-item.pending {
+  background-color: var(--pending-bg);
+  border-left-color: var(--pending-border);
+}
+
+.time-slot-item:hover {
+  background-color: #f8f8f8;
+}
+
+/* Time slot content layout */
+.time-slot-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.time-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time-info .fw-bold {
+  font-size: 0.85rem;
+}
+
+.time-info .text-muted {
+  font-size: 0.75rem;
+}
+
+.notes {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  color: #666666;
+}
+
+/* Badge styles for consultation type */
+.badge {
+  font-size: 0.7rem;
+  padding: 0.25em 0.5em;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.badge.availability {
+  background-color: var(--availability-border);
+  color: #ffffff;
+}
+
+.badge.confirmed {
+  background-color: var(--confirmed-border);
+  color: #ffffff;
+}
+
+.badge.pending {
+  background-color: var(--pending-border);
+  color: #ffffff;
+}
+
+/* Legend for time slot types */
+.slot-type-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 8px 0;
+  padding: 8px;
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+}
+
+.legend-color {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+}
+
+.legend-color.availability {
+  background-color: var(--availability-bg);
+  border: 1px solid var(--availability-border);
+}
+
+.legend-color.confirmed {
+  background-color: var(--confirmed-bg);
+  border: 1px solid var(--confirmed-border);
+}
+
+.legend-color.pending {
+  background-color: var(--pending-bg);
+  border: 1px solid var(--pending-border);
+}
+
+/* Month navigation styles */
+.month-navigation {
+  padding: 8px 0;
+}
+
+.nav-btn {
+  font-size: 1rem;
+}
+
+.month-year-display h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* Week header styles */
+.week-header {
+  font-weight: bold;
+  color: #333333;
+}
+
+.week-day-label {
+  font-size: 0.9rem;
+  padding: 4px;
+}
+
+/* Empty state for non-current month days */
+.empty-state {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaaaaa;
+  font-size: 0.8rem;
+}
+
+/* No time slots message */
+.no-time-slots {
+  padding: 8px;
+  text-align: center;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .calendar-container {
+    padding: 8px;
+  }
+
+  .day-cell {
+    min-height: 60px;
+    padding: 4px;
+  }
+
+  .day-number {
+    font-size: 0.9rem;
+  }
+
+  .time-slot-list {
+    max-height: 150px;
+  }
+
+  .time-slot-item {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+
+  .month-navigation {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .month-year-display h3 {
+    font-size: 1.1rem;
+  }
+
+  .calendar-grid .col {
+    padding: 1px;
+  }
+
+  .week-day-label {
+    font-size: 0.8rem;
+  }
+
+  .time-slot-indicator {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .day-cell {
+    min-height: 50px;
+  }
+
+  .day-number {
+    font-size: 0.85rem;
+  }
+
+  .time-slot-item {
+    font-size: 0.75rem;
+  }
+
+  .badge {
+    font-size: 0.65rem;
+  }
+
+  .legend-item {
+    font-size: 0.75rem;
+  }
+
+  .legend-color {
+    width: 12px;
+    height: 12px;
+  }
+
+  .week-day-label {
+    font-size: 0.75rem;
+  }
+
+  .time-slot-indicator {
+    width: 6px;
+    height: 6px;
+  }
+}

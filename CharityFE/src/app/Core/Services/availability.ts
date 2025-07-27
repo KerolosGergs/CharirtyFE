@@ -12,8 +12,8 @@ export class Availability {
 
   constructor(private http: HttpClient) {}
 
-  getAllAvailability(advisorId: number): Observable<IAdvisorAvailability[]> {
-    return this.http.get<IAdvisorAvailability[]>(`${this.baseUrl}/${advisorId}/availability`);
+  getAllAvailability(advisorId: number): Observable<{data:IAdvisorAvailability[]}> {
+    return this.http.get<{data:IAdvisorAvailability[]}>(`${this.baseUrl}/${advisorId}/availability`);
   }
 
   getAvailabilityById(id: number): Observable<IAdvisorAvailability> {
