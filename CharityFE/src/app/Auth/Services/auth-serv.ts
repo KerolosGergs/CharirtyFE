@@ -55,6 +55,11 @@ getUserID(): string | null {
   const user = this.getUserInfo();
   return user.id;
 }
+getId():Number{
+  // const user = this.getUserInfo();
+  // return Number(user.id);
+  return 10;
+}
 
   getRole(): string | null {
     if (this.isBrowser()) {

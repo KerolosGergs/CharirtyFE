@@ -69,12 +69,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let req of filteredRequests; let i = index; trackBy: trackById">
+        <tr *ngFor="let req of filteredRequests; let i = index; ">
           <td><input type="checkbox"></td>
-          <td >{{ req.title }}</td>
-          <td>{{ req.consultationType === 0 ? 'اونلاين' : 'حضورى' }}</td>
+          <td >{{ req.userFullName }}</td>
+          <td>{{ req.consultationId === 0 ? 'اونلاين' : 'حضورى' }}</td>
           <td>{{ req.userEmail || 'غير متوفر' }}</td>
-          <td>{{ req.requestDate | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ req.appointmentTime| date: 'yyyy-MM-dd' }}</td>
           <td>
             <div class="position-relative">
               <i class="bi bi-three-dots cursor-pointer" (click)="toggleActions(i)"></i>

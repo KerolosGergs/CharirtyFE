@@ -4,6 +4,7 @@ import { Environment } from '../../../Environment/environment';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { AdviceRequestDTO } from '../Interfaces/iadvisorrequest';
+import e from 'express';
 
 export interface IAdviceRequestDTO {
   id: number;
@@ -26,6 +27,20 @@ export interface IAdviceRequestDTO {
   consultationType: number;
   userEmail?: string;
 }
+export interface GetRequests {
+  id: number
+  userId: string
+  userFullName: string
+  userEmail: string
+  advisorId: number
+  advisorFullName: any
+  consultationId: number
+  consultationName: any
+  appointmentTime: string
+  notes: any
+  status: string
+}
+
 
 export interface ApiResponse<T> {
   success: boolean;
@@ -60,8 +75,8 @@ export class Advicereques {
     return this.http.put<ApiResponse<AdviceRequestDTO>>(`${this.baseUrl}/${id}/confirm`, {});
   }
 
-  getRequestsForAdvisor(advisorId: string): Observable<ApiResponse<IAdviceRequestDTO[]>> {
-    return this.http.get<ApiResponse<IAdviceRequestDTO[]>>(`${this.baseUrl}/advisor/${advisorId}`);
+  getRequestsForAdvisor(advisorId: number): Observable<ApiResponse<GetRequests[]>> {
+    return this.http.get<ApiResponse<GetRequests[]>>(`${Environment.apiUrl}advisor/${advisorId}/requests`);
   }
 
   getRequestById(id: number): Observable<IAdviceRequestDTO> {

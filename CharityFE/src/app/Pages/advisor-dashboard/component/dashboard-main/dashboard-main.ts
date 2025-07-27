@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AuthServ } from './../../../../Auth/Services/auth-serv';
+import { Component, inject, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, CommonModule, NgClass, NgStyle, NgIf, NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Advicereques, IAdviceRequestDTO } from '../../../../Core/Services/advicereques';
+import { Advicereques, GetRequests, IAdviceRequestDTO } from '../../../../Core/Services/advicereques';
 
 @Component({
   selector: 'app-dashboard-main',
@@ -11,13 +12,13 @@ import { Advicereques, IAdviceRequestDTO } from '../../../../Core/Services/advic
   styleUrl: './dashboard-main.scss'
 })
 export class DashboardMain implements OnInit {
-  adviceRequests: (IAdviceRequestDTO & { showActions?: boolean })[] = [];
-  filteredRequests: (IAdviceRequestDTO & { showActions?: boolean })[] = [];
+  adviceRequests: (GetRequests & { showActions?: boolean })[] = [];
+  filteredRequests: (GetRequests & { showActions?: boolean })[] = [];
   searchTerm: string = '';
   selectedType: string = '';
   selectedDate: string = '';
-  advisorId: string | null = null;
-
+  advisorId!: number; 
+  authServ =inject(AuthServ);
   cards = [
     {
       name: 'عدد الاستشارات',
@@ -46,25 +47,23 @@ export class DashboardMain implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.advisorId = localStorage.getItem('advisorId');
+
+      this.advisorId = +this.authServ.getId();
       if (!this.advisorId) {
         console.error('advisorId not found in localStorage');
         return;
       }
       this.fetchAdvisorRequests(this.advisorId);
-    } else {
-      console.warn('Running on server — skipping localStorage usage');
-    }
+    
   }
 
-  fetchAdvisorRequests(advisorId: string): void {
+  fetchAdvisorRequests(advisorId: number): void {
   this.adviceService.getRequestsForAdvisor(advisorId).subscribe({
     next: (res) => {
       console.log(res);
       
       const responseData = res?.data || [];
-      this.adviceRequests = responseData.map((r: IAdviceRequestDTO) => ({ ...r, showActions: false }));
+      this.adviceRequests = responseData.map((r: GetRequests) => ({ ...r, showActions: false }));
       this.filteredRequests = [...this.adviceRequests];
     },
     error: (err) => {
@@ -78,17 +77,17 @@ export class DashboardMain implements OnInit {
   const term = this.searchTerm.toLowerCase();
 
   this.filteredRequests = this.adviceRequests.filter(r => {
-    const matchesTitle = r.title?.toLowerCase().includes(term);
+    const matchesTitle = r.notes?.toLowerCase().includes(term);
 
     const matchesType =
       this.selectedType !== ''
-        ? (this.selectedType === '0' && r.consultationType === 0) ||
-          (this.selectedType === '1' && r.consultationType === 1)
+        ? (this.selectedType === '0' && r.consultationId === 0) ||
+          (this.selectedType === '1' && r.consultationId === 1)
         : true;
 
     const matchesDate =
       this.selectedDate
-        ? r.requestDate?.toString().slice(0, 10) === this.selectedDate
+        ? r.appointmentTime?.toString().slice(0, 10) === this.selectedDate
         : true;
 
     return matchesTitle && matchesType && matchesDate;
@@ -113,7 +112,7 @@ onDateChange(): void {
     });
   }
 
-  viewDetails(request: IAdviceRequestDTO): void {
+  viewDetails(request: GetRequests): void {
     console.log('Request details:', request);
     // Navigate or show modal
   }

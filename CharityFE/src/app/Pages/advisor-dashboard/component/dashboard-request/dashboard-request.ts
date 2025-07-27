@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { AuthServ } from './../../../../Auth/Services/auth-serv';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -42,8 +43,8 @@ export class DashboardRequest {
   currentWeekStart!: Date;
   weekDays: Date[] = [];
   timeSlots: string[] = [];
-
-  advisorId = 1; // Change this to dynamic if needed
+  AuthServ = inject(AuthServ);
+  advisorId = 10 ; // Change this to dynamic if needed
   availableSlots: AdvisorAvailabilityDTOO[] = [];
   advisorRequests: AdvisorRequest[] = [];
 
