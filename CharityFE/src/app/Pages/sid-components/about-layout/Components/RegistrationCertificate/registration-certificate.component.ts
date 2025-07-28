@@ -13,9 +13,9 @@ export class RegistrationCertificateComponent {
   selectedImage: string = '';
 
   images = [
-    'Images/registration-certificate/شهادة تسجيل 1.png',
-    'Images/registration-certificate/شهادة تسجيل 2.jpg',
-    'Images/registration-certificate/شهادة تسجيل 3.png',
+    'Images/registration-certificate/Registration-Certificate-1.png',
+    'Images/registration-certificate/Registration-Certificate-2.jpg',
+    'Images/registration-certificate/Registration-Certificate-3.png',
   ];
 
   openModal(img: string) {

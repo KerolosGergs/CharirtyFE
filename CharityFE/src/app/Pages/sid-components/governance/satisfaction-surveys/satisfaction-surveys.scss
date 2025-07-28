@@ -1,0 +1,49 @@
+.single-file-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+}
+
+.file-container {
+  width: 100%;
+  max-width: 600px;
+  padding: 3rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  border-top: 5px solid var(--primary-500);
+}
+
+.file-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-800);
+  margin-bottom: 1rem;
+}
+
+.file-description {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2.5rem;
+}
+
+.download-button {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background-color: var(--primary-500);
+  color: #fff;
+  border-radius: 50px; /* زر بشكل حبة الدواء */
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(2, 86, 50, 0.2);
+}
+
+.download-button:hover {
+  background-color: var(--primary-600);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(2, 86, 50, 0.3);
+}

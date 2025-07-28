@@ -1,0 +1,85 @@
+/*
+ * info-page.css
+ * ملف أنماط مخصص للصفحات التي تعرض معلومات وصور
+*/
+
+.info-section {
+  padding: 2rem 0;
+}
+
+.info-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden; /* للحفاظ على الزوايا الدائرية */
+}
+
+.info-details {
+  flex: 1;
+  min-width: 320px;
+  padding: 2.5rem 3rem;
+}
+
+.info-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-800);
+  margin-bottom: 2rem;
+}
+
+.details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.details-list li {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 1.25rem;
+  line-height: 1.7;
+}
+
+.details-list li strong {
+  color: var(--primary-600);
+  font-weight: 700;
+  margin-left: 8px; /* لتنسيق أفضل باللغة العربية */
+}
+
+.info-image {
+  flex: 1;
+  min-width: 320px;
+  background-color: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem; /* added padding */
+  // max-height: 400px; /* limit max height */
+  // overflow: hidden; /* prevent overflow */
+}
+
+.info-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* show full image */
+  border-radius: 8px; /* optional: rounded corners */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* subtle shadow */
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  .info-details {
+    padding: 2rem;
+  }
+  .info-title {
+    font-size: 1.8rem;
+  }
+}
+@media (max-width: 768px) {
+  .info-image {
+    max-height: 300px;
+  }
+}
+

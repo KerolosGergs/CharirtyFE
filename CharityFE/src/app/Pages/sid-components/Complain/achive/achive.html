@@ -15,7 +15,7 @@
       <h1 class="display-4 fw-bold fs-1 text-success animate__animated animate__fadeInDown">
         {{ title }}
       </h1>
-      <img src="Pdf/achivement/الإنجازات في أرقام.png" class="img-thumbnail shadow mb-3" alt="الإنجازات في أرقام">
+      <img src="Pdf/achivement/Achievements-in-numbers.png" class="img-thumbnail shadow mb-3" alt="الإنجازات في أرقام">
       <p class="pt-3 fs-4 lead text-muted animate__animated animate__fadeInUp animate__delay-1s">
         تقرير شامل عن الإنجازات والنتائج المحققة خلال الفترة الماضية
       </p>
@@ -82,14 +82,14 @@
           <div class="pdf-viewer-container">
             @if (showPdfViewer) 
             {
-                <iframe src="Pdf/achivement/تقرير الإنجازات.pdf" 
+                <iframe src="Pdf/achivement/Achievement-report.pdf" 
                     class="pdf-viewer"
                     [style.transform]="'scale(' + pdfZoom + ')'"
                     style="transform-origin: top right;">
             </iframe>
             }
             @else {
-                 <iframe src="Pdf/achivement/إحصاءات عامة.pdf" 
+                 <iframe src="Pdf/achivement/General-statistics.pdf" 
                     class="pdf-viewer"
                     [style.transform]="'scale(' + pdfZoom + ')'"
                     style="transform-origin: top right;">

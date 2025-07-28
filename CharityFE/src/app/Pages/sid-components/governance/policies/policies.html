@@ -1,0 +1,166 @@
+<div class="container">
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+      <a href="/home">الرئيسية</a> &gt;
+      <a href="/governance">الحوكمة</a> &gt;
+      <span>السياسات</span>
+    </nav>
+
+    <!-- Policies Section -->
+<section class="files-section">
+  <header class="page-header">
+    <h1>السياسات والإجراءات</h1>
+  </header>
+
+  <div class="files-grid">
+    <a class="file-button" (click)="selectPolicy(0)">آلية اختيار الرئيس والنائب</a>
+    <a class="file-button" (click)="selectPolicy(1)">آلية اختيار المدير التنفيذي</a>
+    <a class="file-button" (click)="selectPolicy(2)">آلية اختيار المشرف المالي</a>
+    <a class="file-button" (click)="selectPolicy(3)">آلية البت في قبول اعضاء الجمعية العمومية</a>
+    <a class="file-button" (click)="selectPolicy(4)">اجراءات التعامل مع المقبوضات</a>
+    <a class="file-button" (click)="selectPolicy(5)">اجراءات الصرف على البرامج والانشطة</a>
+    <a class="file-button" (click)="selectPolicy(6)">اجراءات المشتريات</a>
+    <a class="file-button" (click)="selectPolicy(7)">اقرار تعارض المصالح</a>
+    <a class="file-button" (click)="selectPolicy(8)">المخاطر الكامنة والمتأصلة</a>
+    <a class="file-button" (click)="selectPolicy(9)">الميثاق الاخلاقي للعاملين في القطاع غير الربحي</a>
+    <a class="file-button" (click)="selectPolicy(10)">توزيع الساسات على الاعضاء</a>
+    <a class="file-button" (click)="selectPolicy(11)">جدول مصفوفة الصلاحيات بين مجلس الادارة</a>
+    <a class="file-button" (click)="selectPolicy(12)">سياسة إدارة المخاطر</a>
+    <a class="file-button" (click)="selectPolicy(13)">سياسة ادارة المتطوعين</a>
+    <a class="file-button" (click)="selectPolicy(14)">سياسة ادارة الموارد البشرية</a>
+    <a class="file-button" (click)="selectPolicy(15)">سياسة الابلاغ عن المخالفات وحماية مقدمي البلاغات</a>
+    <a class="file-button" (click)="selectPolicy(16)">سياسة الاحتفاظ بالوثائق واتلافها</a>
+    <a class="file-button" (click)="selectPolicy(17)">سياسة الاستثمار</a>
+    <a class="file-button" (click)="selectPolicy(18)">سياسة الاشتباه بعمليات غسل الاموال وجرائم تمويل الارهاب</a>
+    <a class="file-button" (click)="selectPolicy(19)">سياسة التدقيق والمراجعة الداخلية</a>
+    <a class="file-button" (click)="selectPolicy(20)">سياسة التعامل مع الشركاء المنفذين</a>
+    <a class="file-button" (click)="selectPolicy(21)">سياسة التعيين والتوظيف</a>
+    <a class="file-button" (click)="selectPolicy(22)">سياسة الرقابة والاشراف</a>
+    <a class="file-button" (click)="selectPolicy(23)">سياسة المشتريات والمنافسات</a>
+    <a class="file-button" (click)="selectPolicy(24)">سياسة تعارض المصالح</a>
+    <a class="file-button" (click)="selectPolicy(25)">سياسة تنظيم العلاقة مع المستفيدين</a>
+    <a class="file-button" (click)="selectPolicy(26)">سياسة جمع التبرعات</a>
+    <a class="file-button" (click)="selectPolicy(27)">سياسة خصوصية البيانات</a>
+    <a class="file-button" (click)="selectPolicy(28)">سياسة صرف المساعدات</a>
+    <a class="file-button" (click)="selectPolicy(29)">سياسة مكافحة غسيل الاموال</a>
+    <a class="file-button" (click)="selectPolicy(30)">ضوابط الحماية في بيئة العمل</a>
+    <a class="file-button" (click)="selectPolicy(31)">قواعد السلوك الوظيفي</a>
+    <a class="file-button" (click)="selectPolicy(32)">محضر اعتماد اليات واجراءات</a>
+    <a class="file-button" (click)="selectPolicy(33)">محضر مجلس الإدارة لإقرار السياسات</a>
+    <a class="file-button" (click)="selectPolicy(34)">مصفوفة الصلاحيات</a>
+    <a class="file-button" (click)="selectPolicy(35)">مصفوفة صلاحيات بين مجلس الادارة والادارة التنفيذية</a>
+  </div>
+
+  <div class="py-3">
+    @if (selectedPolicyIndex === 0) {
+      <iframe src="Pdf/policy/Mechanism-for-selecting-the-president-and-vice-president.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 1) {
+      <iframe src="Pdf/policy/Executive-Director-Selection-Mechanism.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 2) {
+      <iframe src="Pdf/policy/Financial-Supervisor-Selection-Mechanism.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 3) {
+      <iframe src="Pdf/policy/Mechanism-for-deciding-on-the-acceptance-of-members-of-the-General-Assembly.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 4) {
+      <iframe src="Pdf/policy/Procedures-for-dealing-with-receipts.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 5) {
+      <iframe src="Pdf/policy/Disbursement-procedures-for-programs-and-activities.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 6) {
+      <iframe src="Pdf/policy/Purchasing-procedures.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 7) {
+      <iframe src="Pdf/policy/Declaration-of-conflict-of-interest.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 8) {
+      <iframe src="Pdf/policy/Inherent-and-inherent-risks.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 9) {
+      <iframe src="Pdf/policy/Code-of-Ethics-for-Non-Profit-Sector-Workers.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 10) {
+      <iframe src="Pdf/policy/Distributing-policies-to-members.jpg" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 11) {
+      <iframe src="Pdf/policy/Matrix-table-of-powers-between-the-Board-of-Directors.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 12) {
+      <iframe src="Pdf/policy/Risk-management-policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 13) {
+      <iframe src="Pdf/policy/Volunteer-Management-Policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 14) {
+      <iframe src="Pdf/policy/Human-Resources-Management-Policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 15) {
+      <iframe src="Pdf/policy/Whistleblowing-and-whistleblower-protection-policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 16) {
+      <iframe src="Pdf/policy/Document-retention-and-destruction-policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 17) {
+      <iframe src="Pdf/policy/Investment-policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 18) {
+      <iframe src="Pdf/policy/Policy-on-suspicion-of-money-laundering-and-terrorist-financing-crimes.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 19) {
+      <iframe src="Pdf/policy/Internal-Audit-and-Review-Policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 20) {
+      <iframe src="Pdf/policy/Policy-for-dealing-with-implementing-partners.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 21) {
+      <iframe src="Pdf/policy/Recruitment-and-employment-policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 22) {
+      <iframe src="Pdf/policy/Control-and-supervision-policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 23) {
+      <iframe src="Pdf/policy/Procurement-and-Tendering-Policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 24) {
+      <iframe src="Pdf/policy/Conflict-of-interest-policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 25) {
+      <iframe src="Pdf/policy/Policy-for-regulating-the-relationship-with-beneficiaries.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 26) {
+      <iframe src="Pdf/policy/Fundraising-Policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 27) {
+      <iframe src="Pdf/policy/Data-Privacy-Policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 28) {
+      <iframe src="Pdf/policy/Aid-disbursement-policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 29) {
+      <iframe src="Pdf/policy/Anti-money-laundering-policy.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 30) {
+      <iframe src="Pdf/policy/Safety-controls-in-the-work-environment.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 31) {
+      <iframe src="Pdf/policy/Code-of-professional-conduct.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 32) {
+      <iframe src="Pdf/policy/Minutes-of-approval-of-mechanisms-and-procedures.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 33) {
+      <iframe src="Pdf/policy/Board-of-Directors-minutes-of-policy-approval.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 34) {
+      <iframe src="Pdf/policy/Matrix-of-powers.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+    @if (selectedPolicyIndex === 35) {
+      <iframe src="Pdf/policy/Matrix-of-powers-between-the-Board-of-Directors-and-the-Executive-Management.pdf" width="100%" height="600" frameborder="0"></iframe>
+    }
+  </div>
+</section>
+
+  </div>

@@ -1,0 +1,59 @@
+ <div class="container">
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+      <a href="/home">الرئيسية</a> &gt;
+      <a href="/governance">الحوكمة</a> &gt;
+      <span>الأنظمة واللوائح</span>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <h1>الأنظمة واللوائح</h1>
+    </header>
+
+    <!-- Files Section -->
+    <section class="files-section">
+    <div class="files-grid">
+      <a class="file-button" (click)="selectReport(0)">اللائحة الأساسية المحدثة والمعتمدة من المركز</a>
+      <a class="file-button" (click)="selectReport(1)">اللائحة التنفيذية لنظام الجمعيات والمؤسسات الأهلية</a>
+      <a class="file-button" (click)="selectReport(2)">عضوية الجمعية</a>
+      <a class="file-button" (click)="selectReport(3)">لائحة إجراءات المستفيدين</a>
+      <a class="file-button" (click)="selectReport(4)">لائحة الموارد البشرية</a>
+      <a class="file-button" (click)="selectReport(5)">لائحة شراء الأصول</a>
+      <a class="file-button" (click)="selectReport(6)">لائحة وإجراءات التعاقد والمشتريات</a>
+      <a class="file-button" (click)="selectReport(7)">نظام الرقابة الداخلية</a>
+      <a class="file-button" (click)="selectReport(8)">نظام العمل التطوعي</a>
+    </div>
+
+    <!-- Display Selected PDF Using @if -->
+    <div class="py-3">
+      @if (selectedReportIndex === 0) {
+        <iframe src="Pdf/regulations/The-updated-and-approved-basic-regulations-of-the-Center.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedReportIndex === 1) {
+        <iframe src="Pdf/regulations/Executive-Regulations-of-the-Civil-Society-Associations-and-Institutions-System.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedReportIndex === 2) {
+        <iframe src="Pdf/regulations/Association-membership.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedReportIndex === 3) {
+        <iframe src="Pdf/regulations/Beneficiary-Procedures-List.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedReportIndex === 4) {
+        <iframe src="Pdf/regulations/Human-Resources-Regulations.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedReportIndex === 5) {
+        <iframe src="Pdf/regulations/Asset-Purchase-List.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedReportIndex === 6) {
+        <iframe src="Pdf/regulations/Contracting-and-purchasing-regulations-and-procedures.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedReportIndex === 7) {
+        <iframe src="Pdf/regulations/Internal-control-system.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedReportIndex === 8) {
+        <iframe src="Pdf/regulations/Volunteer-work-system.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+    </div>
+  </section>
+  </div>

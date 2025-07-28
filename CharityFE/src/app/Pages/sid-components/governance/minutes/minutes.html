@@ -1,0 +1,92 @@
+<div class="container">
+  <!-- Breadcrumb Navigation -->
+  <nav class="breadcrumb" aria-label="breadcrumb">
+    <a href="/home">الرئيسية</a> &gt;
+    <a href="/governance">الحوكمة</a> &gt;
+    <span>محاضر الجمعية</span>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1>محاضر الجمعية</h1>
+  </header>
+
+  <!-- Files Section -->
+  <section class="files-section">
+
+    <!-- محاضر مجلس الإدارة -->
+    <div class="files-grid-section">
+      <h2>محاضر مجلس الإدارة</h2>
+      <div class="files-grid">
+        <a class="file-button" (click)="selectMinutes(0)">محاضر عام 2015.pdf</a>
+        <a class="file-button" (click)="selectMinutes(1)">محاضر عام 2018.pdf</a>
+        <a class="file-button" (click)="selectMinutes(2)">محاضر عام 2019.pdf</a>
+        <a class="file-button" (click)="selectMinutes(3)">محاضر عام 2020.pdf</a>
+        <a class="file-button" (click)="selectMinutes(4)">محاضر عام 2021.pdf</a>
+        <a class="file-button" (click)="selectMinutes(5)">محاضر عام 2022.pdf</a>
+        <a class="file-button" (click)="selectMinutes(6)">محاضر عام 2023.pdf</a>
+        <a class="file-button" (click)="selectMinutes(7)">محضر اجتماع رقم 6 عام 2022.pdf</a>
+      </div>
+    </div>
+
+    <!-- محاضر اللجان التخصصية -->
+    <div class="files-grid-section" style="margin-top: 2rem;">
+      <h2>محاضر اللجان التخصصية</h2>
+      <div class="files-grid">
+        <a class="file-button" (click)="selectCommitteeMinutes(0)">محاضر اللجان التتخصصية.pdf</a>
+      </div>
+    </div>
+
+    <!-- محاضر الجمعية العمومية -->
+    <div class="files-grid-section" style="margin-top: 2rem;">
+      <h2>محاضر الجمعية العمومية</h2>
+      <div class="files-grid">
+        <a class="file-button" (click)="selectGeneralAssemblyMinutes(0)">محضر اجتماع الجمعية العمومية غير العادية.pdf</a>
+        <a class="file-button" (click)="selectGeneralAssemblyMinutes(1)">محضر الجمعية العمومية العادية.pdf</a>
+      </div>
+    </div>
+
+    <!-- Display Selected PDFs -->
+    <div class="pdf-display" style="margin-top: 3rem;">
+      <!-- محاضر مجلس الإدارة PDFs -->
+      @if (selectedMinutesIndex === 0) {
+        <iframe src="Pdf/Board-of-Directors-Minutes/Lecturer-of-2015.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedMinutesIndex === 1) {
+        <iframe src="Pdf/Board-of-Directors-Minutes/Lecturer-of-2018.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedMinutesIndex === 2) {
+        <iframe src="Pdf/Board-of-Directors-Minutes/Lecturer-of-2019.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedMinutesIndex === 3) {
+        <iframe src="Pdf/Board-of-Directors-Minutes/Lecturer-of-2020.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedMinutesIndex === 4) {
+        <iframe src="Pdf/Board-of-Directors-Minutes/Lecturer-of-2021.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedMinutesIndex === 5) {
+        <iframe src="Pdf/Board-of-Directors-Minutes/Lecturer-of-2022.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedMinutesIndex === 6) {
+        <iframe src="Pdf/Board-of-Directors-Minutes/Lecturer-of-2023.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedMinutesIndex === 7) {
+        <iframe src="Pdf/Board-of-Directors-Minutes/Minutes-of-Meeting-No.-6-of-2022.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+
+      <!-- محاضر اللجان التخصصية PDF -->
+      @if (selectedCommitteeMinutesIndex === 0) {
+        <iframe src="Pdf/Assembly-Minutes/Minutes-of-specialized-committees/Minutes-of-specialized-committees.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+
+      <!-- Assembly-Minutes العمومية PDFs -->
+      @if (selectedGeneralAssemblyMinutesIndex === 0) {
+        <iframe src="Pdf/Assembly-Minutes/Minutes-of-the-General-Assembly/Minutes-of-the-Extraordinary-General-Assembly-Meeting.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+      @if (selectedGeneralAssemblyMinutesIndex === 1) {
+        <iframe src="Pdf/Assembly-Minutes/Minutes-of-the-General-Assembly/Minutes-of-the-Ordinary-General-Assembly.pdf" width="100%" height="600" frameborder="0"></iframe>
+      }
+    </div>
+
+  </section>
+</div>
