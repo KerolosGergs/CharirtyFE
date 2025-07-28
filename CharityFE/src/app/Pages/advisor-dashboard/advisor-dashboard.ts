@@ -17,8 +17,8 @@ export class AdvisorDashboard {
 
   sidebarItems = [
     { label: 'الرئيسية', icon: 'bi bi-house-door', link: '/advisor-dashboard/dashboard-main', active: true },
-    { label: 'إضافة مواعيدت', icon: 'bi bi-people', link: '/advisor-dashboard/dashboard-schedule-Add', active: false },
-    { label: 'جدول المواعيد', icon: 'bi bi-chat-dots', link: '/advisor-dashboard/dashboard-schedule', active: false },
+    // { label: 'إضافة مواعيدت', icon: 'bi bi-people', link: '/advisor-dashboard/dashboard-schedule-Add', active: false },
+    { label: 'جدول المواعيد', icon: 'bi bi-chat-dots', link: '/advisor-dashboard/AdvisorCallender', active: false },
     // { label: 'الطلبات المفدمة', icon: 'bi bi-envelope', link: '/advisor-dashboard/dashboard-request', active: false }
   ];
 

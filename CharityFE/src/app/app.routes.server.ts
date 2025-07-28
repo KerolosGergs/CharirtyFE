@@ -19,10 +19,10 @@ export const serverRoutes: ServerRoute[] = [
     path: 'dashboard/dashboard-news-edit/:id',
     renderMode: RenderMode.Client
   },
-  {
-    path: 'advisor-dashboard/date-details/:id',
-    renderMode: RenderMode.Client
-  },
+  // {
+  //   path: 'advisor-dashboard/date-details/:id',
+  //   renderMode: RenderMode.Client
+  // },
   {
     path: 'dashboard/dashboard-midetation-edit/:id',
     renderMode: RenderMode.Client

@@ -1,0 +1,183 @@
+<!-- Calendar container for the schedule component -->
+<div class="calendar-container">
+  <!-- Calendar Header -->
+  <div class="calendar-header">
+    <button class="nav-btn" (click)="previousMonth()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="15,18 9,12 15,6"></polyline>
+      </svg>
+    </button>
+    
+    <h2 class="month-year">
+      {{ months[currentDate.getMonth()] }} {{ currentDate.getFullYear() }}
+    </h2>
+    
+    <button class="nav-btn" (click)="nextMonth()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="9,18 15,12 9,6"></polyline>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Week Days Header -->
+  <div class="weekdays">
+    @for (day of weekDays; track day) {
+      <div class="weekday">{{ day }}</div>
+    }
+  </div>
+
+  <!-- Calendar Grid -->
+  <div class="calendar-grid">
+    @for (day of calendarDays; track day.date) {
+      <div class="calendar-day"
+           [class.other-month]="!day.isCurrentMonth"
+           [class.today]="day.isToday"
+           [class.has-appointments]="day.appointments.length > 0 || day.availableSlots.length > 0"
+           (click)="selectDay(day)">
+        <div class="day-number">{{ day.dayNumber }}</div>
+        
+        <!-- Appointment indicators -->
+        @if (day.appointments.length > 0 || day.availableSlots.length > 0) {
+          <div class="appointments-preview">
+            @for (appointment of day.appointments.slice(0, 2); track $index) {
+              @if (appointment.status === 'Confirmed') {
+
+                <div class="appointment-dot booked"
+                     [title]="appointment.userFullName + ' - ' + formatTime(appointment.time)">
+                </div>
+              }@else if (appointment.status === 'Pending') {
+                <div class="appointment-dot pending"
+                     [title]="appointment.userFullName + ' - ' + formatTime(appointment.time)">
+                </div>
+              }
+            }
+            @for (slot of day.availableSlots.slice(0, 2); track $index) {
+              <div class="appointment-dot available"
+                   [title]="'متاح - ' + formatTime(slot.time)">
+              </div>
+            }
+            @if ((day.appointments.length + day.availableSlots.length) > 2) {
+              <div class="more-indicator">
+                +{{ (day.appointments.length + day.availableSlots.length) - 2 }}
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
+
+<!-- Day Details Modal -->
+@if (showModal && selectedDay) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>{{ selectedDay.dayNumber }} {{ months[selectedDay.date.getMonth()] }} {{ selectedDay.date.getFullYear() }}</h3>
+        <button class="close-btn" (click)="closeModal()">×</button>
+      </div>
+      
+      <div class="modal-body">
+        <!-- Booked Appointments -->
+        @if (selectedDay.appointments.length > 0) {
+          <div class="appointments-section">
+            <h4>المواعيد المحجوزة</h4>
+            @for (appointment of selectedDay.appointments; track $index) {
+              <div class="appointment-card booked">
+                <div class="appointment-time">{{ formatTime(appointment.time) }}</div>
+                <div class="appointment-details">
+                  <div class="patient-name">{{ appointment.userFullName }}</div>
+                  <div class="consultation-type">{{ appointment.consultationName }}</div>
+                  <div class="duration">المدة: {{ formatDuration(appointment.duration) }}</div>
+                  @if (appointment.notes) {
+                    <div class="notes">{{ appointment.notes }}</div>
+                  }
+                  <div class="status" [class]="getStatusClass(appointment.status)">{{getStatusName(appointment.status) }}</div>
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- Available Slots -->
+        @if (selectedDay.availableSlots.length > 0) {
+          <div class="appointments-section">
+            <h4>الأوقات المتاحة</h4>
+            @for (slot of selectedDay.availableSlots; track $index) {
+              <div class="appointment-card available">
+                <div class="appointment-time">{{ formatTime(slot.time) }}</div>
+                <div class="appointment-details">
+                  <div class="consultation-type">{{ getConsultationTypeText(slot.consultationType) }}</div>
+                  <div class="duration">المدة: {{ formatDuration(slot.duration) }}</div>
+                  @if (slot.notes) {
+                    <div class="notes">{{ slot.notes }}</div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+
+        <!-- No appointments message -->
+        @if (selectedDay.appointments.length === 0 && selectedDay.availableSlots.length === 0) {
+          <div class="no-appointments">
+            <p>لا توجد مواعيد في هذا اليوم</p>
+          </div>
+        }
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="openAddSlotModal(selectedDay)">إضافة موعد جديد</button>
+        <button class="btn btn-secondary" (click)="closeModal()">إغلاق</button>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Add New Slot Modal -->
+@if (showAddSlotModal && selectedDay) {
+  <div class="modal-overlay" (click)="closeAddSlotModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>إضافة موعد جديد - {{ selectedDay.dayNumber }} {{ months[selectedDay.date.getMonth()] }}</h3>
+        <button class="close-btn" (click)="closeAddSlotModal()">×</button>
+      </div>
+      
+      <form [formGroup]="newSlotForm" (ngSubmit)="addNewSlot()" class="modal-body">
+        <div class="form-group">
+          <label for="time">الوقت</label>
+          <input type="time" id="time" formControlName="time" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="duration">المدة</label>
+          <select id="duration" formControlName="duration" class="form-control">
+            <option value="00:30:00">30 دقيقة</option>
+            <option value="01:00:00">ساعة واحدة</option>
+            <option value="01:30:00">ساعة ونصف</option>
+            <option value="02:00:00">ساعتان</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="consultationType">نوع الاستشارة</label>
+          <select id="consultationType" formControlName="consultationType" class="form-control">
+            <option value="0">حضوري</option>
+            <option value="1">أونلاين</option>
+            <!-- <option value="2">استشارة نفسية</option> -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">ملاحظات</label>
+          <textarea id="notes" formControlName="notes" class="form-control" rows="3" placeholder="أدخل أي ملاحظات..."></textarea>
+        </div>
+      </form>
+      
+      <div class="modal-footer">
+        <button class="btn btn-primary" (click)="addNewSlot()" [disabled]="!newSlotForm.valid">حفظ</button>
+        <button class="btn btn-secondary" (click)="closeAddSlotModal()">إلغاء</button>
+      </div>
+    </div>
+  </div>
+}

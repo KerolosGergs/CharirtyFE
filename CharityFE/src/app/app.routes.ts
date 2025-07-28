@@ -10,7 +10,6 @@ import { MedcineGeneralDefinition } from './Pages/sid-components/Medcine_service
 // import { Achive } from './Pages/achievements-communication/achive/achive';
 
 export const routes: Routes = [
-
     { path: '', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
     { path: 'login', component: LoginForm },
     { path: 'register', component: RegisterForm },
@@ -35,7 +34,6 @@ export const routes: Routes = [
     { path: 'medical-services', loadComponent: () => import('../app/Pages/medicalservices/medicalservices').then(m => m.Medicalservices), title: 'Medical Services' },
     { path: 'achievements-communication', loadComponent: () => import('../app/Pages/achievements-communication/achievements-communication').then(m => m.AchievementsCommunication), title: 'Achievements Communication' },
     { path: 'report', loadComponent: () => import('../app/Pages/achievements-communication/components/report/report').then(m => m.Report), title: 'Report' },
-
     {
         path: 'dashboard', loadComponent: () => import('../app/Pages/Dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard Main', children: [
             { path: '', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Dashboard Main' },
@@ -73,11 +71,11 @@ export const routes: Routes = [
             { path: '', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Advisor Dashboard Main' },
             { path: 'dashboard-main', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-main/dashboard-main').then(m => m.DashboardMain), title: 'Advisor Dashboard Main' },
             // { path: 'dashboard-date', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-date/dashboard-date').then(m => m.DashboardDate), title: 'Advisor Dashboard Date' },
-            { path: 'dashboard-schedule-Add', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-schedule/dashboard-schedule').then(m => m.DashboardSchedule), title: 'Advisor Dashboard Schedule' },
-            
-            { path: 'dashboard-schedule', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-schedule/Component/updated-dashboard-schedule').then(m => m.DashboardSchedule), title: 'Advisor Dashboard Schedule' },
-            { path: 'date-details/:id', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-date/components/date-details/date-details').then(m => m.DateDetails), title: 'Date Details' },
-            { path: 'dashboard-request', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-request/dashboard-request').then(m => m.DashboardRequest), title: 'Advisor Requests' }
+            // { path: 'dashboard-schedule-Add', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-schedule/dashboard-schedule').then(m => m.DashboardSchedule), title: 'Advisor Dashboard Schedule' },
+            // { path: 'dashboard-schedule', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-schedule/Component/updated-dashboard-schedule').then(m => m.DashboardSchedule), title: 'Advisor Dashboard Schedule' },
+            // { path: 'date-details/:id', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-date/components/date-details/date-details').then(m => m.DateDetails), title: 'Date Details' },
+            // { path: 'dashboard-request', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-request/dashboard-request').then(m => m.DashboardRequest), title: 'Advisor Requests' }
+            {path: 'AdvisorCallender', loadComponent: () => import('../app/Pages/advisor-dashboard/component/dashboard-schedule/Component/new-callender/new-callender').then(m => m.NewCallender), title: 'Advisor Dashboard Date' },
         ]
     },
     {
