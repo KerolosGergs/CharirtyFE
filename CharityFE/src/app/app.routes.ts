@@ -7,6 +7,7 @@ import { Questions } from './Pages/questions/questions';
 import { OurService } from './Pages/Home/our-service/our-service';
 import { RequestRepair } from './Pages/Forms/Components/request-repair/request-repair';
 import { MedcineGeneralDefinition } from './Pages/sid-components/Medcine_service/components/medcine-general-definition/medcine-general-definition';
+import { BlankPage } from './Pages/blank-page/blank-page';
 // import { Achive } from './Pages/achievements-communication/achive/achive';
 
 export const routes: Routes = [
@@ -64,6 +65,7 @@ export const routes: Routes = [
             { path: 'consultation-management', loadComponent: () => import('../app/Pages/Dashboard/components/consultation-management/consultation-management.component').then(m => m.ConsultationManagementComponent), title: 'Consltation Managment' },
             { path: 'dashboard-help', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-help/dashboard-help').then(m => m.DashboardHelp), title: 'Dashboard Help' },
             { path: 'dashboard-Volunteer', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-volunteer/dashboard-volunteer').then(m => m.DashboardVolunteer), title: 'Dashboard Volunteer' },
+            { path:'Add-Admin', loadComponent: () => import('../app/Pages/Dashboard/components/add-admin/add-admin').then(m => m.AddAdmin), title: 'Add Admin' },
         ]
     },
     {
@@ -152,7 +154,7 @@ export const routes: Routes = [
             {path:'requirements', loadComponent() {return import('./Pages/sid-components/Help-Layout/components/required-documents/required-documents').then(m => m.RequiredDocuments);}, title: 'Requirements'},
         ]
     },
-
+    {path:'blank-page', component: BlankPage, title: 'BlankPage'},
     { path: 'questions', component: Questions, title: 'Questions' },
 
     { path: 'questions', component: Questions, title: 'Questions' },

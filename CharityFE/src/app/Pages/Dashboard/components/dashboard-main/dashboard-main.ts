@@ -1,73 +1,95 @@
-import { Component, computed, HostListener, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
-
 import { NgClass, NgStyle } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { StatesService } from './Service/states-service';
+import { ChartConfiguration } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
+import { ChartData } from 'chart.js';
+
+export interface DashboardStats {
+  complaintCount: number;
+  reconcileRequestCount: number;
+  volunteerCount: number;
+  advisorCount: number;
+  lectureCount: number;
+  adviceRequestCount: number;
+  serviceOfferingCount: number;
+}
 
 @Component({
   selector: 'app-dashboard-main',
   standalone: true,
-  imports: [NgClass,NgStyle],
+  imports: [BaseChartDirective],
   templateUrl: './dashboard-main.html',
   styleUrl: './dashboard-main.scss'
 })
-export class DashboardMain {
-  cards = [
-    {
-      name: 'عدد الاستشارات',
-      number: '600,532',
-      icon: 'bi-mic',
-      bgColor: '#FFF5EB'
-    },
-    {
-      name: 'عدد الخدمات',
-      number: '600,532',
-      icon: 'bi-grid',
-      bgColor: '#EDF8ED'
-    },
-    {
-      name: 'عدد المستشارين',
-      number: '600,532',
-      icon: 'bi-people',
-      bgColor: '#EDF4FA'
-    },
-    {
-      name: 'عدد المستخدمين',
-      number: '600,532',
-      icon: 'bi-person',
-      bgColor: '#FAEAEA'
-    }
-  ];
+export class DashboardMain implements OnInit {
+  stats!: DashboardStats;
 
-  volunteerBars = [
-    { height: 60, label: '01', color: 'var(--primary-500)' },
-    { height: 80, label: '02', color: 'var(--primary-500)' },
-    { height: 100, label: '03', color: 'var(--primary-500)' },
-    { height: 120, label: '04', color: 'var(--primary-500)' },
-    { height: 90, label: '05', color: 'var(--primary-500)' },
-    { height: 110, label: '06', color: 'var(--primary-500)' }
-  ];
+  pieChartLabels: string[] = [];
+  pieChartData: ChartData<'pie', number[], string> = {
+    labels: [],
+    datasets: []
+  };
 
-  volunteerTotal = '86,929';
+  barChartLabels: string[] = [];
 
-  complaints = [
-    { title: 'الشكاوى عن موظفين', percentage: 26, barClass: 'bg-danger' },
-    { title: 'الشكاوى عن خدمات', percentage: 24, barClass: 'bg-warning' },
-    { title: 'الشكاوى عن الجودة', percentage: 26, barClass: 'bg-primary' },
-    { title: 'شكاوى أخرى', percentage: 24, barClass: 'bg-success' }
-  ];
+  barChartData: ChartData<'bar', number[], string> = {
+    labels: [],
+    datasets: []
+  };
 
-  complaintsTotal = '86,929';
+  constructor(private dashboardService: StatesService) { }
 
-  supportPoints = [
-    { label: 'سبتمبر', value: '1,200', highlight: false },
-    { label: 'أكتوبر', value: '1,800', highlight: false },
-    { label: 'نوفمبر', value: '2,100', highlight: false },
-    { label: 'ديسمبر', value: '2,683', highlight: false },
-    { label: 'يناير', value: '3,200', highlight: false },
-    { label: 'فبراير', value: '3,800', highlight: false }
-  ];
+  ngOnInit(): void {
+    this.dashboardService.getStats().subscribe((res) => {
+      this.stats = res.data;
 
-  supportTotal = '38.4K';
-  supportGrowth = 75;
+      const labels = [
+        'شكاوى',
+        'طلبات إصلاح ذات البين',
+        'متطوعين',
+        'مستشارين',
+        'محاضرات',
+        'استشارات',
+        'خدمات',
+      ];
+
+      const values = [
+        this.stats.complaintCount,
+        this.stats.reconcileRequestCount,
+        this.stats.volunteerCount,
+        this.stats.advisorCount,
+        this.stats.lectureCount,
+        this.stats.adviceRequestCount,
+        this.stats.serviceOfferingCount,
+      ];
+
+      this.pieChartData = {
+        labels,
+        datasets: [
+          {
+            label: 'النسب',
+            data: values,
+            backgroundColor: [
+              '#dc3545', '#ffc107', '#28a745', '#17a2b8', '#007bff', '#343a40', '#6c757d'
+            ]
+          }
+        ]
+      };
+
+      this.barChartData = {
+        labels,
+        datasets: [
+          {
+            label: 'الإحصائيات',
+            data: values,
+            backgroundColor: [
+              '#dc3545', '#ffc107', '#28a745', '#17a2b8', '#007bff', '#343a40', '#6c757d'
+            ]
+          }
+        ]
+      };
+    });
+  }
 
 }

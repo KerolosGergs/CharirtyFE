@@ -1,5 +1,5 @@
 <div class="container-fluid py-4" dir="rtl">
-  <!-- Cards -->
+  <!-- Cards Section -->
   <div class="row mb-4">
     @for (card of cards; track card) {
       <div class="col-xl-4 col-md-6 mb-4">
@@ -7,30 +7,34 @@
           <div class="card-body text-center">
             <div class="fs-4 text-uppercase mb-1">{{ card.name }}</div>
             <div class="fs-3 text-dark">{{ card.number }}</div>
-            <div class="mt-2"><i class="bi" [ngClass]="card.icon" style="font-size: 24px;"></i></div>
+            <div class="mt-2">
+              <i class="bi" [ngClass]="card.icon" style="font-size: 24px;"></i>
+            </div>
           </div>
         </div>
       </div>
     }
   </div>
 
-  <!-- Filters -->
+  <!-- Filters Section -->
   <div class="filters-container mb-3 d-flex gap-3 align-items-center flex-wrap">
-    <input type="text" class="form-control" placeholder="بحث بالملاحظات أو الاسم..." [(ngModel)]="searchTerm" (input)="onSearchChange()" style="max-width: 200px;" />
-    
+    <input type="text" class="form-control" placeholder="بحث بالملاحظات أو الاسم..." [(ngModel)]="searchTerm"
+      (input)="onSearchChange()" style="max-width: 200px;" />
+
     <select class="form-select" [(ngModel)]="selectedType" (change)="onTypeChange()" style="max-width: 200px;">
       <option value="">كل الأنواع</option>
       <option value="0">أونلاين</option>
       <option value="1">حضوري</option>
     </select>
 
-    <input type="date" class="form-control" [(ngModel)]="selectedDate" (change)="onDateChange()" style="max-width: 200px;" />
+    <input type="date" class="form-control" [(ngModel)]="selectedDate" (change)="onDateChange()"
+      style="max-width: 200px;" />
   </div>
 
-  <!-- Table -->
-  <div class="table-container">
-    <table class="table table-bordered text-center">
-      <thead class="thead-light">
+  <!-- Scrollable Table Wrapper -->
+  <div class="table-responsive">
+    <table class="table table-bordered text-center align-middle">
+      <thead class="table-light">
         <tr>
           <th>الاسم</th>
           <th>نوع الاجتماع</th>
@@ -53,16 +57,25 @@
           <td>
             <span class="badge" [ngClass]="{
               'bg-success': req.status === 'Confirmed',
-              'bg-warning text-dark': req.status === 'Pending'
+              'bg-warning text-dark': req.status === 'Pending',
+              'bg-danger': req.status === 'Cancelled'
             }">
-              {{ req.status === 'Confirmed' ? 'تم الموافقة' : 'في انتظار الموافقة' }}
+              @if (req.status === 'Cancelled') {
+                تم الغاءها
+              } @else {
+                {{ req.status === 'Confirmed' ? 'تم الموافقة' : 'في انتظار الموافقة' }}
+              }
             </span>
           </td>
           <td>
-            @if (req.status !== 'Confirmed') {
-              <button class="btn btn-outline-success btn-sm" (click)="confirmRequest(req.id)">تأكيد</button>
+            @if (req.status == 'Pending') {
+              <button class="btn btn-outline-success btn-sm ms-2 mb-2" (click)="confirmRequest(req.id)">تأكيد</button>
+              <button class="btn btn-outline-danger btn-sm ms-2 mb-2" (click)="deleteRequest(req.id)">إلغاء</button>
+            } @else if (req.status == 'Confirmed') {
+              <i class="bi bi-check-circle-fill text-success fs-4"></i>
+            } @else {
+              <i class="bi bi-x-circle-fill text-danger fs-4"></i>
             }
-            <button class="btn btn-outline-danger btn-sm ms-2" (click)="deleteRequest(req.id)">إلغاء</button>
           </td>
         </tr>
         <tr *ngIf="paginatedRequests.length === 0">

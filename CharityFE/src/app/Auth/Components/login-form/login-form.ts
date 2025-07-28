@@ -71,7 +71,7 @@ export class LoginForm implements OnInit {
         if (res && res.success && res.data) {
           const token = res.data.token;
           const user = res.data.user;
-          this.AuthService.setSession(token, user, res.data.role);
+          this.AuthService.setSession(token, user, res.data.role, res.data.roleId);
           
 
           this.router.navigate(['/home']);

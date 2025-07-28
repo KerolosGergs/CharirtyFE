@@ -40,4 +40,9 @@ export class Notification {
       this.notifications = this.notifications.filter(n => n.id !== id);
     });
   }
+  MarkRead(id: number) {
+    this.notificationService.markAsRead(id).subscribe(() => {
+      this.loadNotifications();
+    });
+  }
 }

@@ -42,6 +42,6 @@ export class NotificationService {
 
   // Mark notification as read
   markAsRead(id: number): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/api/Admin/notifications/${id}/read`, {});
+    return this.http.patch<void>(`${this.apiUrl}Notification/${id}/read`, {});
   }
 }

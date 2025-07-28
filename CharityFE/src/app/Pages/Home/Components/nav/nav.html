@@ -1,49 +1,48 @@
 <!-- Navigation Section -->
 @defer
 {
-<nav class="navigation-section">
+<nav class="navbar navbar-expand-md navigation-section">
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <ul class="nav nav-pills justify-content-center py-2 flex-wrap">
-          @for (item of navigationItems; track $index; let i = $index) {
-          <li class="nav-item dropdown position-relative mx-2" [class.show]="item === activeItem"
-            (mouseenter)="activeItem = item" (mouseleave)="activeItem = null">
-            <a class="nav-link text-white " [class.dropdown-toggle]="item.subLibels!.length > 0"
-              [routerLink]="item.href" role="button" [attr.aria-expanded]="item === activeItem"
-              (click)="onNavigationClick(item)">
-              {{ item.label }}
-            </a>
+    <!-- Hamburger Menu Toggle for Small Screens -->
+    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed" aria-controls="navbarNav" [attr.aria-expanded]="!isMenuCollapsed" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Navigation Menu -->
+    <div class="collapse navbar-collapse" id="navbarNav" [class.show]="!isMenuCollapsed">
+      <ul class="navbar-nav justify-content-center w-100 py-2 flex-wrap">
+        @for (item of navigationItems; track $index; let i = $index) {
+        <li class="nav-item dropdown mx-2" [class.show]="item === activeItem"
+          (mouseenter)="isDesktop() ? activeItem = item : null" (mouseleave)="isDesktop() ? activeItem = null : null"
+          (click)="onMobileItemClick(item)">
+          <a class="nav-link text-white" [class.dropdown-toggle]="item.subLibels.length > 0"
+            [routerLink]="item.href" role="button" [attr.aria-expanded]="item === activeItem"
+            (click)="onNavigationClick(item)">
+            {{ item.label }}
+          </a>
 
-            <!-- Sub-menu -->
-            @if (item.subLibels!.length > 0) {
-            <ul class="dropdown-menu custom-dropdown mt-1" [class.show]="item === activeItem">
-              @for (subItem of item.subLibels; track $index) {
-              <li>
-                @if (item.label == 'المشاركة في الدعم'&& subItem.subTitle == 'الحصول على الخدمة')
-                {
-                  <a class="dropdown-item d-flex align-items-center gap-2" [href]="subItem.subLink">
-                <a class="dropdown-item d-flex align-items-center gap-2" >
-                  <i class="bi bi-box-arrow-in-left"></i> <!-- You can change this to other icons -->
-                  {{ subItem.subTitle }}
-                </a></a>
+          <!-- Sub-menu -->
+          @if (item.subLibels.length > 0) {
+          <ul class="dropdown-menu custom-dropdown mt-1" [class.show]="item === activeItem">
+            @for (subItem of item.subLibels; track $index) {
+            <li>
+              @if (item.label === 'المشاركة في الدعم' && subItem.subTitle === 'الحصول على الخدمة') {
+              <a class="dropdown-item d-flex align-items-center gap-2" [href]="subItem.subLink">
+                <i class="bi bi-box-arrow-in-left"></i>
+                {{ subItem.subTitle }}
+              </a>
+              } @else {
+              <a class="dropdown-item d-flex align-items-center gap-2" [routerLink]="subItem.subLink">
+                <i class="bi bi-box-arrow-in-left"></i>
+                {{ subItem.subTitle }}
+              </a>
               }
-                @else {
-                  <a class="dropdown-item d-flex align-items-center gap-2" [routerLink]="subItem.subLink">
-                  <i class="bi bi-box-arrow-in-left"></i> <!-- You can change this to other icons -->
-                  {{ subItem.subTitle }}
-                </a>
-                }
-                
-              </li>
-              }
-            </ul>
+            </li>
             }
-
-          </li>
+          </ul>
           }
-        </ul>
-      </div>
+        </li>
+        }
+      </ul>
     </div>
   </div>
 </nav>

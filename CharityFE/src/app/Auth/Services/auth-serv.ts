@@ -7,16 +7,18 @@ export class AuthServ {
  private tokenKey = 'authToken';
   private userKey = 'userInfo';
   private roleKey = 'userRole';
+  private RoleId = 'RoleId';
 
   private isBrowser(): boolean {
     return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
 
-  setSession(token: string, user: any, role: string): void {
+  setSession(token: string, user: any, role: string, RoleId: number): void {
     if (this.isBrowser()) {
       localStorage.setItem(this.tokenKey, token);
       localStorage.setItem(this.userKey, JSON.stringify(user));
       localStorage.setItem(this.roleKey, role);
+      localStorage.setItem(this.RoleId, RoleId.toString());
     }
   }
 
@@ -56,12 +58,12 @@ getUserID(): string | null {
   return user.id;
 }
 getId(): number  {
-  // const token = localStorage.getItem('token');
-  // if (!token) return null;
-
-  // const payload = JSON.parse(atob(token.split('.')[1]));
-  // return payload?.userId ?? null;
-  return 10;
+ if (this.isBrowser()) {
+      const RoleId = localStorage.getItem(this.RoleId);
+      return RoleId ? JSON.parse(RoleId) : 0;
+    }
+    return 0;
+  // return 10;
 }
 
 

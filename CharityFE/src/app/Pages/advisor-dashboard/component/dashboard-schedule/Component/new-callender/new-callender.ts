@@ -145,14 +145,22 @@ private getAvailableSlotsForDate(date: Date): AvailableSlot[] {
   }
 
   addNewSlot(): void {
+    
     if (this.newSlotForm.valid && this.selectedDay) {
       const formValue = this.newSlotForm.value;
+       // ✅ Clone and add 1 day to the selected date
+    const adjustedDate = new Date(this.selectedDay.date);
+    adjustedDate.setDate(adjustedDate.getDate() + 1);
+
+    // Format as "YYYY-MM-DDT00:00:00"
+    const dateOnlyString = adjustedDate.toISOString().split('T')[0];
+    const finalDate = `${dateOnlyString}T00:00:00`;
       const newSlot: NewAppointment = {
-        date: this.selectedDay.date.toISOString(),
+        date: finalDate,
         time: formValue.time + ':00',
         duration: formValue.duration,
         notes: formValue.notes,
-        consultationType: formValue.consultationType
+        consultationType: +formValue.consultationType
       };
 
       this.CallenderServic.addNewSlot(newSlot).subscribe(success => {
@@ -206,5 +214,15 @@ private getAvailableSlotsForDate(date: Date): AvailableSlot[] {
       case 2: return 'استشارة نفسية';
       default: return 'استشارة';
     }
+  }
+  removeSlot(slotId: number): void {
+    
+    this.CallenderServic.removeSlot(slotId).subscribe(success => {
+      if (success) {
+        this.loadAppointments();
+                  this.closeAddSlotModal();
+
+      }
+    });
   }
 }

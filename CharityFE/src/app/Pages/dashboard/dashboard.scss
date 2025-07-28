@@ -82,4 +82,7 @@
 .notification-dropdown .text-center i {
   font-size: 32px;
   opacity: 0.5;
+}.sidebar {
+  transition: all 0.3s ease-in-out;
+  z-index: 1030; /* ensures it's above other content */
 }

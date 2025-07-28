@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { HeadDashboard } from "../../Shared/head-dashboard/head-dashboard";
 import { Router } from '@angular/router';
 import { AuthServ } from '../../Auth/Services/auth-serv';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-advisor-dashboard',
@@ -11,9 +12,7 @@ import { AuthServ } from '../../Auth/Services/auth-serv';
   styleUrls: ['./advisor-dashboard.scss']
 })
 export class AdvisorDashboard {
-  userName = 'User Name';
-  userEmail = 'user@example.com';
-  userAvatar = '';
+
 
   sidebarItems = [
     { label: 'الرئيسية', icon: 'bi bi-house-door', link: '/advisor-dashboard/dashboard-main', active: true },
@@ -43,5 +42,20 @@ export class AdvisorDashboard {
   logout() {
     this.authService.logout();
     this.router.navigate(['/login']);  // Redirect to login page after logout
+  }
+    isSidebarOpen = true;
+  isSmallScreen = false;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.isSmallScreen = window.innerWidth < 768;
+    if (this.isSmallScreen) this.isSidebarOpen = false;
+  }
+  ngOnInit() {
+    this.onResize();
+  }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 }

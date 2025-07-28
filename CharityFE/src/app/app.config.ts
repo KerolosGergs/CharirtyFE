@@ -18,10 +18,26 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { provideToastr } from 'ngx-toastr';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { provideCharts } from 'ng2-charts';
 
+import { Chart, ArcElement, PieController, BarElement, BarController, CategoryScale, Tooltip, Legend } from 'chart.js';
 
+Chart.register(
+  ArcElement,
+  PieController,
+  BarElement,
+  BarController,
+  CategoryScale,
+  Tooltip,
+  Legend
+);
 export const appConfig: ApplicationConfig = {
   providers: [
+     provideCharts(
+       {
+         
+       }
+     ) , 
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes), provideClientHydration(withEventReplay()),
@@ -56,3 +72,5 @@ export const appConfig: ApplicationConfig = {
 
   ]
 };
+
+

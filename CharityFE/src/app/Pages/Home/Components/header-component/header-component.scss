@@ -1,27 +1,108 @@
-.icon-bg{
-    background-color: var(--primary-300);
-    i{
-        color: #fff;
-        font-size: small;
-    }
-}
-.action-buttons{
-  font-family: 'Cairo';
-  button{
-      
-      font-weight: bold;
-    }
+:root {
+  --primary: #198754; /* Bootstrap success green */
+  --primary-300: #6ee7b7; /* Lighter shade for icon-bg */
 }
 
-.header-section{
-background-color: #ffffff;
+.header-section {
+  background-color: #ffffff;
+  padding: 15px 0;
 }
+
+.logo-section img {
+  max-width: 100%;
+  height: auto;
+}
+
+.contact-info {
+  font-size: 0.9rem;
+  color: #212529; /* Dark text for white background */
+  font-family: 'Cairo', sans-serif;
+}
+
+.contact-item {
+  gap: 8px;
+}
+
+.icon-bg {
+  background-color: var(--primary-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.icon-bg i {
+  color: #fff;
+  font-size: small;
+}
+
+.action-buttons {
+  font-family: 'Cairo', sans-serif;
+}
+
+.action-buttons .btn,
+.action-buttons app-main-button {
+  font-weight: bold;
+}
+
 .hero-btn-secondary {
   background-color: var(--primary);
   color: #ffffff;
-  font-family: 'Cairo';
-}.hero-btn-secondary:hover {
+  font-family: 'Cairo', sans-serif;
+  border: none;
+  border-radius: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.hero-btn-secondary:hover {
   background-color: #157347;
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(25,135,84,0.4);
+  box-shadow: 0 8px 20px rgba(25, 135, 84, 0.4);
+}
+
+.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+  font-family: 'Cairo', sans-serif;
+  font-weight: bold;
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+@media (max-width: 767.98px) {
+  .contact-info {
+    align-items: center;
+    gap: 15px !important;
+  }
+
+  .contact-item {
+    justify-content: center !important;
+  }
+
+  .action-buttons {
+    flex-direction: row;
+    justify-content: flex-start !important;
+    gap: 10px;
+  }
+
+  .action-buttons .btn,
+  .action-buttons app-main-button {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .hero-btn-secondary {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .contact-info {
+    justify-content: flex-end !important;
+  }
 }

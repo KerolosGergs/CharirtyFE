@@ -89,7 +89,7 @@ export class Advicereques {
   }
 
   cancelRequest(id: number): Observable<ApiResponse<boolean>> {
-    return this.http.delete<ApiResponse<boolean>>(`${this.baseUrl}/${id}`);
+    return this.http.delete<ApiResponse<boolean>>(`${this.baseUrl}/${id}/${this.auth.getUserID()}`);
   }
 
   // cancelRequest(requestId: number): Observable<any> {

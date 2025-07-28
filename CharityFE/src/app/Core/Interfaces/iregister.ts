@@ -21,6 +21,7 @@ export interface LoginData {
   role: string
   token: string
   user: User
+  roleId:number
 }
 
 export interface User {

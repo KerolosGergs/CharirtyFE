@@ -1,120 +1,89 @@
-<div class="container-fluid py-4">
-    <!-- Statistics Cards -->
-    <div class="row mb-4">
-          @for (card of cards; track card){
-      <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card shadow h-100 py-2" [ngStyle]="{ 'background-color': card.bgColor }">
-          <div class="card-body text-center">
-            <div class="text-xs fw-bold fs-4 text-primary-500  text-uppercase mb-1">
-              {{ card.name }}
-            </div>
-            <div class="h5 mb-0 fw-bold fs-4  text-gray-800">
-              {{ card.number }}
-            </div>
-            <div class="row no-gutters align-items-center mt-2">
-              <div class="col-auto">
-                <i class="bi text-success fs-3" [ngClass]="card.icon" style="font-size: 24px;"></i>
-              </div>
-            </div>
+<div class="container my-5">
+  <div class="row g-4">
+
+    @if (stats) {
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title">عدد الشكاوى</h5>
+            <h2 class="text-danger">{{ stats.complaintCount }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title">عدد طلبات إصلاح ذات البين</h5>
+            <h2 class="text-warning">{{ stats.reconcileRequestCount }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title">عدد المتطوعين</h5>
+            <h2 class="text-success">{{ stats.volunteerCount }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title">عدد المستشارين</h5>
+            <h2 class="text-info">{{ stats.advisorCount }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title">عدد المحاضرات</h5>
+            <h2 class="text-primary">{{ stats.lectureCount }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title">عدد الاستشارات</h5>
+            <h2 class="text-dark">{{ stats.adviceRequestCount }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title">عدد الخدمات</h5>
+            <h2 class="text-secondary">{{ stats.serviceOfferingCount }}</h2>
           </div>
         </div>
       </div>
     }
 
+  </div>
+
+  <!-- Charts Section -->
+  <div class="row mt-5 ">
+    <div class="col-md-6 mx-auto">
+      <h5 class="text-center mb-3 fs-4">نسب الإحصائيات</h5>
+      <canvas baseChart
+        [data]="pieChartData"
+        [type]="'pie'">
+      </canvas>
     </div>
 
-    <!-- Charts Section -->
-    <div class="row">
-
-        <!-- Volunteer Requests Chart -->
-        <div class="col-xl-6 col-lg-5">
-            <div class="card shadow mb-4 animate__animated animate__fadeIn">
-                <div class="card-body">
-                    <h6 class="fw-bold fs-4  text-success mb-5">عدد طلبات التطوع</h6>
-                    
-                    <div class="row text-center">
-                        @for (bar of volunteerBars; track $index) {
-                        <div class="col-2">
-                            <div class="bar-item">
-                                <div class="bar" [style.height.px]="bar.height" [style.background]="bar.color"></div>
-                                <span class="text-success fw-bold fs-5">{{ bar.label }}</span>
-                            </div>
-                        </div>
-                        }
-
-                    </div>
-                    <div class="text-center mt-3">
-                        <h3 class="text-success fw-bold fs-5">{{ volunteerTotal }}</h3>
-                        <p class="text-success fw-bold fs-4">إجمالي الطلبات</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Complaints Chart -->
-        <div class="col-xl-6 col-lg-7">
-            <div class="card shadow mb-4 animate__animated animate__fadeIn">
-                <div class="card-body">
-                    <h6 class="fw-bold text-success fs-4 mb-3">عدد الشكاوى</h6>
-                   
-                    <div class="row">
-                        @for (complaint of complaints; track $index) {
-                        <div class="col-md-6">
-                            <h4 class="text-muted fs-5 fw-bold">{{ complaint.title }} <span class="float-left">{{
-                                    complaint.percentage }}%</span></h4>
-                            <div class="progress mb-4">
-                                <div class="progress-bar" [ngClass]="complaint.barClass" role="progressbar"
-                                    [style.width.%]="complaint.percentage"></div>
-                            </div>
-                        </div>
-                        }
-
-                    </div>
-                    <div class="text-center">
-                        <h3 class="text-success fw-bold fs-5">{{ complaintsTotal }}</h3>
-                        <p class="text-success fw-bold fs-4">إجمالي الشكاوى</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Support Requests Chart -->
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card shadow mb-4 animate__animated animate__fadeIn">
-                <div class="card-body">
-                    <h6 class="fw-bold fs-4 text-success mb-3">عدد طلبات الدعم</h6>
-                    <h2 class="fw-bold fs-3 mb-3">{{ supportTotal }}</h2>
-
-                    <div class="chart-area">
-                        <div class="line-chart-points">
-                            @for (point of supportPoints; track $index) {
-                            <div class="point-container">
-                                <span class="point-label fs-5 text-success">{{ point.label }}</span>
-                                <div class="point-value fs-4 ">{{ point.value }}</div>
-                                @if (point.highlight) {
-
-                                <span class="highlight-badge fs-4 fw-bold">{{ point.value }}</span>
-                                }
-                            </div>
-                            }
-
-                        </div>
-                    </div>
-
-                    <div class="text-center mt-3">
-                        <div class="progress mb-3 mx-auto" style="width: 300px;">
-                            <div class="progress-bar bg-success" role="progressbar" [style.width.%]="supportGrowth">
-                            </div>
-                        </div>
-                        <p class="text-success fs-4 fw-bold">نمو بنسبة {{ supportGrowth }}% مقارنة بالشهر الماضي</p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- <div class="col-md-6">
+      <h5 class="text-center mb-3">تفاصيل الأعمدة</h5>
+      <canvas baseChart
+        [data]="barChartData"
+        [type]="'bar'">
+      </canvas>
+    </div> -->
+  </div>
 </div>

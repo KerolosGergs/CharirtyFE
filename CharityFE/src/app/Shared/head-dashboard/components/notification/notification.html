@@ -18,6 +18,9 @@
                 <p class="mb-0">{{ note.message }}</p>
                 <small class="text-muted">{{ note.createdAt | date:'short' }}</small>
             </div>
+            <button class="btn btn-sm btn-danger ms-2" (click)="MarkRead(note.id)">
+                <i class="bi bi-check2-all"></i>
+             </button>
             <button class="btn btn-sm btn-danger ms-2" (click)="delete(note.id)">
                 <i class="bi bi-trash"></i>
             </button>

@@ -16,12 +16,12 @@ export class Appointment {
 
   createAdviceRequest(takeAppointment: TakeAppointment): Observable<{ success: boolean, message: string }> {
     const token = this.Auth.getToken();
-    debugger
+    
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
     });
    
-    const url = `${this._baseUrl}AdviceRequest?userId=`+this.Auth.getUser().id;
+    const url = `${this._baseUrl}AdviceRequest?userId=`+this.Auth.getUserID();
     return this._httpClient.post<{ success: boolean, message: string }>(
       url,
       takeAppointment,
