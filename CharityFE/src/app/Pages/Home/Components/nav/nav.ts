@@ -23,17 +23,18 @@ navigationItems = [
     { subTitle: 'الهيكل النظيمى', subLink: '/about-layout/organizational-structure' },
     { subTitle: 'مواقع العمل', subLink: '/about-layout/service-locations' },
   ]},
-  {label: 'الحوكمة', href: '/governance/rules', subLibels: [
-      { subTitle: 'الأنظمة', subLink: '/governance/rules' },
-      { subTitle: 'اللوائح', subLink: '/governance/regulations' },
+  {label: 'الحوكمة', href: '/governance/regulations', subLibels: [
+      { subTitle: 'الأنظمة واللوائح ', subLink: '/governance/regulations' },
       { subTitle: 'السياسات', subLink: '/governance/policies' },
-      { subTitle: 'التقارير السنوية', subLink: '/governance/reports/yearly' },
-      { subTitle: 'التقارير الربعية', subLink: '/governance/reports/quarterly' },
-      { subTitle: 'القوائم المالية', subLink: '/governance/financials' },
-      { subTitle: 'معايير الحوكمة', subLink: '/governance/standards' },
-      { subTitle: 'نتائج تقييم الحوكمة', subLink: '/governance/evaluation' },
-      { subTitle: 'الخطة الاستراتيجية', subLink: '/about-layout/strategic-plan' },
+      { subTitle: 'التقارير السنوية', subLink: '/blank-page' },
+      { subTitle: 'التقارير الربعية', subLink: '/governance/quarterly-reports' },
+      { subTitle: 'القوائم المالية', subLink: '/governance/financial-reports' },
+      { subTitle: 'معايير الحوكمة', subLink: '/blank-page' },
+      { subTitle: 'نتائج تقييم الحوكمة', subLink: '/governance/governance-evaluation' },
+      { subTitle: 'الخطة الاستراتيجية', subLink: '/governance/strategic-plans' },
       { subTitle: 'الخطة التشغيلية', subLink: '/governance/operational-plan' },
+      { subTitle: 'الأهداف', subLink: '/governance/Goals' },
+
     ]
   },
  {

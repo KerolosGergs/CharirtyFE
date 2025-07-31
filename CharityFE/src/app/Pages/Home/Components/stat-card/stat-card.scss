@@ -42,7 +42,7 @@
 }
 
 .stat-number {
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: #fff;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
@@ -140,7 +140,7 @@
   }
   
   .stat-number {
-    font-size: 1.75rem;
+    font-size: 1.3rem;
   }
   
   .stat-label {
@@ -164,62 +164,4 @@
   }
 }
 
-
-
-//  .stat-card-custom {
-//   position: relative;
-//   background: #926763;
-//   border-radius: 20px;
-//   backdrop-filter: blur(10px);
-//   padding: 1.5rem;
-//   color: #000;
-//   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-//   transition: transform 0.3s ease;
-//   font-family: 'Cairo', sans-serif;
-// }
-
-// .stat-card-custom:hover {
-//   transform: scale(1.03);
-// }
-
-// .stat-item {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   background: transparent;
-//   border-radius: 20px;
-//   min-width: 140px;
-//   gap: 30px;
-// }
-
-// .stat-icon-circle {
-//   width: 70px;
-//   height: 70px;
-//   background: rgba(255, 255, 255, 0.4);
-//   border-radius: 50%;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   font-weight: bold;
-//   font-size: 1.1rem;
-//   color: #666;
-//   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-  
-// }
-
-// .stat-number {
-//   font-size: 1.8rem;
-//   font-weight: bold;
-// }
-
-// .stat-label {
-//   font-size: 1rem;
-//   color: #222;
-// }
-
-// .stat-divider {
-//   width: 1px;
-//   background-color: rgba(255, 255, 255, 0.3);
-//   align-self: stretch;
-// }
 

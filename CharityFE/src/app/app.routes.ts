@@ -154,14 +154,40 @@ export const routes: Routes = [
             {path:'requirements', loadComponent() {return import('./Pages/sid-components/Help-Layout/components/required-documents/required-documents').then(m => m.RequiredDocuments);}, title: 'Requirements'},
         ]
     },
+    { path: 'governance', loadComponent: () => import('./Pages/sid-components/governance/govern-layout/govern-layout').then(m => m.GovernLayout), title:'Governance' ,
+    children: [
+        { path: '', loadComponent: () => import('./Pages/sid-components/governance/regulations/regulations').then(m => m.Regulations), title:'Regulations' },
+        { path: 'regulations', loadComponent: () => import('./Pages/sid-components/governance/regulations/regulations').then(m => m.Regulations), title:'Regulations' },
+        { path: 'policies', loadComponent: () => import('./Pages/sid-components/governance/policies/policies').then(m => m.Policies), title:'Policies' },
+        { path: 'financial-reports', loadComponent: () => import('./Pages/sid-components/governance/financial-reports/financial-reports').then(m => m.FinancialReports), title:'Financial Reports' },
+        { path:'quarterly-reports', loadComponent: () => import('./Pages/sid-components/governance/quarterly-reports/quarterly-reports').then(m => m.QuarterlyReports), title:'Quarterly Reports'},
+        { path: 'governance-evaluation', loadComponent: () => import('./Pages/sid-components/governance/governance-evaluation/governance-evaluation').then(m => m.GovernanceEvaluation), title:'Governance Evaluation' },
+        { path:'strategic-plans', loadComponent: () => import('./Pages/sid-components/governance/strategic-plan/strategic-plan').then(m => m.StrategicPlan), title:'Strategic Plans'},
+        {path:'operational-plan', loadComponent: () => import('./Pages/sid-components/governance/operational-plan/operational-plan').then(m => m.OperationalPlan), title:'Operational Plan'},
+        {path:'Goals', loadComponent: () => import('./Pages/sid-components/governance/goals/goals').then(m => m.Goals), title:'Goals'},
+        { path: 'budget', loadComponent: () => import('./Pages/sid-components/governance/budget/budget').then(m => m.Budget), title:'Budget' },
+        { path: 'assembly-disclosure', loadComponent: () => import('./Pages/sid-components/governance/assembly-disclosure/assembly-disclosure').then(m => m.AssemblyDisclosure), title:'Assembly Disclosure' },
+        { path: 'board-governance-minutes', loadComponent: () => import('./Pages/sid-components/governance/board-governance-minutes/board-governance-minutes').then(m => m.BoardGovernanceMinutes), title:'Board Governance Minutes' },
+        { path: 'clearance-from-2021', loadComponent: () => import('./Pages/sid-components/governance/clearance-form-2021/clearance-form-2021').then(m => m.ClearanceForm2021), title:'Clearance Form 2021' },
+        { path: 'empolyee-disclosure', loadComponent: () => import('./Pages/sid-components/governance/employee-disclosure/employee-disclosure').then(m => m.EmployeeDisclosure), title:'Employee Disclosure' },
+        { path: 'feedback-minutes', loadComponent: () => import('./Pages/sid-components/governance/feedback-minutes/feedback-minutes').then(m => m.FeedbackMinutes), title:'Feedback Minutes' },
+        { path: 'forms', loadComponent: () => import('./Pages/sid-components/governance/forms/forms').then(m => m.Forms), title:'Forms' },
+        { path: 'minutes', loadComponent: () => import('./Pages/sid-components/governance/minutes/minutes').then(m => m.Minutes), title:'Minutes' },
+        { path: 'satisfaction-results-2021', loadComponent: () => import('./Pages/sid-components/governance/satisfaction-results-2021/satisfaction-results-2021').then(m => m.SatisfactionResults2021), title:'Satisfaction Results 2021' },
+        { path: 'satisfaction-results-2022', loadComponent: () => import('./Pages/sid-components/governance/satisfaction-results-2022/satisfaction-results-2022').then(m => m.SatisfactionResults2022), title:'Satisfaction Results 2022' },
+        { path: 'satisfaction-results-2023', loadComponent: () => import('./Pages/sid-components/governance/satisfaction-results-2023/satisfaction-results-2023').then(m => m.SatisfactionResults2023), title:'Satisfaction Results 2023' },
+        { path: 'satisfaction-surveys', loadComponent: () => import('./Pages/sid-components/governance/satisfaction-surveys/satisfaction-surveys').then(m => m.SatisfactionSurveys), title:'Satisfaction Surveys' },
+       
+    ]},
+   
+   
     {path:'blank-page', component: BlankPage, title: 'BlankPage'},
     { path: 'questions', component: Questions, title: 'Questions' },
 
     { path: 'questions', component: Questions, title: 'Questions' },
 
     { path: 'not-found', loadComponent: () => import('../app/Pages/not-found/not-found').then(m => m.NotFound), title: 'Page Not Found' },
-    { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
-
+    { path: '**', redirectTo: 'not-found', pathMatch: 'full' },
 
 
 

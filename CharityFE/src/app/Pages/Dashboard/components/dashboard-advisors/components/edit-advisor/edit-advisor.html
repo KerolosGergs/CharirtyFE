@@ -13,7 +13,7 @@
         <label for="fullName">الاسم الكامل</label>
         <input id="fullName" type="text" class="form-control" formControlName="fullName" placeholder="الاسم الكامل" />
         @if (consultantForm.get('fullName')?.touched && consultantForm.get('fullName')?.invalid) {
-          <span class="text-danger small">الاسم الكامل مطلوب ولا يزيد عن 50 حرفًا</span>
+        <span class="text-danger small">الاسم الكامل مطلوب ولا يزيد عن 50 حرفًا</span>
         }
       </div>
 
@@ -21,26 +21,32 @@
       <div class="row">
         <div class="col-md-6 form-group">
           <label for="email">البريد الإلكتروني</label>
-          <input id="email" type="email" class="form-control" formControlName="email" placeholder="Houda42@gmail.com" />
+          <input id="email" type="email" class="form-control" formControlName="email" placeholder="user@example.com" />
           @if (consultantForm.get('email')?.touched && consultantForm.get('email')?.invalid) {
-            <span class="text-danger small">يرجى إدخال بريد إلكتروني صحيح</span>
+          <span class="text-danger small">يرجى إدخال بريد إلكتروني صحيح</span>
           }
         </div>
         <div class="col-md-6 form-group">
           <label for="phoneNumber">رقم الهاتف</label>
-          <input id="phoneNumber" type="text" class="form-control" formControlName="phoneNumber" placeholder="رقم الهاتف" />
-          @if (consultantForm.get('phoneNumber')?.touched && consultantForm.get('phoneNumber')?.invalid) {
-            <span class="text-danger small">رقم الهاتف مطلوب ولا يزيد عن 20 رقمًا</span>
+          <input type="text" id="phoneNumber" pattern="^\d{10,13}$" required formControlName="phoneNumber"
+            class="form-control flex-grow-1 text-start" placeholder="رقم الهاتف" (input)="allowOnlyDigits($event)"/>
+          @if (
+          consultantForm.get('phoneNumber')?.touched &&
+          consultantForm.get('phoneNumber')?.invalid
+          ) {
+          <span class="text-danger small">رقم الهاتف مطلوب ويجب أن يتكون من 10 إلى 13 رقمًا بدون رمز الدولة</span>
           }
+
         </div>
       </div>
 
       <!-- Specialty -->
       <div class="form-group">
         <label for="specialty">الشهادة العلمية</label>
-        <input id="specialty" type="text" class="form-control" formControlName="specialty" placeholder="الشهادة العلمية" />
+        <input id="specialty" type="text" class="form-control" formControlName="specialty"
+          placeholder="الشهادة العلمية" />
         @if (consultantForm.get('specialty')?.touched && consultantForm.get('specialty')?.invalid) {
-          <span class="text-danger small">الشهادة العلمية مطلوبه ولا يزيد عن 100 حرف</span>
+        <span class="text-danger small">الشهادة العلمية مطلوبه ولا يزيد عن 100 حرف</span>
         }
       </div>
 
@@ -50,29 +56,31 @@
         <select id="consultation" class="form-control" formControlName="consultation">
           <option value="">اختر نوع الاستشارة</option>
           @for (type of consultationTypes; track type.id) {
-            <option [value]="type.id">{{ type.consultationName }}</option>
+          <option [value]="type.id">{{ type.consultationName }}</option>
           }
         </select>
         @if (consultantForm.get('consultation')?.touched && consultantForm.get('consultation')?.invalid) {
-          <span class="text-danger small">المجال مطلوب ولا يزيد عن 100 حرف</span>
+        <span class="text-danger small">المجال مطلوب ولا يزيد عن 100 حرف</span>
         }
       </div>
 
       <!-- Description -->
       <div class="form-group">
         <label for="description">الوصف</label>
-        <textarea id="description" class="form-control" formControlName="description" placeholder="وصف مختصر"></textarea>
+        <textarea id="description" class="form-control" formControlName="description"
+          placeholder="وصف مختصر"></textarea>
         @if (consultantForm.get('description')?.touched && consultantForm.get('description')?.invalid) {
-          <span class="text-danger small">الوصف مطلوب ولا يزيد عن 1000 حرف</span>
+        <span class="text-danger small">الوصف مطلوب ولا يزيد عن 1000 حرف</span>
         }
       </div>
 
       <!-- Zoom URL -->
       <div class="form-group">
         <label for="zoomUrl">رابط Zoom</label>
-        <input id="zoomUrl" type="url" class="form-control" formControlName="zoomUrl" placeholder="https://zoom.us/my/meeting" />
+        <input id="zoomUrl" type="url" class="form-control" formControlName="zoomUrl"
+          placeholder="https://zoom.us/my/meeting" />
         @if (consultantForm.get('zoomUrl')?.touched && consultantForm.get('zoomUrl')?.invalid) {
-          <span class="text-danger small">رابط Zoom مطلوب</span>
+        <span class="text-danger small">رابط Zoom مطلوب</span>
         }
       </div>
 
@@ -81,7 +89,7 @@
         <label class="fw-bold mb-2">الصورة الشخصية</label>
         <input id="profileImage" type="file" class="form-control mb-2" (change)="onImageChange($event)" />
         @if (uploadedImageUrl) {
-          <img [src]="uploadedImageUrl" class="img-thumbnail rounded shadow mt-2" width="150" />
+        <img [src]="uploadedImageUrl" class="img-thumbnail rounded shadow mt-2" width="150" />
         }
       </div>
 
@@ -89,11 +97,13 @@
       <div class="form-group password-group">
         <label for="password">رمز المرور</label>
         <div class="input-wrapper left-icon">
-          <i class="bi toggle-icon" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword" (click)="togglePasswordVisibility('password')"></i>
-          <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" class="form-control" placeholder="********" />
+          <i class="bi toggle-icon" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"
+            (click)="togglePasswordVisibility('password')"></i>
+          <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+            class="form-control" placeholder="********" />
         </div>
         @if (consultantForm.get('password')?.touched && consultantForm.get('password')?.invalid) {
-          <span class="text-danger small">كلمة المرور مطلوبة وتحتوي على 6 أرقام على الأقل</span>
+        <span class="text-danger small">كلمة المرور مطلوبة وتحتوي على 6 أرقام على الأقل</span>
         }
       </div>
 
@@ -101,14 +111,16 @@
       <div class="form-group password-group">
         <label for="confirmPassword">تأكيد رمز المرور</label>
         <div class="input-wrapper left-icon">
-          <i class="bi toggle-icon" [class.bi-eye]="!showConfirmPassword" [class.bi-eye-slash]="showConfirmPassword" (click)="togglePasswordVisibility('confirm')"></i>
-          <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" formControlName="confirmPassword" class="form-control" placeholder="********" />
+          <i class="bi toggle-icon" [class.bi-eye]="!showConfirmPassword" [class.bi-eye-slash]="showConfirmPassword"
+            (click)="togglePasswordVisibility('confirm')"></i>
+          <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword"
+            formControlName="confirmPassword" class="form-control" placeholder="********" />
         </div>
         @if (consultantForm.get('confirmPassword')?.touched && consultantForm.get('confirmPassword')?.invalid) {
-          <span class="text-danger small">تأكيد كلمة المرور مطلوب</span>
+        <span class="text-danger small">تأكيد كلمة المرور مطلوب</span>
         }
         @if (consultantForm.hasError('mismatch') && consultantForm.get('confirmPassword')?.touched) {
-          <span class="text-danger small">كلمة المرور وتأكيدها غير متطابقتين</span>
+        <span class="text-danger small">كلمة المرور وتأكيدها غير متطابقتين</span>
         }
       </div>
 

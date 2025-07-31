@@ -16,7 +16,7 @@ interface FormField {
 @Component({
   selector: 'app-add-admin',
   standalone: true,
-  imports: [Spinner, ReactiveFormsModule, FormsModule, NgClass],
+  imports: [Spinner, ReactiveFormsModule, FormsModule],
   templateUrl: './add-admin.html',
   styleUrl: './add-admin.scss'
 })
@@ -26,44 +26,7 @@ export class AddAdmin implements OnInit {
   formSection = { title: 'بيانات المشرف الجديد' };
   submitButton = { text: 'إضافة مشرف' };
 
-  formFields: FormField[] = [
-    {
-      id: 'fullName',
-      label: 'الاسم الكامل',
-      placeholder: 'محمد أحمد محمود',
-      type: 'text',
-      iconClass: 'bi-person-fill'
-    },
-    {
-      id: 'email',
-      label: 'البريد الإلكتروني',
-      placeholder: 'user@example.com',
-      type: 'email',
-      iconClass: 'bi-envelope-fill'
-    },
-    {
-      id: 'phoneNumber',
-      label: 'رقم الهاتف',
-      placeholder: '01001234567',
-      type: 'tel',
-      iconClass: 'bi-telephone-fill'
-    },
-    {
-      id: 'password',
-      label: 'كلمة المرور',
-      placeholder: '********',
-      type: 'password',
-      iconClass: 'bi-lock-fill'
-    },
-    {
-      id: 'confirmPassword',
-      label: 'تأكيد كلمة المرور',
-      placeholder: '********',
-      type: 'password',
-      iconClass: 'bi-shield-lock-fill'
-    }
-  ];
-
+ 
   fb = inject(FormBuilder);
   tostar = inject(TostarServ);
 
@@ -71,7 +34,7 @@ export class AddAdmin implements OnInit {
     this.adminForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10,15}$')]],
+      phoneNumber: ['', [Validators.required,  Validators.pattern('^\\d{10,13}$')]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
     }, {
@@ -96,7 +59,7 @@ export class AddAdmin implements OnInit {
       if (field.errors['required']) return 'هذا الحقل مطلوب';
       if (field.errors['email']) return 'يرجى إدخال بريد إلكتروني صحيح';
       if (field.errors['minlength']) return `الحد الأدنى ${field.errors['minlength'].requiredLength} أحرف`;
-      if (field.errors['pattern']) return 'يرجى إدخال رقم هاتف صحيح';
+      if (field.errors['pattern']) return 'رقم الهاتف مطلوب ويجب أن يتكون من 10 إلى 13 رقمًا بدون رمز الدولة';
       if (fieldName === 'confirmPassword' && this.adminForm.errors?.['mismatch']) return 'كلمتا المرور غير متطابقتين';
     }
     return '';
@@ -123,6 +86,10 @@ export class AddAdmin implements OnInit {
       this.adminForm.get(key)?.markAsTouched();
     });
   }
+}
+allowOnlyDigits(event: any): void {
+  event.target.value = event.target.value.replace(/\D/g, '');
+  this.adminForm.get('phoneNumber')?.setValue(event.target.value);
 }
 
 }

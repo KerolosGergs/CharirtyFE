@@ -128,5 +128,9 @@ export class EditMidetation {
   }
 
 
+allowOnlyDigits(event: any): void {
+  event.target.value = event.target.value.replace(/\D/g, '');
+  this.consultantForm.get('phoneNumber')?.setValue(event.target.value);
+}
 
 }

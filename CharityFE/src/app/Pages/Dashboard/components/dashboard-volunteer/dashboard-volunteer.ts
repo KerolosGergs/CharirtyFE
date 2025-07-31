@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { TostarServ } from '../../../../Shared/tostar-serv';
 import { HelpRequest } from '../dashboard-help/models/help-request.model';
 import { HelpRequestService } from '../dashboard-help/services/help-request.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Volunteer, VolunteerResponse } from './Model/Volunteer-request.model';
 import { VolunteerRequestService } from './service/help-request.service';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { AmiriFontBase64 } from '../../../../Core/Services/textEncode/AmiriFontBase64';
 
 @Component({
   selector: 'app-dashboard-volunteer',
@@ -25,7 +28,8 @@ export class DashboardVolunteer {
 
   constructor(
     private volunteerRequestService: VolunteerRequestService,
-    private tostarServ: TostarServ
+    private tostarServ: TostarServ,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
@@ -100,4 +104,63 @@ export class DashboardVolunteer {
       });
     }
   }
+exportToComplaintsPdf(): void {
+  if (!isPlatformBrowser(this.platformId)) return;
+
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'pt',
+    format: 'a4',
+  });
+
+  doc.addFileToVFS('Amiri-Regular.ttf', AmiriFontBase64);
+  doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
+  doc.setFont('Amiri');
+  doc.setFontSize(14);
+
+  const formatDate = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+  };
+
+
+
+  const dataRows = this.paginatedRequests?.map((request) => [
+    request.address || '',
+    formatDate(request.dateOfBirth),
+    request.education || '',
+    request.phoneNumber,
+    request.email,
+    `${request.firstName} ${request.lastName}`,
+  ]) ?? [];
+
+  autoTable(doc, {
+    body: [ ...dataRows], // ✅ full body (header included)
+    styles: {
+      font: 'Amiri',
+      fontSize: 12,
+      halign: 'right',
+    },
+    columnStyles: {
+      0: { halign: 'right' },
+      1: { halign: 'right' },
+      2: { halign: 'right' },
+      3: { halign: 'right' },
+      4: { halign: 'right' },
+      5: { halign: 'right' },
+    },
+    margin: { top: 60 },
+    didDrawPage: () => {
+      doc.setFont('Amiri');
+      doc.setFontSize(16);
+      doc.text('قائمة الشكاوى', doc.internal.pageSize.getWidth() - 40, 30, {
+        align: 'right',
+      });
+    },
+  });
+
+  doc.save('قائمة-الشكاوى.pdf');
+}
+
+
 }

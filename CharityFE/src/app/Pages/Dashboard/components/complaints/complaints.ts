@@ -1,11 +1,15 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ComplaintCategory, IComplaintDTO } from '../../../../Core/Interfaces/icomplaint';
 import { Complaint } from '../../../../Core/Services/complaint';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { TostarServ } from '../../../../Shared/tostar-serv';
 import { error } from 'console';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { CairoFontBase64 } from '../../../../Core/Services/textEncode/cairo-font';
+import { AmiriFontBase64 } from '../../../../Core/Services/textEncode/AmiriFontBase64';
 
 @Component({
   selector: 'app-complaints',
@@ -29,6 +33,7 @@ export class Complaints {
   selectedSection: string = 'الكل';
   searchText: string = '';
   complaints: IComplaintDTO[] = [];
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
     this._complaintService.getAllComplaints().subscribe({
@@ -97,4 +102,69 @@ export class Complaints {
       default: return '';
     }
   }
+exportToComplaintsPdf(): void {
+  if (!isPlatformBrowser(this.platformId)) return;
+
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'pt',
+    format: 'a4',
+  });
+
+  doc.addFileToVFS('Amiri-Regular.ttf', AmiriFontBase64);
+  doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
+  doc.setFont('Amiri');
+  doc.setFontSize(14);
+
+  const formatDate = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    return `${date.getDate().toString().padStart(2, '0')}/${
+      (date.getMonth() + 1).toString().padStart(2, '0')
+    }/${date.getFullYear()}`;
+  };
+
+ 
+
+  const body = this.complaints?.map((c) => [
+    formatDate(c.createdAt),
+    c.status === 'Active' ? 'نشطة' : 'غير نشطة',
+    c.phoneNumber,
+    c.email,
+    c.userName,
+  ]) || [];
+
+autoTable(doc, {
+  //  head: [['تاريخ', 'Status', 'Phone Number', 'Email', 'Name'] , ...body],
+  body,
+  styles: {
+    font: 'Amiri',
+    fontSize: 12,
+    halign: 'right',
+  },
+  headStyles: {
+    font: 'Amiri',
+    fontSize: 12,
+    halign: 'right',
+    fillColor: [41, 128, 185],
+    textColor: 255,
+  },
+  margin: { top: 60 },
+  didDrawPage: () => {
+    doc.setFont('Amiri');
+    doc.setFontSize(16);
+    doc.text('قائمة الشكاوى', doc.internal.pageSize.getWidth() - 40, 30, {
+      align: 'right',
+    });
+
+    // DEBUG LINE
+    doc.setFontSize(10);
+    doc.text('قائمة الشكاوى', 40, 50); // test if text renders
+  },
+});
+
+
+  doc.save('قائمة-الشكاوى.pdf');
+}
+
+
 }

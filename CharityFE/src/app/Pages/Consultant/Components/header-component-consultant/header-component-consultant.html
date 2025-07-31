@@ -1,23 +1,33 @@
 <section class="full-width-section position-relative">
-  <img src="Images/bg.png" alt="Background" class="background-image" />
+  <img src="Images/bg.png" alt="Background" class="background-image position-absolute top-0 start-0 w-100 h-100" style="z-index: -1;" />
 
-  <div class="head row">
-    <div class="text-block col-6">
-      <h2 class="text-white mb-3">{{title()}}</h2>
-      <p>{{description()}}
-      </p>
-    </div>
+  <div class="container-fluid px-0 py-0">
+    <div class="row head gx-0 gy-4 flex-column-reverse flex-lg-row align-items-end">
 
-    <div class="image-block d-flex col-6">
-      <div class="image-inner d-flex flex-row justify-content-end align-items-end w-100">
-        <div class="half-img">
-          <img class="w-100" src="Images/advisorHead1.jpg" alt="" />
-        </div>
-        <div class="quarter-img d-flex flex-column justify-content-end">
-          <img class="w-100" src="Images/advisorHead2.jpg" alt="" />
-          <img class="w-100" src="Images/advisorHead3.jpg" alt="" />
+      <!-- Text Block -->
+      <div class="text-block col-12 col-lg-6">
+        <h2 class="text-white mb-3">{{ title() }}</h2>
+        <p>{{ description() }}</p>
+      </div>
+
+      <!-- Image Block -->
+      <div class="image-block col-12 col-lg-6 d-flex">
+        <div class="image-inner d-flex flex-row w-100">
+
+          <!-- Half Width Image -->
+          <div class="half-img">
+            <img src="Images/advisorHead1.jpg" alt="" />
+          </div>
+
+          <!-- Two Quarter Images Stacked -->
+          <div class="quarter-img d-flex flex-column">
+            <img src="Images/advisorHead2.jpg" alt="" />
+            <img src="Images/advisorHead3.jpg" alt="" />
+          </div>
+
         </div>
       </div>
+
     </div>
   </div>
 </section>

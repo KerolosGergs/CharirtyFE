@@ -1,89 +1,97 @@
 .full-width-section {
-  width: 100vw;
-  // position: relative;
-  // left: 50%;
-  // right: 50%;
-  // margin-left: -50vw;
-  // margin-right: -50vw;
+  width: 100%;
   background-color: #013D24;
   color: #fff;
-  padding: 0;
-  z-index: -2;
   overflow: hidden;
-  display: flex;
-  justify-self: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-}
-
-.head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  width: 100%;
 }
 
 .text-block {
-  // max-width: 600px;
   text-align: right;
   padding: 32px 30px;
-  flex-shrink: 0;
-
-  /* Prevent shrinking */
-  h2 {
-    font-family: Cairo;
-    font-weight: 700;
-    font-style: Bold;
-    font-size: 32px;
-    line-height: 120%;
-    letter-spacing: 0px;
-    text-align: right;
-
-  }
-
-  p {
-    font-family: Cairo;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 18px;
-    line-height:2;
-    letter-spacing: 0px;
-    text-align: right;
-
-  }
 }
 
+.text-block h2 {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 120%;
+}
+
+.text-block p {
+  font-family: 'Cairo', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 2;
+}
+
+/* === Image Layout === */
 .image-block {
-  flex: 1;
-  /* Fills remaining horizontal space */
+  padding: 0;
+  margin: 0;
   display: flex;
-  align-items: flex-end;
-  padding-left: 0;
-  margin-left: 0;
+  align-items: stretch;
 }
 
 .image-inner {
+  display: flex;
+  flex-wrap: nowrap;
   width: 100%;
+  height: 400px; /* Control overall height here */
+}
+
+.half-img,
+.quarter-img {
+  padding: 0;
+  margin: 0;
 }
 
 .half-img {
-  width: 50%;
-  padding: 0;
+  width: 66.66%;
+  height: 100%;
 }
 
 .quarter-img {
-  width: 25%;
-  padding: 0;
-
-  img {
-    object-fit: contain;
-  }
+  width: 33.33%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.image-block img {
-  object-fit: cover;
+.half-img img,
+.quarter-img img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* Each quarter image takes half height */
+.quarter-img img {
+  height: 50%;
+}
+
+/* === Mobile Responsive === */
+@media (max-width: 768px) {
+  .image-inner {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .half-img,
+  .quarter-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .quarter-img {
+    flex-direction: row;
+  }
+
+  .quarter-img img {
+    width: 100%;
+    height: auto;
+  }
 }

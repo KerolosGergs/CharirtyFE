@@ -7,6 +7,9 @@
       <input type="text" [(ngModel)]="searchTerm" (input)="onSearchChange()"
         class="form-control form-control-sm search-input" placeholder="البحث..." style="width: 200px;" />
     </div>
+         <button class="btn btn-outline-success d-flex align-items-center gap-2" (click)="exportToHelpRequestsPdf()">
+        <i class="bi bi-download me-2"></i> تصدير
+      </button>
   </div>
 
   <!-- Table -->

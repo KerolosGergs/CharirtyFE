@@ -159,5 +159,9 @@ export class EditAdvisor {
     const confirm = group.get('confirmPassword')?.value;
     return password && confirm && password !== confirm ? { mismatch: true } : null;
   };
+allowOnlyDigits(event: any): void {
+  event.target.value = event.target.value.replace(/\D/g, '');
+  this.consultantForm.get('phoneNumber')?.setValue(event.target.value);
+}
 
 }

@@ -42,6 +42,8 @@
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.5.0",
     "express": "^5.1.0",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "ng2-charts": "^8.0.0",
     "ng2-pdf-viewer": "^10.4.0",
     "ngx-extended-pdf-viewer": "^24.2.4",

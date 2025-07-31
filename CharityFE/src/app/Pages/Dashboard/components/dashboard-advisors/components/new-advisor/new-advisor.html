@@ -36,38 +36,26 @@
       <div class="row">
         <div class="col-md-6 form-group">
           <label for="email">البريد الإلكتروني</label>
-          <input type="email" id="email" formControlName="email" class="form-control" placeholder="Houda42@gmail.com" />
+          <input type="email" id="email" formControlName="email" class="form-control" placeholder="user@example.com" />
           @if (consultantForm.get('email')?.touched && consultantForm.get('email')?.invalid) {
           <span class="text-danger small">يرجى إدخال بريد إلكتروني صحيح</span>
           }
         </div>
-  <div class="col-md-6 form-group">
-  <label for="phoneNumber">رقم الهاتف</label>
-  <div class="d-flex align-items-stretch gap-2">
-    <select formControlName="countryCode" class="form-select country-code-select">
-      <option value="+20">20+</option>
-      <option value="+966">966+</option>
-      <option value="+971">971+</option>
-      <option value="+965">965+</option>
-      <option value="+1">1+</option>
-    </select>
+        <div class="col-md-6 form-group">
+          <label for="phoneNumber">رقم الهاتف</label>
+          <div class="d-flex align-items-stretch gap-2">
+            <input type="text" id="phoneNumber" pattern="^\d{10,13}$" required formControlName="phoneNumber"
+              class="form-control flex-grow-1 text-start" placeholder="رقم الهاتف"(input)="allowOnlyDigits($event)" />
 
-    <input
-      type="text"
-      id="phoneNumber"
-      formControlName="phoneNumber"
-      class="form-control flex-grow-1 text-start"
-      placeholder="رقم الهاتف"
-    />
-  </div>
+          </div>
+          @if (
+          consultantForm.get('phoneNumber')?.touched &&
+          consultantForm.get('phoneNumber')?.invalid
+          ) {
+          <span class="text-danger small">رقم الهاتف مطلوب ويجب أن يتكون من 10 إلى 13 رقمًا بدون رمز الدولة</span>
+          }
 
-  @if (
-    (consultantForm.get('phoneNumber')?.touched && consultantForm.get('phoneNumber')?.invalid) ||
-    (consultantForm.get('countryCode')?.touched && consultantForm.get('countryCode')?.invalid)
-  ) {
-    <span class="text-danger small">رقم الهاتف مع كود الدولة مطلوب ولا يزيد عن 20 رقمًا</span>
-  }
-</div>
+        </div>
 
 
       </div>
@@ -75,7 +63,8 @@
       <!-- Specialty -->
       <div class="form-group">
         <label for="specialty">الشهادة العلمية</label>
-        <input type="text" id="specialty" formControlName="specialty" class="form-control" placeholder="الشهادة العلمية" />
+        <input type="text" id="specialty" formControlName="specialty" class="form-control"
+          placeholder="الشهادة العلمية" />
         @if (consultantForm.get('specialty')?.touched && consultantForm.get('specialty')?.invalid) {
         <span class="text-danger small">االشهادة العلمية مطلوب ولا يزيد عن 100 حرف</span>
         }

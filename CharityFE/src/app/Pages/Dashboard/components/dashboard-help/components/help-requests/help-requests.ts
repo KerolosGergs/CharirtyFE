@@ -1,9 +1,12 @@
-import { Component, NgModule, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Inject, NgModule, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { HelpRequest } from '../../models/help-request.model';
 import { HelpRequestService } from '../../services/help-request.service';
 import {  FormsModule } from '@angular/forms';
 import { TostarServ } from '../../../../../../Shared/tostar-serv';
+import { AmiriFontBase64 } from '../../../../../../Core/Services/textEncode/AmiriFontBase64';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-help-requests',
@@ -24,7 +27,8 @@ export class HelpRequestsComponent implements OnInit {
 
   constructor(
     private helpRequestService: HelpRequestService,
-    private tostarServ: TostarServ
+    private tostarServ: TostarServ,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit() {
@@ -97,4 +101,63 @@ export class HelpRequestsComponent implements OnInit {
       });
     }
   }
+  exportToHelpRequestsPdf(): void {
+  if (!isPlatformBrowser(this.platformId)) return;
+
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'pt',
+    format: 'a4',
+  });
+
+  // Use Amiri font for full Arabic support
+  doc.addFileToVFS('Amiri-Regular.ttf', AmiriFontBase64);
+  doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
+  doc.setFont('Amiri');
+  doc.setFontSize(14);
+
+  // Format date in Arabic format
+  const formatDate = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    return `${date.getDate().toString().padStart(2, '0')}/${
+      (date.getMonth() + 1).toString().padStart(2, '0')
+    }/${date.getFullYear()}`;
+  };
+
+  // Build the body without a header row
+  const body = this.paginatedRequests?.map((request) => [
+    request.helpTypeName,
+    request.phoneNumber,
+    request.email,
+    `${request.name}`,
+    
+  ]) ?? [];
+
+  autoTable(doc, {
+    body,
+    styles: {
+      font: 'Amiri',
+      fontSize: 12,
+      halign: 'right',
+    },
+    columnStyles: {
+      0: { halign: 'right' },
+      1: { halign: 'right' },
+      2: { halign: 'right' },
+      3: { halign: 'right' },
+      4: { halign: 'right' },
+    },
+    margin: { top: 60 },
+    didDrawPage: () => {
+      doc.setFont('Amiri');
+      doc.setFontSize(16);
+      doc.text('قائمة طلبات المساعدة', doc.internal.pageSize.getWidth() - 40, 30, {
+        align: 'right',
+      });
+    },
+  });
+
+  doc.save('قائمة-طلبات-المساعدة.pdf');
+}
+
 }

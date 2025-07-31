@@ -1,6 +1,8 @@
 <div class="animate__animated animate__fadeIn">
   <!-- Filter Section -->
+   
   <div class="filter-section">
+   
     <div class="row g-3 align-items-end">
       <div class="col-md-4">
         <label for="searchTerm" class="form-label">
@@ -15,6 +17,7 @@
           placeholder="البحث حسب الاسم، الاستشاري، العنوان، أو الوصف..."
         />
       </div>
+        
       <!-- <div class="col-md-3">
         <label for="typeFilter" class="form-label">
           <i class="bi bi-filter me-2"></i>نوع الاستشارة
@@ -49,9 +52,15 @@
         </select>
       </div>
       <div class="col-md-2">
-        <button class="btn btn-outline-secondary w-100" (click)="loadAppointments()">
+        <div class="d-flex">
+          <button class="btn btn-outline-secondary " (click)="loadAppointments()">
           <i class="bi bi-arrow-clockwise me-2"></i>تحديث
         </button>
+         <button class="btn btn-outline-success  fs-5 " (click)="exportToAppointmentsPdf()">
+        <i class="bi bi-download me-2"></i> تصدير
+      </button>
+        </div>
+        
       </div>
       
     </div>

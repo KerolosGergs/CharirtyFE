@@ -23,18 +23,24 @@
                 <div class="col-md-6 form-group">
                     <label for="email">البريد الإلكتروني</label>
                     <input id="email" type="email" class="form-control" formControlName="email"
-                        placeholder="Houda42@gmail.com" />
+                        placeholder="user@example.com" />
                     @if (consultantForm.get('email')?.touched && consultantForm.get('email')?.invalid) {
                     <span class="text-danger small">يرجى إدخال بريد إلكتروني صحيح</span>
                     }
                 </div>
                 <div class="col-md-6 form-group">
                     <label for="phoneNumber">رقم الهاتف</label>
-                    <input id="phoneNumber" type="text" class="form-control" formControlName="phoneNumber"
-                        placeholder="رقم الهاتف" />
-                    @if (consultantForm.get('phoneNumber')?.touched && consultantForm.get('phoneNumber')?.invalid) {
-                    <span class="text-danger small">رقم الهاتف مطلوب ولا يزيد عن 20 رقمًا</span>
+                    <input type="text" id="phoneNumber" inputmode="numeric" pattern="^\d{10,13}$"
+                        formControlName="phoneNumber" class="form-control flex-grow-1 text-start"
+                        placeholder="رقم الهاتف" (input)="allowOnlyDigits($event)" />
+                    @if (
+                    consultantForm.get('phoneNumber')?.touched &&
+                    consultantForm.get('phoneNumber')?.invalid
+                    ) {
+                    <span class="text-danger small">رقم الهاتف مطلوب ويجب أن يتكون من 10 إلى 13 رقمًا بدون رمز
+                        الدولة</span>
                     }
+
                 </div>
             </div>
 

@@ -130,3 +130,136 @@
     box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.2);
     transition: all 0.3s ease;
 }
+
+
+/* .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+} */
+
+/* === مسار التنقل (Breadcrumb) === */
+.breadcrumb {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  display: inline-block;
+  
+}
+
+.breadcrumb a {
+  color: var(--primary-500);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+  color: var(--primary-700);
+  text-decoration: underline;
+}
+
+.breadcrumb span {
+    color: #777;
+}
+
+/* === ترويسة الصفحة === */
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.page-header h1 {
+  color: var(--primary-800);
+  font-size: 2.8rem;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.75rem;
+}
+
+.page-header h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: var(--primary-500);
+  border-radius: 2px;
+}
+
+/* === قسم الملفات === */
+.files-section {
+  padding: 2.5rem;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+.files-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.75rem;
+}
+
+.file-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background-color: var(--primary-50);
+  color: var(--primary-800);
+  border: 1px solid var(--primary-100);
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.file-button:hover {
+  background-color: var(--primary-500);
+  color: #fff;
+  border-color: var(--primary-500);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(2, 86, 50, 0.2);
+}
+
+/* === أقسام فرعية (لمحاضر الجمعية) === */
+.subsection {
+    margin-bottom: 3rem;
+}
+
+.subsection:last-child {
+    margin-bottom: 0;
+}
+
+.subsection-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-700);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-100);
+}
+.download-button{
+  background-color: var(--primary-light);
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+  display: inline-block;
+}
+.download-button:hover {
+  background-color: var(--primary-dark);
+}

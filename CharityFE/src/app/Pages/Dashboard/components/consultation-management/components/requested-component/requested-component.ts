@@ -1,9 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IConsultantData, RequstedData } from '../../../../../../Core/Interfaces/consultant';
 import { ConsultationServ } from '../../../../../../Core/Services/ConcloutionMangement/consultation-serv';
 import { TostarServ } from '../../../../../../Shared/tostar-serv';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import { AmiriFontBase64 } from '../../../../../../Core/Services/textEncode/AmiriFontBase64';
 
 enum ConsultationType {
   Online = 0,
@@ -51,7 +54,9 @@ export class RequestedComponent implements OnInit {
     totalItems: 0,
     totalPages: 0
   };
-
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
   ngOnInit(): void {
     this.loadAppointments();
   }
@@ -164,4 +169,70 @@ export class RequestedComponent implements OnInit {
     }
     return pages;
   }
+  exportToAppointmentsPdf(): void {
+  if (!isPlatformBrowser(this.platformId)) return;
+
+  const doc = new jsPDF({
+    orientation: 'portrait',
+    unit: 'pt',
+    format: 'a4',
+  });
+
+  // Register Amiri font for Arabic
+  doc.addFileToVFS('Amiri-Regular.ttf', AmiriFontBase64);
+  doc.addFont('Amiri-Regular.ttf', 'Amiri', 'normal');
+  doc.setFont('Amiri');
+  doc.setFontSize(14);
+
+  // Format date helper
+  const formatDate = (dateStr: string): string => {
+    const date = new Date(dateStr);
+    return `${date.getDate().toString().padStart(2, '0')}/${
+      (date.getMonth() + 1).toString().padStart(2, '0')
+    }/${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+  };
+
+  // Create body from paginated appointment data
+  const body = this.getPaginatedAppointments()?.map((item: any) => [
+    formatDate(item.requestDate),
+    item.priority,
+    item.status,
+    item.description,
+    this.getTypeLabel(item.consultationType),
+    item.advisorName,
+    item.userName,
+  ]) ?? [];
+
+  // Generate PDF table
+  autoTable(doc, {
+   
+    
+    body,
+    styles: {
+      font: 'Amiri',
+      fontSize: 12,
+      halign: 'right',
+    },
+    columnStyles: {
+      0: { halign: 'right' },
+      1: { halign: 'right' },
+      2: { halign: 'right' },
+      3: { halign: 'right' },
+      4: { halign: 'right' },
+      5: { halign: 'right' },
+      6: { halign: 'right' },
+    },
+    margin: { top: 60 },
+    didDrawPage: () => {
+      doc.setFont('Amiri');
+      doc.setFontSize(16);
+      doc.text('قائمة المواعيد', doc.internal.pageSize.getWidth() - 40, 30, {
+        align: 'right',
+      });
+    },
+  });
+
+  doc.save('قائمة-المواعيد.pdf');
+}
+
 }

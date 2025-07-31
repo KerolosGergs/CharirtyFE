@@ -33,8 +33,7 @@ export class NewAdvisor {
       fullName: ['', [Validators.required, Validators.maxLength(50)]],
       specialty: ['', [Validators.required, Validators.maxLength(100)]],
       consultation: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required, Validators.maxLength(20)]],
-      countryCode: ['+20', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^\\d{10,13}$')]],
       email: ['', [Validators.required, Validators.email]],
       description: ['', [Validators.required, Validators.maxLength(1000)]],
       zoomUrl: ['', [Validators.required]],
@@ -91,7 +90,7 @@ export class NewAdvisor {
     // Append form fields
     formData.append('fullName', this.consultantForm.get('fullName')?.value);
     formData.append('email', this.consultantForm.get('email')?.value);
-    formData.append('phoneNumber', (this.consultantForm.get('countryCode')?.value + this.consultantForm.get('phoneNumber')?.value));
+    formData.append('phoneNumber', (this.consultantForm.get('phoneNumber')?.value));
     formData.append('specialty', this.consultantForm.get('specialty')?.value);
     formData.append('description', this.consultantForm.get('description')?.value);
     formData.append('ZoomRoomUrl', this.consultantForm.get('zoomUrl')?.value);
@@ -113,7 +112,7 @@ export class NewAdvisor {
             this.toastr.showSuccess('تم انشاء المستشار بنجاح');
           }, 1000);
           this.consultantForm.reset();
-          this._router.navigate(['/dashboard']);
+          this._router.navigate(['/dashboard/dashboard-advisors']);
         } else {
           this.consultantForm.markAllAsTouched();
             this.toastr.showError(res.message);
@@ -132,4 +131,9 @@ export class NewAdvisor {
     this.consultantForm.reset();
     this._router.navigate(['/dashboard']);
   }
+  allowOnlyDigits(event: any): void {
+  event.target.value = event.target.value.replace(/\D/g, '');
+  this.consultantForm.get('phoneNumber')?.setValue(event.target.value);
+}
+
 }

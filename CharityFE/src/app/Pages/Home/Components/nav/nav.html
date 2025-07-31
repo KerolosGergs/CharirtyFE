@@ -1,7 +1,7 @@
 <!-- Navigation Section -->
 @defer
 {
-<nav class="navbar navbar-expand-md navigation-section">
+<nav class="navbar navbar-expand-md navigation-section ">
   <div class="container">
     <!-- Hamburger Menu Toggle for Small Screens -->
     <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed" aria-controls="navbarNav" [attr.aria-expanded]="!isMenuCollapsed" aria-label="Toggle navigation">
@@ -11,7 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarNav" [class.show]="!isMenuCollapsed">
       <ul class="navbar-nav justify-content-center w-100 py-2 flex-wrap">
         @for (item of navigationItems; track $index; let i = $index) {
-        <li class="nav-item dropdown mx-2" [class.show]="item === activeItem"
+        <li class="nav-item dropdown mx-2 fs-5" [class.show]="item === activeItem"
           (mouseenter)="isDesktop() ? activeItem = item : null" (mouseleave)="isDesktop() ? activeItem = null : null"
           (click)="onMobileItemClick(item)">
           <a class="nav-link text-white" [class.dropdown-toggle]="item.subLibels.length > 0"

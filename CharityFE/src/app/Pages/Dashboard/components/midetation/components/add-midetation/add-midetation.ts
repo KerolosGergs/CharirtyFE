@@ -28,8 +28,7 @@ export class AddMidetation implements OnInit {
   ngOnInit(): void {
     this.consultantForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.maxLength(50)]],
-      phoneNumber: ['', [Validators.required, Validators.maxLength(20)]],
-      countryCode: ['+20', Validators.required],
+      phoneNumber: ['', [Validators.required,  Validators.pattern('^\\d{10,13}$')]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
       confirmPassword: ['', Validators.required],
@@ -77,7 +76,7 @@ export class AddMidetation implements OnInit {
     // Append form fields
     formData.append('FullName', this.consultantForm.get('fullName')?.value);
     formData.append('Email', this.consultantForm.get('email')?.value);
-    formData.append('PhoneNumber', (this.consultantForm.get('countryCode')?.value + this.consultantForm.get('phoneNumber')?.value));
+    formData.append('PhoneNumber', (this.consultantForm.get('phoneNumber')?.value));
     formData.append('Password', this.consultantForm.get('password')?.value);
 
     // Append the image file
@@ -114,4 +113,9 @@ export class AddMidetation implements OnInit {
     this.consultantForm.reset();
     this._router.navigate(['/dashboard']);
   }
+  allowOnlyDigits(event: any): void {
+  event.target.value = event.target.value.replace(/\D/g, '');
+  this.consultantForm.get('phoneNumber')?.setValue(event.target.value);
+}
+
 }

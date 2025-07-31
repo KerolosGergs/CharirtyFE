@@ -32,6 +32,7 @@ Chart.register(
   Legend
 );
 export const appConfig: ApplicationConfig = {
+  
   providers: [
      provideCharts(
        {
