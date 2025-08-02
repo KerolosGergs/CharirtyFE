@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { HeadDashboard } from "../../Shared/head-dashboard/head-dashboard";
 
 @Component({
   selector: 'app-reconcile-dashboard',
-  imports: [ RouterOutlet,RouterLinkActive, RouterLink],
+  imports: [RouterOutlet, RouterLinkActive, RouterLink, HeadDashboard],
   templateUrl: './reconcile-dashboard.html',
   styleUrl: './reconcile-dashboard.scss'
 })

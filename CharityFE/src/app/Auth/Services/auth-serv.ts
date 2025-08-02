@@ -18,7 +18,7 @@ export class AuthServ {
       localStorage.setItem(this.tokenKey, token);
       localStorage.setItem(this.userKey, JSON.stringify(user));
       localStorage.setItem(this.roleKey, role);
-      localStorage.setItem(this.RoleId, RoleId.toString());
+    localStorage.setItem(this.RoleId, RoleId?.toString() ?? '0'); // ✅ Safe check
     }
   }
 
@@ -58,12 +58,12 @@ getUserID(): string | null {
   return user.id;
 }
 getId(): number  {
- if (this.isBrowser()) {
-      const RoleId = localStorage.getItem(this.RoleId);
-      return RoleId ? JSON.parse(RoleId) : 0;
-    }
-    return 0;
-  // return 10;
+  if (this.isBrowser()) {
+    const RoleId = localStorage.getItem(this.RoleId);
+    const parsed = Number(RoleId);
+    return isNaN(parsed) ? 0 : parsed;
+  }
+  return 0;
 }
 
 
