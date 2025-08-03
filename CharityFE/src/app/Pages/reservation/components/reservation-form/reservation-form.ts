@@ -16,7 +16,7 @@ import { Appointment } from '../../../../Core/Services/User/appointment';
   styleUrl: './reservation-form.scss'
 })
 export class ReservationForm implements OnInit{
-  appointmentDateTime: { timeId: number } | null = null;
+  appointmentDateTime: { timeId: number ,type:number} | null = null;
   categories: ICategory[] = [];
   selectedCategoryId: number | null = null;
   isLoadingCategories: boolean = true;
@@ -58,8 +58,9 @@ export class ReservationForm implements OnInit{
     return this.selectedCategoryId === categoryId;
   }
 
-  onAppointmentChange(event: {  timeId: number }) {
+  onAppointmentChange(event: {  timeId: number ,type:number}) {
     this.appointmentDateTime = event;
+
   }
 
   isFormValid(): boolean {
@@ -80,11 +81,11 @@ export class ReservationForm implements OnInit{
 
 
   const requestBody: TakeAppointment = {
-    consultationId: 1,
+    consultationId: this.selectedCategoryId!,
     title: 'عنوان الاستشارة',
     description: this.form.value.notes,
     priority: 'عادية',
-    consultationType: this.selectedCategoryId!,
+    consultationType:this.appointmentDateTime?.type!,
     advisorAvailabilityId: this.appointmentDateTime!.timeId
   };
   this.Advice.createAdviceRequest(requestBody).subscribe(

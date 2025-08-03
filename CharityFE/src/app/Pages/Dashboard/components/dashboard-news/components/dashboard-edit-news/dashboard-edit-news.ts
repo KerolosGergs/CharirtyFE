@@ -51,7 +51,7 @@ export class DashboardEditNews implements OnInit {
               isPublished: article.isPublished,
               tags: article.tags
             });
-            this.uploadedImageUrl = article.imageUrl;
+            this.uploadedImageUrl =  article.imageUrl;
           },
           error: () => {
             // this.toastr.error('فشل تحميل المقال');

@@ -89,7 +89,7 @@
                         </svg>
 
                         <strong>اللغات</strong>
-                        <p class="text-muted small mb-0">{{advisor.languages}}</p>
+                        <p class="text-muted small mb-0">{{  "العربية"}}</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-4">
@@ -117,10 +117,10 @@
                         </svg>
 
                         <strong>شهادات المستشار</strong>
-                        <p class="text-muted small mb-0">{{advisor.certificates}}</p>
+                        <p class="text-muted small mb-0">{{advisor.specialty}}</p>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <!-- <div class="col-sm-6 col-md-4">
                     <div class="">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -143,7 +143,7 @@
                         <strong>سنوات الخبرة</strong>
                         <p class="text-muted small mb-0">{{advisor.experienceYears}} عاماً</p>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-sm-6 col-md-4">
                     <div class="">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -168,16 +168,18 @@
                         </svg>
 
                         <strong>أنواع التواصل</strong>
-                        <p class="text-muted small mb-0">{{advisor.communicationTypes}}</p>
+                        <p class="text-muted small mb-0">حضورى وأونلاين</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+@defer () {
+    <app-appointments [advisorId]="advisor.id"></app-appointments>
 
-    <app-appointments></app-appointments>
+}
 
-   <app-previous-consultations></app-previous-consultations>
+   <!-- <app-previous-consultations></app-previous-consultations> -->
 
 </div>
 }

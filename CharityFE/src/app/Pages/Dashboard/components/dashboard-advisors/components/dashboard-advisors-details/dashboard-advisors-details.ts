@@ -8,7 +8,7 @@ import { PreviousConsultations } from "./components/previous-consultations/previ
 @Component({
   selector: 'app-dashboard-advisors-details',
   standalone: true,
-  imports: [Appointments, PreviousConsultations],
+  imports: [Appointments],
   templateUrl: './dashboard-advisors-details.html',
   styleUrl: './dashboard-advisors-details.scss'
 })
@@ -17,11 +17,11 @@ export class DashboardAdvisorsDetails implements OnInit {
   _router = inject(ActivatedRoute)
   _advisor = inject(Advisor)
 
-  advisor: any;
+  advisor!: advisor;
 
 
-  ngOnInit(): void {
-    this.getparam();
+  async ngOnInit() : Promise<void> {
+    await this.getparam();
   }
 
   getparam() {
@@ -39,8 +39,9 @@ export class DashboardAdvisorsDetails implements OnInit {
   getAdvisorById(id: number) {
     this._advisor.getAdvisorById(id).subscribe({
       next: (res) => {
-        console.log('data feched', res);
-
+        // console.log('data feched', res);
+        // console.log(res.data);
+        
         this.advisor = res.data;
       },
       error(err) {

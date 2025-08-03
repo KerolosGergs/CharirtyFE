@@ -63,8 +63,7 @@
               (change)="toggleRememberMe()">
             <label class="form-check-label" for="rememberMe">تذكرني</label>
           </div>
-          <a href="#" (click)="$event.preventDefault(); onForgotPassword()"
-            class="small text-primary text-decoration-none">نسيت رمز المرور؟</a>
+          <a routerLink="/forget-password" class="small text-primary text-decoration-none">نسيت رمز المرور؟</a>
         </div>
 
         <button type="submit" class="btn btn-success w-100 mb-3 rounded-pill" [disabled]="isLoading">

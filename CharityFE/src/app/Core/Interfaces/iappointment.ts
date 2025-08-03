@@ -13,13 +13,20 @@ export interface Availbity {
   date: string
   time: string
   duration: string
-  consultationType: number
+  consultationType: ConsultationStatus
   isBooked: boolean
   notes: string
   createdAt: string
   updatedAt: any
 }
-
+ enum ConsultationStatus
+{
+    Pending = 0,
+    Confirmed = 1,
+    Completed = 2,
+    Cancelled = 3,
+    InProgress = 4
+}
 
 export interface TakeAppointment {
   consultationId: number

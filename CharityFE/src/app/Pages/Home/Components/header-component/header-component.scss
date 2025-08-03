@@ -1,33 +1,35 @@
-.header-section {
-  background-color: #ffffff;
-}
+// .header-section {
+//   background-color: #ffffff;
+// }
 
-.icon-bg {
-  background-color: var(--primary-300);
-}
+// .icon-bg {
+//   background-color: var(--primary-300);
+// }
 
-.icon-bg i {
-  color: #fff;
-  font-size: small;
-}
+// .icon-bg i {
+//   color: #fff;
+//   font-size: small;
+// }
 
-.action-buttons {
-  font-family: 'Cairo';
-}
+// .action-buttons {
+//   font-family: 'Cairo';
+// }
 
-.action-buttons button {
-  font-weight: bold;
-}
+// .action-buttons button {
+//   font-weight: 100;
+// }
 
 .hero-btn-secondary {
   background-color: var(--primary);
   color: #ffffff;
   font-family: 'Cairo';
+    // padding: 0px 10px !important;
+
 }
 
 .hero-btn-secondary:hover {
   background-color: #157347;
-  transform: translateY(-3px);
+  // transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(25, 135, 84, 0.4);
 }
 
@@ -37,4 +39,73 @@
     flex-direction: column;
     align-items: center;
   }
+}
+
+.user-menu-btn {
+  background-color: #f5f7fa;
+  border: 1px solid #e0e4e8;
+  border-radius: 20px;
+  // padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.user-menu-btn:hover {
+  background-color: #e8ecef;
+  border-color: #d0d5db;
+  transform: translateY(-1px);
+}
+
+.icon-style {
+  font-size: 20px;
+  color: #157347;
+}
+
+.arrow-style {
+  font-size: 12px;
+  color: #666;
+  transition: transform 0.3s ease;
+}
+
+.user-menu-btn[aria-expanded="true"] .arrow-style {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  max-width: 20rem;
+  text-align: right;
+  border: none;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+}
+
+.dropdown-item-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #157347;
+  padding: 8px 16px;
+
+}
+
+.dropdown-item {
+  font-size: 14px;
+  color: #333;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #c70021;
+  color: white;
+}
+
+.dropdown-divider {
+  margin: 4px 0;
 }

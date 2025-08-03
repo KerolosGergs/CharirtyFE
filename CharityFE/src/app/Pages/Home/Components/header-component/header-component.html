@@ -32,41 +32,47 @@
         <div class="action-buttons d-flex flex-wrap justify-content-center justify-content-md-end gap-2">
 
           @if (token) {
-            @if (Role != 'User') {
-              <button class="btn btn-lg px-4 py-2 hero-btn-secondary d-flex align-items-center" (click)="Dashbord()">
-                لوحة التحكم
-              </button>
-            }
+          @if (Role != 'User') {
+          <button class="btn  btn-md  px-4 py-2 hero-btn-secondary d-flex align-items-center" (click)="Dashbord()">
+            لوحة التحكم
+          </button>
+          }
 
-            <button class="btn btn-outline-danger btn-md d-flex align-items-center" (click)="logout()">
-              <i class="bi bi-person me-1"></i> تسجيل الخروج
-            </button>
+
           } @else {
-            <a class="text-decoration-none text-white" routerLink="/login">
-              <app-main-button 
-                [buttonFunction]="login"
-                [buttontext]="'تسجيل الدخول'"
-                [iconButton]="''">
-              </app-main-button>
-            </a>
+          <a class="text-decoration-none text-white" routerLink="/login">
+            <app-main-button [buttonFunction]="login" [buttontext]="'تسجيل الدخول'" [iconButton]="''">
+            </app-main-button>
+          </a>
           }
 
           <a class="text-decoration-none text-white" href="http://109.166.90.247/Login.aspx">
-            <app-main-button 
-              [buttonFunction]="go"
-              [buttontext]="'الخدمات الألكترونية'"
-              [iconButton]="''">
+            <app-main-button [buttonFunction]="go" [buttontext]="'الخدمات الألكترونية'" [iconButton]="''">
             </app-main-button>
           </a>
 
           <a class="text-decoration-none text-white" href="http://109.166.90.247/Login.aspx">
-            <app-main-button 
-              [buttonFunction]="go"
-              [buttontext]="'متجر التبرع'"
-              [iconButton]="''">
+            <app-main-button [buttonFunction]="go" [buttontext]="'متجر التبرع'" [iconButton]="''">
             </app-main-button>
           </a>
+          @if(token){
 
+          <div class="dropdown ">
+            <button class="user-menu-btn d-flex align-items-center " (click)="toggleDropdown()">
+              <i class="bi bi-person-circle icon-style py-1 px-2"  ></i>
+              <!-- <i class="bi bi-chevron-down arrow-style ms-2"></i> -->
+            </button>
+            <ul class="dropdown-menu shadow-sm" [ngClass]="{'show': isDropdownOpen}">
+              <li><span class="dropdown-item-text">{{ accountName }}</span></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#" (click)="logout()">
+                  <i class="bi bi-box-arrow-right ms-2"></i>
+                  تسجيل الخروج</a></li>
+            </ul>
+          </div>
+          }
         </div>
       </div>
     </div>

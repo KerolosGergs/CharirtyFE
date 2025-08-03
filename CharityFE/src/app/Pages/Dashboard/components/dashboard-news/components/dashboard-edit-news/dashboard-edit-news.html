@@ -4,16 +4,16 @@
       <div class="image-header mb-3">
         <img src="Images/logo.png" alt="Header" class="header-img" />
       </div>
-      <h3 class="text-success">تعديل مقال</h3>
+      <h3 class="text-success fs-5 fw-bold">تعديل خبر</h3>
     </div>
 
     <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
       <!-- Image Upload -->
       <div class="form-group text-center">
-        <label class="fw-bold mb-2">صورة المقال</label>
+        <label class="fw-bold mb-2">صورة الخبر</label>
         <input type="file" accept="image/*" class="form-control mb-2" (change)="onImageChange($event)" />
         @if (uploadedImageUrl) {
-          <img [src]="uploadedImageUrl" alt="صورة المقال" class="img-thumbnail rounded shadow mt-2" width="150" />
+          <img [src]="uploadedImageUrl" alt="صورة الخبر" class="img-thumbnail rounded shadow mt-2" width="150" />
         }
         @if (articleForm.get('Image')?.touched && articleForm.get('Image')?.invalid) {
           <span class="text-danger small">يرجى تحميل صورة للمقال</span>
@@ -22,7 +22,7 @@
 
       <div class="form-group">
         <label for="title">العنوان</label>
-        <input id="title" class="form-control" formControlName="title" placeholder="أدخل عنوان المقال" />
+        <input id="title" class="form-control" formControlName="title" placeholder="أدخل عنوان الخبر" />
         @if (articleForm.get('title')?.touched && articleForm.get('title')?.invalid) {
           <span class="text-danger small">العنوان مطلوب ولا يزيد عن 100 حرف</span>
         }
@@ -30,7 +30,7 @@
 
       <div class="form-group">
         <label for="summary">الملخص</label>
-        <textarea id="summary" class="form-control" formControlName="summary" placeholder="اكتب ملخص المقال"></textarea>
+        <textarea id="summary" class="form-control" formControlName="summary" placeholder="اكتب ملخص الخبر"></textarea>
         @if (articleForm.get('summary')?.touched && articleForm.get('summary')?.invalid) {
           <span class="text-danger small">الملخص مطلوب ولا يزيد عن 500 حرف</span>
         }
@@ -46,7 +46,7 @@
 
       <div class="form-group">
         <label for="category">الفئة</label>
-        <input id="category" class="form-control" formControlName="category" placeholder="فئة المقال" />
+        <input id="category" class="form-control" formControlName="category" placeholder="فئة الخبر" />
         @if (articleForm.get('category')?.touched && articleForm.get('category')?.invalid) {
           <span class="text-danger small">الفئة مطلوبة</span>
         }
@@ -62,10 +62,10 @@
 
       <div class="form-group form-check">
         <input type="checkbox" id="isPublished" class="form-check-input" formControlName="isPublished" />
-        <label class="form-check-label" for="isPublished">نشر المقال مباشرة</label>
+        <label class="form-check-label" for="isPublished">نشر الخبر مباشرة</label>
       </div>
 
-      <button type="submit" class="btn w-100 mt-3 register-btn">تعديل المقال</button>
+      <button type="submit" class="btn w-100 mt-3 register-btn">تعديل الخبر</button>
       <button type="button" class="btn btn-outlet w-100 mt-2" (click)="onCancel()">إلغاء</button>
     </form>
   </div>

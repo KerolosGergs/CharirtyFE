@@ -109,7 +109,7 @@ export class LoginForm implements OnInit {
   }
 
   onForgotPassword(): void {
-    console.log('Forgot password clicked');
+    this.router.navigate(['/forget-password']);
   }
 
   onCreateAccount(): void {

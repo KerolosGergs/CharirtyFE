@@ -1,48 +1,120 @@
 <section class="row mb-5 gy-4">
-    <!-- Calendar -->
-    <div class="col-lg-6">
-        <div class="calendar-wrapper text-success fs-4 ">
-            <mat-calendar [(selected)]="selectedDate" [dateClass]="dateClass" [dateFilter]="filterDates"
-                (selectedChange)="onDateChange($event!)" class="custom-calendar">
-            </mat-calendar>
-            @if (selectedAppointments.length > 0) {
-            <div class="times-wrapper mt-3">
-                <h5 class="text-center mb-3">الأوقات المتاحة</h5>
-                <div class="d-flex flex-wrap justify-content-center gap-2">
-                    @for (appointment of selectedAppointments; track appointment) {
-                    <span class="time-slot">
-                        🕒 {{ appointment.time }} -
-                        {{ appointment.consultationType }}
-                    </span>
-                    }
-                </div>
-            </div>}
+  <!-- Calendar + filters -->
+  <div class="col-lg-6">
+    <div class="card p-3 mb-3">
+      <h3 class="fs-6 mb-2">اختر تاريخاً</h3>
+      <mat-calendar
+        [(selected)]="calendarDate"
+        (selectedChange)="onDateChange($event)"
+        [dateClass]="dateClass"
+        [dateFilter]="filterDates"
+        class="custom-calendar"
+      ></mat-calendar>
 
-            @if (selectedAppointments.length === 0) {
-            <div class="text-center text-muted mt-3">لا توجد مواعيد في هذا اليوم</div>
-            }
+      <div class="mt-3">
+        <div class="d-flex gap-2 flex-wrap mb-2">
+          <input
+            type="text"
+            placeholder="بحث بالاسم أو الملاحظات..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearchChange()"
+            class="form-control flex-grow-1"
+          />
+          <select [(ngModel)]="selectedType" (change)="onTypeChange()" class="form-select">
+            <option value="">الكل</option>
+            <option value="0">نوع 0</option>
+            <option value="1">نوع 1</option>
+          </select>
         </div>
-    </div>
 
-    <!-- Scrollable Appointments -->
-    <div class="col-lg-6">
-        <div class="card h-100 p-3">
-            <h2 class="fs-5">مواعيد المستشار القادمة</h2>
-            <div class="scrollable-slider">
-                @for (appt of appointments; track appt.time) {
-                <article class="card mb-3">
-                    <div class="card-body">
-                        <p><strong>اسم المستخدم:</strong> {{ appt.userName }}</p>
-                        <p><strong>نوع الاستشارة:</strong> {{ appt.consultationType }}</p>
-                        <p><i class="bi bi-calendar"></i> {{ appt.date | date:'d MMMM y' : '' : 'ar' }}</p>
-                        <p><i class="bi bi-clock"></i> {{ appt.time }}</p>
-                        <p><i class="bi bi-hourglass"></i> {{ appt.duration }} دقيقة</p>
-                        <p>{{ appt.description }}</p>
-                    </div>
-                </article>
-                }
+        <p *ngIf="selectedDate">
+          <strong>التاريخ المختار:</strong> {{ selectedDate }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upcoming appointments with pagination -->
+  <div class="col-lg-6">
+    <div class="card h-100 p-3 mb-3">
+      <h2 class="fs-5 mb-3">مواعيد المستشار القادمة</h2>
+
+      <div *ngIf="upcomingAppointments.length === 0" class="text-center text-muted py-4">
+        لا توجد مواعيد قادمة لعرضها.
+      </div>
+
+      <div *ngIf="upcomingAppointments.length > 0">
+        <div class="scrollable-slider">
+          <article class="card mb-3" *ngFor="let appt of paginatedUpcoming">
+            <div class="card-body">
+              <p><strong>اسم المستخدم:</strong> {{ appt.userFullName }}</p>
+              <p><strong>نوع الاستشارة:</strong> {{ appt.consultationName }}</p>
+              <p>
+                <i class="bi bi-calendar"></i>
+                {{ appt.date | date: 'd MMMM y' : '' : 'ar' }}
+              </p>
+              <p><i class="bi bi-clock"></i> {{ appt.time }}</p>
+              <p><i class="bi bi-hourglass"></i> {{ appt.duration }} دقيقة</p>
+              <p>{{ appt.notes }}</p>
+
+              <!-- <div class="mt-2 d-flex gap-2">
+                <button (click)="confirmRequest(appt.id)" class="btn btn-sm btn-success">
+                  تأكيد
+                </button>
+                <button (click)="deleteRequest(appt.id)" class="btn btn-sm btn-danger">
+                  حذف
+                </button>
+              </div> -->
             </div>
+          </article>
         </div>
-    </div>
 
+        <!-- pagination -->
+        <div class="d-flex justify-content-center gap-1 mt-3">
+          <button
+            *ngFor="let p of getPageNumbers()"
+            [class.active]="p === currentPage"
+            (click)="changePage(p)"
+            class="btn btn-outline-primary btn-sm"
+          >
+            {{ p }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Previous consultations spanning full width below -->
+  <div class="col-12">
+    <div class="card p-3">
+      <h4 class="fs-6 mb-2">الاستشارات السابقة</h4>
+      <div *ngIf="pastAppointments.length === 0" class="text-center text-muted py-3">
+        لا توجد استشارات سابقة لعرضها.
+      </div>
+      <div *ngIf="pastAppointments.length > 0" class="list-group">
+        <div class="list-group-item mb-2" *ngFor="let appt of pastAppointments">
+          <div class="d-flex justify-content-between flex-wrap">
+            <div>
+              <p class="mb-1"><strong>اسم المستخدم:</strong> {{ appt.userFullName }}</p>
+              <p class="mb-1"><strong>نوع الاستشارة:</strong> {{ appt.consultationName }}</p>
+              <p class="mb-1">
+                <i class="bi bi-calendar"></i>
+                {{ appt.date | date: 'd MMMM y' : '' : 'ar' }}
+              </p>
+              <p class="mb-1"><i class="bi bi-clock"></i> {{ appt.time }}</p>
+              <p class="mb-1">{{ appt.notes }}</p>
+            </div>
+            <!-- <div class="d-flex gap-2 mt-2">
+              <button (click)="confirmRequest(appt.id)" class="btn btn-sm btn-success">
+                تأكيد
+              </button>
+              <button (click)="deleteRequest(appt.id)" class="btn btn-sm btn-danger">
+                حذف
+              </button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

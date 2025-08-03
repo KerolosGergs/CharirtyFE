@@ -64,7 +64,12 @@ updateNews(id: number, data: FormData): Observable<{ success: boolean }> {
 }
 
 getNewsById(id: number): Observable<{ data: NewsArticle }> {
-  return this._httpClient.get<{ data: NewsArticle }>(`${this._baseUrl}News/${id}`);
+  return this._httpClient.get<{ data: NewsArticle }>(`${this._baseUrl}News/${id}`).pipe(
+    map(data => {
+      data.data.imageUrl = `${this._environment.ImgUrl}${data.data.imageUrl}`;
+      return data;
+    })
+  );
 }
 deletenews(id: number): Observable<{ success: boolean }> {
   return this._httpClient.delete<{ success: boolean }>(`${this._baseUrl}News/${id}`);

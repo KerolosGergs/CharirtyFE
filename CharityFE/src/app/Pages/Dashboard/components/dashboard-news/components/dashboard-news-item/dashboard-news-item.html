@@ -12,7 +12,7 @@
     <span class="text-danger fw-bold">غير منشور</span>
   }
 </div>
-    <p class="card-text"><small class="text-muted"> {{ itemC.content }} </small></p>
+    <p class="card-text"><small class="text-muted"> {{ itemC.summary }} </small></p>
     <div class="tags mb-2">
       @for (tag of itemC.tags.toString().split(' '); track $index) {
         <span class="badge bg-secondary me-1">{{ tag }}</span>

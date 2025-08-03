@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { HeadDashboard } from "../../Shared/head-dashboard/head-dashboard";
 import { Router } from '@angular/router';
@@ -22,7 +22,7 @@ export class Dashboard {
     { label: 'الشكاوى', icon: 'bi bi-graph-up', link: '/dashboard/dashboard-complaints', active: false },
     { label: 'طلبات التطوع', icon: 'bi bi-file-text', link: '/dashboard/dashboard-Volunteer', active: false },
     { label: 'طلبات الدعم', icon: 'bi bi-headset', link: '/dashboard/dashboard-help', active: false },
-    { label: 'إضافة مشرف', icon: 'bi bi-diagram-3', link: '/dashboard/Add-Admin', active: false },
+    // { label: 'أقسام الموقع', icon: 'bi bi-diagram-3', link: '/dashboard', active: false },
     { label: 'الاستشارات', icon: 'bi bi-chat-dots', link: '/dashboard/consultation-management', active: false },
     { label: 'الاخبار', icon: 'bi bi-newspaper', link: '/dashboard/dashboard-news', active: false },
     { label: 'الخدمات', icon: 'bi bi-life-preserver', link: '/dashboard/dashboard-services', active: false },
@@ -51,20 +51,4 @@ export class Dashboard {
     this.authService.logout();
     this.router.navigate(['/login']); // redirect to login page after logout
   }
-   isSidebarOpen = true;
-  isSmallScreen = false;
-
-  @HostListener('window:resize')
-  onResize() {
-    this.isSmallScreen = window.innerWidth < 768;
-    if (this.isSmallScreen) this.isSidebarOpen = false;
-  }
-  ngOnInit() {
-    this.onResize();
-  }
-
-  toggleSidebar() {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
-
 }

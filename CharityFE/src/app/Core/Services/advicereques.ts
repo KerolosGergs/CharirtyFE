@@ -42,7 +42,15 @@ export interface GetRequests {
   duration: string;
   notes: string;
   status: string;
+  consultationType: ConsultationType;
 }
+
+    export enum ConsultationType
+    {
+        Online = 0,
+        InPerson = 1,
+        Both = 2
+    }
 
 
 export interface ApiResponse<T> {

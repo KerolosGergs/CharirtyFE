@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { newsservice } from '../../../../Core/Services/news';
 import { NewsArticle } from '../../../../Core/Interfaces/news';
 
@@ -21,6 +22,7 @@ export class News implements OnInit {
   isAnimating = false;
 
   newsservice = inject(newsservice);
+  router = inject(Router);
 
   newsItems: NewsArticle[] = [
   ];
@@ -63,6 +65,11 @@ export class News implements OnInit {
       }
     });
 
+  }
+
+  navigateToNewsDetails(newsId: number): void {
+    this.router.navigate(['/news-details', newsId],);
+    
   }
 
 }

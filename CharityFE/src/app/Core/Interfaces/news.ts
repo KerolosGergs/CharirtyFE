@@ -4,6 +4,7 @@ export interface NewsArticle {
   content: string;
   summary: string;
   imageUrl: string;
+  additionalImages?: string[]; // Array of additional image URLs
   author: string;
   category: string;
   isPublished: boolean;

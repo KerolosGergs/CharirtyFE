@@ -35,11 +35,11 @@ export class AdvisorAvailabilityManagerComponent implements OnInit {
 
   selectedTimeId: number = 0;
   selectedTimeLabel: string | null = null; // Store translated label for selected time
-
+  selectedType: number = 0;
   saveSuccess = false;
   saveError = '';
 
-  @Output() appointmentChange = new EventEmitter<{ timeId: number }>();
+  @Output() appointmentChange = new EventEmitter<{ timeId: number ,type:number}>();
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -140,6 +140,7 @@ export class AdvisorAvailabilityManagerComponent implements OnInit {
   selectTime(timeId: number) {
     this.selectedTimeId = timeId;
     const selected = this.allHours.find(h => h.id === timeId);
+    this.selectedType = selected ? selected.Type == 'حضور' ? 1 : 0 : 0;
     this.selectedTimeLabel = selected ? this.toArabicTimeLabel(selected.time) + ' (' + selected.Type + ')' : null; // ✅ translated label
     this.emitAppointment();
   }
@@ -148,7 +149,8 @@ export class AdvisorAvailabilityManagerComponent implements OnInit {
   emitAppointment() {
     if (this.selectedTimeId != null) {
       this.appointmentChange.emit({
-        timeId: this.selectedTimeId
+        timeId: this.selectedTimeId,
+        type: this.selectedType
       });
     }
   }

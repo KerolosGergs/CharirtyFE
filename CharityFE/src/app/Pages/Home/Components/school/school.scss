@@ -13,8 +13,8 @@
 }
 
 .btn-donate {
-  background-color: rgba(2, 86, 50, 1);
-  color: #fff;
+  color: rgba(2, 86, 50, 1);
+  background-color: #fff;
   font-weight: 600;
   border: none;
   transition: all 0.3s ease;
@@ -24,7 +24,8 @@
 }
 
 .btn-donate:hover {
-  background-color: #014c2f;
+  background-color: #00643e;
+  color: #fff;
 }
 
 .object-fit-cover {

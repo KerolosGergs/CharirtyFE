@@ -14,6 +14,8 @@ export const routes: Routes = [
     { path: '', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
     { path: 'login', component: LoginForm },
     { path: 'register', component: RegisterForm },
+    { path: 'forget-password', loadComponent: () => import('./Auth/Components/forget-password/forget-password').then(m => m.ForgetPassword), title: 'نسيت كلمة المرور' },
+    { path: 'reset-password/:token', loadComponent: () => import('./Auth/Components/reset-password/reset-password').then(m => m.ResetPassword), title: 'إعادة تعيين كلمة المرور' },
     { path: 'home', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
     { path: 'achive', loadComponent: () => import('./Pages/sid-components/Complain/achive/achive').then(m => m.Achive), title: 'Achive' },
     { path: 'Satisfaction', loadComponent: () => import('./Pages/sid-components/Complain/satisfaction/satisfaction').then(m => m.Satisfaction), title: 'Satisfaction' },
@@ -31,6 +33,8 @@ export const routes: Routes = [
     { path: 'must-login', loadComponent: () => import('../app/Pages/must-login/must-login').then(m => m.MustLogin), title: 'Must Login' },
 
     { path: 'questions', component: Questions, title: 'Questions' },
+
+    { path: 'news-details/:id', loadComponent: () => import('../app/Pages/news-details/news-details').then(m => m.NewsDetails), title: 'News Details' },
 
     { path: 'medical-services', loadComponent: () => import('../app/Pages/medicalservices/medicalservices').then(m => m.Medicalservices), title: 'Medical Services' },
     { path: 'achievements-communication', loadComponent: () => import('../app/Pages/achievements-communication/achievements-communication').then(m => m.AchievementsCommunication), title: 'Achievements Communication' },

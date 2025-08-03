@@ -27,7 +27,7 @@
           <tr>
             <th scope="col">الاسم</th>
             <th scope="col">البريد الإلكتروني</th>
-            <th scope="col">الحالة</th>
+            <!-- <th scope="col">الحالة</th> -->
             <th scope="col">تاريخ الانضمام</th>
             <th scope="col">الإجراءات</th>
           </tr>
@@ -48,16 +48,16 @@
               </div>
             </td>
             <td class="text-muted small">{{item.email}}</td>
-            <td><span class="badge bg-success-subtle text-success">{{item.isActive==true?"نشط":"غير نشط"}}</span></td>
+            <!-- <td><span class="badge bg-success-subtle text-success">{{item.isActive==true?"نشط":"غير نشط"}}</span></td> -->
             <td class="text-muted small">2025-02-23</td>
             <!-- {{item.joinDate.toLocaleString("ar", {dateStyle: "medium"})}} -->
             <td class="position-relative text-end">
               <div ngbDropdownMenu
                 class="  animate__animated animate__fadeIn p-2 text-center  d-flex align-items-center">
-                <!-- <a [routerLink]="['/dashboard/dashboard-advisor-details', item.id]"
+                <a [routerLink]="['/dashboard/dashboard-advisor-details', item.id]"
                   class="btn btn-icon-only btn-light rounded-circle m-1" title="عرض">
                   <i class="bi bi-eye"></i>
-                </a> -->
+                </a>
                 <a [routerLink]="['/dashboard/dashboard-advisor-edit', item.id]"
                   class="btn btn-icon-only btn-light rounded-circle m-1" title="تعديل">
                   <i class="bi bi-pencil"></i>
