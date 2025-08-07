@@ -1,0 +1,323 @@
+<div class="dynamic-page-admin">
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <h1>إدارة الصفحات الديناميكية</h1>
+      <p>إنشاء وتعديل وحذف الصفحات الديناميكية للموقع</p>
+    </div>
+
+    <!-- Success/Error Messages -->
+    <div *ngIf="successMsg" class="alert alert-success">
+      {{ successMsg }}
+    </div>
+    <div *ngIf="errorMsg" class="alert alert-danger">
+      {{ errorMsg }}
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-section">
+      <div class="form-header">
+        <h2>{{ isEditing ? 'تعديل الصفحة' : 'إنشاء صفحة جديدة' }}</h2>
+        <button *ngIf="isEditing" type="button" class="btn btn-secondary" (click)="resetForm()">
+          إلغاء التعديل
+        </button>
+      </div>
+
+      <form [formGroup]="pageForm" (ngSubmit)="submit()" class="page-form">
+        <!-- Page Name -->
+        <div class="form-group">
+          <label for="pageName">عنوان الصفحة *</label>
+          <input 
+            type="text" 
+            id="pageName" 
+            formControlName="pageName" 
+            class="form-control"
+            placeholder="أدخل عنوان الصفحة"
+            [class.is-invalid]="pageForm.get('pageName')?.invalid && pageForm.get('pageName')?.touched"
+          >
+          <div *ngIf="pageForm.get('pageName')?.invalid && pageForm.get('pageName')?.touched" class="invalid-feedback">
+            عنوان الصفحة مطلوب
+          </div>
+        </div>
+
+        <!-- Page Description -->
+        <div class="form-group">
+          <label for="description">وصف الصفحة</label>
+          <textarea 
+            id="description" 
+            formControlName="description" 
+            class="form-control"
+            rows="3"
+            placeholder="أدخل وصف الصفحة (اختياري)"
+          ></textarea>
+        </div>
+
+        <!-- Content Items -->
+        <div class="content-items-section">
+          <div class="section-header">
+            <h3>محتوى الصفحة</h3>
+            <div class="add-buttons">
+              <button type="button" class="btn btn-outline-primary" (click)="addTextItem()">
+                <i class="fas fa-plus"></i> إضافة نص
+              </button>
+              <button type="button" class="btn btn-outline-primary" (click)="addImageTextItem()">
+                <i class="fas fa-image"></i> إضافة صورة مع نص
+              </button>
+              <button type="button" class="btn btn-outline-primary" (click)="addFileItem()">
+                <i class="fas fa-file"></i> إضافة ملف
+              </button>
+            </div>
+          </div>
+
+          <!-- Items Array -->
+          <div formArrayName="items" class="items-container">
+            <div *ngFor="let item of itemsArray.controls; let i = index" [formGroupName]="i" class="item-card">
+              <div class="item-header">
+                <span class="item-type">{{ getItemTypeLabel(item.get('type')?.value) }}</span>
+                <button type="button" class="btn btn-sm btn-danger" (click)="removeItem(i)">
+                  <i class="fas fa-trash">حذف</i>
+                </button>
+              </div>
+
+              <!-- Text Item -->
+              <div *ngIf="item.get('type')?.value === 'text'" class="item-content">
+                <div class="form-group">
+                  <label>النص</label>
+                  <textarea 
+                    formControlName="content" 
+                    class="form-control" 
+                    rows="4"
+                    placeholder="أدخل النص هنا"
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- Image + Text Item -->
+              <div *ngIf="item.get('type')?.value === 'image_text'" class="item-content">
+                <div class="form-group">
+                  <label>النص</label>
+                  <textarea 
+                    formControlName="content" 
+                    class="form-control" 
+                    rows="3"
+                    placeholder="أدخل النص هنا"
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label>الصورة</label>
+                  <input 
+                    type="file" 
+                    class="form-control" 
+                    accept="image/*"
+                    (change)="onFileSelected($event, i)"
+                  >
+                  <small class="form-text text-muted">يدعم: JPG, PNG, GIF (الحد الأقصى: 5MB)</small>
+                </div>
+              </div>
+
+              <!-- File Item -->
+              <div *ngIf="item.get('type')?.value === 'file'" class="item-content">
+                <div class="form-group">
+                  <label>وصف الملف</label>
+                  <input 
+                    type="text" 
+                    formControlName="content" 
+                    class="form-control"
+                    placeholder="أدخل وصف الملف"
+                  >
+                </div>
+                <div class="form-group">
+                  <label>الملف</label>
+                  <input 
+                    type="file" 
+                    class="form-control" 
+                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                    (change)="onFileSelected($event, i)"
+                  >
+                  <small class="form-text text-muted">يدعم: PDF, DOC, DOCX, JPG, PNG (الحد الأقصى: 10MB)</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-actions">
+          <button 
+            type="submit" 
+            class="btn btn-primary" 
+            [disabled]="pageForm.invalid || isLoading"
+          >
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ isEditing ? 'تحديث الصفحة' : 'إنشاء الصفحة' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Pages Table Section -->
+    <div class="table-section">
+      <div class="section-header">
+        <h2>الصفحات الموجودة</h2>
+        <button type="button" class="btn btn-primary" (click)="loadPages()">
+          <i class="fas fa-refresh"></i> تحديث
+        </button>
+      </div>
+
+      <div *ngIf="isLoading" class="loading">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">جاري التحميل...</span>
+        </div>
+      </div>
+
+      <div *ngIf="!isLoading && pages.length === 0" class="no-data">
+        <p>لا توجد صفحات مضافة حتى الآن</p>
+      </div>
+
+      <div *ngIf="!isLoading && pages.length > 0" class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>عنوان الصفحة</th>
+              <th>الوصف</th>
+              <th>الحالة</th>
+              <th>عدد العناصر</th>
+              <th>تاريخ الإنشاء</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let page of pages; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>
+                <strong>{{ page.pageName }}</strong>
+                <div *ngIf="page.slug" class="text-muted small">/{{ page.slug }}</div>
+              </td>
+              <td>
+                <span *ngIf="page.description" class="text-truncate d-inline-block" style="max-width: 200px;" title="{{ page.description }}">
+                  {{ page.description }}
+                </span>
+                <span *ngIf="!page.description" class="text-muted">-</span>
+              </td>
+              <td>
+                <span 
+                  class="badge" 
+                  [class.badge-success]="page.isActive" 
+                  [class.badge-secondary]="!page.isActive"
+                >
+                  {{ page.isActive ? 'نشط' : 'غير نشط' }}
+                </span>
+              </td>
+              <td>{{ page.items?.length ?? 0 }}</td>
+              <td>{{ page.createdAt | date:'short' }}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button 
+                    type="button" 
+                    class="btn btn-sm btn-outline-info" 
+                    (click)="viewItems(page)"
+                    title="عرض العناصر"
+                    *ngIf="page.items && page.items.length > 0"
+                  >
+                    <i class="fas fa-eye">عرض</i>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="btn btn-sm btn-outline-primary" 
+                    (click)="editPage(page)"
+                    title="تعديل"
+                  >
+                    <i class="fas fa-edit">تعديل</i>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="btn btn-sm" 
+                    [class.btn-outline-success]="!page.isActive"
+                    [class.btn-outline-warning]="page.isActive"
+                    (click)="toggleActive(page.id!)"
+                    [title]="page.isActive ? 'إلغاء التفعيل' : 'تفعيل'"
+                  >
+                    <i class="fas" [class.fa-toggle-on]="page.isActive" [class.fa-toggle-off]="!page.isActive"></i>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="btn btn-sm btn-outline-danger" 
+                    (click)="deletePage(page.id!)"
+                    title="حذف"
+                  >
+                    <i class="fas fa-trash">حذف</i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Items View Modal -->
+<div class="modal fade" id="itemsModal" tabindex="-1" aria-labelledby="itemsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="itemsModalLabel">عناصر الصفحة: {{ selectedPage?.pageName }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="(selectedPage?.items?.length ?? 0) > 0">
+          <div *ngFor="let item of selectedPage?.items ?? []; let i = index" class="item-preview mb-3 p-3 border rounded">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <h6 class="mb-0">
+                <span class="badge bg-primary me-2">{{ i + 1 }}</span>
+                {{ getItemTypeLabel(item.type) }}
+              </h6>
+              <small class="text-muted">الترتيب: {{ item.order }}</small>
+            </div>
+            
+            <!-- Text Content -->
+            <div *ngIf="item.type === 'text'" class="content-preview">
+              <p class="mb-0">{{ item.content }}</p>
+            </div>
+            
+            <!-- Image + Text Content -->
+            <div *ngIf="item.type === 'image_text'" class="content-preview">
+              <div class="row">
+                <div class="col-md-4" *ngIf="item.imageUrl">
+                  <img [src]="item.imageUrl" class="img-fluid rounded" alt="صورة">
+                </div>
+                <div class="col" [class.col-md-8]="item.imageUrl">
+                  <p class="mb-0">{{ item.content }}</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- File Content -->
+            <div *ngIf="item.type === 'file'" class="content-preview">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-file me-2 text-primary"></i>
+                <div>
+                  <p class="mb-1"><strong>{{ item.content }}</strong></p>
+                  <p class="mb-0 text-muted small" *ngIf="item.fileName">{{ item.fileName }}</p>
+                  <a *ngIf="item.fileUrl" [href]="item.fileUrl" target="_blank" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-download me-1"></i>تحميل الملف
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="(selectedPage?.items?.length ?? 0) === 0" class="text-center text-muted">
+          <i class="fas fa-inbox fa-3x mb-3"></i>
+          <p>لا توجد عناصر في هذه الصفحة</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+      </div>
+    </div>
+  </div>
+</div>

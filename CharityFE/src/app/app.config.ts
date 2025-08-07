@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 
 
 import { MatNativeDateModule } from '@angular/material/core';
@@ -21,6 +21,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { provideCharts } from 'ng2-charts';
 
 import { Chart, ArcElement, PieController, BarElement, BarController, CategoryScale, Tooltip, Legend } from 'chart.js';
+import { AuthInterceptor } from './Core/Services/auth.interceptor';
 
 Chart.register(
   ArcElement,
@@ -42,7 +43,10 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes), provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch()),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([AuthInterceptor])
+    ),
     { provide: LOCALE_ID, useValue: 'ar' },
     importProvidersFrom(NgxExtendedPdfViewerModule),
 
