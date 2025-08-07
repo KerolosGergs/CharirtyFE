@@ -95,10 +95,18 @@ navigationItems = [
   },
 
   {
-    label: 'التواصل والشكاوى', href: '/about-layout/contact-phone', subLibels: [
+    label: 'التواصل والشكاوى',
+    href: '/about-layout/contact-phone',
+    subLibels: [
       { subTitle: 'تقديم مقترح', subLink: '/blank-page' },
       { subTitle: 'تقديم شكوى', subLink: '/complaints' },
       { subTitle: 'قياسات الرضا', subLink: '/Satisfaction' },
+      // 👇 NEW dynamic dropdown
+      {
+        subTitle: 'صفحات إضافية',
+        subDropDown: true,
+        dynamicItems: [] // populated from API
+      }
     ]
   },
 ];

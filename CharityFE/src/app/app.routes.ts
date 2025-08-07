@@ -8,11 +8,15 @@ import { OurService } from './Pages/Home/our-service/our-service';
 import { RequestRepair } from './Pages/Forms/Components/request-repair/request-repair';
 import { MedcineGeneralDefinition } from './Pages/sid-components/Medcine_service/components/medcine-general-definition/medcine-general-definition';
 import { BlankPage } from './Pages/blank-page/blank-page';
+import { DynamicPageAdminComponent } from './dynamic-pages/admin/dynamic-page-admin.component';
 // import { Achive } from './Pages/achievements-communication/achive/achive';
 
 export const routes: Routes = [
     { path: '', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
     { path: 'login', component: LoginForm },
+    { path: 'dynamic-page-admin', component: DynamicPageAdminComponent },
+
+    
     { path: 'register', component: RegisterForm },
     { path: 'forget-password', loadComponent: () => import('./Auth/Components/forget-password/forget-password').then(m => m.ForgetPassword), title: 'نسيت كلمة المرور' },
 { path: 'reset-password', loadComponent: () => import('./Auth/Components/reset-password/reset-password').then(m => m.ResetPassword), title: 'إعادة تعيين كلمة المرور' },
@@ -70,6 +74,9 @@ export const routes: Routes = [
             { path: 'dashboard-help', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-help/dashboard-help').then(m => m.DashboardHelp), title: 'Dashboard Help' },
             { path: 'dashboard-Volunteer', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-volunteer/dashboard-volunteer').then(m => m.DashboardVolunteer), title: 'Dashboard Volunteer' },
             { path:'Add-Admin', loadComponent: () => import('../app/Pages/Dashboard/components/add-admin/add-admin').then(m => m.AddAdmin), title: 'Add Admin' },
+            
+            // Dynamic Pages Management
+            { path: 'dynamic-pages', component: DynamicPageAdminComponent, title: 'Dynamic Pages Management' },
             {path:'libraryControll', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-library/dashboard-library').then(m => m.DashboardLibrary), title: 'Library'},
             {path: 'Dashboard-HomePage', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-home-page/dashboard-home-page').then(m => m.DashboardHomePage), title: 'Dashboard Home Page'},    
         ]
@@ -183,7 +190,7 @@ export const routes: Routes = [
         { path: 'satisfaction-results-2021', loadComponent: () => import('./Pages/sid-components/governance/satisfaction-results-2021/satisfaction-results-2021').then(m => m.SatisfactionResults2021), title:'Satisfaction Results 2021' },
         { path: 'satisfaction-results-2022', loadComponent: () => import('./Pages/sid-components/governance/satisfaction-results-2022/satisfaction-results-2022').then(m => m.SatisfactionResults2022), title:'Satisfaction Results 2022' },
         { path: 'satisfaction-results-2023', loadComponent: () => import('./Pages/sid-components/governance/satisfaction-results-2023/satisfaction-results-2023').then(m => m.SatisfactionResults2023), title:'Satisfaction Results 2023' },
-        { path: 'satisfaction-surveys', loadComponent: () => import('./Pages/sid-components/governance/satisfaction-surveys/satisfaction-surveys').then(m => m.SatisfactionSurveys), title:'Satisfaction Surveys' },
+        { path: 'satisfaction-surveys', loadComponent: () => import('./Pages/sid-components/governance/satisfaction-surveys/satisfaction-surveys').then(m => m.SatisfactionSurveys), title:'Satisfaction Surveys' },
        
     ]},
    
