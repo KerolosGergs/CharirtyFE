@@ -57,12 +57,7 @@ export class DashboardNews {
       case 'hidden':
         matchesFilter = !article.isPublished;
         break;
-      case 'new':
-        matchesFilter = new Date(article.createdAt) > new Date('2025-01-01');
-        break;
-      case 'old':
-        matchesFilter = new Date(article.createdAt) <= new Date('2025-01-01');
-        break;
+      
     }
 
     return matchesSearch && matchesFilter;

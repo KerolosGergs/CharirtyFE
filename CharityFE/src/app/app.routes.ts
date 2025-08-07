@@ -15,7 +15,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginForm },
     { path: 'register', component: RegisterForm },
     { path: 'forget-password', loadComponent: () => import('./Auth/Components/forget-password/forget-password').then(m => m.ForgetPassword), title: 'نسيت كلمة المرور' },
-    { path: 'reset-password/:token', loadComponent: () => import('./Auth/Components/reset-password/reset-password').then(m => m.ResetPassword), title: 'إعادة تعيين كلمة المرور' },
+{ path: 'reset-password', loadComponent: () => import('./Auth/Components/reset-password/reset-password').then(m => m.ResetPassword), title: 'إعادة تعيين كلمة المرور' },
     { path: 'home', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
     { path: 'achive', loadComponent: () => import('./Pages/sid-components/Complain/achive/achive').then(m => m.Achive), title: 'Achive' },
     { path: 'Satisfaction', loadComponent: () => import('./Pages/sid-components/Complain/satisfaction/satisfaction').then(m => m.Satisfaction), title: 'Satisfaction' },
@@ -70,6 +70,8 @@ export const routes: Routes = [
             { path: 'dashboard-help', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-help/dashboard-help').then(m => m.DashboardHelp), title: 'Dashboard Help' },
             { path: 'dashboard-Volunteer', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-volunteer/dashboard-volunteer').then(m => m.DashboardVolunteer), title: 'Dashboard Volunteer' },
             { path:'Add-Admin', loadComponent: () => import('../app/Pages/Dashboard/components/add-admin/add-admin').then(m => m.AddAdmin), title: 'Add Admin' },
+            {path:'libraryControll', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-library/dashboard-library').then(m => m.DashboardLibrary), title: 'Library'},
+            {path: 'Dashboard-HomePage', loadComponent: () => import('../app/Pages/Dashboard/components/dashboard-home-page/dashboard-home-page').then(m => m.DashboardHomePage), title: 'Dashboard Home Page'},    
         ]
     },
     {
@@ -111,6 +113,7 @@ export const routes: Routes = [
             { path: 'board-members', loadComponent: () => import('./Pages/sid-components/about-layout/Components/board-members/board-members').then(m => m.BoardMembers), title: 'Board Members' },
             { path: 'board-duties', loadComponent: () => import('./Pages/sid-components/about-layout/Components/board-duties/board-duties').then(m => m.BoardDuties), title: 'Board Duties' },
             { path: 'organizational-structure', loadComponent: () => import('./Pages/sid-components/about-layout/Components/organizational-structure/organizational-structure').then(m => m.OrganizationalStructure), title: 'Organizational Structure' },
+            {path:'ImageLibrary', loadComponent: () => import('./Pages/sid-components/about-layout/Components/image-library/image-library').then(m => m.ImageLibrary), title: 'ImageLibrary'},    
         ]
     },
       

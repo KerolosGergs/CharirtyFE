@@ -1,0 +1,19 @@
+<main class="container main-content">
+  <div class="dashboard-header bg-gray-100 p-3 mb-4">
+    <h2 class="text-primary-500 mb-0">لوحة تحكم الصفحة الرئيسية</h2>
+    <button class="navbar-toggler text-primary-500 d-lg-none" type="button" (click)="toggleSidebar()">
+      <i class="bi" [ngClass]="sidebarCollapsed() ? 'bi-list' : 'bi-x-lg'"></i>
+    </button>
+  </div>
+  <div class="content-sections">
+    <div class="mb-4" id="hero-section">
+      <app-dashboard-hero-section></app-dashboard-hero-section>
+    </div>
+    <div class="mb-4" id="video-section">
+      <app-dashboard-video-section></app-dashboard-video-section>
+    </div>
+    <div class="mb-4" id="trend-section">
+      <app-dashboard-trend-section></app-dashboard-trend-section>
+    </div>
+  </div>
+</main>

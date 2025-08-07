@@ -22,6 +22,7 @@ navigationItems = [
     { subTitle: 'مجلس الأدارة', subLink: '/about-layout/board-members' },
     { subTitle: 'الهيكل النظيمى', subLink: '/about-layout/organizational-structure' },
     { subTitle: 'مواقع العمل', subLink: '/about-layout/service-locations' },
+    { subTitle: 'مكتبة الصور والفيديوهات', subLink: '/about-layout/ImageLibrary' },
   ]},
   {label: 'الحوكمة', href: '/governance/regulations', subLibels: [
       { subTitle: 'الأنظمة واللوائح ', subLink: '/governance/regulations' },

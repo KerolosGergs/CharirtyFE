@@ -3,6 +3,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Login } from '../../Services/LoginService/login';
+import { IResatPassword } from '../../../Core/Interfaces/ilogin';
 
 @Component({
   selector: 'app-reset-password',
@@ -18,20 +20,22 @@ export class ResetPassword implements OnInit {
   };
 
   resetPasswordForm: FormGroup = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(32)]),
     confirmPassword: new FormControl('', [Validators.required]),
   }, this.passwordMatchValidator);
 
+
   toastr = inject(ToastrService);
   router = inject(Router);
   route = inject(ActivatedRoute);
+  loginService = inject(Login);
 
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
   isLoading: boolean = false;
   tokenValid: boolean = false;
   token: string = '';
-
   socialMediaLinks = [
     { icon: 'bi-facebook', url: '#', name: 'Facebook' },
     { icon: 'bi-twitter-x', url: '#', name: 'Twitter' },
@@ -40,12 +44,12 @@ export class ResetPassword implements OnInit {
     { icon: 'bi-whatsapp', url: '#', name: 'WhatsApp' }
   ];
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     // Get token from URL parameters
-    this.route.params.subscribe(params => {
-      this.token = params['token'];
+    this.route.queryParams.subscribe(query => {
+      this.token = query['token'];
       if (this.token) {
         this.validateToken();
       } else {
@@ -53,16 +57,17 @@ export class ResetPassword implements OnInit {
         this.router.navigate(['/forget-password']);
       }
     });
+
   }
 
   validateToken(): void {
     this.isLoading = true;
-    
+
     // Simulate token validation - replace with actual service call
     setTimeout(() => {
       this.isLoading = false;
       this.tokenValid = true; // For demo purposes
-      
+
       // TODO: Replace with actual service call
       // this.authService.validateResetToken(this.token).subscribe({
       //   next: (res) => {
@@ -87,36 +92,27 @@ export class ResetPassword implements OnInit {
     if (this.resetPasswordForm.valid) {
       this.isLoading = true;
 
-      const resetData = {
-        token: this.token,
+      const resetData: IResatPassword = {
+        email: this.resetPasswordForm.value.email,
         password: this.resetPasswordForm.value.password,
         confirmPassword: this.resetPasswordForm.value.confirmPassword
       };
 
-      // Simulate API call - replace with actual service call
-      setTimeout(() => {
-        this.isLoading = false;
-        this.toastr.success('تم تغيير كلمة المرور بنجاح');
-        this.router.navigate(['/login']);
-      }, 2000);
+      this.token = encodeURIComponent(this.token)
 
-      // TODO: Replace with actual service call
-      // this.authService.resetPassword(resetData).subscribe({
-      //   next: (res) => {
-      //     this.isLoading = false;
-      //     if (res && res.success) {
-      //       this.toastr.success('تم تغيير كلمة المرور بنجاح');
-      //       this.router.navigate(['/login']);
-      //     } else {
-      //       this.toastr.error(res?.message ?? 'فشل في تغيير كلمة المرور، حاول مرة أخرى');
-      //     }
-      //   },
-      //   error: (error) => {
-      //     this.isLoading = false;
-      //     console.error('Reset password error:', error);
-      //     this.toastr.error('حدث خطأ أثناء تغيير كلمة المرور، تحقق من اتصالك بالإنترنت');
-      //   }
-      // });
+      // الاتصال بالخدمة الفعلية (يفترض أنك أنشأت AuthService تحتوي على resetPassword)
+      this.loginService.ResetPassword(this.token, resetData).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          this.toastr.success('تم تغيير كلمة المرور بنجاح');
+          this.router.navigate(['/login']);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error('Reset password error:', error);
+          this.toastr.error('حدث خطأ أثناء تغيير كلمة المرور، تحقق من صحة الرابط أو الاتصال بالإنترنت');
+        }
+      });
 
     } else {
       this.markFormGroupTouched();

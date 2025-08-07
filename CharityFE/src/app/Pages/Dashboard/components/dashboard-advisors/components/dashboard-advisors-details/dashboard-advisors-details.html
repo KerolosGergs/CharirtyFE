@@ -18,58 +18,66 @@
 
             <!-- Info Boxes -->
             <div class="row text-center gy-4 mt-4">
-                <div class="col-sm-6 col-md-4">
-                    <div class="">
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <div class="contact-item d-flex align-items-center gap-2">
+                        <!-- Icon -->
+                        <div aria-hidden="true" class="d-flex flex-shrink-0">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M0 20C0 8.95431 8.95431 0 20 0C31.0457 0 40 8.95431 40 20C40 31.0457 31.0457 40 20 40C8.95431 40 0 31.0457 0 20Z"
-                                fill="#E6EEEB" />
-                            <path d="M24.9897 16.96H15.0098" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M20 15.2803V16.9603" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M22.5 16.9404C22.5 21.2404 19.14 24.7204 15 24.7204" stroke="black"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M25.0002 24.72C23.2002 24.72 21.6002 23.76 20.4502 22.25" stroke="black"
-                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path
-                                d="M20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30Z"
-                                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="20" cy="20" r="20" fill="#E6EEEB" />
+                            <path d="M24.9897 16.96H15.0098" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M20 15.2803V16.9603" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M22.5 16.9404C22.5 21.2404 19.14 24.7204 15 24.7204" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M25.0002 24.72C23.2002 24.72 21.6002 23.76 20.4502 22.25" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            <path d="M20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
+                        </div>
 
-                        <strong>الإيميل</strong>
-                        <p class="text-muted small mb-0">{{advisor.email}}</p>
+                        <!-- Text -->
+                        <div class="flex-grow-1">
+                        <div style="display: flex; flex-direction: column; gap: 2px; align-items: flex-start;">
+                            <span style="font-weight: 600; font-size: 0.9rem; line-height: 1.2;">الإيميل</span>
+                            <a href="mailto:{{advisor.email}}" style="font-size: 0.85rem; line-height: 1.2; color: #6c757d; text-decoration: none;">{{advisor.email}}</a>
+                        </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="">
+
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <div class="d-flex align-items-center gap-2" >
+                        <!-- Icon -->
+                        <div aria-hidden="true" class="d-flex flex-shrink-0">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="20" fill="#E6EEEB" />
                             <path
-                                d="M0 20C0 8.95431 8.95431 0 20 0C31.0457 0 40 8.95431 40 20C40 31.0457 31.0457 40 20 40C8.95431 40 0 31.0457 0 20Z"
-                                fill="#E6EEEB" />
+                            d="M30 14V16.42C30 18 29 19 27.42 19H24V12.01C24 10.9 24.91 10 26.02 10C27.11 10.01 28.11 10.45 28.83 11.17C29.55 11.9 30 12.9 30 14Z"
+                            stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                            stroke-linejoin="round" />
                             <path
-                                d="M30 14V16.42C30 18 29 19 27.42 19H24V12.01C24 10.9 24.91 10 26.02 10C27.11 10.01 28.11 10.45 28.83 11.17C29.55 11.9 30 12.9 30 14Z"
-                                stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path
-                                d="M10 15V29C10 29.83 10.94 30.3 11.6 29.8L13.31 28.52C13.71 28.22 14.27 28.26 14.63 28.62L16.29 30.29C16.68 30.68 17.32 30.68 17.71 30.29L19.39 28.61C19.74 28.26 20.3 28.22 20.69 28.52L22.4 29.8C23.06 30.29 24 29.82 24 29V12C24 10.9 24.9 10 26 10H15H14C11 10 10 11.79 10 14V15Z"
-                                stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            d="M10 15V29C10 29.83 10.94 30.3 11.6 29.8L13.31 28.52C13.71 28.22 14.27 28.26 14.63 28.62L16.29 30.29C16.68 30.68 17.32 30.68 17.71 30.29L19.39 28.61C19.74 28.26 20.3 28.22 20.69 28.52L22.4 29.8C23.06 30.29 24 29.82 24 29V12C24 10.9 24.9 10 26 10H15H14C11 10 10 11.79 10 14V15Z"
+                            stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                            stroke-linejoin="round" />
                             <path d="M17 21.0098H20" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                             <path d="M17 17.0098H20" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                             <path d="M13.9956 21H14.0046" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                             <path d="M13.9956 17H14.0046" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                         </svg>
+                        </div>
 
-                        <strong>رقم الهاتف</strong>
-                        <p class="text-muted small mb-0">{{advisor.phoneNumber}}</p>
+                        <!-- Text -->
+                        <div class="flex-grow-1">
+                        <div style="display: flex; flex-direction: column; gap: 2px; align-items: flex-start;">
+                            <span style="font-weight: 600; font-size: 0.9rem; line-height: 1.2;">رقم الهاتف</span>
+                            <span class="text-muted small" style="font-size: 0.85rem; line-height: 1.2;">{{advisor.phoneNumber}}</span>
+                        </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-4">
+
+                <!-- <div class="col-sm-6 col-md-4">
                     <div class="">
                         <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -89,37 +97,46 @@
                         </svg>
 
                         <strong>اللغات</strong>
-                        <p class="text-muted small mb-0">{{  "العربية"}}</p>
+                        <p class="text-muted small mb-0"> العربية</p>
                     </div>
-                </div>
-                <div class="col-sm-6 col-md-4">
-                    <div class="">
-                        <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                </div> -->
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <div class="contact-item d-flex align-items-center gap-2">
+                        <!-- Icon -->
+                        <div aria-hidden="true" class="d-flex flex-shrink-0">
+                        <svg width="40" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
-                                d="M0.5 20C0.5 8.95431 9.45431 0 20.5 0C31.5457 0 40.5 8.95431 40.5 20C40.5 31.0457 31.5457 40 20.5 40C9.45431 40 0.5 31.0457 0.5 20Z"
-                                fill="#E6EEEB" />
+                            d="M0.5 20C0.5 8.95431 9.45431 0 20.5 0C31.5457 0 40.5 8.95431 40.5 20C40.5 31.0457 31.5457 40 20.5 40C9.45431 40 0.5 31.0457 0.5 20Z"
+                            fill="#E6EEEB" />
                             <path
-                                d="M30.5 14V16.42C30.5 18 29.5 19 27.92 19H24.5V12.01C24.5 10.9 25.41 10 26.52 10C27.61 10.01 28.61 10.45 29.33 11.17C30.05 11.9 30.5 12.9 30.5 14Z"
-                                stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            d="M30.5 14V16.42C30.5 18 29.5 19 27.92 19H24.5V12.01C24.5 10.9 25.41 10 26.52 10C27.61 10.01 28.61 10.45 29.33 11.17C30.05 11.9 30.5 12.9 30.5 14Z"
+                            stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                            stroke-linejoin="round" />
                             <path
-                                d="M10.5 15V29C10.5 29.83 11.44 30.3 12.1 29.8L13.81 28.52C14.21 28.22 14.77 28.26 15.13 28.62L16.79 30.29C17.18 30.68 17.82 30.68 18.21 30.29L19.89 28.61C20.24 28.26 20.8 28.22 21.19 28.52L22.9 29.8C23.56 30.29 24.5 29.82 24.5 29V12C24.5 10.9 25.4 10 26.5 10H15.5H14.5C11.5 10 10.5 11.79 10.5 14V15Z"
-                                stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            d="M10.5 15V29C10.5 29.83 11.44 30.3 12.1 29.8L13.81 28.52C14.21 28.22 14.77 28.26 15.13 28.62L16.79 30.29C17.18 30.68 17.82 30.68 18.21 30.29L19.89 28.61C20.24 28.26 20.8 28.22 21.19 28.52L22.9 29.8C23.56 30.29 24.5 29.82 24.5 29V12C24.5 10.9 25.4 10 26.5 10H15.5H14.5C11.5 10 10.5 11.79 10.5 14V15Z"
+                            stroke="black" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                            stroke-linejoin="round" />
                             <path d="M17.5 21.0098H20.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                             <path d="M17.5 17.0098H20.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                             <path d="M14.4956 21H14.5046" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                             <path d="M14.4956 17H14.5046" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                         </svg>
+                        </div>
 
-                        <strong>شهادات المستشار</strong>
-                        <p class="text-muted small mb-0">{{advisor.specialty}}</p>
+                        <!-- Text -->
+                        <div class="flex-grow-1">
+                        <div style="display: flex; flex-direction: column; gap: 2px; align-items: flex-start;">
+                            <span style="font-weight: 600; font-size: 0.9rem; line-height: 1.2;">شهادات المستشار</span>
+                            <span class="text-muted small" style="font-size: 0.85rem; line-height: 1.2;">{{advisor.specialty}}</span>
+                        </div>
+                        </div>
                     </div>
                 </div>
+
                 <!-- <div class="col-sm-6 col-md-4">
                     <div class="">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -144,40 +161,45 @@
                         <p class="text-muted small mb-0">{{advisor.experienceYears}} عاماً</p>
                     </div>
                 </div> -->
-                <div class="col-sm-6 col-md-4">
-                    <div class="">
+                <div class="col-sm-6 col-md-4 mb-3">
+                    <div class="contact-item d-flex align-items-center gap-2">
+                        <!-- Icon -->
+                        <div aria-hidden="true" class="d-flex flex-shrink-0">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="20" fill="#E6EEEB" />
                             <path
-                                d="M0 20C0 8.95431 8.95431 0 20 0C31.0457 0 40 8.95431 40 20C40 31.0457 31.0457 40 20 40C8.95431 40 0 31.0457 0 20Z"
-                                fill="#E6EEEB" />
-                            <path
-                                d="M30 19.89V20.78C30 24.34 29.11 25.22 25.56 25.22H14.44C10.89 25.22 10 24.33 10 20.78V14.44C10 10.89 10.89 10 14.44 10H16"
-                                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            d="M30 19.89V20.78C30 24.34 29.11 25.22 25.56 25.22H14.44C10.89 25.22 10 24.33 10 20.78V14.44C10 10.89 10.89 10 14.44 10H16"
+                            stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M20 25.2197V29.9997" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                             <path d="M10 21H30" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                             <path d="M15.5 30H24.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                            stroke-linejoin="round" />
                             <path
-                                d="M25.8598 17.3698H21.0998C19.7198 17.3698 19.2598 16.4498 19.2598 15.5298V12.0098C19.2598 10.9098 20.1598 10.0098 21.2598 10.0098H25.8598C26.8798 10.0098 27.6998 10.8298 27.6998 11.8498V15.5298C27.6998 16.5498 26.8798 17.3698 25.8598 17.3698Z"
-                                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            d="M25.8598 17.3698H21.0998C19.7198 17.3698 19.2598 16.4498 19.2598 15.5298V12.0098C19.2598 10.9098 20.1598 10.0098 21.2598 10.0098H25.8598C26.8798 10.0098 27.6998 10.8298 27.6998 11.8498V15.5298C27.6998 16.5498 26.8798 17.3698 25.8598 17.3698Z"
+                            stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                             <path
-                                d="M28.9102 15.9205L27.7002 15.0705V12.3105L28.9102 11.4605C29.5102 11.0505 30.0002 11.3005 30.0002 12.0305V15.3605C30.0002 16.0905 29.5102 16.3405 28.9102 15.9205Z"
-                                stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                            d="M28.9102 15.9205L27.7002 15.0705V12.3105L28.9102 11.4605C29.5102 11.0505 30.0002 11.3005 30.0002 12.0305V15.3605C30.0002 16.0905 29.5102 16.3405 28.9102 15.9205Z"
+                            stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
+                        </div>
 
-                        <strong>أنواع التواصل</strong>
-                        <p class="text-muted small mb-0">حضورى وأونلاين</p>
+                        <!-- Text -->
+                        <div class="flex-grow-1">
+                        <div style="display: flex; flex-direction: column; gap: 2px; align-items: flex-start;">
+                            <span style="font-weight: 600; font-size: 0.9rem; line-height: 1.2;">أنواع التواصل</span>
+                            <span class="text-muted small" style="font-size: 0.85rem; line-height: 1.2;">حضورى و اونلاين</span>
+                        </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
-@defer () {
-    <app-appointments [advisorId]="advisor.id"></app-appointments>
 
-}
+    <app-appointments></app-appointments>
 
    <!-- <app-previous-consultations></app-previous-consultations> -->
 

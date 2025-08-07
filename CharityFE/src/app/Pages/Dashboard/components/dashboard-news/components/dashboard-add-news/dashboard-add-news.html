@@ -13,18 +13,31 @@
         <label class="fw-bold mb-2">صورة الخبر</label>
         <input type="file" accept="image/*" class="form-control mb-2" (change)="onImageChange($event)" />
         @if (uploadedImageUrl) {
-          <img [src]="uploadedImageUrl" alt="صورة الخبر" class="img-thumbnail rounded shadow mt-2" width="150" />
+        <img [src]="uploadedImageUrl" alt="صورة الخبر" class="img-thumbnail rounded shadow mt-2" width="150" />
         }
         @if (articleForm.get('Image')?.touched && articleForm.get('Image')?.invalid) {
-          <span class="text-danger small">يرجى تحميل صورة الخبر</span>
+        <span class="text-danger small">يرجى تحميل صورة الخبر</span>
         }
       </div>
+      <!-- Additional Images Upload -->
+      <div class="form-group text-center">
+        <label class="fw-bold mb-2">صور إضافية</label>
+        <input type="file" accept="image/*" multiple class="form-control mb-2"
+          (change)="onAdditionalImagesChange($event)" />
+          @if (uploadedAdditionalImages.length > 0) {
 
+            <div class="d-flex flex-wrap gap-2 justify-content-center mt-2" >
+              @for (img of uploadedAdditionalImages; track $index) {
+              <img [src]="img" class="img-thumbnail rounded shadow" width="100" />
+              }
+            </div>
+          }
+      </div>
       <div class="form-group">
         <label for="title">العنوان</label>
         <input id="title" class="form-control" formControlName="title" placeholder="أدخل عنوان الخبر" />
         @if (articleForm.get('title')?.touched && articleForm.get('title')?.invalid) {
-          <span class="text-danger small">العنوان مطلوب ولا يزيد عن 100 حرف</span>
+        <span class="text-danger small">العنوان مطلوب ولا يزيد عن 100 حرف</span>
         }
       </div>
 
@@ -32,15 +45,16 @@
         <label for="summary">الملخص</label>
         <textarea id="summary" class="form-control" formControlName="summary" placeholder="اكتب ملخص الخبر"></textarea>
         @if (articleForm.get('summary')?.touched && articleForm.get('summary')?.invalid) {
-          <span class="text-danger small">الملخص مطلوب ولا يزيد عن 500 حرف</span>
+        <span class="text-danger small">الملخص مطلوب ولا يزيد عن 500 حرف</span>
         }
       </div>
 
       <div class="form-group">
         <label for="content">المحتوى</label>
-        <textarea id="content" class="form-control" formControlName="content" rows="5" placeholder="المحتوى الكامل"></textarea>
+        <textarea id="content" class="form-control" formControlName="content" rows="5"
+          placeholder="المحتوى الكامل"></textarea>
         @if (articleForm.get('content')?.touched && articleForm.get('content')?.invalid) {
-          <span class="text-danger small">المحتوى مطلوب ولا يزيد عن 5000 حرف</span>
+        <span class="text-danger small">المحتوى مطلوب ولا يزيد عن 5000 حرف</span>
         }
       </div>
 
@@ -56,7 +70,7 @@
         <label for="tags">الوسوم (مفصولة " ")</label>
         <input id="tags" class="form-control" formControlName="tags" placeholder="مثال: تقنية برمجة مقالات" />
         @if (articleForm.get('tags')?.touched && articleForm.get('tags')?.invalid) {
-          <span class="text-danger small">يرجى إدخال وسوم صحيحة</span>
+        <span class="text-danger small">يرجى إدخال وسوم صحيحة</span>
         }
       </div>
 

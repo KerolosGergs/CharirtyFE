@@ -8,18 +8,19 @@
     </div>
 
     <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
-      <!-- Image Upload -->
+      <!-- Main Image Upload -->
       <div class="form-group text-center">
         <label class="fw-bold mb-2">صورة الخبر</label>
         <input type="file" accept="image/*" class="form-control mb-2" (change)="onImageChange($event)" />
         @if (uploadedImageUrl) {
-          <img [src]="uploadedImageUrl" alt="صورة الخبر" class="img-thumbnail rounded shadow mt-2" width="150" />
+          <img [src]="uploadedImageUrl" class="img-thumbnail rounded shadow mt-2" width="150" />
         }
         @if (articleForm.get('Image')?.touched && articleForm.get('Image')?.invalid) {
           <span class="text-danger small">يرجى تحميل صورة للمقال</span>
         }
       </div>
 
+      <!-- Title -->
       <div class="form-group">
         <label for="title">العنوان</label>
         <input id="title" class="form-control" formControlName="title" placeholder="أدخل عنوان الخبر" />
@@ -28,6 +29,7 @@
         }
       </div>
 
+      <!-- Summary -->
       <div class="form-group">
         <label for="summary">الملخص</label>
         <textarea id="summary" class="form-control" formControlName="summary" placeholder="اكتب ملخص الخبر"></textarea>
@@ -36,6 +38,7 @@
         }
       </div>
 
+      <!-- Content -->
       <div class="form-group">
         <label for="content">المحتوى</label>
         <textarea id="content" class="form-control" formControlName="content" rows="5" placeholder="المحتوى الكامل"></textarea>
@@ -44,21 +47,41 @@
         }
       </div>
 
-      <div class="form-group">
-        <label for="category">الفئة</label>
-        <input id="category" class="form-control" formControlName="category" placeholder="فئة الخبر" />
-        @if (articleForm.get('category')?.touched && articleForm.get('category')?.invalid) {
-          <span class="text-danger small">الفئة مطلوبة</span>
-        }
-      </div>
-
+      <!-- Tags -->
       <div class="form-group">
         <label for="tags">الوسوم (مفصولة " ")</label>
-        <input id="tags" class="form-control" formControlName="tags" placeholder="مثال: تقنية-برمجة-مقالات" />
+        <input id="tags" class="form-control" formControlName="tags" placeholder="مثال: تقنية برمجة مقالات" />
         @if (articleForm.get('tags')?.touched && articleForm.get('tags')?.invalid) {
           <span class="text-danger small">يرجى إدخال وسوم صحيحة</span>
         }
       </div>
+
+      <!-- Additional Images -->
+   <!-- Additional Images -->
+<div class="form-group">
+  <label class="fw-bold mb-2">صور إضافية</label>
+  <input type="file" multiple accept="image/*" class="form-control" (change)="onExtraImagesChange($event)" />
+  <div class="mt-3 d-flex flex-wrap gap-2">
+    <!-- Display existing images -->
+    @for (img of existingImages; track img) {
+      <div class="position-relative">
+        <img [src]="img" class="img-thumbnail" width="100" height="100" />
+        <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0" (click)="deleteImage(img)">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+    }
+    <!-- Display newly selected images for preview -->
+    @for (preview of imagePreviews; track preview) {
+      <div class="position-relative">
+        <img [src]="preview" class="img-thumbnail" width="100" height="100" />
+        <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0" (click)="removePreview(preview)">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+    }
+  </div>
+</div>
 
       <div class="form-group form-check">
         <input type="checkbox" id="isPublished" class="form-check-input" formControlName="isPublished" />
