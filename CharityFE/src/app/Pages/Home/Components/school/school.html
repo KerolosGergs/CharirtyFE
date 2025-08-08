@@ -10,7 +10,7 @@
 
     <!-- Left Side: Content -->
     <div class="col-lg-7">
-      <h2 class="fw-bold mb-3 w-75">{{ donationData.mainTitle }}</h2>
+      <h2 class="fw-bold mb-3 fs-4 ">{{ donationData.mainTitle }}</h2>
       <p class="mb-4 font-desc w-75">{{ donationData.description }}</p>
 
       <!-- Coupon Card -->
@@ -38,9 +38,9 @@
           </div>
         </div>
       </div> -->
-      <button class="btn btn-donate w-50 py-2 flex-end fs-5 rounded-pill fw-bold " (click)="onDonate()">
+     <a class="text-decoration-none" [routerLink]="donationData.buttonUrl"> <button class="btn btn-donate w-50 py-2 flex-end fs-5 rounded-pill fw-bold " (click)="onDonate()">
         {{ donationData.buttonText }}
-      </button>
+      </button></a>
     </div>
   </div>
 </div>

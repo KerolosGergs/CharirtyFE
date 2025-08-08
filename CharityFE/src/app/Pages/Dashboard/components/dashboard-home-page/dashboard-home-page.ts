@@ -4,11 +4,13 @@ import { DashboardVideoSection } from "./components/dashboard-video-section/dash
 import { DashboardHeroSection } from "./components/dashboard-hero-section/dashboard-hero-section";
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { ServiceComponent } from "../../../Home/Components/service-component/service-component";
+import { ServicesComponent } from "../services/services";
 
 @Component({
   selector: 'app-dashboard-home-page',
   standalone: true,
-  imports: [DashboardTrendSection, DashboardVideoSection, DashboardHeroSection,FormsModule,NgClass],
+  imports: [DashboardTrendSection, DashboardVideoSection, DashboardHeroSection, FormsModule, NgClass, ServicesComponent],
   templateUrl: './dashboard-home-page.html',
   styleUrl: './dashboard-home-page.scss'
 })

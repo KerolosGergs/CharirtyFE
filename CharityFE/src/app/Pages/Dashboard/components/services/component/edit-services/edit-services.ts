@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Service } from '../../../../../../Core/Services/service';
-import { IUpdateServiceOfferingDTO } from '../../../../../../Core/Interfaces/iservice';
+import { Service } from '../../../../../../Core/Services/ServiceOffering/service';
+import { IServiceOfferingDTO, ServiceItem } from '../../../../../../Core/Interfaces/ServiceOffering/iservice';
 
 @Component({
   selector: 'app-edit-services',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './edit-services.html',
   styleUrl: './edit-services.scss'
@@ -27,39 +28,43 @@ export class EditServices {
     this.serviceForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      category: ['', Validators.required],
-      contactInfo: [''],
-      requirements: [''],
+      url: ['', Validators.required],
       isActive: [true],
       Image: ['']
     });
   }
 
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.serviceId = +params['id'];
-      if (this.serviceId) {
-        this.serviceApi.getById(this.serviceId).subscribe({
-          next: (res) => {
-            const data = res.data;
+ ngOnInit(): void {
+  this.route.params.subscribe(params => {
+    this.serviceId = +params['id'];
+    if (this.serviceId) {
+      this.serviceApi.getAll().subscribe({
+        next: (res) => {
+          const allItems = res.data.serviceItem;
+          const matchedItem = allItems.find((item: ServiceItem) => item.id === this.serviceId);
+
+          if (matchedItem) {
             this.serviceForm.patchValue({
-              name: data.name,
-              description: data.description,
-              category: data.category,
-              contactInfo: data.contactInfo,
-              requirements: data.requirements,
-              isActive: data.isActive,
+              name: matchedItem.name,
+              description: matchedItem.description,
+              url: matchedItem.url,
+              isActive: matchedItem.isActive
             });
-            this.previewUrl = data.imageUrl;
-          },
-          error: () => {
-            this.toastr.error('فشل تحميل بيانات الخدمة');
-            this.router.navigate(['/dashboard/services']);
+            this.previewUrl = matchedItem.imageUrl;
+          } else {
+            this.toastr.error('الخدمة غير موجودة');
+            this.router.navigate(['/dashboard/dashboard-services']);
           }
-        });
-      }
-    });
-  }
+        },
+        error: () => {
+          this.toastr.error('فشل تحميل بيانات الخدمة');
+          this.router.navigate(['/dashboard/dashboard-services']);
+        }
+      });
+    }
+  });
+}
+
 
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -69,7 +74,6 @@ export class EditServices {
 
       reader.onload = () => {
         this.previewUrl = reader.result as string;
-        // ✅ set the file itself, not just the preview
         this.serviceForm.patchValue({ Image: file });
       };
 
@@ -78,32 +82,27 @@ export class EditServices {
   }
 
   submit(): void {
-    debugger
-
-    const formData = new FormData();
-    formData.append('Name', this.serviceForm.get('name')?.value);
-    formData.append('Description', this.serviceForm.get('description')?.value);
-    formData.append('Category', this.serviceForm.get('category')?.value);
-    formData.append('ContactInfo', this.serviceForm.get('contactInfo')?.value);
-    formData.append('Requirements', this.serviceForm.get('requirements')?.value);
-    formData.append('IsActive', this.serviceForm.get('isActive')?.value);
-    // Append the image file
-    const imageFile = this.serviceForm.get('Image')?.value;
-    if (imageFile) {
-      formData.append('Image', imageFile);
-    }
-
     if (this.serviceForm.invalid) {
       this.toastr.error('يرجى تعبئة الحقول المطلوبة');
       this.serviceForm.markAllAsTouched();
       return;
     }
 
-    // const dto: IUpdateServiceOfferingDTO = this.serviceForm.value;
+    const formData = new FormData();
+    formData.append('Name', this.serviceForm.get('name')?.value);
+    formData.append('Description', this.serviceForm.get('description')?.value);
+    formData.append('Url', this.serviceForm.get('url')?.value);
+    formData.append('IsActive', this.serviceForm.get('isActive')?.value);
+    
+    const imageFile = this.serviceForm.get('Image')?.value;
+    if (imageFile) {
+      formData.append('Image', imageFile);
+    }
+
     this.loading = true;
 
-    this.serviceApi.update(this.serviceId, formData).subscribe({
-      next: (res) => {
+    this.serviceApi.updateItem(this.serviceId, formData).subscribe({
+      next: () => {
         this.loading = false;
         this.toastr.success('تم تعديل الخدمة بنجاح');
         this.router.navigate(['/dashboard/dashboard-services']);
@@ -114,7 +113,8 @@ export class EditServices {
       }
     });
   }
-   cancel(): void {
+
+  cancel(): void {
     this.router.navigate(['/dashboard/dashboard-services']);
   }
 }

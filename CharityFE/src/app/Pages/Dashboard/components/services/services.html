@@ -1,43 +1,97 @@
-<div class="section-header">
-  <h2>انواع الخدمات</h2>
-  <button class="btn btn-green" (click)="addService()">
-    <i class="fas fa-plus"></i>
-    اضافة خدمة
-  </button>
-</div>
+<div class="card shadow-sm animate__animated animate__fadeIn" dir="rtl">
+  <div class="card-header bg-success text-white d-flex align-items-center justify-content-between">
+    <h5 class="mb-0 fw-bold fs-4">
+      <i class="bi bi-grid-fill ms-2"></i>
+      إدارة أنواع الخدمات
+    </h5>
+    <button class="btn btn-light text-success fw-bold" (click)="addService()">
+      <i class="fas fa-plus ms-1"></i>
+      إضافة خدمة
+    </button>
+  </div>
 
-@if (loading) {
-  <div class="text-center py-4">
-  جاري تحميل الخدمات...
-</div>
-}@else if (!loading) {
-  <div class="consultation-types-section">
-  <div class="consultation-types-grid">
-    @for (service of serviceOfferings; track $index) {
-      <div class="consultation-type-card">
-        <div class="d-flex justify-content-start align-items-center gap-2">
-          <picture>
-            <img class="img-card rounded-3" [src]="service.imageUrl || 'Images/advisor.jpg'" alt="">
-          </picture>
-          <div class="card-content">
-            <h3>{{ service.name }}</h3>
-            <span class="text-muted">{{ service.description }}</span>
+  <div class="card-body">
+    @if (loading) {
+      <div class="text-center py-4">جاري تحميل الخدمات...</div>
+    } @else {
+      <!-- تعديل بيانات القسم الرئيسي -->
+      <div class="edit-main-offering bg-light p-4 rounded mb-4">
+        <h4 class="mb-3 fs-4 fw-bold">تعديل بيانات القسم الرئيسي</h4>
+        <form [formGroup]="editForm" (ngSubmit)="updateServiceOffering()">
+          <div class="mb-3">
+            <label class="form-label fw-bold">العنوان الرئيسي</label>
+            <input type="text" class="form-control form-control-lg" formControlName="title" placeholder="أدخل العنوان" />
+            @if (editForm.get('title')?.touched && editForm.get('title')?.invalid) {
+              <span class="text-danger small">العنوان مطلوب ولا يزيد عن 100 حرف</span>
+            }
           </div>
-        </div>
-        <div class="card-actions">
-          <button class="btn btn-green w-100" (click)="editService(service)">
-            <i class="bi bi-pencil"></i>
-            تعديل
-          </button>
-          <button class="btn text-danger w-100" (click)="deleteService(service)">
-            <i class="bi bi-trash3"></i>
-            حذف
-          </button>
-        </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold">الوصف</label>
+            <textarea class="form-control" formControlName="description" rows="3" placeholder="أدخل وصف القسم"></textarea>
+            @if (editForm.get('description')?.touched && editForm.get('description')?.invalid) {
+              <span class="text-danger small">الوصف مطلوب ولا يزيد عن 500 حرف</span>
+            }
+          </div>
+
+          <div class="d-grid">
+            <button class="btn btn-success btn-lg" type="submit">
+              <i class="bi bi-save ms-1"></i>
+              حفظ التعديلات
+            </button>
+          </div>
+        </form>
       </div>
+
+      <!-- الفلاتر -->
+      <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+        <div class="d-flex gap-2 ">
+          <button class="btn btn-outline-success" [class.active]="filter === 'all'" (click)="changeFilter('all')">الكل</button>
+          <button class="btn btn-outline-success" [class.active]="filter === 'active'" (click)="changeFilter('active')">نشط فقط</button>
+          <button class="btn btn-outline-success" [class.active]="filter === 'inactive'" (click)="changeFilter('inactive')">غير نشط</button>
+        </div>
+        <span class="text-muted">عدد النتائج: {{ filteredItems.length }}</span>
+      </div>
+
+      <!-- قائمة الخدمات -->
+      <div class="consultation-types-grid">
+        @for (service of displayedItems; track service.id) {
+          <div class="consultation-type-card">
+            <div class="d-flex align-items-center gap-3">
+              <img class="img-card rounded-3" [src]="service.imageUrl || 'Images/advisor.jpg'" alt="" />
+              <div>
+                <h5 class="fw-bold mb-1 fs-5 fw-bold">{{ service.name }}</h5>
+                <p class="text-muted mb-0 fs-6">{{ service.description }}</p>
+              </div>
+            </div>
+            <div class="card-actions mt-3">
+              <button class="btn btn-outline-success w-100" (click)="editService(service)">
+                <i class="bi bi-pencil"></i> تعديل
+              </button>
+              <button class="btn btn-outline-danger w-100" (click)="deleteService(service)">
+                <i class="bi bi-trash3"></i> حذف
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- الترقيم -->
+      @if (totalPages > 1) {
+        <div class="pagination-container mt-4 d-flex justify-content-center gap-2">
+          <button class="btn btn-sm btn-outline-dark" [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">
+            السابق
+          </button>
+          @for (page of [].constructor(totalPages); let i = $index; track i) {
+            <button class="btn btn-sm" [class.btn-dark]="currentPage === i + 1" (click)="changePage(i + 1)">
+              {{ i + 1 }}
+            </button>
+          }
+          <button class="btn btn-sm btn-outline-dark" [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">
+            التالي
+          </button>
+        </div>
+      }
     }
   </div>
 </div>
-}
-
-

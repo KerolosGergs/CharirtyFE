@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { HomePageService } from './../../../../Core/Services/HomePage/home-page-service';
+import { Component, inject, OnInit } from '@angular/core';
 
 export interface DonationData {
   mainTitle: string;
   description: string;
   buttonText: string;
-  schoolCouponsTitle: string;
-  schoolCouponsDescription: string;
-  schoolCouponsButtonText: string;
   backgroundImage: string;
-  schoolCouponsImage:string;
+  buttonUrl: string;
 }
 @Component({
   selector: 'app-school',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './school.html',
   styleUrl: './school.scss'
 })
@@ -22,17 +21,15 @@ donationData: DonationData = {
   mainTitle: 'بيدك تصنع فرقاً... وبتبرعك تحيي أملاً',
   description: 'تبرعك اليوم قد يطعم جائعاً أو يعلم طفلاً أو يوفر مأوى لعائلة محتاجة. ساهم في صناعة الأثر وكن سبباً في حياة كريمة لغيرك.',
   buttonText: 'تبرع',
-  schoolCouponsTitle: 'كوبونات المدارس',
-  schoolCouponsDescription: 'برنامج "قلم ودفتر" هو مبادرة خيرية تهدف إلى توفير الدعم للطلاب المحتاجين في بداية العام الدراسي،',
-  schoolCouponsButtonText: 'اعرف المزيد',
-  schoolCouponsImage: 'Images/3.jpg',
   backgroundImage:'Images/3.jpg',
+  buttonUrl: ''
 };
 
-
+  HomePageService = inject(HomePageService)
   constructor() { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.getDataSection();
   }
 
   onDonate(): void {
@@ -43,6 +40,18 @@ donationData: DonationData = {
   onLearnMore(): void {
     // Handle learn more action
     console.log('Learn more button clicked');
+  }
+  getDataSection(){
+    this.HomePageService.getTrendSection().subscribe((response) => {
+      if (response.success) {
+        const data = response.data;
+        this.donationData.mainTitle = data.title;
+        this.donationData.description = data.description;
+        this.donationData.buttonText = data.buttonText;
+        this.donationData.backgroundImage = data.imageUrl;
+
+      }
+    });
   }
 }
 

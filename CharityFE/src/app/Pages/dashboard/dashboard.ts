@@ -14,6 +14,8 @@ export class Dashboard {
  
 
   sidebarItems = [
+    { label: 'الصفحة الرئيسية للجمعية', icon: 'bi bi-house-door', link: '/home', active: true },
+
     { label: 'الرئيسية', icon: 'bi bi-house-door', link: '/dashboard/dashboard-main', active: true },
     { label: 'طلبات الدعم', icon: 'bi bi-file-medical', link: '/dashboard/dashboard-help', active: false },
     { label: 'اصلاح ذات البين', icon: 'bi bi-people', link: '/dashboard/dashboard-meditation', active: false },
@@ -26,7 +28,7 @@ export class Dashboard {
     { label: 'الخدمات', icon: 'bi bi-life-preserver', link: '/dashboard/dashboard-services', active: false },
     { label: 'إضافة مشرف', icon: 'bi bi-people', link: '/dashboard/Add-Admin', active: false },
     {label:'مكتبة الصور والفيديوهات',icon:'bi bi-image',link:'/dashboard/libraryControll',active:false},
-    {label:'إعدادت الصفحه الرئيسية',icon:'bi bi-diagram-3',link:'/dashboard/homePage',active:false},
+    {label:'إعدادت الصفحه الرئيسية',icon:'bi bi-diagram-3',link:'/dashboard/Dashboard-HomePage',active:false},
     // { label: 'أقسام الموقع', icon: 'bi bi-diagram-3', link: '/dashboard', active: false },
   ];
   searchOn = false;

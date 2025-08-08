@@ -1,6 +1,6 @@
 <!-- Hero Section -->
 <section class="hero-section position-relative ">
-  <div class="hero-background"><img class="img-cover" src="Images/home/bgHead.png" alt="" width="100%" height="100%">
+  <div class="hero-background"><img class="img-cover" [src]="heroImage" alt="" width="100%" height="100%">
   </div>
   <!-- <div class="hero-overlay"><img src="Images/home/head.png" width="100%" height="100%" alt=""> </div> -->
 
@@ -17,7 +17,10 @@
         </button></a>
     </div>
     <div class="hero-statistics">
-      <app-stat-card></app-stat-card>
+      @defer (on idle) {
+
+        <app-stat-card [statistics]="statistics"></app-stat-card>
+      }
 
     </div>
   </div>

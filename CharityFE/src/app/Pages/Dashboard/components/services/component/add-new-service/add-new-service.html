@@ -2,55 +2,63 @@
   <div class="card-header bg-white">
     <h5 class="my-3 text-center fs-2 text-success">إضافة خدمة جديدة</h5>
   </div>
+
   <div class="card-body">
     <form [formGroup]="serviceForm" (ngSubmit)="submit()">
+
+      <!-- اسم الخدمة -->
       <div class="mb-3">
         <label class="form-label">اسم الخدمة</label>
-        <input type="text" class="form-control" formControlName="name">
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">الوصف</label>
-        <textarea class="form-control" rows="4" formControlName="description"></textarea>
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">التصنيف</label>
-        <input type="text" class="form-control" formControlName="category">
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">صورة الخدمة</label>
-        <input type="file" class="form-control" (change)="onFileChange($event)">
-        @if (previewUrl){
-            <div class="image-preview mt-2">
-                <img [src]="previewUrl" alt="Preview" class="img-thumbnail" />
-            </div>
+        <input type="text" class="form-control" formControlName="name" />
+        @if (serviceForm.get('name')?.touched && serviceForm.get('name')?.invalid) {
+          <span class="text-danger small">الاسم مطلوب</span>
         }
       </div>
 
+      <!-- الوصف -->
       <div class="mb-3">
-        <label class="form-label">معلومات التواصل</label>
-        <input type="text" class="form-control" formControlName="contactInfo">
+        <label class="form-label">الوصف</label>
+        <textarea class="form-control" rows="4" formControlName="description"></textarea>
+        @if (serviceForm.get('description')?.touched && serviceForm.get('description')?.invalid) {
+          <span class="text-danger small">الوصف مطلوب</span>
+        }
       </div>
 
+      <!-- رابط -->
       <div class="mb-3">
-        <label class="form-label">المتطلبات</label>
-        <textarea class="form-control" rows="3" formControlName="requirements"></textarea>
+        <label class="form-label">رابط الخدمة</label>
+        <input type="text" class="form-control" formControlName="url" />
+        @if (serviceForm.get('url')?.touched && serviceForm.get('url')?.invalid) {
+          <span class="text-danger small">الرابط مطلوب</span>
+        }
       </div>
 
+      <!-- صورة الخدمة -->
+      <div class="mb-3">
+        <label class="form-label">صورة الخدمة</label>
+        <input type="file" class="form-control" (change)="onFileChange($event)">
+        @if (previewUrl) {
+          <div class="image-preview mt-2">
+            <img [src]="previewUrl" alt="Preview" class="img-thumbnail" />
+          </div>
+        }
+      </div>
+
+      <!-- نشط -->
       <div class="form-check mb-3">
         <input type="checkbox" class="form-check-input" formControlName="isActive" id="isActive">
         <label class="form-check-label" for="isActive">نشط</label>
       </div>
 
+      <!-- الأزرار -->
       <button type="submit" class="btn btn-success mb-2 w-100" [disabled]="loading">
         <i class="fas fa-plus"></i>
-         نشر
+        نشر
       </button>
-      <button (click)="cancel()" class="btn btn-outline-success w-100">
-        <i class="fas fa-plus"></i>
-         الغاء
+
+      <button type="button" (click)="cancel()" class="btn btn-outline-success w-100">
+        <i class="fas fa-times"></i>
+        الغاء
       </button>
     </form>
   </div>
