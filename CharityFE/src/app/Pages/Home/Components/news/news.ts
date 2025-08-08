@@ -57,7 +57,7 @@ export class News implements OnInit {
   }
   getNews()
   {
-  debugger
+  
     this.newsservice.getActiveNews().subscribe(data => {
       if (data.success) {
         this.newsItems = data.data;

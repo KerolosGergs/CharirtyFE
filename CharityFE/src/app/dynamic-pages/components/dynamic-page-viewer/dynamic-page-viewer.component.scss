@@ -1,8 +1,249 @@
-h2 { 
-  color: var(--bs-body-color); 
+// Vision-Mission Container Styling (exact copy from vision-mission component)
+.vision-mission-container {
+  background: #e8f8f3;
+  border-radius: 18px;
+  box-shadow: none;
+  margin-bottom: 2rem;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
-.card { 
-  background-color: var(--bs-body-bg); 
-  border-color: var(--bs-border-color); 
+.vision-mission-card {
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  border: 1.5px solid #e0e0e0;
+  background: #f6faf7;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.vision-mission-card:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.13);
+  transform: translateY(-4px) scale(1.03);
+}
+
+// Files Grid Styling (like regulations page)
+.files-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.file-button {
+  display: block;
+  padding: 1rem 1.5rem;
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  color: #198754;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.07);
+  
+  &:hover {
+    background: #198754;
+    color: #fff;
+    border-color: #198754;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(25,135,84,0.15);
+  }
+  
+  &.active {
+    background: #198754;
+    color: #fff;
+    border-color: #198754;
+    box-shadow: 0 4px 15px rgba(25,135,84,0.2);
+  }
+}
+
+// PDF iframe styling
+.pdf-iframe {
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  background: #fff;
+  border: 1px solid #e0e0e0;
+}
+
+.goals-list-custom {
+  width: 100%;
+}
+
+.goal-accordion-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(25,135,84,0.10);
+  border: none;
+  min-height: 70px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+
+.goal-accordion-card.active, .goal-accordion-card:hover {
+  box-shadow: 0 8px 32px rgba(25,135,84,0.13);
+  transform: translateY(-2px) scale(1.01);
+}
+
+.goal-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #e8f8f3;
+  color: #198754;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7rem;
+  margin-left: 0.5rem;
+  box-shadow: 0 2px 8px rgba(25,135,84,0.10);
+}
+
+.goal-title {
+  color: #198754;
+  font-weight: bold;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+.goal-details {
+  color: #444;
+  font-size: 1rem;
+  background: #f6faf7;
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  margin-top: 0.5rem;
+}
+
+.content-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.file-actions {
+  .btn-outline-success {
+    border-color: #198754;
+    color: #198754;
+    
+    &:hover {
+      background-color: #198754;
+      border-color: #198754;
+      color: white;
+    }
+  }
+  
+  .btn-success {
+    background-color: #198754;
+    border-color: #198754;
+    
+    &:hover {
+      background-color: #0d684d;
+      border-color: #0d684d;
+    }
+  }
+}
+
+// Smooth hover transitions on cards
+.vision-mission-card:hover,
+.goal-accordion-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 12px 36px rgba(25, 135, 84, 0.18);
+}
+
+// Hover pulse on icons
+.vision-mission-card:hover .bi,
+.goal-accordion-card:hover .goal-icon-circle {
+  animation: pulseIcon 0.4s ease-in-out;
+}
+
+@keyframes pulseIcon {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15) rotate(5deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// Highlight title color on hover
+.goal-accordion-card:hover .goal-title,
+.vision-mission-card:hover .card-title {
+  color: #0d684d !important;
+}
+
+// Optional hover for the icon itself
+.goal-accordion-card:hover .bi,
+.vision-mission-card:hover .bi {
+  transition: transform 0.3s ease;
+  transform: scale(1.15) rotate(-2deg);
+}
+
+// Responsive adjustments
+@media (max-width: 767px) {
+  .vision-mission-container { 
+    padding: 1rem; 
+    margin: 1rem;
+  }
+  
+  .vision-mission-card { 
+    margin-bottom: 1rem; 
+  }
+  
+  .files-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .file-button {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .pdf-iframe {
+    height: 400px;
+  }
+  
+  .goal-accordion-card { 
+    min-height: 60px; 
+    padding: 1rem; 
+  }
+  
+  .goal-icon-circle { 
+    width: 32px; 
+    height: 32px; 
+    font-size: 1.1rem; 
+  }
+  
+  .file-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+// RTL Support
+[dir="rtl"] {
+  .goal-icon-circle {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+  
+  .file-actions {
+    margin-left: 0;
+    margin-right: auto;
+  }
 }

@@ -33,7 +33,7 @@ ngOnInit(): void {
 Dashbord() {
   // Navigate to dashboard or trigger desired function
  
-  debugger
+  
   if (this.Role === 'Admin')
     this.router.navigate(['/dashboard']);
   else if (this.Role === 'Advisor')

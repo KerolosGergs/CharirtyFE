@@ -87,7 +87,7 @@ export class LoginForm implements OnInit {
       },
 
       error: (error) => {
-        debugger
+        
         this.toastr.error(' حدث خطاء اثناء تسجيل الدخول تحقق من اتصالك بالانترنت');
         this.isLoading = false;
       }

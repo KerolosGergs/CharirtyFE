@@ -78,7 +78,7 @@ export class EditServices {
   }
 
   submit(): void {
-    debugger
+    
 
     const formData = new FormData();
     formData.append('Name', this.serviceForm.get('name')?.value);

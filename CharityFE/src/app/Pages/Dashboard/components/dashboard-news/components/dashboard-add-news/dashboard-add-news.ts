@@ -102,7 +102,7 @@ export class DashboardAddNews implements OnInit {
 
 
   onSubmit(): void {
-    debugger
+    
     if (this.articleForm.invalid) {
       this.articleForm.markAllAsTouched();
       this.toastr.error('يرجى تعبئة جميع الحقول بشكل صحيح');
@@ -128,7 +128,7 @@ export class DashboardAddNews implements OnInit {
       });
     } else {
       // Create new article
-      debugger
+      
       this._news.createNewNews(formData).subscribe({
         next: (res) => {
           if (res.success) {

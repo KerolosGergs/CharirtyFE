@@ -4,22 +4,38 @@ import { ActivatedRoute } from '@angular/router';
 import { DynamicPagesService, DynamicPage, ContentItem } from '../../dynamic-pages.service';
 import { Subject, switchMap, takeUntil, map } from 'rxjs';
 import { Environment } from '../../../../Environment/environment';
+import { HeaderComponent } from '../../../Pages/Home/Components/header-component/header-component';
+import { Nav } from '../../../Pages/Home/Components/nav/nav';
+import { Footer } from '../../../Shared/footer/footer';
+import { Spinner } from '../../../Shared/spinner/spinner';
+import { NotFound } from '../../../Pages/not-found/not-found';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dynamic-page-viewer',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage],
+  imports: [
+    CommonModule, 
+    NgOptimizedImage, 
+    HeaderComponent, 
+    Nav, 
+    Footer, 
+    Spinner, 
+    NotFound
+  ],
   templateUrl: './dynamic-page-viewer.component.html',
   styleUrl: './dynamic-page-viewer.component.scss'
 })
 export class DynamicPageViewerComponent implements OnInit, OnDestroy {
   private readonly route = inject(ActivatedRoute);
   private readonly dynamicPagesService = inject(DynamicPagesService);
+  private readonly sanitizer = inject(DomSanitizer);
   private readonly destroy$ = new Subject<void>();
 
   page: DynamicPage | null = null;
   items: ContentItem[] = [];
   isLoading = true;
+  selectedFileIndex: number | null = null;
 
   ngOnInit(): void {
     this.route.paramMap
@@ -35,6 +51,12 @@ export class DynamicPageViewerComponent implements OnInit, OnDestroy {
           const items = page?.items ?? [];
           this.items = [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
           this.isLoading = false;
+          
+          // Auto-select first file if available
+          const fileItems = this.getItemsByType('file');
+          if (fileItems.length > 0) {
+            this.selectedFileIndex = 0;
+          }
         },
         error: () => {
           this.page = null;
@@ -47,6 +69,30 @@ export class DynamicPageViewerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  getItemsByType(type: 'text' | 'image_text' | 'file'): ContentItem[] {
+    return this.items.filter(item => item.type === type);
+  }
+
+  selectFile(index: number): void {
+    this.selectedFileIndex = index;
+    console.log('Selected file index:', index);
+  }
+
+  getSelectedFileUrl(): SafeResourceUrl {
+    if (this.selectedFileIndex === null) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl('');
+    }
+    
+    const fileItems = this.getItemsByType('file');
+    if (this.selectedFileIndex >= fileItems.length) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl('');
+    }
+    
+    const selectedFile = fileItems[this.selectedFileIndex];
+    const fileUrl = this.normalizeUrl(selectedFile.fileUrl);
+    return this.sanitizer.bypassSecurityTrustResourceUrl(fileUrl);
   }
 
   normalizeUrl(url?: string): string {

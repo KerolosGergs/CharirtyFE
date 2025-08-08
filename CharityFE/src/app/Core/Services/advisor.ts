@@ -34,7 +34,7 @@ import { AdvisorRequest, AdvisorRequestApiResponse } from '../Interfaces/iadviso
       );
     }
     createNewAdvisor(advisor: FormData): Observable<IAdvisorResponse> {
-      debugger
+      
       const url = `${this._baseUrl}Advisor`;
       return this._httpClient.post<IAdvisorResponse>(url, advisor);
     }
@@ -79,7 +79,7 @@ import { AdvisorRequest, AdvisorRequestApiResponse } from '../Interfaces/iadviso
 }
 
     updateAdvisor(id: number, advisor: FormData): Observable<any> {
-      debugger
+      
     const url = `${this._baseUrl}Advisor/${id}`;
     return this._httpClient.put<any>(url, advisor).pipe(
       catchError((error: HttpErrorResponse) => {
