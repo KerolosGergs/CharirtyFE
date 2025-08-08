@@ -1,0 +1,16 @@
+<div class="dynamic-pages-dropdown container mt-4" role="region" aria-label="Dynamic pages selector">
+  <label for="dynamicPageSelect" class="form-label">اختر صفحة</label>
+  <select
+    id="dynamicPageSelect"
+    class="form-select"
+    [disabled]="isLoading || pages.length === 0"
+    [ngModel]="selectedId"
+    (ngModelChange)="onSelect($event)"
+    aria-label="Dynamic pages"
+  >
+    <option [ngValue]="null">-- اختر صفحة --</option>
+    <option *ngFor="let p of pages" [ngValue]="p.id">{{ p.pageName }}</option>
+  </select>
+  <div class="mt-2 small text-muted" *ngIf="isLoading">يتم التحميل...</div>
+  <div class="mt-2 text-danger" *ngIf="error">{{ error }}</div>
+</div>

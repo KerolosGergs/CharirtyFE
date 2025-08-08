@@ -1,0 +1,61 @@
+<section class="container py-4" *ngIf="!isLoading; else loadingTpl">
+  <h2 class="mb-4">{{ page?.pageName }}</h2>
+
+  <ng-container *ngIf="items?.length; else emptyTpl">
+    <div class="d-flex flex-column gap-3">
+      <ng-container *ngFor="let item of items">
+        <!-- text card -->
+        <article *ngIf="item.type === 'text'" class="card p-3" role="article">
+          <div class="card-body">
+            <p class="mb-0" [innerText]="item.content"></p>
+          </div>
+        </article>
+
+        <!-- image + text -->
+        <article *ngIf="item.type === 'image_text'" class="card p-3" role="article">
+          <div class="row g-3 align-items-start">
+            <div class="col-12 col-md-5" *ngIf="item.imageUrl as url; else onlyText">
+              <img
+                [ngSrc]="safeUrl(url)"
+                width="800"
+                height="600"
+                class="img-fluid rounded"
+                alt=""
+              />
+            </div>
+            <div class="col-12 col-md-7">
+              <p class="mb-0" [innerText]="item.content"></p>
+            </div>
+          </div>
+          <ng-template #onlyText>
+            <div class="col-12">
+              <p class="mb-0" [innerText]="item.content"></p>
+            </div>
+          </ng-template>
+        </article>
+
+        <!-- file card -->
+        <article *ngIf="item.type === 'file'" class="card p-3" role="article">
+          <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2">
+            <div>
+              <div class="fw-semibold">{{ item.fileName || 'ملف' }}</div>
+              <div class="text-muted small" *ngIf="item.content">{{ item.content }}</div>
+            </div>
+            <div class="d-flex gap-2">
+              <a class="btn btn-outline-primary" [href]="normalizeUrl(item.fileUrl)" target="_blank" rel="noopener">فتح</a>
+              <a class="btn btn-primary" [href]="normalizeUrl(item.fileUrl)" target="_blank" rel="noopener" download>تحميل</a>
+            </div>
+          </div>
+        </article>
+      </ng-container>
+    </div>
+  </ng-container>
+</section>
+
+<ng-template #loadingTpl>
+  <div class="container py-5 text-center" aria-busy="true">يتم التحميل...</div>
+</ng-template>
+
+<ng-template #emptyTpl>
+  <div class="container py-5 text-center text-muted">لا توجد عناصر لعرضها.</div>
+</ng-template>
