@@ -1,0 +1,142 @@
+<div class="card" dir="rtl">
+  <div class="card-header bg-success text-white d-flex align-items-center">
+    <i class="bi bi-trending-up ms-2"></i>
+    <h5 class="mb-0 fs-4">إدارة قسم الترند</h5>
+  </div>
+  <div class="card-body">
+    @if (!loading(); as loading) {
+      <div class="row">
+        <div class="col-lg-6">
+          <form [formGroup]="trendForm" (ngSubmit)="updateTrendSection()">
+            <div class="mb-3">
+              <label class="form-label fw-bold">عنوان الترند</label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                formControlName="title"
+                placeholder="أدخل عنوان الترند"
+              >
+              @if (trendForm.get('title')?.invalid && trendForm.get('title')?.touched) {
+                <div class="invalid-feedback d-block">عنوان الترند مطلوب</div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">وصف الترند</label>
+              <textarea
+                class="form-control"
+                rows="4"
+                formControlName="description"
+                placeholder="أدخل وصف الترند"
+              ></textarea>
+              @if (trendForm.get('description')?.invalid && trendForm.get('description')?.touched) {
+                <div class="invalid-feedback d-block">وصف الترند مطلوب</div>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">صورة الترند</label>
+              <input
+                type="file"
+                class="form-control"
+                accept="image/*"
+                (change)="onFileSelected($event)"
+              >
+              @if (trendForm.get('imageUrl')?.invalid && trendForm.get('imageUrl')?.touched && !imageFile()) {
+                <div class="invalid-feedback d-block">صورة الترند أو رابطها مطلوب</div>
+              }
+              @if (imagePreviewUrl()) {
+                <img [src]="imagePreviewUrl()" class="img-preview mt-2" alt="معاينة الصورة">
+              }
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">نص الزر</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="buttonText"
+                    placeholder="أدخل نص الزر"
+                  >
+                  @if (trendForm.get('buttonText')?.invalid && trendForm.get('buttonText')?.touched) {
+                    <div class="invalid-feedback d-block">نص الزر مطلوب</div>
+                  }
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">رابط الزر</label>
+                  <input
+                    type="url"
+                    class="form-control"
+                    formControlName="buttonUrl"
+                    placeholder="https://example.com"
+                  >
+                  @if (trendForm.get('buttonUrl')?.invalid && trendForm.get('buttonUrl')?.touched) {
+                    <div class="invalid-feedback d-block">رابط الزر مطلوب</div>
+                  }
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2 bg-success">
+              <button
+                type="submit"
+                class="btn btn-success btn-lg"
+                [disabled]="trendForm.invalid && updating() && (!trendForm.get('imageUrl')?.value && !imageFile())"
+              >
+                @if (updating()) {
+                  <span class="spinner-border spinner-border-sm ms-2"></span>
+                } @else {
+                  <i class="bi bi-check-circle ms-2"></i>
+                }
+                {{ updating() ? 'جاري الحفظ...' : 'حفظ التغييرات' }}
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="card bg-light">
+            <div class="card-body">
+              <h6 class="card-title text-muted">معاينة قسم الترند</h6>
+              <div class="preview-section" [style.backgroundImage]="getImageUrl()">
+                <div class="preview-overlay">
+                  <h5 class="trend-title">{{ trendForm.get('title')?.value || 'عنوان الترند' }}</h5>
+                  <p class="trend-description">{{ trendForm.get('description')?.value || 'وصف الترند سيظهر هنا' }}</p>
+                  <button class="btn btn-success btn-sm">
+                    {{ trendForm.get('buttonText')?.value || 'اقرأ المزيد' }}
+                    <i class="bi bi-arrow-right ms-2"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="text-center py-5">
+        <div class="spinner-border text-success" role="status">
+          <span class="visually-hidden">جاري التحميل...</span>
+        </div>
+        <p class="mt-2 text-muted">جاري تحميل البيانات...</p>
+      </div>
+    }
+
+    @if (successMessage()) {
+      <div class="alert alert-success mt-3">
+        <i class="bi bi-check-circle-fill ms-2"></i>
+        {{ successMessage() }}
+      </div>
+    }
+
+    @if (errorMessage()) {
+      <div class="alert alert-danger mt-3">
+        <i class="bi bi-exclamation-circle-fill ms-2"></i>
+        {{ errorMessage() }}
+      </div>
+    }
+  </div>
+</div>

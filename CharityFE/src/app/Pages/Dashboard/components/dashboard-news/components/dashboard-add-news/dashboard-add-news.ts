@@ -29,7 +29,6 @@ export class DashboardAddNews implements OnInit {
       content: ['', [Validators.required, Validators.maxLength(5000)]],
       summary: ['', [Validators.required, Validators.maxLength(500)]],
       Image: [null],
-      category: ['', Validators.required],
       isPublished: [true],
       tags: ['', Validators.required],
     });
@@ -78,25 +77,32 @@ export class DashboardAddNews implements OnInit {
     }
   }
 
-  createFormData(formValues: any): FormData {
-    const formData = new FormData();
-    formData.append('title', formValues.title);
-    formData.append('content', formValues.content);
-    formData.append('summary', formValues.summary);
-    formData.append('category', formValues.category);
-    formData.append('isPublished', formValues.isPublished.toString());
+ createFormData(formValues: any): FormData {
+  const formData = new FormData();
+  formData.append('title', formValues.title);
+  formData.append('content', formValues.content);
+  formData.append('summary', formValues.summary);
+  formData.append('category','category');
+  formData.append('isPublished', formValues.isPublished.toString());
+  formData.append('Author', 'Author');
 
-    if (formValues.Image instanceof File) {
-      formData.append('Image', formValues.Image);
-    }
-
-    const cleanedTags = formValues.tags?.toString().trim().split(/\s+/).join(',') || '';
-    formData.append('tags', cleanedTags);
-
-    return formData;
+  if (formValues.Image instanceof File) {
+    formData.append('Image', formValues.Image);
   }
 
+  // Append each additional image
+  this.selectedAdditionalImages.forEach((file, index) => {
+    formData.append('Images', file); // use the same field name for multiple
+  });
+
+  formData.append('tags', formValues.tags);
+
+  return formData;
+}
+
+
   onSubmit(): void {
+    debugger
     if (this.articleForm.invalid) {
       this.articleForm.markAllAsTouched();
       this.toastr.error('يرجى تعبئة جميع الحقول بشكل صحيح');
@@ -111,7 +117,7 @@ export class DashboardAddNews implements OnInit {
         next: (res) => {
           if (res.success) {
             this.toastr.success('تم تعديل المقال بنجاح');
-            this.router.navigate(['/dashboard/news']);
+            this.router.navigate(['/dashboard/dashboard-news']);
           } else {
             this.toastr.error('حدث خطأ أثناء تعديل المقال');
           }
@@ -122,11 +128,12 @@ export class DashboardAddNews implements OnInit {
       });
     } else {
       // Create new article
+      debugger
       this._news.createNewNews(formData).subscribe({
         next: (res) => {
           if (res.success) {
             this.toastr.success('تم اضافة المقال بنجاح');
-            this.router.navigate(['/dashboard/news']);
+            this.router.navigate(['/dashboard/dashboard-news']);
           } else {
             this.toastr.error('حدث خطأ أثناء اضافة المقال');
           }
@@ -141,4 +148,29 @@ export class DashboardAddNews implements OnInit {
   onCancel(): void {
     this.router.navigate(['/dashboard/dashboard-news']);
   }
+  uploadedAdditionalImages: string[] = [];
+selectedAdditionalImages: File[] = []; // actual File objects
+
+onAdditionalImagesChange(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    this.selectedAdditionalImages = Array.from(input.files); // save the files
+    this.uploadedAdditionalImages = [];
+
+    // Preview images
+    for (let file of this.selectedAdditionalImages) {
+      if (!file.type.startsWith('image/')) {
+        this.toastr.error('كل الملفات يجب أن تكون صور');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.uploadedAdditionalImages.push(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+}
+
 }

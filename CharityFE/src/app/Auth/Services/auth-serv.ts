@@ -1,4 +1,7 @@
+import { Observable } from 'rxjs';
+import { ForgetPassword } from './../Components/forget-password/forget-password';
 import { Injectable } from '@angular/core';
+import { GeneralResponse } from '../../Core/Interfaces/ILibrary/ilibrary';
 
 @Injectable({
   providedIn: 'root'
@@ -83,4 +86,5 @@ getId(): number  {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+ 
 }

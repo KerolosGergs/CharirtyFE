@@ -20,8 +20,8 @@ export class DashboardAdvisorsDetails implements OnInit {
   advisor!: advisor;
 
 
-  async ngOnInit() : Promise<void> {
-    await this.getparam();
+  ngOnInit(): void {
+    this.getparam();
   }
 
   getparam() {
@@ -39,8 +39,8 @@ export class DashboardAdvisorsDetails implements OnInit {
   getAdvisorById(id: number) {
     this._advisor.getAdvisorById(id).subscribe({
       next: (res) => {
-        // console.log('data feched', res);
-        // console.log(res.data);
+        console.log('data feched', res);
+        console.log(res.data);
         
         this.advisor = res.data;
       },

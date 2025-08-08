@@ -1,0 +1,176 @@
+<div class="card shadow-sm animate__animated animate__fadeIn" dir="rtl">
+    <div class="card-header bg-success text-white d-flex align-items-center">
+        <i class="bi bi-star-fill ms-2"></i>
+        <h5 class="mb-0 fw-bold fs-4">إدارة صورة الصفحة الرئيسية</h5>
+    </div>
+    <div class="card-body">
+        @if (!loading()) {
+        <div class="row">
+            <div class="col-lg-6">
+                <form [formGroup]="heroForm" (ngSubmit)="updateHeroSection()">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">العنوان الرئيسي للصفحة</label>
+                        <input type="text" class="form-control form-control-lg" formControlName="mainTitle"
+                            placeholder="أدخل العنوان الرئيسي">
+                        @if (heroForm.get('mainTitle')?.invalid) {
+
+                        <div class="invalid-feedback">
+                            العنوان الرئيسي مطلوب
+                        </div>
+                        }
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">صورة الخلفية الرئيسية</label>
+                        <input type="file" class="form-control" accept="image/*" (change)="onFileSelected($event)">
+
+                        @if (!heroData().backgroundImageUrl && !backgroundFile() &&
+                        heroForm.get('backgroundImageUrl')?.touched) {
+
+                        <div class="invalid-feedback">
+                            صورة الخلفية أو رابطها مطلوب
+                        </div>
+                        }
+                        @if (heroData().backgroundImageUrl) {
+
+                        <img [src]="heroData().backgroundImageUrl" class="img-preview mt-2" alt="معاينة الصورة">
+                        }
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">تسمية الإحصائية الأولى</label>
+                                <input type="text" class="form-control" formControlName="stats1Label"
+                                    placeholder="مثال: العملاء">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">قيمة الإحصائية الأولى</label>
+                                <input type="number" class="form-control" formControlName="stats1Value" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">تسمية الإحصائية الثانية</label>
+                                <input type="text" class="form-control" formControlName="stats2Label"
+                                    placeholder="مثال: المشاريع">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">قيمة الإحصائية الثانية</label>
+                                <input type="number" class="form-control" formControlName="stats2Value" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">تسمية الإحصائية الثالثة</label>
+                                <input type="text" class="form-control" formControlName="stats3Label"
+                                    placeholder="مثال: سنوات الخبرة">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">قيمة الإحصائية الثالثة</label>
+                                <input type="number" class="form-control" formControlName="stats3Value" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">تسمية الإحصائية الرابعة</label>
+                                <input type="text" class="form-control" formControlName="stats4Label"
+                                    placeholder="مثال: الجوائز">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">قيمة الإحصائية الرابعة</label>
+                                <input type="number" class="form-control" formControlName="stats4Value" min="0">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success btn-lg"
+                            [disabled]="heroForm.invalid || updating() || (!heroData().backgroundImageUrl && !backgroundFile())">
+                            @if(updating()) {
+                            <span class="spinner-border spinner-border-sm ms-2"></span>
+                            <i class="bi bi-check-circle ms-2"></i>
+                            }
+
+                            {{ updating() ? 'جاري الحفظ...' : 'حفظ التغييرات' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card bg-light border-0 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="card-title text-muted mb-4 fs-5">معاينة صورة الصفحة الرئيسية</h6>
+                        <div class="preview-section"
+                            [style.background-image]="'url(' + (heroData().backgroundImageUrl || 'https://via.placeholder.com/600x300') + ')'">
+                            <div class="preview-overlay">
+                                <h4 class="text-white mb-4 fw-bold">{{ heroData().mainTitle || 'العنوان الرئيسي' }}</h4>
+                                <div class="row text-center row-wrap">
+                                    <div class="col">
+                                        <div class="stat-item bg-dark bg-opacity-50 p-3 rounded">
+                                            <div class="stat-number">{{ heroData().stats1Value || 0 }}</div>
+                                            <div class="stat-label">{{ heroData().stats1Label || 'الإحصائية 1' }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="stat-item bg-dark bg-opacity-50 p-3 rounded">
+                                            <div class="stat-number">{{ heroData().stats2Value || 0 }}</div>
+                                            <div class="stat-label">{{ heroData().stats2Label || 'الإحصائية 2' }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="stat-item bg-dark bg-opacity-50 p-3 rounded">
+                                            <div class="stat-number">{{ heroData().stats3Value || 0 }}</div>
+                                            <div class="stat-label">{{ heroData().stats3Label || 'الإحصائية 3' }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="stat-item bg-dark bg-opacity-50 p-3 rounded">
+                                            <div class="stat-number">{{ heroData().stats4Value || 0 }}</div>
+                                            <div class="stat-label">{{ heroData().stats4Label || 'الإحصائية 4' }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+
+
+        @if (successMessage()) {
+
+        <div class="alert alert-success mt-4 animate__animated animate__fadeIn">
+            <i class="bi bi-check-circle-fill ms-2"></i>
+            {{ successMessage() }}
+        </div>
+        }
+        @if (errorMessage()) {
+
+        <div class="alert alert-danger mt-4 animate__animated animate__fadeIn">
+            <i class="bi bi-exclamation-circle-fill ms-2"></i>
+            {{ errorMessage() }}
+        </div>
+        }
+    </div>
+</div>

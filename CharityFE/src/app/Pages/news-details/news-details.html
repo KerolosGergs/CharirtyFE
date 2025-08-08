@@ -73,11 +73,11 @@
                 </div>
                 
                 <!-- Additional Images from Database -->
-                @if (newsArticle.additionalImages && newsArticle.additionalImages.length > 0) {
+                @if (newsArticle.imageUrls.length > 0) {
                   <div class="additional-images-section">
                     <h3 class="section-title">الصور المرفقة</h3>
                     <div class="images-gallery">
-                      @for (imageUrl of newsArticle.additionalImages; track $index) {
+                      @for (imageUrl of newsArticle.imageUrls; track $index) {
                         <div class="gallery-item">
                           <img [src]="imageUrl" 
                                [alt]="'صورة ' + ($index + 1)" 

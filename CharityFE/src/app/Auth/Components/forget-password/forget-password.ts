@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Login } from '../../Services/LoginService/login';
 
 @Component({
   selector: 'app-forget-password',
@@ -17,7 +18,8 @@ export class ForgetPassword {
 
   toastr = inject(ToastrService);
   router = inject(Router);
-
+  
+  loginService = inject(Login);
   isLoading: boolean = false;
   emailSent: boolean = false;
 
@@ -39,30 +41,25 @@ export class ForgetPassword {
     if (this.forgetPasswordForm.valid) {
       this.isLoading = true;
 
-      // Simulate API call - replace with actual service call
-      setTimeout(() => {
-        this.isLoading = false;
-        this.emailSent = true;
-        this.toastr.success('تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني');
-      }, 2000);
+     
 
       // TODO: Replace with actual service call
-      // this.authService.forgetPassword(this.forgetPasswordForm.value).subscribe({
-      //   next: (res) => {
-      //     this.isLoading = false;
-      //     if (res && res.success) {
-      //       this.emailSent = true;
-      //       this.toastr.success('تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني');
-      //     } else {
-      //       this.toastr.error(res?.message ?? 'فشل في إرسال الرابط، حاول مرة أخرى');
-      //     }
-      //   },
-      //   error: (error) => {
-      //     this.isLoading = false;
-      //     console.error('Forget password error:', error);
-      //     this.toastr.error('حدث خطأ أثناء إرسال الرابط، تحقق من اتصالك بالإنترنت');
-      //   }
-      // });
+      this.loginService.ForgetPassword(this.forgetPasswordForm.value).subscribe({
+        next: (res) => {
+          this.isLoading = false;
+          if (res && res.success) {
+            this.emailSent = true;
+            this.toastr.success('تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني');
+          } else {
+            this.toastr.error(res?.message ?? 'فشل في إرسال الرابط، حاول مرة أخرى');
+          }
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error('Forget password error:', error);
+          this.toastr.error('حدث خطأ أثناء إرسال الرابط، تحقق من اتصالك بالإنترنت');
+        }
+      });
 
     } else {
       this.markFormGroupTouched();

@@ -1,24 +1,36 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { MatCalendarCellClassFunction, MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MatCalendar,
+  MatCalendarCellClassFunction,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatCalendar } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
 import { Advicereques, GetRequests } from '../../../../../../../../Core/Services/advicereques';
 import { AuthServ } from '../../../../../../../../Auth/Services/auth-serv';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-appointments',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatCalendar, MatDatepickerModule, MatNativeDateModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatCalendar,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
   templateUrl: './appointments.html',
   styleUrls: ['./appointments.scss'],
   providers: [DatePipe],
 })
-export class Appointments implements OnInit {
-  @Input() advisorId!: number;
+export class Appointments implements OnInit, AfterViewInit {
   private adviceService = inject(Advicereques);
   private authServ = inject(AuthServ);
+  private _router = inject(ActivatedRoute);
+
+  @ViewChild(MatCalendar) calendarComponent!: MatCalendar<Date>;
 
   adviceRequests: (GetRequests & { showActions?: boolean })[] = [];
   filteredRequests: (GetRequests & { showActions?: boolean })[] = [];
@@ -27,11 +39,12 @@ export class Appointments implements OnInit {
   // For calendar
   calendarDate: Date | null = null; // bound to mat-calendar
   selectedDate: string = ''; // yyyy-MM-dd used in filtering
+  showCalendar = false; // toggle to rebuild calendar after loading data
 
   // Filters
   searchTerm: string = '';
   selectedType: string = '';
-  // advisorId!: number;
+  advisorId!: number;
 
   // Pagination (only for upcoming)
   pageSize = 5;
@@ -40,58 +53,69 @@ export class Appointments implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    // this.advisorId = this.authServ.getId();
-    // if (!this.advisorId) {
-    //   console.error('advisorId not found');
-    //   return;
-    // }
-    this.fetchAdvisorRequests(this.advisorId);
+    this.getparam();
+  }
+
+  ngAfterViewInit(): void {
+    // no-op; calendar toggled when data arrives
+  }
+
+  getparam() {
+    this._router.paramMap.subscribe((params) => {
+      const idParam = params.get('id');
+      if (idParam) {
+        const id = +idParam;
+        this.advisorId = id;
+        this.fetchAdvisorRequests(id);
+      } else {
+        console.error('Invalid advisor ID in route');
+      }
+    });
   }
 
   fetchAdvisorRequests(advisorId: number): void {
     this.adviceService.getRequestsForAdvisor(advisorId).subscribe({
       next: (res) => {
-        this.adviceRequests = (res?.data || []).map(r => ({ ...r, showActions: false }));
+        this.adviceRequests = (res?.data || []).map((r) => ({
+          ...r,
+          showActions: false,
+        }));
         this.applyFilters();
+
+        // Force re-creation of calendar so filters/classes are fresh
+        this.showCalendar = false;
+        setTimeout(() => {
+          // auto-select first available date if none selected
+          if (!this.selectedDate) {
+            const anyDateStr = this.adviceRequests.find((r) => r.date)?.date;
+            if (anyDateStr) {
+              const d = new Date(anyDateStr);
+              this.calendarDate = d;
+              this.selectedDate = this.formatDateToString(d);
+              this.applyFilters();
+            }
+          }
+
+          this.showCalendar = true;
+
+          // small timeout to let calendar initialize, then nudge its activeDate to refresh internal view
+          setTimeout(() => {
+            if (this.calendarComponent) {
+              this.calendarComponent.activeDate = new Date(this.calendarComponent.activeDate);
+            }
+          }, 0);
+        }, 0);
       },
       error: (err) => {
         console.error('Failed to fetch advisor requests:', err);
-      }
+      },
     });
-  }
-
-  confirmRequest(requestId: number): void {
-    if (confirm('هل أنت متأكد من تأكيد هذه الاستشارة؟')) {
-      this.adviceService.confirmRequest(requestId).subscribe({
-        next: () => {
-          this.fetchAdvisorRequests(this.advisorId);
-        },
-        error: (err) => {
-          console.error('فشل في تأكيد الاستشارة:', err);
-          alert('حدث خطأ أثناء تأكيد الاستشارة.');
-        }
-      });
-    }
-  }
-
-  deleteRequest(requestId: number): void {
-    if (confirm('هل أنت متأكد من حذف هذه الاستشارة؟')) {
-      this.adviceService.cancelRequest(requestId).subscribe({
-        next: () => {
-          this.adviceRequests = this.adviceRequests.filter(r => r.id !== requestId);
-          this.applyFilters();
-        },
-        error: (err) => {
-          console.error('فشل في حذف الاستشارة:', err);
-        }
-      });
-    }
   }
 
   applyFilters(): void {
     const term = this.searchTerm.toLowerCase().trim();
 
-    this.filteredRequests = this.adviceRequests.filter(r => {
+    this.filteredRequests = this.adviceRequests.filter((r) => {
       const matchesNote =
         (r.notes?.toLowerCase().includes(term) || false) ||
         (r.userFullName?.toLowerCase().includes(term) || false);
@@ -109,6 +133,14 @@ export class Appointments implements OnInit {
       return matchesNote && matchesType && matchesDate;
     });
 
+    if (
+      this.selectedDate &&
+      !this.filteredRequests.some((r) => r.date?.slice(0, 10) === this.selectedDate)
+    ) {
+      this.calendarDate = null;
+      this.selectedDate = '';
+    }
+
     this.currentPage = 1;
     this.updateUpcomingPagination();
   }
@@ -124,18 +156,17 @@ export class Appointments implements OnInit {
     if (!r.date) return false;
     const today = new Date();
     const target = new Date(r.date);
-    // strip time by comparing yyyy-mm-dd
     const todayStr = this.formatDateToString(today);
     const targetStr = this.formatDateToString(target);
     return targetStr < todayStr;
   }
 
   get pastAppointments(): (GetRequests & { showActions?: boolean })[] {
-    return this.filteredRequests.filter(r => this.isPastAppointment(r));
+    return this.filteredRequests.filter((r) => this.isPastAppointment(r));
   }
 
   get upcomingAppointments(): (GetRequests & { showActions?: boolean })[] {
-    return this.filteredRequests.filter(r => !this.isPastAppointment(r));
+    return this.filteredRequests.filter((r) => !this.isPastAppointment(r));
   }
 
   updateUpcomingPagination(): void {
@@ -151,7 +182,8 @@ export class Appointments implements OnInit {
   }
 
   getPageNumbers(): number[] {
-    return Array.from({ length: Math.ceil(this.upcomingAppointments.length / this.pageSize) }, (_, i) => i + 1);
+    const total = Math.ceil(this.upcomingAppointments.length / this.pageSize);
+    return total > 0 ? Array.from({ length: total }, (_, i) => i + 1) : [];
   }
 
   onSearchChange(): void {
@@ -173,14 +205,15 @@ export class Appointments implements OnInit {
     this.applyFilters();
   }
 
-  // highlight days that have appointments
   dateClass: MatCalendarCellClassFunction<Date> = (date: Date) => {
     const dateStr = this.formatDateToString(date);
-    const has = this.adviceRequests.some(r => r.date?.slice(0, 10) === dateStr);
+    const has = this.adviceRequests.some((r) => r.date?.slice(0, 10) === dateStr);
     return has ? 'has-appointment' : '';
   };
 
   filterDates = (date: Date | null): boolean => {
-    return true;
+    if (!date) return false;
+    const dateStr = this.formatDateToString(date);
+    return this.adviceRequests.some((r) => r.date?.slice(0, 10) === dateStr);
   };
 }

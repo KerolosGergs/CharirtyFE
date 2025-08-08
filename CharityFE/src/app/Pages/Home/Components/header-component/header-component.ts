@@ -4,11 +4,13 @@ import { MainButton } from "../../../../Shared/main-button/main-button";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServ } from '../../../../Auth/Services/auth-serv';
-import { NgClass } from '@angular/common';
+import { DatePipe, NgClass } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
+import localeAr from '@angular/common/locales/ar';
 
 @Component({
   selector: 'app-header-component',
-  imports: [MainButton,FontAwesomeModule ,RouterLink,NgClass],
+  imports: [MainButton,FontAwesomeModule ,RouterLink,NgClass,DatePipe],
   templateUrl: './header-component.html',
   styleUrl: './header-component.scss'
 })
@@ -20,6 +22,7 @@ export class HeaderComponent implements OnInit {
     Role = this.AuthSer.getRole();
     accountName = this.AuthSer.getUserName();
       // accountName = 'اسم المستخدم'; // Replace with actual account name or fetch from service
+  currentDateTime: Date = new Date(); // This will hold the current date and time
 
 ngOnInit(): void {
  

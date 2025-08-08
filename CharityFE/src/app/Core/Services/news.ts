@@ -35,28 +35,34 @@ export class newsservice {
    
 
          element.imageUrl=`${this._environment.ImgUrl}${element.imageUrl}`
+         element.imageUrls = element.imageUrls.map(imageUrl => 
+          `${this._environment.ImgUrl}${imageUrl}`
+        );
        });
              return data;
           }),        
     );
   }
 
-  getActiveNews(): Observable<INewsResponse> {
-    const url = `${this._baseUrl}News/active`;
-    // console.log('Calling getAllAdvisors with URL:', url);   
-    return this._httpClient.get<INewsResponse>(url).pipe(
-      map(data => {
-       data.data.forEach(element => {
-         
-         element.imageUrl=`${this._environment.ImgUrl}${element.imageUrl}`
-       });
-             return data;
-          }),        
-    );
-  }
+getActiveNews(): Observable<INewsResponse> {
+  const url = `${this._baseUrl}News/active`;
+
+  return this._httpClient.get<INewsResponse>(url).pipe(
+    map(data => {
+      data.data.forEach(element => {
+        element.imageUrl = `${this._environment.ImgUrl}${element.imageUrl}`;
+        element.imageUrls = element.imageUrls.map(imageUrl => 
+          `${this._environment.ImgUrl}${imageUrl}`
+        );
+      });
+      return data;
+    })
+  );
+}
+
  createNewNews(AddNew: FormData): Observable<INewsResponse> {
-      const user = this.Auth.getUser();
-      const url = `${this._baseUrl}News?adminId=${user['id']}`;
+      const ID = this.Auth.getUserID();
+      const url = `${this._baseUrl}News?adminId=${ID}`;
       return this._httpClient.post<INewsResponse>(url, AddNew);
     }
 updateNews(id: number, data: FormData): Observable<{ success: boolean }> {
@@ -67,12 +73,22 @@ getNewsById(id: number): Observable<{ data: NewsArticle }> {
   return this._httpClient.get<{ data: NewsArticle }>(`${this._baseUrl}News/${id}`).pipe(
     map(data => {
       data.data.imageUrl = `${this._environment.ImgUrl}${data.data.imageUrl}`;
+
+      data.data.imageUrls = data.data.imageUrls.map(imageUrl => 
+        `${this._environment.ImgUrl}${imageUrl}`
+      );
+
       return data;
     })
   );
 }
+
 deletenews(id: number): Observable<{ success: boolean }> {
   return this._httpClient.delete<{ success: boolean }>(`${this._baseUrl}News/${id}`);
+}
+DeleteImage(id:number,imgUrl :string): Observable<{ success: boolean }> {
+  const transformedUrl = imgUrl.replace(/^https?:\/\/[^\/]+\/\//, '/').replace(/\\/g, '/');
+  return this._httpClient.delete<{ success: boolean }>(`${this._baseUrl}News/${id}/images?imageUrl=${transformedUrl}`);
 }
 
   constructor() { }
