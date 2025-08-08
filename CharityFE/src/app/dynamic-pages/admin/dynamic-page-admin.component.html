@@ -66,6 +66,9 @@
               <button type="button" class="btn btn-outline-primary" (click)="addFileItem()">
                 <i class="fas fa-file"></i> إضافة ملف
               </button>
+              <button type="button" class="btn btn-outline-primary" (click)="addVideoItem()">
+                <i class="fas fa-video"></i> إضافة فيديو
+              </button>
             </div>
           </div>
 
@@ -135,6 +138,29 @@
                     (change)="onFileSelected($event, i)"
                   >
                   <small class="form-text text-muted">يدعم: PDF, DOC, DOCX, JPG, PNG (الحد الأقصى: 10MB)</small>
+                </div>
+              </div>
+
+              <!-- Video Item -->
+              <div *ngIf="item.get('type')?.value === 'video'" class="item-content">
+                <div class="form-group">
+                  <label>عنوان الفيديو</label>
+                  <input 
+                    type="text" 
+                    formControlName="content" 
+                    class="form-control"
+                    placeholder="أدخل عنوان الفيديو"
+                  >
+                </div>
+                <div class="form-group">
+                  <label>رابط الفيديو</label>
+                  <input 
+                    type="url" 
+                    formControlName="videoUrl" 
+                    class="form-control"
+                    placeholder="أدخل رابط الفيديو (YouTube, Vimeo, etc.)"
+                  >
+                  <small class="form-text text-muted">يدعم: YouTube, Vimeo, وغيرها من منصات الفيديو</small>
                 </div>
               </div>
             </div>
@@ -303,6 +329,20 @@
                   <p class="mb-0 text-muted small" *ngIf="item.fileName">{{ item.fileName }}</p>
                   <a *ngIf="item.fileUrl" [href]="item.fileUrl" target="_blank" class="btn btn-sm btn-outline-primary">
                     <i class="fas fa-download me-1"></i>تحميل الملف
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Video Content -->
+            <div *ngIf="item.type === 'video'" class="content-preview">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-video me-2 text-primary"></i>
+                <div>
+                  <p class="mb-1"><strong>{{ item.content }}</strong></p>
+                  <p class="mb-0 text-muted small" *ngIf="item.videoUrl">{{ item.videoUrl }}</p>
+                  <a *ngIf="item.videoUrl" [href]="item.videoUrl" target="_blank" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-play-circle me-1"></i>مشاهدة الفيديو
                   </a>
                 </div>
               </div>

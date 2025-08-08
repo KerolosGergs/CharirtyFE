@@ -9,6 +9,7 @@ import { VideoSection } from "../Components/video-section/video-section";
 import { News } from "../Components/news/news";
 import { Spinner } from '../../../Shared/spinner/spinner';
 import { NotFound } from "../../not-found/not-found";
+
 @Component({
   selector: 'app-home',
   imports: [Nav, Hero, HeaderComponent, Footer, Content, VideoSection, News, Spinner, NotFound],

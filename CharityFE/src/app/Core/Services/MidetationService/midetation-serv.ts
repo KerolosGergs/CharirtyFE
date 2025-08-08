@@ -29,7 +29,7 @@ export class MidetationServ {
       );
     }
     createNewMidetation(Midetation: FormData): Observable<IMeditationResponse> {
-      debugger
+      
       const url = `${this._baseUrl}Mediation`;
       return this._httpClient.post<IMeditationResponse>(url, Midetation);
     }

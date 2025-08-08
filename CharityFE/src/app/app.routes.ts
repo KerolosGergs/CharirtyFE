@@ -9,12 +9,14 @@ import { RequestRepair } from './Pages/Forms/Components/request-repair/request-r
 import { MedcineGeneralDefinition } from './Pages/sid-components/Medcine_service/components/medcine-general-definition/medcine-general-definition';
 import { BlankPage } from './Pages/blank-page/blank-page';
 import { DynamicPageAdminComponent } from './dynamic-pages/admin/dynamic-page-admin.component';
+import { DynamicPageViewerComponent } from './dynamic-pages/components/dynamic-page-viewer/dynamic-page-viewer.component';
 // import { Achive } from './Pages/achievements-communication/achive/achive';
 
 export const routes: Routes = [
     { path: '', loadComponent: () => import('./Pages/Home/home/home').then(m => m.Home), title: 'Home' },
     { path: 'login', component: LoginForm },
     { path: 'dynamic-page-admin', component: DynamicPageAdminComponent },
+    { path: 'dynamic-page/:id', component: DynamicPageViewerComponent, title: 'Dynamic Page' },
 
     
     { path: 'register', component: RegisterForm },
