@@ -71,7 +71,7 @@ export class DynamicPageViewerComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  getItemsByType(type: 'text' | 'image_text' | 'file'): ContentItem[] {
+  getItemsByType(type: 'text' | 'image_text' | 'file' | 'video'): ContentItem[] {
     return this.items.filter(item => item.type === type);
   }
 
@@ -93,6 +93,41 @@ export class DynamicPageViewerComponent implements OnInit, OnDestroy {
     const selectedFile = fileItems[this.selectedFileIndex];
     const fileUrl = this.normalizeUrl(selectedFile.fileUrl);
     return this.sanitizer.bypassSecurityTrustResourceUrl(fileUrl);
+  }
+
+  getVideoEmbedUrl(videoUrl: string): SafeResourceUrl {
+    if (!videoUrl) {
+      return this.sanitizer.bypassSecurityTrustResourceUrl('');
+    }
+
+    // Convert YouTube URL to embed URL
+    if (videoUrl.includes('youtube.com/watch') || videoUrl.includes('youtu.be/')) {
+      let videoId = '';
+      
+      if (videoUrl.includes('youtube.com/watch')) {
+        const urlParams = new URLSearchParams(videoUrl.split('?')[1]);
+        videoId = urlParams.get('v') || '';
+      } else if (videoUrl.includes('youtu.be/')) {
+        videoId = videoUrl.split('youtu.be/')[1];
+      }
+      
+      if (videoId) {
+        const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+        return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+      }
+    }
+    
+    // Convert Vimeo URL to embed URL
+    if (videoUrl.includes('vimeo.com/')) {
+      const videoId = videoUrl.split('vimeo.com/')[1];
+      if (videoId) {
+        const embedUrl = `https://player.vimeo.com/video/${videoId}`;
+        return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+      }
+    }
+    
+    // For other video URLs, return as is (if they support direct embedding)
+    return this.sanitizer.bypassSecurityTrustResourceUrl(videoUrl);
   }
 
   normalizeUrl(url?: string): string {

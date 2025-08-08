@@ -99,6 +99,35 @@
         </div>
       </div>
 
+      <!-- Video Items Section - Like video-section design -->
+      <div class="mb-4" *ngIf="getItemsByType('video').length > 0">
+        <h3 class="fw-bold text-success mb-4 text-center">
+          <i class="bi bi-play-circle me-2"></i> الفيديوهات
+        </h3>
+        <div class="row g-4">
+          <div class="col-12" *ngFor="let item of getItemsByType('video'); let i = index">
+            <div class="card vision-mission-card animate__animated animate__fadeInUp">
+              <div class="card-body">
+                <h4 class="card-title text-success mb-3">
+                  <i class="bi bi-play-circle me-2"></i> {{ item.content }}
+                </h4>
+                <div class="video-container" *ngIf="item.videoUrl">
+                  <div class="ratio ratio-16x9">
+                    <iframe 
+                      [src]="getVideoEmbedUrl(item.videoUrl)" 
+                      class="video-iframe"
+                      frameborder="0" 
+                      allowfullscreen
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    ></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </ng-container>
   </div>
   

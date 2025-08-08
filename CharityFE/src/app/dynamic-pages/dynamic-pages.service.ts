@@ -7,11 +7,12 @@ import { ApiRoutes } from '../Core/Config/api-routes.config';
 export interface ContentItem {
   id?: number;
   dynamicPageId?: number;
-  type: 'text' | 'image_text' | 'file';
+  type: 'text' | 'image_text' | 'file' | 'video';
   content: string;
   imageUrl?: string;
   fileUrl?: string;
   fileName?: string;
+  videoUrl?: string;
   order: number;
   createdAt?: Date;
   updatedAt?: Date;
@@ -39,11 +40,12 @@ export interface CreateDynamicPageDto {
 }
 
 export interface CreateContentItemDto {
-  type: 'text' | 'image_text' | 'file';
+  type: 'text' | 'image_text' | 'file' | 'video';
   content: string;
   imageUrl?: string;
   fileUrl?: string;
   fileName?: string;
+  videoUrl?: string;
   order: number;
 }
 
@@ -57,11 +59,12 @@ export interface UpdateDynamicPageDto {
 export interface UpdateContentItemDto {
   id?: number; // null for new items
   dynamicPageId?: number;
-  type: 'text' | 'image_text' | 'file';
+  type: 'text' | 'image_text' | 'file' | 'video';
   content: string;
   imageUrl?: string;
   fileUrl?: string;
   fileName?: string;
+  videoUrl?: string;
   order: number;
 }
 

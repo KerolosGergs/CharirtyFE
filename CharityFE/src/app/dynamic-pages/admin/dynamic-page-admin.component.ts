@@ -101,6 +101,16 @@ export class DynamicPageAdminComponent implements OnInit {
     this.itemsArray.push(fileItem);
   }
 
+  addVideoItem() {
+    const videoItem = this.fb.group({
+      type: ['video'],
+      content: ['', Validators.required],
+      videoUrl: ['', Validators.required],
+      order: [0]
+    });
+    this.itemsArray.push(videoItem);
+  }
+
   removeItem(index: number) {
     this.itemsArray.removeAt(index);
   }
@@ -163,6 +173,7 @@ export class DynamicPageAdminComponent implements OnInit {
             imageUrl: item.imageUrl,
             fileUrl: item.fileUrl,
             fileName: item.fileName,
+            videoUrl: item.videoUrl,
             order: i
           });
         }
@@ -252,6 +263,7 @@ export class DynamicPageAdminComponent implements OnInit {
           imageUrl: [item.imageUrl || ''],
           fileUrl: [item.fileUrl || ''],
           fileName: [item.fileName || ''],
+          videoUrl: [item.videoUrl || ''],
           order: [item.order]
         });
         this.itemsArray.push(itemGroup);
@@ -331,6 +343,7 @@ export class DynamicPageAdminComponent implements OnInit {
       case 'text': return 'نص';
       case 'image_text': return 'صورة مع نص';
       case 'file': return 'ملف';
+      case 'video': return 'فيديو';
       default: return type;
     }
   }
