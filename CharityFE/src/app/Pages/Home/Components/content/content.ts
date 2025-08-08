@@ -11,7 +11,7 @@ interface Card {
 }
 @Component({
   selector: 'app-content',
-  imports: [NgStyle, NgClass, RouterLink],
+  imports: [NgStyle, NgClass],
   templateUrl: './content.html',
   styleUrl: './content.scss'
 })
