@@ -228,7 +228,7 @@
               </td>
               <td>
                 <span 
-                  class="badge" 
+                  class="badge text-success fw-bold " 
                   [class.badge-success]="page.isActive" 
                   [class.badge-secondary]="!page.isActive"
                 >
@@ -262,9 +262,10 @@
                     [class.btn-outline-success]="!page.isActive"
                     [class.btn-outline-warning]="page.isActive"
                     (click)="toggleActive(page.id!)"
+                    
                     [title]="page.isActive ? 'إلغاء التفعيل' : 'تفعيل'"
                   >
-                    <i class="fas" [class.fa-toggle-on]="page.isActive" [class.fa-toggle-off]="!page.isActive"></i>
+                    <i class="fas" [class.fa-toggle-on]="page.isActive" [class.fa-toggle-off]="!page.isActive">{{page.isActive ? 'إلغاء التفعيل' : 'تفعيل'}}</i>
                   </button>
                   <button 
                     type="button" 

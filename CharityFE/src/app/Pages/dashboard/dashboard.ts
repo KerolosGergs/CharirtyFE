@@ -25,10 +25,12 @@ export class Dashboard {
     { label: 'طلبات التطوع', icon: 'bi bi-file-text', link: '/dashboard/dashboard-Volunteer', active: false },
     { label: 'الاخبار', icon: 'bi bi-newspaper', link: '/dashboard/dashboard-news', active: false },
     { label: 'التوعية', icon: 'bi bi-book-half', link: '/dashboard/dashboard-awareness', active: false },
-    { label: 'الخدمات', icon: 'bi bi-life-preserver', link: '/dashboard/dashboard-services', active: false },
+    // { label: 'الخدمات', icon: 'bi bi-life-preserver', link: '/dashboard/dashboard-services', active: false },
     { label: 'إضافة مشرف', icon: 'bi bi-people', link: '/dashboard/Add-Admin', active: false },
     {label:'مكتبة الصور والفيديوهات',icon:'bi bi-image',link:'/dashboard/libraryControll',active:false},
     {label:'إعدادت الصفحه الرئيسية',icon:'bi bi-diagram-3',link:'/dashboard/Dashboard-HomePage',active:false},
+    {label:'الصفحات الاضافيه',icon:'bi bi-diagram-3',link:'/dashboard/dynamic-pages',active:false},
+
     // { label: 'أقسام الموقع', icon: 'bi bi-diagram-3', link: '/dashboard', active: false },
   ];
   searchOn = false;
