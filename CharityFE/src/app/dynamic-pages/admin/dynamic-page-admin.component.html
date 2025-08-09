@@ -205,6 +205,7 @@
           <thead>
             <tr>
               <th>#</th>
+              <th>Url</th>
               <th>عنوان الصفحة</th>
               <th>الوصف</th>
               <th>الحالة</th>
@@ -216,6 +217,7 @@
           <tbody>
             <tr *ngFor="let page of pages; let i = index">
               <td>{{ i + 1 }}</td>
+              <td>{{"/dynamic-page/"+page.id}}</td>
               <td>
                 <strong>{{ page.pageName }}</strong>
                 <div *ngIf="page.slug" class="text-muted small">/{{ page.slug }}</div>
@@ -239,7 +241,7 @@
               <td>{{ page.createdAt | date:'short' }}</td>
               <td>
                 <div class="btn-group" role="group">
-                  <button 
+                  <!-- <button 
                     type="button" 
                     class="btn btn-sm btn-outline-info" 
                     (click)="viewItems(page)"
@@ -247,7 +249,7 @@
                     *ngIf="page.items && page.items.length > 0"
                   >
                     <i class="fas fa-eye">عرض</i>
-                  </button>
+                  </button> -->
                   <button 
                     type="button" 
                     class="btn btn-sm btn-outline-primary" 
@@ -256,7 +258,7 @@
                   >
                     <i class="fas fa-edit">تعديل</i>
                   </button>
-                  <button 
+                  <!-- <button 
                     type="button" 
                     class="btn btn-sm" 
                     [class.btn-outline-success]="!page.isActive"
@@ -266,7 +268,7 @@
                     [title]="page.isActive ? 'إلغاء التفعيل' : 'تفعيل'"
                   >
                     <i class="fas" [class.fa-toggle-on]="page.isActive" [class.fa-toggle-off]="!page.isActive">{{page.isActive ? 'إلغاء التفعيل' : 'تفعيل'}}</i>
-                  </button>
+                  </button> -->
                   <button 
                     type="button" 
                     class="btn btn-sm btn-outline-danger" 

@@ -3,9 +3,9 @@ export class Environment {
   // If your backend runs on a different port, update this URL
   // static apiUrl: string= 'https://localhost:7121/api/';
   // static ImgUrl: string= 'https://localhost:7121/';
-  // static apiUrl :string = 'http://charitybe.runasp.net/api/';
-  // static ImgUrl :string = 'http://charitybe.runasp.net/';
-  static apiUrl: string= 'https://localhost:7121/api/';
-  static ImgUrl: string= 'https://localhost:7121/';
+  static apiUrl :string = 'http://charitybe.runasp.net/api/';
+  static ImgUrl :string = 'http://charitybe.runasp.net/';
+  // static apiUrl: string= 'https://localhost:7121/api/';
+  // static ImgUrl: string= 'https://localhost:7121/';
 
 }

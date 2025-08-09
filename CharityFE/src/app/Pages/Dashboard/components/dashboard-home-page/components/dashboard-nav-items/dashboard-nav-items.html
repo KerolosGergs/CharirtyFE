@@ -1,0 +1,171 @@
+<div class="container py-4 nav-manager animate__animated animate__fadeIn">
+  <h2 class="mb-3 text-center fs-5 fw-bold">إدارة عناصر القائمة</h2>
+
+  <!-- ====== Nav Item Form ====== -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title mb-3 fs-5 fw-bold">
+        @if (editingNavIndex() === null) { إضافة عنصر جديد } @else { تعديل عنصر قائمة }
+      </h5>
+
+      <form [formGroup]="navForm" (ngSubmit)="submitNav()">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="label">العنوان</label>
+              <div class="input-wrapper">
+                <i class="bi bi-tag input-icon"></i>
+                <input id="label" type="text" class="form-control" formControlName="label" placeholder="عنوان القائمة" />
+              </div>
+              @if (fNav.label.touched && fNav.label.invalid) {
+                <span class="text-danger small">العنوان مطلوب ولا يزيد عن 100 حرف</span>
+              }
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="href">الرابط</label>
+              <div class="input-wrapper">
+                <i class="bi bi-link-45deg input-icon"></i>
+                <input id="href" type="text" class="form-control" formControlName="href" placeholder="/example" />
+              </div>
+              @if (fNav.href.touched && fNav.href.invalid) {
+                <span class="text-danger small">الرابط مطلوب ولا يزيد عن 200 حرف</span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-3">
+          <button class="btn btn-primary" type="submit">
+            @if (editingNavIndex() === null) { <span>إضافة</span> } @else { <span>تحديث</span> }
+          </button>
+          @if (editingNavIndex() !== null) {
+            <button type="button" class="btn btn-secondary" (click)="cancelEditNav()">إلغاء</button>
+          }
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====== Nav Items List ====== -->
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title mb-0 fs-5 fw-bold">عناصر القائمة</h5>
+            @if (loading()) { <div class="spinner-border spinner-border-sm"></div> }
+          </div>
+
+          <div class="list-group">
+            @for (item of navItems(); track $index) {
+              <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                <div>
+                  <div class="fw-bold">{{ item.label }}</div>
+                  <small class="text-muted">{{ item.href }}</small>
+                </div>
+                <div class="btns d-flex gap-2">
+                  <button class="btn btn-sm btn-outline-success" (click)="loadPagesFor(item)">
+                    الصفحات
+                  </button>
+                  <button class="btn btn-sm btn-outline-primary" (click)="startEditNav($index)">
+                    تعديل
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteNav($index)">
+                    حذف
+                  </button>
+                </div>
+              </div>
+            }
+            @if (navItems().length === 0) {
+              <div class="text-center text-muted py-4">لا توجد عناصر بعد</div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== Pages Panel ====== -->
+    <div class="col-lg-6 mt-4 mt-lg-0">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="card-title mb-0 fs-5 fw-bold">
+              @if (selectedNav()) {
+                الصفحات: <span class="text-primary">{{ selectedNav()!.label }}</span>
+              } @else {
+                اختر عنصر قائمة
+              }
+            </h5>
+          </div>
+
+          <!-- Page Form -->
+          @if (selectedNav()) {
+            <form [formGroup]="pageForm" (ngSubmit)="submitPage()" class="mb-3">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="subTilte">العنوان الفرعي</label>
+                    <div class="input-wrapper">
+                      <i class="bi bi-file-text input-icon"></i>
+                      <input id="subTilte" type="text" class="form-control" formControlName="subTilte" placeholder="العنوان الفرعي" />
+                    </div>
+                    @if (fPage.subTilte.touched && fPage.subTilte.invalid) {
+                      <span class="text-danger small">المجال مطلوب ولا يزيد عن 100 حرف</span>
+                    }
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="subLink">الرابط الفرعي</label>
+                    <div class="input-wrapper">
+                      <i class="bi bi-link input-icon"></i>
+                      <input id="subLink" type="text" class="form-control" formControlName="subLink" placeholder="/child" />
+                    </div>
+                    @if (fPage.subLink.touched && fPage.subLink.invalid) {
+                      <span class="text-danger small">الرابط مطلوب ولا يزيد عن 200 حرف</span>
+                    }
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-success" type="submit">
+                  @if (editingPageIndex() === null) { <span>إضافة صفحة</span> } @else { <span>تحديث صفحة</span> }
+                </button>
+                @if (editingPageIndex() !== null) {
+                  <button type="button" class="btn btn-secondary" (click)="cancelEditPage()">إلغاء</button>
+                }
+              </div>
+            </form>
+          }
+
+          <!-- Pages List -->
+          @if (selectedNav()) {
+            <div class="list-group">
+              @for (pg of pages(); track $index) {
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div>
+                    <div class="fw-bold">{{ pg.subTilte }}</div>
+                    <small class="text-muted">{{ pg.subLink }}</small>
+                    
+                  </div>
+                  <div class="btns d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-primary" (click)="startEditPage($index)">تعديل</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="deletePage($index)">حذف</button>
+                  </div>
+                </div>
+              }
+              @if (pages().length === 0) {
+                <div class="text-center text-muted py-4">لا توجد صفحات</div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

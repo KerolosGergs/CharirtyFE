@@ -26,10 +26,13 @@
             <option value="1">نوع 1</option>
           </select>
         </div>
+          @if(selectedDate)
+          {
+            <p >
+              <strong>التاريخ المختار:</strong> {{ selectedDate }}
+            </p>
 
-        <p *ngIf="selectedDate">
-          <strong>التاريخ المختار:</strong> {{ selectedDate }}
-        </p>
+          }
       </div>
     </div>
   </div>
@@ -42,45 +45,47 @@
       <div *ngIf="upcomingAppointments.length === 0" class="text-center text-muted py-4">
         لا توجد مواعيد قادمة لعرضها.
       </div>
+      @if (upcomingAppointments.length>0) {
 
-      <div *ngIf="upcomingAppointments.length > 0">
-        <div class="scrollable-slider">
-          <article class="card mb-3" *ngFor="let appt of paginatedUpcoming">
-            <div class="card-body">
-              <p><strong>اسم المستخدم:</strong> {{ appt.userFullName }}</p>
-              <p><strong>نوع الاستشارة:</strong> {{ appt.consultationName }}</p>
-              <p>
-                <i class="bi bi-calendar"></i>
-                {{ appt.date | date: 'd MMMM y' : '' : 'ar' }}
-              </p>
-              <p><i class="bi bi-clock"></i> {{ appt.time }}</p>
-              <p><i class="bi bi-hourglass"></i> {{ appt.duration }} دقيقة</p>
-              <p>{{ appt.notes }}</p>
-
-              <!-- <div class="mt-2 d-flex gap-2">
-                <button (click)="confirmRequest(appt.id)" class="btn btn-sm btn-success">
-                  تأكيد
-                </button>
-                <button (click)="deleteRequest(appt.id)" class="btn btn-sm btn-danger">
-                  حذف
-                </button>
-              </div> -->
-            </div>
-          </article>
+        <div >
+          <div class="scrollable-slider">
+            <article class="card mb-3" *ngFor="let appt of paginatedUpcoming">
+              <div class="card-body">
+                <p><strong>اسم المستخدم:</strong> {{ appt.userFullName }}</p>
+                <p><strong>نوع الاستشارة:</strong> {{ appt.consultationName }}</p>
+                <p>
+                  <i class="bi bi-calendar"></i>
+                  {{ appt.date | date: 'd MMMM y' : '' : 'ar' }}
+                </p>
+                <p><i class="bi bi-clock"></i> {{ appt.time }}</p>
+                <p><i class="bi bi-hourglass"></i> {{ appt.duration }} دقيقة</p>
+                <p>{{ appt.notes }}</p>
+  
+                <!-- <div class="mt-2 d-flex gap-2">
+                  <button (click)="confirmRequest(appt.id)" class="btn btn-sm btn-success">
+                    تأكيد
+                  </button>
+                  <button (click)="deleteRequest(appt.id)" class="btn btn-sm btn-danger">
+                    حذف
+                  </button>
+                </div> -->
+              </div>
+            </article>
+          </div>
+  
+          <!-- pagination -->
+          <div class="d-flex justify-content-center gap-1 mt-3">
+            <button
+              *ngFor="let p of getPageNumbers()"
+              [class.active]="p === currentPage"
+              (click)="changePage(p)"
+              class="btn btn-outline-primary btn-sm"
+            >
+              {{ p }}
+            </button>
+          </div>
         </div>
-
-        <!-- pagination -->
-        <div class="d-flex justify-content-center gap-1 mt-3">
-          <button
-            *ngFor="let p of getPageNumbers()"
-            [class.active]="p === currentPage"
-            (click)="changePage(p)"
-            class="btn btn-outline-primary btn-sm"
-          >
-            {{ p }}
-          </button>
-        </div>
-      </div>
+      }
     </div>
   </div>
 

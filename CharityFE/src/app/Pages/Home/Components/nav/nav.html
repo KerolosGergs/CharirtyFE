@@ -11,37 +11,62 @@
     <div class="collapse navbar-collapse" id="navbarNav" [class.show]="!isMenuCollapsed">
       <ul class="navbar-nav justify-content-center w-100 py-2 flex-wrap">
         @for (item of navigationItems; track $index; let i = $index) {
-        <li class="nav-item dropdown mx-2 fs-5" [class.show]="item === activeItem"
-          (mouseenter)="isDesktop() ? activeItem = item : null" (mouseleave)="isDesktop() ? activeItem = null : null"
-          (click)="onMobileItemClick(item)">
-          <a class="nav-link text-white" [class.dropdown-toggle]="item.subLibels.length > 0"
-            [routerLink]="item.href" role="button" [attr.aria-expanded]="item === activeItem"
-            (click)="onNavigationClick(item)">
-            {{ item.label }}
-          </a>
+  <li class="nav-item dropdown mx-2 fs-5"
+      [class.show]="item === activeItem"
+      (mouseenter)="isDesktop() ? activeItem = item : null"
+      (mouseleave)="isDesktop() ? activeItem = null : null"
+      (click)="onMobileItemClick(item)">
 
-          <!-- Sub-menu -->
-          @if (item.subLibels.length > 0) {
-          <ul class="dropdown-menu custom-dropdown mt-1" [class.show]="item === activeItem">
-            @for (subItem of item.subLibels; track $index) {
-            <li>
-              @if (item.label === 'المشاركة في الدعم' && subItem.subTitle === 'الحصول على الخدمة') {
-              <a class="dropdown-item d-flex align-items-center gap-2" [href]="subItem.subLink">
-                <i class="bi bi-box-arrow-in-left"></i>
-                {{ subItem.subTitle }}
-              </a>
-              } @else {
-              <a class="dropdown-item d-flex align-items-center gap-2" [routerLink]="subItem.subLink">
+    <!-- TOP-LEVEL LINK -->
+    @if (!isExternalLink(item.href)) {
+      <a class="nav-link text-white"
+         [class.dropdown-toggle]="item.pages!.length > 0"
+         [routerLink]="item.href"
+         role="button"
+         [attr.aria-expanded]="item === activeItem"
+         (click)="onNavigationClick(item, $event)">
+        {{ item.label }}
+      </a>
+    } @else {
+      <a class="nav-link text-white"
+         [class.dropdown-toggle]="item.pages!.length > 0"
+         [href]="toAbsolute(item.href)"
+         target="_blank"
+         rel="noopener noreferrer"
+         role="button"
+         [attr.aria-expanded]="item === activeItem"
+         (click)="onNavigationClick(item, $event)">
+        {{ item.label }}
+      </a>
+    }
+
+    <!-- SUB-MENU -->
+    @if (item.pages!.length > 0) {
+      <ul class="dropdown-menu custom-dropdown mt-1" [class.show]="item === activeItem">
+        @for (subItem of item.pages; track $index) {
+          <li>
+            @if (!isExternalLink(subItem.subLink)) {
+              <a class="dropdown-item d-flex align-items-center gap-2"
+                 [routerLink]="subItem.subLink">
                 <i class="bi bi-file-text"></i>
-                {{ subItem.subTitle }}
+                {{ subItem.subTilte }}
               </a>
-              }
-            </li>
+            } @else {
+              <a class="dropdown-item d-flex align-items-center gap-2"
+                 [href]="toAbsolute(subItem.subLink)"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                <i class="bi bi-box-arrow-up-right"></i>
+                {{ subItem.subTilte }}
+              </a>
             }
-          </ul>
-          }
-        </li>
+          </li>
         }
+      </ul>
+    }
+  </li>
+}
+
       </ul>
     </div>
   </div>

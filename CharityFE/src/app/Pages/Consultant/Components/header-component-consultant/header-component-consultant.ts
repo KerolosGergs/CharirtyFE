@@ -12,4 +12,5 @@ export class HeaderComponentConsultant {
 
   title=input<string>();
   description=input<string>();
+  @Input()ImgUrl:string ="";
 }

@@ -5,7 +5,8 @@
   <app-header-component-consultant
     title="نسعى للصلح... لننعم جميعًا بالأمان والسكينة"
     description="في سعينا لبناء مجتمع مطمئن ومتآلف، نعمل على إصلاح ذات البين وحل النزاعات الأسرية والاجتماعية بروح المحبة والحكمة."
-  ></app-header-component-consultant>
+    ImgUrl="RequestRapair.jpg"
+    ></app-header-component-consultant>
 
   <div class="help-container animate__animated animate__fadeInUp">
     <div class="page-header text-center mb-4">
@@ -20,23 +21,30 @@
           </div>
 
           <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-            <div class="form-group mb-3" *ngFor="let field of formFields">
-              <label [for]="field.id">{{ field.label }}</label>
-              <div class="position-relative">
-                <input
-                  class="form-control pe-5"
-                  [id]="field.id"
-                  [type]="field.type"
-                  [placeholder]="field.placeholder"
-                  [formControlName]="field.id"
-                />
-                <i
-                  class="bi input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"
-                  [ngClass]="field.iconClass"
-                ></i>
+            @for (field of formFields; track $index) {
+              <div class="form-group mb-3" >
+                <label [for]="field.id">{{ field.label }}</label>
+                <div class="position-relative">
+                  <input
+                    class="form-control pe-5"
+                    [id]="field.id"
+                    [type]="field.type"
+                    [placeholder]="field.placeholder"
+                    [formControlName]="field.id"
+                  />
+                  <i
+                    class="bi input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"
+                    [ngClass]="field.iconClass"
+                  ></i>
+                </div>
+                @if(hasError(field.id))
+                {
+                  <span class="text-danger small">{{ getErrorMessage(field.id) }}</span>
+
+                }
               </div>
-              <span class="text-danger small" *ngIf="hasError(field.id)">{{ getErrorMessage(field.id) }}</span>
-            </div>
+
+            }
 
             <div class="form-group mb-3">
               <label [for]="messageField.id">{{ messageField.label }}</label>
@@ -49,7 +57,10 @@
                 rows="4"
               ></textarea>
               <div class="d-flex justify-content-between mt-1">
-                <span class="text-danger small" *ngIf="hasError('message')">{{ getErrorMessage('message') }}</span>
+                @if(hasError('message')){
+
+                  <span class="text-danger small" >{{ getErrorMessage('message') }}</span>
+                }
                 <small class="text-muted">{{ messageCharacterCount }}/{{ messageField.maxLength }}</small>
               </div>
             </div>

@@ -1,0 +1,40 @@
+.nav-manager {
+  direction: rtl;
+}
+
+.card-title {
+  font-weight: 700;
+}
+
+.input-wrapper {
+  position: relative;
+
+  .input-icon {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 1.1rem;
+  }
+
+  input.form-control {
+    padding-inline-start: 2rem; /* مساحة للأيقونة */
+  }
+}
+
+.list-group-item {
+  border-radius: 10px;
+  margin-bottom: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+  }
+}
+
+/* UPDATED: زرار واضح */
+.btns .btn {
+  min-width: 72px;
+}

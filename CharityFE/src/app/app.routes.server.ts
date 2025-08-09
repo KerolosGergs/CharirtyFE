@@ -42,4 +42,12 @@ export const serverRoutes: ServerRoute[] = [
     path: 'achive',
     renderMode: RenderMode.Client
   },
+  {
+    path: 'dynamic-page/:id',
+    renderMode: RenderMode.Client
+  },
+  {
+    path: 'news-details/:id',
+    renderMode: RenderMode.Client
+  }
 ];

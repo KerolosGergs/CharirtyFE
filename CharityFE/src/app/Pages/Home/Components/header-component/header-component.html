@@ -4,9 +4,11 @@
 
       <!-- Logo -->
       <div class="col-6 col-md-2 col-lg-1 text-center text-md-start mb-2 mb-md-0">
-        <div class="logo-section">
+        <a class="text-decoration-none p-0 m-0 " routerLink="/home">
+       <div class="logo-section">
           <img src="Images/img1.png" class="my-1" width="70" height="80" alt="Logo">
         </div>
+          </a>
       </div>
 
       <!-- Contact Info -->
@@ -16,13 +18,13 @@
             <div class="icon-bg rounded-circle px-2 ms-2">
               <i class="bi bi-envelope-fill text-success fs-5"></i>
             </div>
-            <span class="ms-1">456-7890 (123)</span>
+            <span class="ms-1" [innerText]=`info@jkmm.org.sa`></span>
           </div>
           <div class="contact-item d-flex align-items-center justify-content-center">
             <div class="icon-bg rounded-circle px-2 ms-2">
               <i class="bi bi-telephone-fill  text-success fs-5"></i>
             </div>
-            <span class="ms-1">456-7890 (123)</span>
+            <span class="ms-1">5451531(012)</span>
           </div>
         </div>
       </div>

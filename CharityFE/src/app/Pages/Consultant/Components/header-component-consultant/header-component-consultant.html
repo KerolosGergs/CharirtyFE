@@ -13,17 +13,21 @@
       <!-- Image Block -->
       <div class="image-block col-12 col-lg-6 d-flex">
         <div class="image-inner d-flex flex-row w-100">
+          @if (ImgUrl!="") {
+            <img [src]="ImgUrl">
+          }@else {
 
-          <!-- Half Width Image -->
-          <div class="half-img">
-            <img src="Images/advisorHead1.jpg" alt="" />
-          </div>
-
-          <!-- Two Quarter Images Stacked -->
-          <div class="quarter-img d-flex flex-column">
-            <img src="Images/advisorHead2.jpg" alt="" />
-            <img src="Images/advisorHead3.jpg" alt="" />
-          </div>
+            <!-- Half Width Image -->
+            <div class="half-img">
+              <img src="Images/advisorHead1.jpg" alt="" />
+            </div>
+  
+            <!-- Two Quarter Images Stacked -->
+            <div class="quarter-img d-flex flex-column">
+              <img src="Images/advisorHead2.jpg" alt="" />
+              <img src="Images/advisorHead3.jpg" alt="" />
+            </div>
+          }
 
         </div>
       </div>
