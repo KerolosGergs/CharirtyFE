@@ -16,13 +16,16 @@
           <div class="form-group mb-3">
             <label for="fullName">الاسم الكامل</label>
             <div class="position-relative">
-              <input type="text" id="fullName" formControlName="fullName" class="form-control pe-5"
-                placeholder="محمد أحمد محمود" />
-              <i
-                class="bi bi-person-fill input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"></i>
+              <input
+                type="text"
+                id="fullName"
+                formControlName="fullName"
+                class="form-control pe-5"
+                placeholder="الأسم بالكامل" />
+              <i class="bi bi-person-fill input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"></i>
             </div>
-            @if (adminForm.get('fullName')?.touched && adminForm.get('fullName')?.invalid) {
-            <span class="text-danger small">{{ getErrorMessage('fullName') }}</span>
+            @if (hasError('fullName')) {
+              <span class="text-danger small">{{ getErrorMessage('fullName') }}</span>
             }
           </div>
 
@@ -30,13 +33,16 @@
           <div class="form-group mb-3">
             <label for="email">البريد الإلكتروني</label>
             <div class="position-relative">
-              <input type="email" id="email" formControlName="email" class="form-control pe-5"
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-control pe-5"
                 placeholder="user@example.com" />
-              <i
-                class="bi bi-envelope-fill input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"></i>
+              <i class="bi bi-envelope-fill input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"></i>
             </div>
-            @if (adminForm.get('email')?.touched && adminForm.get('email')?.invalid) {
-            <span class="text-danger small">{{ getErrorMessage('email') }}</span>
+            @if (hasError('email')) {
+              <span class="text-danger small">{{ getErrorMessage('email') }}</span>
             }
           </div>
 
@@ -44,13 +50,18 @@
           <div class="form-group mb-3">
             <label for="phoneNumber">رقم الهاتف</label>
             <div class="position-relative">
-              <input type="tel" id="phoneNumber" formControlName="phoneNumber" class="form-control pe-5 text-start"
-                inputmode="numeric" placeholder="01001234567" pattern="^\d{10,13}$" (input)="allowOnlyDigits($event)" />
-              <i
-                class="bi bi-telephone-fill input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"></i>
+              <input
+                type="tel"
+                id="phoneNumber"
+                formControlName="phoneNumber"
+                class="form-control pe-5 text-end"
+                inputmode="numeric"
+                placeholder="966xxxxxxxxx"
+                (input)="allowOnlyDigits($event)" />
+              <i class="bi bi-telephone-fill input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"></i>
             </div>
-            @if (adminForm.get('phoneNumber')?.touched && adminForm.get('phoneNumber')?.invalid) {
-            <span class="text-danger small">{{ getErrorMessage('phoneNumber') }}</span>
+            @if (hasError('phoneNumber')) {
+              <span class="text-danger small">{{ getErrorMessage('phoneNumber') }}</span>
             }
           </div>
 
@@ -58,35 +69,65 @@
           <div class="form-group mb-3">
             <label for="password">كلمة المرور</label>
             <div class="position-relative">
-              <input type="password" id="password" formControlName="password" class="form-control pe-5"
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                formControlName="password"
+                class="form-control pe-5 ps-5"
                 placeholder="********" />
-              <i
-                class="bi bi-lock-fill input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"></i>
+              <i class="bi bi-lock-fill input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"></i>
+              <button
+                type="button"
+                class="btn btn-link position-absolute top-50 start-0 translate-middle-y ps-3"
+                (click)="showPassword = !showPassword"
+                [attr.aria-label]="showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'">
+                <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
             </div>
-            @if (adminForm.get('password')?.touched && adminForm.get('password')?.invalid) {
-            <span class="text-danger small">{{ getErrorMessage('password') }}</span>
+
+            @if (hasError('password')) {
+              <span class="text-danger small d-block mt-1">{{ getErrorMessage('password') }}</span>
             }
+
+            <!-- Checklist فوري لمتطلبات كلمة المرور -->
+            <ul class="small mt-2 mb-0 list-unstyled">
+              <li [class.text-success]="hasMinLen" [class.text-muted]="!hasMinLen">✔ طول 6 أحرف على الأقل</li>
+              <li [class.text-success]="hasUpper"  [class.text-muted]="!hasUpper">✔ حرف كبير (A-Z)</li>
+              <li [class.text-success]="hasLower"  [class.text-muted]="!hasLower">✔ حرف صغير (a-z)</li>
+              <li [class.text-success]="hasDigit"  [class.text-muted]="!hasDigit">✔ رقم (0-9)</li>
+              <li [class.text-success]="hasSymbol" [class.text-muted]="!hasSymbol" [innerText]="'✔ رمز (مثل !@#$)'"></li>
+            </ul>
           </div>
 
           <!-- Confirm Password -->
           <div class="form-group mb-3">
             <label for="confirmPassword">تأكيد كلمة المرور</label>
             <div class="position-relative">
-              <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control pe-5"
+              <input
+                [type]="showConfirm ? 'text' : 'password'"
+                id="confirmPassword"
+                formControlName="confirmPassword"
+                class="form-control pe-5 ps-5"
                 placeholder="********" />
-              <i
-                class="bi bi-shield-lock-fill input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"></i>
+              <i class="bi bi-shield-lock-fill input-icon position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"></i>
+              <button
+                type="button"
+                class="btn btn-link position-absolute top-50 start-0 translate-middle-y ps-3"
+                (click)="showConfirm = !showConfirm"
+                [attr.aria-label]="showConfirm ? 'إخفاء التأكيد' : 'إظهار التأكيد'">
+                <!-- <i class="bi" [ngClass]="showConfirm ? 'bi-eye-slash' : 'bi-eye'"></i> -->
+              </button>
             </div>
-            @if (adminForm.get('confirmPassword')?.touched && adminForm.get('confirmPassword')?.invalid ||
-            adminForm.errors?.['mismatch']) {
-            <span class="text-danger small">{{ getErrorMessage('confirmPassword') }}</span>
+
+            @if (hasError('confirmPassword') || adminForm.errors?.['mismatch']) {
+              <span class="text-danger small">{{ getErrorMessage('confirmPassword') }}</span>
             }
           </div>
 
           <!-- Submit Button -->
           <div class="d-grid">
             <button type="submit" class="btn btn-success btn-lg" [disabled]="adminForm.invalid">
-              <i class="bi bi-person-plus-fill me-2"></i> تسجيل
+              <i class="bi bi-person-plus-fill me-2"></i> {{ submitButton.text }}
             </button>
           </div>
         </form>
@@ -95,8 +136,9 @@
     </div>
   </div>
 </div>
+<app-admin-list></app-admin-list>
 }
 
 @placeholder {
-<app-spinner></app-spinner>
+  <app-spinner></app-spinner>
 }

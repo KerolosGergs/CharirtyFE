@@ -34,13 +34,9 @@ donationData: DonationData = {
 
   onDonate(): void {
     // Handle donation action
-    console.log('Donation button clicked');
+    // console.log('Donation button clicked');
   }
 
-  onLearnMore(): void {
-    // Handle learn more action
-    console.log('Learn more button clicked');
-  }
   getDataSection(){
     this.HomePageService.getTrendSection().subscribe((response) => {
       if (response.success) {
@@ -49,9 +45,13 @@ donationData: DonationData = {
         this.donationData.description = data.description;
         this.donationData.buttonText = data.buttonText;
         this.donationData.backgroundImage = data.imageUrl;
-
+         this.donationData.buttonUrl = (data.buttonUrl || '').trim();
       }
     });
   }
+isExternalUrl(url: string): boolean {
+  return /^https?:\/\//i.test((url || '').trim());
+}
+
 }
 

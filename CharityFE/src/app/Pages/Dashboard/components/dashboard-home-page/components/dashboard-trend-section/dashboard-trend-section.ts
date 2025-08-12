@@ -26,7 +26,7 @@ export class DashboardTrendSection {
       description: ['', Validators.required],
       imageUrl: ['', [Validators.pattern(/https?:\/\/.*\.(?:png|jpg|jpeg|gif)/i)]],
       buttonText: ['', Validators.required],
-      buttonUrl: ['', [Validators.required, Validators.pattern(/https?:\/\/.*/)]]
+      buttonUrl: ['', [Validators.required]]
     });
   }
 
@@ -83,8 +83,8 @@ export class DashboardTrendSection {
     } else {
       formData.append('ImageUrl', this.trendForm.get('imageUrl')?.value);
     }
-    formData.append('ButtonText', this.trendForm.get('buttonText')?.value);
-    formData.append('ButtonUrl', this.trendForm.get('buttonUrl')?.value);
+    formData.append('buttonText', this.trendForm.get('buttonText')?.value);
+    formData.append('buttonUrl', this.trendForm.get('buttonUrl')?.value);
 
     this.homePageService.putTrendSection(formData).subscribe({
       next: (response) => {

@@ -18,6 +18,8 @@ images: ImageItem[] = [];
   currentPage = 1;
   itemsPerPage = 6;
  
+selectedImage: string | null = null;
+
 
   constructor(
     private libraryService: LibraryService,
@@ -107,7 +109,13 @@ images: ImageItem[] = [];
 
 
 
+openImage(url: string) {
+  this.selectedImage = url;
+}
 
+closeImage() {
+  this.selectedImage = null;
+}
 
 
 

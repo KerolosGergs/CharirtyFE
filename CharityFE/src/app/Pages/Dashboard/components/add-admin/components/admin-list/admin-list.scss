@@ -1,0 +1,16 @@
+* { font-family: 'Cairo', sans-serif; }
+
+
+
+.table th, .table td { padding: 16px 20px; text-align: right; font-size: 14px; }
+.table thead th { background: #f8f9fa; font-weight: 600; color: #2c2c2c; border-bottom: 2px solid #e8e8e8; }
+.table tbody tr:hover { background: #f8f9fa; }
+
+.pagination { display: flex; justify-content: center; gap: 8px; margin-top: 24px; }
+.page-item {
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+  border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer; transition: all .2s ease; font-weight: 500; font-size: 14px;
+  &:hover { background: #f8f9fa; border-color: #2e7d5a; }
+  &.active { background: #2e7d5a; color: #fff; border-color: #2e7d5a; }
+}
+.page-link { background: #2e7d5a; border: none; color: #fff; border-radius: 8px; font-weight: 500; font-size: 14px; }

@@ -38,9 +38,38 @@
           </div>
         </div>
       </div> -->
-     <a class="text-decoration-none" [routerLink]="donationData.buttonUrl"> <button class="btn btn-donate w-50 py-2 flex-end fs-5 rounded-pill fw-bold " (click)="onDonate()">
-        {{ donationData.buttonText }}
-      </button></a>
+     <!-- Donation Button -->
+@if (isExternalUrl(donationData.buttonUrl)) {
+  <!-- External link -->
+  <a
+    class="text-decoration-none"
+    [href]="donationData.buttonUrl.trim()"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <button
+      class="btn btn-donate w-50 py-2 flex-end fs-5 rounded-pill fw-bold"
+      (click)="onDonate()"
+    >
+      {{ donationData.buttonText }}
+    </button>
+  </a>
+} @else {
+  <!-- Internal route -->
+  <a
+    class="text-decoration-none"
+    [routerLink]="donationData.buttonUrl.trim()"
+  >
+    <button
+      class="btn btn-donate w-50 py-2 flex-end fs-5 rounded-pill fw-bold"
+      (click)="onDonate()"
+    >
+      {{ donationData.buttonText }}
+    </button>
+  </a>
+}
+
+
     </div>
   </div>
 </div>

@@ -44,9 +44,9 @@ formSection = {
 };
 
 formFields: FormField[] = [
-  { id: 'name', label: 'الاسم', placeholder: 'محمد احمد محمود', type: 'text', required: true, value: '', iconClass: 'bi-person-fill' },
-  { id: 'phone', label: 'رقم الهاتف', placeholder: '939502045', type: 'tel', required: true, value: '', iconClass: 'bi-telephone-fill' },
-  { id: 'email', label: 'البريد الإلكتروني', placeholder: 'Houda42@gmail.com', type: 'email', required: true, value: '', iconClass: 'bi-envelope-fill' }
+  { id: 'name', label: 'الاسم', placeholder: 'الاسم الكامل', type: 'text', required: true, value: '', iconClass: 'bi-person-fill' },
+  { id: 'phone', label: 'رقم الهاتف', placeholder: '966xxxxxxxxx', type: 'tel', required: true, value: '', iconClass: 'bi-telephone-fill' },
+  { id: 'email', label: 'البريد الإلكتروني', placeholder: 'user@example.com', type: 'email', required: true, value: '', iconClass: 'bi-envelope-fill' }
 
 
 

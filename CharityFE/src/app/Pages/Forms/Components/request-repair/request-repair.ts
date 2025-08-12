@@ -35,21 +35,21 @@ export class RequestRepair implements OnInit {
     {
       id: 'name',
       label: 'الاسم',
-      placeholder: 'محمد احمد محمود',
+      placeholder: 'الاسم الكامل',
       type: 'text',
       iconClass: 'bi-person-fill'
     },
     {
       id: 'phone',
       label: 'رقم الهاتف',
-      placeholder: '939502045',
+      placeholder: '966xxxxxxxxx',
       type: 'tel',
       iconClass: 'bi-telephone-fill'
     },
     {
       id: 'email',
       label: 'البريد الإلكتروني',
-      placeholder: 'Houda42@gmail.com',
+      placeholder: 'user@example.com',
       type: 'email',
       iconClass: 'bi-envelope-fill'
     }

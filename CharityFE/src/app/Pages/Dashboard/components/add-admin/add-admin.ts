@@ -2,94 +2,146 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Spinner } from "../../../../Shared/spinner/spinner";
 import { TostarServ } from './../../../../Shared/tostar-serv';
-import { NgClass } from '@angular/common';
 import { AddAdminService } from './service/AddAdminService';
+import { AdminList } from "./components/admin-list/admin-list";
+import { NgClass } from '@angular/common';
 
-interface FormField {
-  id: string;
-  label: string;
-  placeholder: string;
-  type: string;
-  iconClass: string;
-}
 
 @Component({
   selector: 'app-add-admin',
   standalone: true,
-  imports: [Spinner, ReactiveFormsModule, FormsModule],
+  imports: [Spinner, ReactiveFormsModule, FormsModule, AdminList,NgClass],
   templateUrl: './add-admin.html',
   styleUrl: './add-admin.scss'
 })
 export class AddAdmin implements OnInit {
-  adminService = inject(AddAdminService);
+ private readonly fb = inject(FormBuilder);
+  private readonly tostar = inject(TostarServ);
+  private readonly adminService = inject(AddAdminService);
+
   adminForm!: FormGroup;
   formSection = { title: 'بيانات المشرف الجديد' };
   submitButton = { text: 'إضافة مشرف' };
 
- 
-  fb = inject(FormBuilder);
-  tostar = inject(TostarServ);
+  // يطابق متطلبات ASP.NET Core Identity الافتراضية
+  passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W).{6,}$/;
+
+  showPassword = false;
+  showConfirm = false;
 
   ngOnInit(): void {
-    this.adminForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2)]],
-      email: ['', [Validators.required, Validators.email]],
-      phoneNumber: ['', [Validators.required,  Validators.pattern('^\\d{10,13}$')]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]]
-    }, {
-      validators: this.passwordMatchValidator
-    });
+    this.adminForm = this.fb.group(
+      {
+        fullName: ['', [Validators.required, Validators.minLength(2)]],
+        email: ['', [Validators.required, Validators.email]],
+        phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10,13}$/)]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.pattern(this.passwordPattern)
+          ]
+        ],
+        confirmPassword: ['', [Validators.required]]
+      },
+      { validators: this.passwordMatchValidator }
+    );
   }
 
-  passwordMatchValidator(form: FormGroup) {
-    const pass = form.get('password')?.value;
-    const confirm = form.get('confirmPassword')?.value;
-    return pass === confirm ? null : { mismatch: true };
-  }
+  // فلديتور تطابق كلمة المرور
+  passwordMatchValidator = (form: FormGroup) => {
+    const pass = form.get('password')?.value ?? '';
+    const confirm = form.get('confirmPassword')?.value ?? '';
+    return pass && confirm && pass !== confirm ? { mismatch: true } : null;
+  };
 
+  // مساعدات عرض الأخطاء
   hasError(fieldName: string): boolean {
-    const field = this.adminForm.get(fieldName);
-    return !!(field && field.invalid && (field.dirty || field.touched));
+    const c = this.adminForm.get(fieldName);
+    return !!(c && c.invalid && (c.dirty || c.touched));
   }
 
   getErrorMessage(fieldName: string): string {
-    const field = this.adminForm.get(fieldName);
-    if (field?.errors) {
-      if (field.errors['required']) return 'هذا الحقل مطلوب';
-      if (field.errors['email']) return 'يرجى إدخال بريد إلكتروني صحيح';
-      if (field.errors['minlength']) return `الحد الأدنى ${field.errors['minlength'].requiredLength} أحرف`;
-      if (field.errors['pattern']) return 'رقم الهاتف مطلوب ويجب أن يتكون من 10 إلى 13 رقمًا بدون رمز الدولة';
-      if (fieldName === 'confirmPassword' && this.adminForm.errors?.['mismatch']) return 'كلمتا المرور غير متطابقتين';
+    const c = this.adminForm.get(fieldName);
+    if (!c) return '';
+
+    if (c.hasError('required')) {
+      return 'هذا الحقل مطلوب';
     }
+
+    if (fieldName === 'email' && c.hasError('email')) {
+      return 'يرجى إدخال بريد إلكتروني صحيح';
+    }
+
+    if (c.hasError('minlength')) {
+      const len = c.getError('minlength')?.requiredLength ?? 6;
+      return `الحد الأدنى ${len} أحرف`;
+    }
+
+    // pattern لكل حقل على حدة
+    if (c.hasError('pattern')) {
+      if (fieldName === 'phoneNumber') {
+        return 'رقم الهاتف يجب أن يتكون من 10 إلى 13 رقمًا (بدون رمز الدولة)';
+      }
+      if (fieldName === 'password') {
+        return 'يجب أن تحتوي كلمة المرور على حرف كبير وصغير ورقم ورمز';
+      }
+    }
+
+    if (fieldName === 'confirmPassword' && this.adminForm.hasError('mismatch')) {
+      return 'كلمتا المرور غير متطابقتين';
+    }
+
     return '';
   }
 
- onSubmit(): void {
-  if (this.adminForm.valid) {
-    const formData = this.adminForm.value;
+  onSubmit(): void {
+    if (this.adminForm.invalid) {
+      Object.keys(this.adminForm.controls).forEach(key => {
+        this.adminForm.get(key)?.markAsTouched();
+      });
+      return;
+    }
 
-    this.adminService.AddAdmin(formData).subscribe({
+    // تجهيز البيانات (اختياري: قص المسافات)
+    const formValue = { ...this.adminForm.value };
+    formValue.fullName = (formValue.fullName ?? '').trim();
+    formValue.email = (formValue.email ?? '').trim();
+
+    this.adminService.AddAdmin(formValue).subscribe({
       next: (response) => {
-        this.tostar.showSuccess('تمت إضافة المشرف بنجاح');
-        this.adminForm.reset();
+        if (response?.success) {
+          this.tostar.showSuccess('تمت إضافة المشرف بنجاح');
+          this.adminForm.reset();
+          this.showPassword = false;
+          this.showConfirm = false;
+        } else {
+          this.tostar.showError(response?.message ?? 'حدث خطأ غير متوقع');
+        }
       },
       error: (err) => {
-        this.tostar.showError('خطاء في اضافة المشرف، هذا البريد الإلكتروني موجود مسبقًا');
+        this.tostar.showError(err?.error?.message ?? 'تعذر الإضافة، حاول لاحقاً');
         Object.keys(this.adminForm.controls).forEach(key => {
           this.adminForm.get(key)?.markAsTouched();
         });
       }
     });
-  } else {
-    Object.keys(this.adminForm.controls).forEach(key => {
-      this.adminForm.get(key)?.markAsTouched();
-    });
   }
-}
-allowOnlyDigits(event: any): void {
-  event.target.value = event.target.value.replace(/\D/g, '');
-  this.adminForm.get('phoneNumber')?.setValue(event.target.value);
-}
 
+  // أرقام فقط لرقم الهاتف
+  allowOnlyDigits(event: any): void {
+    const digits = String(event?.target?.value ?? '').replace(/\D/g, '');
+    event.target.value = digits;
+    // تجنب إطلاق قيمة مرتين بلا داع
+    this.adminForm.get('phoneNumber')?.setValue(digits, { emitEvent: true });
+  }
+
+  // خصائص مساعدة لقائمة التحقق
+  get pw(): string { return this.adminForm.get('password')?.value ?? ''; }
+  get hasLower(): boolean { return /[a-z]/.test(this.pw); }
+  get hasUpper(): boolean { return /[A-Z]/.test(this.pw); }
+  get hasDigit(): boolean { return /\d/.test(this.pw); }
+  get hasSymbol(): boolean { return /\W/.test(this.pw); }
+  get hasMinLen(): boolean { return this.pw.length >= 6; }
 }

@@ -14,58 +14,65 @@
         (click)="setFilter('video')">
         <i class="bi bi-play-circle-fill ms-2"></i>الفيديوهات
       </button>
-   
     </div>
-  
   </div>
 
   <!-- Media Grid -->
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    <ng-container *ngFor="let item of paginatedItems">
+    @for (item of paginatedItems; track $index) {
       <div class="col animate__animated animate__fadeInUp">
         <div class="card h-100 shadow-sm text-end">
           <div class="card-body">
             <h3 class="card-title">{{ item.name }}</h3>
-            <ng-container *ngIf="'imageUrl' in item; else videoContent">
-              <img [src]="item.imageUrl" [alt]="item.name" class="w-100 h-48 object-cover rounded mb-3"
-                *ngIf="item.imageUrl" />
-              <p *ngIf="!item.imageUrl" class="text-danger">رابط الصورة غير متوفر</p>
-            </ng-container>
-            <ng-template #videoContent>
+
+            @if ('imageUrl' in item) {
+              <img [src]="item.imageUrl" [alt]="item.name"
+                class="w-100 h-48 object-cover rounded mb-3 clickable-image"
+                (click)="openImage(item.imageUrl)" />
+              @if (!item.imageUrl) {
+                <p class="text-danger">رابط الصورة غير متوفر</p>
+              }
+            } @else {
               <iframe [src]="sanitizeUrl(item.id)" class="w-100 h-48 rounded mb-3" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen></iframe>
-            </ng-template>
+            }
+
             <p class="card-text text-muted fs-4">{{ item.description || 'لا يوجد وصف' }}</p>
-            <p class="status-container fw-bold" [ngClass]="{'status-active': item.isActive, 'status-inactive': !item.isActive}">
-              <span class="status-text">{{ item.isActive ? 'نشط' : 'غير نشط' }}</span>
-            </p>
           </div>
-         
         </div>
       </div>
-    </ng-container>
+    }
   </div>
 
   <!-- Pagination Controls -->
-  <nav *ngIf="pagination.totalPages > 1" aria-label="Appointments pagination">
-    <ul class="pagination justify-content-center mt-4 animate__animated animate__fadeIn">
-      <li class="page-item" [class.disabled]="pagination.currentPage === 1">
-        <button class="page-link " (click)="onPageChange(pagination.currentPage - 1)">
-          <i class="bi bi-chevron-left"></i>
-        </button>
-      </li>
-      <li *ngFor="let page of getPageNumbers()" class="page-item" [class.active]="page === pagination.currentPage">
-        <button class="page-link" (click)="onPageChange(page)">{{ page }}</button>
-      </li>
-      <li class="page-item" [class.disabled]="pagination.currentPage === pagination.totalPages">
-        <button class="page-link" (click)="onPageChange(pagination.currentPage + 1)">
-          <i class="bi bi-chevron-right"></i>
-        </button>
-      </li>
-    </ul>
-  </nav>
+  @if (pagination.totalPages > 1) {
+    <nav aria-label="Appointments pagination">
+      <ul class="pagination justify-content-center mt-4 animate__animated animate__fadeIn">
+        <li class="page-item" [class.disabled]="pagination.currentPage === 1">
+          <button class="page-link" (click)="onPageChange(pagination.currentPage - 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </li>
+        @for (page of getPageNumbers(); track $index) {
+          <li class="page-item" [class.active]="page === pagination.currentPage">
+            <button class="page-link" (click)="onPageChange(page)">{{ page }}</button>
+          </li>
+        }
+        <li class="page-item" [class.disabled]="pagination.currentPage === pagination.totalPages">
+          <button class="page-link" (click)="onPageChange(pagination.currentPage + 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  }
 
-
-
+  <!-- Fullscreen Image Viewer -->
+  @if (selectedImage) {
+    <div class="image-viewer-overlay animate__animated animate__fadeIn">
+      <span class="close-btn" (click)="closeImage()">&times;</span>
+      <img [src]="selectedImage" class="image-viewer-img" />
+    </div>
+  }
 </div>
