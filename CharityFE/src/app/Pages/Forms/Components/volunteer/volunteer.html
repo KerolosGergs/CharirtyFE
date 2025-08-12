@@ -1,11 +1,7 @@
 <app-header-component></app-header-component>
 <app-nav></app-nav>
-  <app-header-component-consultant
-    title="نتطوع... لنبني جميعًا غداً أفضل"
-    description="في سعينا لغرس قيم العطاء والمسؤولية المجتمعية، نعمل على تمكين األفراد لخدمة
-مجتمعهم بروح التعاون واإلخالص."
-  ImgUrl="Volunter.jpg"
-  ></app-header-component-consultant>
+<app-header-component-consultant title="نتطوع... لنبني جميعًا غداً أفضل" description="في سعينا لغرس قيم العطاء والمسؤولية المجتمعية، نعمل على تمكين األفراد لخدمة
+مجتمعهم بروح التعاون واإلخالص." ImgUrl="Volunter.jpg"></app-header-component-consultant>
 @defer {
 <div class="help-container animate__animated animate__fadeInUp">
   <div class="row g-4">
@@ -19,21 +15,22 @@
         <form [formGroup]="volunteerForm" (ngSubmit)="submit()" class="p-4 animate__animated animate__fadeInUp">
           <div class="row g-3">
             <!-- First Name -->
-            <div class="col-md-6">
-              <label class="form-label fw-semibold"><i class="bi bi-person ms-2"></i>الاسم الأول</label>
-              <input type="text" class="form-control" formControlName="firstName" placeholder="أدخل الاسم الأول">
-              @if (volunteerForm.get('firstName')?.touched && volunteerForm.get('firstName')?.invalid) {
-              <span class="text-danger small">الاسم الأول مطلوب</span>
+            <!-- Full Name -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold">
+                <i class="bi bi-person ms-2"></i>الاسم الكامل
+              </label>
+              <input type="text" class="form-control" formControlName="fullName" placeholder="أدخل الاسم الكامل" />
+              @if (volunteerForm.get('fullName')?.touched && volunteerForm.get('fullName')?.invalid) {
+              @if (volunteerForm.get('fullName')?.errors?.['required']) {
+              <span class="text-danger small">الاسم الكامل مطلوب</span>
+              }
+              @if (volunteerForm.get('fullName')?.errors?.['minTwoWords']) {
+              <span class="text-danger small">يجب إدخال الاسم الأول واسم العائلة</span>
+              }
               }
             </div>
-            <!-- Last Name -->
-            <div class="col-md-6">
-              <label class="form-label fw-semibold"><i class="bi bi-person ms-2"></i>الاسم الأخير</label>
-              <input type="text" class="form-control" formControlName="lastName" placeholder="أدخل الاسم الأخير">
-              @if (volunteerForm.get('lastName')?.touched && volunteerForm.get('lastName')?.invalid) {
-              <span class="text-danger small">الاسم الأخير مطلوب</span>
-              }
-            </div>
+
             <!-- Email -->
             <div class="col-md-12">
               <label class="form-label fw-semibold"><i class="bi bi-envelope ms-2"></i>البريد الإلكتروني</label>
@@ -92,7 +89,7 @@
   </div>
 </div>
 }@placeholder {
-  <app-spinner></app-spinner>
+<app-spinner></app-spinner>
 }
 
 <app-footer></app-footer>

@@ -27,10 +27,10 @@ export const routes: Routes = [
     { path: 'Satisfaction', loadComponent: () => import('./Pages/sid-components/Complain/satisfaction/satisfaction').then(m => m.Satisfaction), title: 'Satisfaction' },
     {path:'awarness-lecture',loadComponent:()=> import('./Pages/awareness-lectures-component/awareness-lectures-component').then(m=>m.AwarenessLecturesComponent),title:'Awareness Lectures'},
     // Forms 
-    { path: 'HelpPeopole', loadComponent: () => import('./Pages/Forms/Components/help-peopole/help-peopole').then(m => m.HelpPeopole), title: 'HelpPeopole' },
-    { path: 'RequesrRepair', component: RequestRepair, title: 'RequestRepair' },
-    { path: 'complaints', loadComponent: () => import('./Pages/Forms/Components/complaints/complaints').then(m => m.Complaints), title: 'Complaints' },
-    { path: 'Voulenteer', loadComponent: () => import('./Pages/Forms/Components/volunteer/volunteer').then(m => m.VolunteerComponent), title: 'Complaints' },
+    { path: 'HelpPeopole', loadComponent: () => import('./Pages/Forms/Components/help-peopole/help-peopole').then(m => m.HelpPeopole), title: 'HelpPeopole' ,canActivate: [advisoRreservationGuard]},
+    { path: 'RequesrRepair', component: RequestRepair, title: 'RequestRepair' ,canActivate: [advisoRreservationGuard]},
+    { path: 'complaints', loadComponent: () => import('./Pages/Forms/Components/complaints/complaints').then(m => m.Complaints), title: 'Complaints' ,canActivate: [advisoRreservationGuard]},
+    { path: 'Voulenteer', loadComponent: () => import('./Pages/Forms/Components/volunteer/volunteer').then(m => m.VolunteerComponent), title: 'Voulenteer',canActivate: [advisoRreservationGuard] },
     { path: 'our-service', component: OurService, title: 'Our Service' },
 
     { path: 'all-consultants', component: Consultant, title: 'Consultants', canActivate: [advisoRreservationGuard] },

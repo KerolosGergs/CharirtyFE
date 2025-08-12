@@ -166,5 +166,25 @@ autoTable(doc, {
   doc.save('قائمة-الشكاوى.pdf');
 }
 
+splitDescription(desc: string | null | undefined): { title: string; message: string } {
+  const raw = (desc ?? '').trim();
+  if (!raw) return { title: '', message: '' };
 
+  // نفصل على أول سطر فاضي أو أول \n
+  const parts = raw.split(/\n\s*\n/); // يلتقط فاصل سطر فاضي
+  if (parts.length > 1) {
+    const [first, ...rest] = parts;
+    return { title: first.trim(), message: rest.join('\n\n').trim() };
+  }
+
+  // لو مفيش سطر فاضي، استخدم أول سطر كعنوان لو في أكتر من سطر
+  const lines = raw.split(/\n/);
+  if (lines.length > 1) {
+    const [first, ...rest] = lines;
+    return { title: first.trim(), message: rest.join('\n').trim() };
+  }
+
+  // نص واحد: اعتبره رسالة بدون عنوان
+  return { title: '', message: raw };
+}
 }

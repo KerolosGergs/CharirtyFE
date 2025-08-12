@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { HelpService } from './service/help-service';
+import { ComplaintPayload, HelpService } from './service/help-service';
 import { TostarServ } from '../../../../Shared/tostar-serv';
 import { Router } from '@angular/router';
 import { Footer } from "../../../../Shared/footer/footer";
@@ -13,6 +13,7 @@ import { CategoryOptions, RequestModel } from './model/ihelp';
 import { ContactInfoComponent } from "../contact-info/contact-info";
 import { Spinner } from "../../../../Shared/spinner/spinner";
 import { AuthServ } from '../../../../Auth/Services/auth-serv';
+
 
 @Component({
   selector: 'app-complaints',
@@ -28,42 +29,38 @@ export class Complaints {
   requestForm!: FormGroup;
   categories = CategoryOptions;
   Auth = inject(AuthServ);
-  userId =  this.Auth.getUserID(); // fetched or injected
+  // لم يعد مطلوب userId في الـ payload الجديد
 
   Title = 'هل لديك شكوى أو ملاحظة؟';
-  description = 'نحن نرحب بسماع صوتك ونسعى جاهدين لتحسين خدماتنا. إذا كانت لديك شكوى أو تجربة غير مرضية، نرجو منك تزويدنا بالتفاصيل عبر النموذج أدناه، وسيقوم فريقنا المختص بالتواصل معك في أقرب وقت ممكن.';
-
-  selectedTabId: number | null = null;
-
-
-
-
-  formSection = {
-    title: 'أكتب شكواك'
-  };
-
-
+  description = 'نحن نرحب بسماع صوتك ونسعى جاهدين لتحسين خدماتنا...';
 
   ngOnInit(): void {
     this.requestForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
       category: [null, Validators.required],
-      priority: ['', Validators.required],
+      userName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phoneNumber: ['', [Validators.required, Validators.pattern(/^966\d{9}$/)]],
+      title: ['', Validators.required],
+      message: ['', Validators.required]
     });
   }
+
   submit() {
     if (this.requestForm.invalid) return;
 
-    const request: RequestModel = {
-      ...this.requestForm.value,
-      category: Number(this.requestForm.value.category),
-      userId: this.userId,
+    const { category, userName, email, phoneNumber, title, message } = this.requestForm.value;
+
+    const payload: ComplaintPayload = {
+      userName: userName?.trim(),
+      email: email?.trim(),
+      phoneNumber: phoneNumber?.trim(),
+      description: `${title?.trim()}\n\n${message?.trim()}`, // دمج العنوان مع الرسالة
+      category: Number(category)
     };
 
-    this.requestService.createRequest(request).subscribe({
+    this.requestService.createComplain(payload).subscribe({
       next: () => {
-        this.TostarServ.showSuccess('تم إرسال الطلب بنجاح');
+        this.TostarServ.showSuccess('تم إرسال الشكوى بنجاح');
         this.requestForm.reset();
       },
       error: () => {
@@ -72,13 +69,7 @@ export class Complaints {
     });
   }
 
-
-
-
-
-
   onSocialMediaClick(link: SocialMediaLink): void {
     window.open(link.url, '_blank');
   }
-
 }

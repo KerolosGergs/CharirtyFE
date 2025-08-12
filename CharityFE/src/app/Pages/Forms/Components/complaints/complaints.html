@@ -1,7 +1,7 @@
-
 <app-header-component></app-header-component>
 <app-nav></app-nav>
-<app-header-component-consultant [title]="Title" [description]="description" ImgUrl="Complains.jpg"></app-header-component-consultant>
+<app-header-component-consultant [title]="Title" [description]="description"
+  ImgUrl="Complains.jpg"></app-header-component-consultant>
 
 @defer {
 
@@ -18,49 +18,77 @@
 
         <form [formGroup]="requestForm" (ngSubmit)="submit()" class="p-4 animate__animated animate__fadeInUp">
           <div class="row g-3">
-            <!-- Category -->
+
+            <!-- نوع الشكوى -->
             <div class="col-md-12">
               <label class="form-label fw-semibold"><i class="bi bi-tags ms-2"></i>نوع الشكوى</label>
               <select class="form-select" formControlName="category">
-                <option disabled value="">اختر نوع الشكوي</option>
+                <option disabled value="">اختر نوع الشكوى</option>
                 @for (cat of categories; track cat.value) {
                 <option [value]="cat.value">{{ cat.text }}</option>
                 }
               </select>
               @if (requestForm.get('category')?.touched && requestForm.get('category')?.invalid) {
-              <span class="text-danger small">نوع الشكوي مطلوب</span>
+              <span class="text-danger small">نوع الشكوى مطلوب</span>
               }
             </div>
-            <!-- Title -->
+
+            <!-- الاسم الكامل -->
             <div class="col-md-12">
-              <label class="form-label fw-semibold"><i class="bi bi-pencil-square ms-2"></i>العنوان</label>
-              <input type="text" class="form-control" formControlName="title" placeholder="أدخل العنوان">
+              <label class="form-label fw-semibold"><i class="bi bi-person ms-2"></i>الاسم</label>
+              <input type="text" class="form-control" formControlName="userName" placeholder="الاسم الكامل" />
+              @if (requestForm.get('userName')?.touched && requestForm.get('userName')?.invalid) {
+              <span class="text-danger small">الاسم مطلوب</span>
+              }
+            </div>
+
+            <!-- البريد الإلكتروني -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-envelope ms-2"></i>البريد الإلكتروني</label>
+              <input type="email" class="form-control" formControlName="email" placeholder="user@email.com" />
+              @if (requestForm.get('email')?.touched && requestForm.get('email')?.invalid) {
+              @if (requestForm.get('email')?.errors?.['required']) {
+              <span class="text-danger small">البريد الإلكتروني مطلوب</span>
+              }
+              @if (requestForm.get('email')?.errors?.['email']) {
+              <span class="text-danger small">البريد الإلكتروني غير صالح</span>
+              }
+              }
+            </div>
+
+            <!-- رقم الجوال -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-telephone ms-2"></i>رقم الجوال</label>
+              <input type="text" class="form-control" formControlName="phoneNumber" placeholder="966xxxxxxxxx" />
+              @if (requestForm.get('phoneNumber')?.touched && requestForm.get('phoneNumber')?.invalid) {
+              @if (requestForm.get('phoneNumber')?.errors?.['required']) {
+              <span class="text-danger small">رقم الجوال مطلوب</span>
+              }
+              @if (requestForm.get('phoneNumber')?.errors?.['pattern']) {
+              <span class="text-danger small">اكتب الرقم بصيغة 966 متبوعة بـ 9 أرقام</span>
+              }
+              }
+            </div>
+
+            <!-- عنوان الرسالة -->
+            <div class="col-md-12">
+              <label class="form-label fw-semibold"><i class="bi bi-pencil-square ms-2"></i>عنوان الرسالة</label>
+              <input type="text" class="form-control" formControlName="title" placeholder="عنوان الرسالة" />
               @if (requestForm.get('title')?.touched && requestForm.get('title')?.invalid) {
-              <span class="text-danger small">العنوان مطلوب</span>
+              <span class="text-danger small">عنوان الرسالة مطلوب</span>
               }
             </div>
 
-            <!-- Priority -->
-            <div class="col-md-12">
-              <label class="form-label fw-semibold"><i class="bi bi-exclamation-triangle ms-2"></i>أهمية الشكوي</label>
-              <input type="text" class="form-control" formControlName="priority" placeholder="أهمية الشكوي">
-              @if (requestForm.get('priority')?.touched && requestForm.get('priority')?.invalid) {
-              <span class="text-danger small">الأولوية مطلوبة</span>
-              }
-            </div>
-
-            <!-- Description -->
+            <!-- الرسالة -->
             <div class="col-12">
-              <label class="form-label fw-semibold"><i class="bi bi-textarea-resize ms-2"></i>الوصف</label>
-              <textarea rows="3" class="form-control" formControlName="description" placeholder="أدخل وصفًا"></textarea>
-              @if (requestForm.get('description')?.touched && requestForm.get('description')?.invalid) {
-              <span class="text-danger small">الوصف مطلوب</span>
+              <label class="form-label fw-semibold"><i class="bi bi-textarea-resize ms-2"></i>الرسالة</label>
+              <textarea rows="3" class="form-control" formControlName="message" placeholder="الرسالة"></textarea>
+              @if (requestForm.get('message')?.touched && requestForm.get('message')?.invalid) {
+              <span class="text-danger small">الرسالة مطلوبة</span>
               }
             </div>
 
-            
-
-            <!-- Submit -->
+            <!-- إرسال -->
             <div class="col-12 text-center mt-3">
               <button class="btn btn-success" type="submit" [disabled]="requestForm.invalid">
                 <i class="bi bi-check-circle me-2"></i>إرسال
@@ -69,10 +97,11 @@
           </div>
         </form>
 
+
       </div>
     </div>
 
-      <div class=" col-lg-6 animate__animated animate__fadeInLeft my-auto">
+    <div class=" col-lg-6 animate__animated animate__fadeInLeft my-auto">
       <div class="bg-white p-4 rounded-3 shadow-sm">
         <app-contact-info></app-contact-info>
       </div>
@@ -80,7 +109,7 @@
   </div>
 </div>
 }@placeholder {
-  <app-spinner></app-spinner>
+<app-spinner></app-spinner>
 }
 
 <app-footer></app-footer>

@@ -36,8 +36,12 @@
               <div>{{ complaint.phoneNumber }}</div>
             </div>
             <div class="col-md-4 complaint-field">
-              <label>📄 الوصف:</label>
-              <div>{{ complaint.description }}</div>
+              <label>📄 عنوان الرساله:</label>
+              <div>{{splitDescription(complaint.description).title }}</div>
+            </div>
+            <div class="col-md-4 complaint-field">
+              <label>📄 لرساله:</label>
+              <div>{{ splitDescription(complaint.description).message  }}</div>
             </div>
             <div class="col-md-4 complaint-field">
               <label>📅 تاريخ الإنشاء:</label>
